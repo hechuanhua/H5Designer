@@ -1,26 +1,25 @@
-import "./App.scss";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Drag from "./components/drag/Drag"
 import Library from "./components/library/Library"
-import {Color} from "./reducer/index"
+import { PageContext } from "./reducer/index"
 
-const Appwrap = styled.div`
+const AppWrap = styled.div`
 display:flex;
 `
 
 const App = () => {
- 
+
   return (
-    <Appwrap>
-      <Color>
+    <AppWrap>
+      <PageContext>
         <Library></Library>
         <Drag></Drag>
         <div className="setting">
 
         </div>
-      </Color>
-    </Appwrap>
+      </PageContext>
+    </AppWrap>
   );
 };
 

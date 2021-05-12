@@ -1,10 +1,76 @@
-import "./drag.scss";
 import { useEffect, useRef, useState, useContext } from "react";
+import styled from "styled-components";
 import { PagaDataContext } from "../../reducer/index"
 
+
+const PageDiv = styled.div`
+  width: 500px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  height: 800px;
+  position: relative;
+  box-shadow:0 0 15px rgba(0,0,0,0.5);
+`
+const DragDiv = styled.div`
+  width: 200px;
+  height: 100px;
+  border: 1px solid #000;
+  cursor: move;
+`
+const EditorPoint = styled.div`
+  position: absolute;
+  background: #333;
+  width: 10px;
+  height: 10px;
+  &.point-top {
+    top: -5px;
+    left: 50%;
+    margin-left: -5px;
+    cursor: s-resize;
+  }
+  &.point-right {
+    right: -5px;
+    top: 50%;
+    margin-top: -5px;
+    cursor: e-resize;
+  }
+  &.point-bottom {
+    bottom: -5px;
+    left: 50%;
+    margin-left: -5px;
+    cursor: s-resize;
+  }
+  &.point-left {
+    left: -5px;
+    top: 50%;
+    margin-top: -5px;
+    cursor: e-resize;
+  }
+
+  &.point-top-right {
+    right: -5px;
+    top: -5px;
+    cursor: nesw-resize;
+  }
+  &.point-bottom-right {
+    right: -5px;
+    bottom: -5px;
+    cursor: nwse-resize;
+  }
+  &.point-bottom-left {
+    bottom: -5px;
+    left: -5px;
+    cursor: nesw-resize;
+  }
+  &.point-top-left {
+    top: -5px;
+    left: -5px;
+    cursor: nwse-resize;
+  }
+`
 const Drag = () => {
-  const { Color,dispatch } = useContext(PagaDataContext)
-  console.log(Color,444)
+  const { state, dispatch } = useContext(PagaDataContext)
+  console.log(state, 'Drag')
   const page = useRef();
   let startX = 0,
     startY = 0,
@@ -27,7 +93,6 @@ const Drag = () => {
     height: height,
   };
   const [style, setStyle] = useState(styleDefault);
-  console.log(222,maxWidth,maxHeight)
   const down = (e) => {
     startX = e.pageX;
     startY = e.pageY;
@@ -35,7 +100,7 @@ const Drag = () => {
     oldTop = top;
     oldWidth = width;
     oldHeight = height;
-    className = e.target.className.replace("editor-point point-", "");
+    className = e.target.className.replace(/(.*)point-/,'');
   };
 
   const move = (e) => {
@@ -86,23 +151,21 @@ const Drag = () => {
     }
     if (top < 0) top = 0;
     if (left < 0) left = 0;
-    console.log(maxWidth,maxHeight)
     if (width > maxWidth) width = maxWidth;
     if (height > maxHeight) height = maxHeight;
-    if(width + left > maxWidth){width = maxWidth - left}
-    if(height + top > maxHeight){height = maxHeight - top}
+    if (width + left > maxWidth) { width = maxWidth - left }
+    if (height + top > maxHeight) { height = maxHeight - top }
     setStyle({ ...style, top, left, width, height });
   };
 
   const up = () => {
-    console.log("up");
   };
 
   const target = useRef();
   useEffect(() => {
     maxWidth = page.current.offsetWidth
     maxHeight = page.current.offsetHeight
-    setStyle({...style,maxWidth,maxHeight})
+    setStyle({ ...style, maxWidth, maxHeight })
     target.current.addEventListener("mousedown", (e) => {
       down(e);
       document.addEventListener("mousemove", move);
@@ -117,18 +180,18 @@ const Drag = () => {
     console.log(4444)
   }
   return (
-    <div className="page" ref={page} onDrop={onDrop} onDragOver={(e)=>{e.preventDefault();console.log(5555)}}>
-      <div className="drag" style={style} ref={target}>
-        <div className="editor-point point-top"></div>
-        <div className="editor-point point-top-right"></div>
-        <div className="editor-point point-right"></div>
-        <div className="editor-point point-bottom-right"></div>
-        <div className="editor-point point-bottom"></div>
-        <div className="editor-point point-bottom-left"></div>
-        <div className="editor-point point-left"></div>
-        <div className="editor-point point-top-left"></div>
-      </div>
-    </div>
+    <PageDiv ref={page} onDrop={onDrop} onDragOver={(e) => { e.preventDefault(); console.log(5555) }}>
+      <DragDiv className="drag" style={style} ref={target}>
+        <EditorPoint className="point-top"></EditorPoint>
+        <EditorPoint className="point-top-right"></EditorPoint>
+        <EditorPoint className="point-right"></EditorPoint>
+        <EditorPoint className="point-bottom-right"></EditorPoint>
+        <EditorPoint className="point-bottom"></EditorPoint>
+        <EditorPoint className="point-bottom-left"></EditorPoint>
+        <EditorPoint className="point-left"></EditorPoint>
+        <EditorPoint className="point-top-left"></EditorPoint>
+      </DragDiv>
+    </PageDiv>
   );
 };
 

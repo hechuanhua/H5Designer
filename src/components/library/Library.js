@@ -20,7 +20,7 @@ const StyleItem = styled.li.attrs(props => ({
 `
 
 const Library = () => {
-  const { Color,dispatch } = useContext(PagaDataContext)
+  const { state,dispatch } = useContext(PagaDataContext)
   
   useEffect(()=>{
     dispatch({type:'background',data:'111'})
