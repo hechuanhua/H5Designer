@@ -1,0 +1,66 @@
+.page{
+  width: 500px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  height: 800px;
+  position: relative;
+  box-shadow:0 0 15px rgba(0,0,0,0.5);
+}
+.drag {
+  width: 200px;
+  height: 100px;
+  border: 1px solid #000;
+  cursor: move;
+
+  .editor-point {
+    position: absolute;
+    background: #333;
+    width: 10px;
+    height: 10px;
+    &.point-top {
+      top: -5px;
+      left: 50%;
+      margin-left: -5px;
+      cursor: s-resize;
+    }
+    &.point-right {
+      right: -5px;
+      top: 50%;
+      margin-top: -5px;
+      cursor: e-resize;
+    }
+    &.point-bottom {
+      bottom: -5px;
+      left: 50%;
+      margin-left: -5px;
+      cursor: s-resize;
+    }
+    &.point-left {
+      left: -5px;
+      top: 50%;
+      margin-top: -5px;
+      cursor: e-resize;
+    }
+
+    &.point-top-right {
+      right: -5px;
+      top: -5px;
+      cursor: nesw-resize;
+    }
+    &.point-bottom-right {
+      right: -5px;
+      bottom: -5px;
+      cursor: nwse-resize;
+    }
+    &.point-bottom-left {
+      bottom: -5px;
+      left: -5px;
+      cursor: nesw-resize;
+    }
+    &.point-top-left {
+      top: -5px;
+      left: -5px;
+      cursor: nwse-resize;
+    }
+  }
+}
