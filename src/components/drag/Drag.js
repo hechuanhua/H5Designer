@@ -178,9 +178,10 @@ const Drag = () => {
 
   const onDrop = (e) => {
     console.log(4444)
+    
   }
   return (
-    <PageDiv ref={page} onDrop={onDrop} onDragOver={(e) => { e.preventDefault(); console.log(5555) }}>
+    <PageDiv ref={page} onDrop={onDrop} onDragOver={(e) => { e.preventDefault(); }}>
       <DragDiv className="drag" style={style} ref={target}>
         <EditorPoint className="point-top"></EditorPoint>
         <EditorPoint className="point-top-right"></EditorPoint>

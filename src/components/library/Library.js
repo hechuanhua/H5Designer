@@ -5,12 +5,9 @@ import { PagaDataContext } from "../../reducer/index"
 const StyleLibarary = styled.div`
   flex:1
 `
-const ondragstart = (e) => {
-  console.log(e, 111)
-}
+
 const StyleItem = styled.li.attrs(props => ({
-  draggable: 'true',
-  onDragStart: ondragstart
+  draggable: 'true'
 }))`
   width:100px;
   height:100px;
@@ -21,20 +18,20 @@ const StyleItem = styled.li.attrs(props => ({
 
 const Library = () => {
   const { state,dispatch } = useContext(PagaDataContext)
-  
-  useEffect(()=>{
+  const ondragstart = (e) => {
+    console.log(e, 111)
     dispatch({type:'background',data:'111'})
-  },[])
+  }
   return (
     <StyleLibarary>
       <ul>
-        <StyleItem>
+        <StyleItem onDragStart={ondragstart}>
           <div className="img">图片</div>
         </StyleItem>
-        <StyleItem>
+        <StyleItem onDragStart={ondragstart}>
           <div className="img">图片</div>
         </StyleItem>
-        <StyleItem>
+        <StyleItem onDragStart={ondragstart}>
           <div className="img">图片</div>
         </StyleItem>
       </ul>

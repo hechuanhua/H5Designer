@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react'
 
 export const PagaDataContext = createContext({})
 
-const initState = {}
+const initState = []
 const reducer = (state, action) => {
   switch (action.type) {
     case 'background':
