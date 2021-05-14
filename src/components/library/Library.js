@@ -15,18 +15,27 @@ const StyleItem = styled.li.attrs(props => ({
   text-align:center;
   cursor: pointer;
 `
+const StyleFont = styled.div.attrs(props=>({
+  className:'iconfont'
+}))`
+  font-size:50px
+`
 
 const Library = () => {
-  const { state,dispatch } = useContext(PagaDataContext)
+  const { state,currentType,setCurrentType,dispatch } = useContext(PagaDataContext)
+  console.log(state,currentType,111111)
   const ondragstart = (e) => {
     console.log(e, 111)
-    dispatch({type:'background',data:'111'})
+    dispatch({type:'img',data:'111'})
+    setCurrentType('img')
   }
   return (
     <StyleLibarary>
       <ul>
         <StyleItem onDragStart={ondragstart}>
-          <div className="img">图片</div>
+          <div className="img">
+            <StyleFont>&#xe607;</StyleFont>
+            图片</div>
         </StyleItem>
         <StyleItem onDragStart={ondragstart}>
           <div className="img">图片</div>

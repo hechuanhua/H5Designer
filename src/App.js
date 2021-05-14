@@ -7,7 +7,9 @@ import { PageContext } from "./reducer/index"
 const AppWrap = styled.div`
 display:flex;
 `
-
+const Setting = styled.div`
+flex:1
+`
 const App = () => {
 
   return (
@@ -15,9 +17,7 @@ const App = () => {
       <PageContext>
         <Library></Library>
         <Drag></Drag>
-        <div className="setting">
-
-        </div>
+        <Setting></Setting>
       </PageContext>
     </AppWrap>
   );

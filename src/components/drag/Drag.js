@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useContext } from "react";
 import styled from "styled-components";
-import { PagaDataContext } from "../../reducer/index"
-
+import { PagaDataContext } from "../../reducer/index";
 
 const PageDiv = styled.div`
   width: 500px;
@@ -9,14 +8,14 @@ const PageDiv = styled.div`
   border: 1px solid #ddd;
   height: 800px;
   position: relative;
-  box-shadow:0 0 15px rgba(0,0,0,0.5);
-`
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+`;
 const DragDiv = styled.div`
   width: 200px;
   height: 100px;
   border: 1px solid #000;
   cursor: move;
-`
+`;
 const EditorPoint = styled.div`
   position: absolute;
   background: #333;
@@ -67,10 +66,10 @@ const EditorPoint = styled.div`
     left: -5px;
     cursor: nwse-resize;
   }
-`
+`;
 const Drag = () => {
-  const { state, dispatch } = useContext(PagaDataContext)
-  console.log(state, 'Drag')
+  const { state,currentType,setCurrentType,dispatch } = useContext(PagaDataContext)
+  console.log(state, "Drag");
   const page = useRef();
   let startX = 0,
     startY = 0,
@@ -83,8 +82,8 @@ const Drag = () => {
     oldWidth = width,
     oldHeight = height,
     className = "";
-  let maxWidth = 100
-  let maxHeight = 100
+  let maxWidth = 100;
+  let maxHeight = 100;
   const styleDefault = {
     position: "absolute",
     top: 0,
@@ -100,7 +99,7 @@ const Drag = () => {
     oldTop = top;
     oldWidth = width;
     oldHeight = height;
-    className = e.target.className.replace(/(.*)point-/,'');
+    className = e.target.className.replace(/(.*)point-/, "");
   };
 
   const move = (e) => {
@@ -147,25 +146,34 @@ const Drag = () => {
       default:
         left = Number(oldLeft) + moveX;
         top = Number(oldTop) + moveY;
+        if (width + left > maxWidth) {
+          left = maxWidth - width;
+        }
+        if (height + top > maxHeight) {
+          top = maxHeight - height;
+        }
         break;
     }
     if (top < 0) top = 0;
     if (left < 0) left = 0;
-    if (width > maxWidth) width = maxWidth;
-    if (height > maxHeight) height = maxHeight;
-    if (width + left > maxWidth) { width = maxWidth - left }
-    if (height + top > maxHeight) { height = maxHeight - top }
+    if (width + left > maxWidth) {
+      width = maxWidth - left;
+    }
+    if (height + top > maxHeight) {
+      height = maxHeight - top;
+    }
+
     setStyle({ ...style, top, left, width, height });
   };
 
-  const up = () => {
-  };
+  const up = () => {};
 
   const target = useRef();
   useEffect(() => {
-    maxWidth = page.current.offsetWidth
-    maxHeight = page.current.offsetHeight
-    setStyle({ ...style, maxWidth, maxHeight })
+    maxWidth = page.current.offsetWidth-2;
+    maxHeight = page.current.offsetHeight-2;
+    console.log(maxWidth,maxHeight)
+    setStyle({ ...style});
     target.current.addEventListener("mousedown", (e) => {
       down(e);
       document.addEventListener("mousemove", move);
@@ -177,11 +185,23 @@ const Drag = () => {
   }, []);
 
   const onDrop = (e) => {
-    console.log(4444)
-    
-  }
+    console.log(state,currentType,4444);
+    const x =  e.pageX;
+    const y = e.pageY;
+    if(currentType == 'img'){
+      dispatch({type:'img',data:{
+        
+      }})
+    }
+  };
   return (
-    <PageDiv ref={page} onDrop={onDrop} onDragOver={(e) => { e.preventDefault(); }}>
+    <PageDiv
+      ref={page}
+      onDrop={onDrop}
+      onDragOver={(e) => {
+        e.preventDefault();
+      }}
+    >
       <DragDiv className="drag" style={style} ref={target}>
         <EditorPoint className="point-top"></EditorPoint>
         <EditorPoint className="point-top-right"></EditorPoint>

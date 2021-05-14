@@ -1,11 +1,26 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useReducer, useState } from 'react'
 
 export const PagaDataContext = createContext({})
 
+
+const state = {
+  current:{
+    type:'img',
+    order:0
+  },
+  info:[{
+    type:'img',
+    order:0, 
+    x:0,
+    y:0, 
+    w:0,
+    h:0,
+  }]
+}
 const initState = []
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'background':
+    case 'addLibrary':
       return action.data
     case 'img':
       return action.data
@@ -19,11 +34,10 @@ const reducer = (state, action) => {
 }
 
 export const PageContext = (props) => {
-  //利用useReducer,将当前reducer中需要处理的方法进行导出，useReducer的第一个参数表示要处理的相关逻辑，第二个参数表示初始值
   const [state, dispatch] = useReducer(reducer, initState)
+  const [currentType,setCurrentType] = useState({currentType:'',order:0})
   return (
-    //在这里我们使用了useContext进行了状态的共享
-    <PagaDataContext.Provider value={{ state, dispatch }}>
+    <PagaDataContext.Provider value={{ state, currentType,setCurrentType, dispatch }}>
       {props.children}
     </PagaDataContext.Provider>
   )
