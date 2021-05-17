@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useContext } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import styled from "styled-components";
-import { PagaDataContext } from "../../reducer/index";
+import store from '../../store'
 
 const PageDiv = styled.div`
   width: 500px;
@@ -68,8 +69,8 @@ const EditorPoint = styled.div`
   }
 `;
 const Drag = () => {
-  const { state,currentType,setCurrentType,dispatch } = useContext(PagaDataContext)
-  console.log(state, "Drag");
+  const {dispatch} = useDispatch()
+  
   const page = useRef();
   let startX = 0,
     startY = 0,
@@ -185,14 +186,9 @@ const Drag = () => {
   }, []);
 
   const onDrop = (e) => {
-    console.log(state,currentType,4444);
+    console.log(store.getState(),888)
     const x =  e.pageX;
     const y = e.pageY;
-    if(currentType == 'img'){
-      dispatch({type:'img',data:{
-        
-      }})
-    }
   };
   return (
     <PageDiv

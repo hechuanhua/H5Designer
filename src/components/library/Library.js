@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState, useContext } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import styled from "styled-components";
-import { PagaDataContext } from "../../reducer/index"
 
 const StyleLibarary = styled.div`
   flex:1
 `
-
 const StyleItem = styled.li.attrs(props => ({
   draggable: 'true'
 }))`
@@ -22,12 +21,12 @@ const StyleFont = styled.div.attrs(props=>({
 `
 
 const Library = () => {
-  const { state,currentType,setCurrentType,dispatch } = useContext(PagaDataContext)
-  console.log(state,currentType,111111)
+  const dispatch = useDispatch()
   const ondragstart = (e) => {
     console.log(e, 111)
-    dispatch({type:'img',data:'111'})
-    setCurrentType('img')
+    // dispatch({type:'img',data:'111'})
+    dispatch({ type: 'selected/incrementAsync', payload:222 })
+    
   }
   return (
     <StyleLibarary>

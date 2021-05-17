@@ -1,7 +1,4 @@
-import React, { createContext, useReducer, useState } from 'react'
-
-export const PagaDataContext = createContext({})
-
+import React, { useReducer, useState } from 'react'
 
 const state = {
   current:{
