@@ -25,7 +25,7 @@ const Library = () => {
   const ondragstart = (e) => {
     console.log(e, 111)
     // dispatch({type:'img',data:'111'})
-    dispatch({ type: 'selected/incrementAsync', payload:222 })
+    dispatch({ type: 'setType/setType', payload:{type:'img'} })
     
   }
   return (
