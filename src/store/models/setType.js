@@ -7,7 +7,7 @@ const initState = {
   order:0,
 };
 
-export const setTypeModal = {
+export default {
   name: "setType",
   state: initState,
   effects: (dispatch) => ({

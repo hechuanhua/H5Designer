@@ -24,7 +24,6 @@ const Library = () => {
   const dispatch = useDispatch()
   const ondragstart = (e) => {
     console.log(e, 111)
-    // dispatch({type:'img',data:'111'})
     dispatch({ type: 'setType/setType', payload:{type:'img'} })
     
   }

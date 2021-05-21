@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useContext } from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import store from '../../store'
+import store from "../../store";
 
 const PageDiv = styled.div`
   width: 500px;
@@ -69,8 +69,11 @@ const EditorPoint = styled.div`
   }
 `;
 const Drag = () => {
-  const {dispatch} = useDispatch()
-  
+  const dispatch = useDispatch();
+  const selected = useSelector(state => {
+    return state.selected
+  })
+  console.log(selected,'selected')
   const page = useRef();
   let startX = 0,
     startY = 0,
@@ -94,16 +97,18 @@ const Drag = () => {
   };
   const [style, setStyle] = useState(styleDefault);
   const down = (e) => {
+    console.log('down',e)
     startX = e.pageX;
     startY = e.pageY;
-    oldLeft = left;
-    oldTop = top;
+    oldLeft = parseInt(e.target.style.left);
+    oldTop = parseInt(e.target.style.top);
     oldWidth = width;
     oldHeight = height;
     className = e.target.className.replace(/(.*)point-/, "");
   };
 
   const move = (e) => {
+    console.log('move',startX)
     e.stopPropagation();
     e.preventDefault();
     let moveX = e.pageX - startX;
@@ -171,24 +176,38 @@ const Drag = () => {
 
   const target = useRef();
   useEffect(() => {
-    maxWidth = page.current.offsetWidth-2;
-    maxHeight = page.current.offsetHeight-2;
-    console.log(maxWidth,maxHeight)
-    setStyle({ ...style});
-    target.current.addEventListener("mousedown", (e) => {
-      down(e);
-      document.addEventListener("mousemove", move);
-    });
+    if(selected.length == 0)return
+    console.log(333)
+    maxWidth = page.current.offsetWidth - 2;
+    maxHeight = page.current.offsetHeight - 2;
+    console.log(maxWidth, maxHeight);
+    setStyle({ ...style });
+    // target.current.addEventListener("mousedown", (e) => {
+    //   down(e);
+    //   document.addEventListener("mousemove", move);
+    // });
+    // document.addEventListener("mousemove", move);
     document.addEventListener("mouseup", function (e) {
       up(e);
       document.removeEventListener("mousemove", move);
     });
-  }, []);
+  }, [JSON.stringify(selected)]);
 
   const onDrop = (e) => {
-    console.log(store.getState(),888)
-    const x =  e.pageX;
-    const y = e.pageY;
+    left = e.pageX - page.current.offsetLeft;
+    top = e.pageY;
+    setStyle({
+      ...style,
+      left,
+      top,
+    });
+    dispatch({
+      type: "selected/addLibrary",
+      payload: {
+        l:left,
+        t:top
+      },
+    });
   };
   return (
     <PageDiv
@@ -198,16 +217,28 @@ const Drag = () => {
         e.preventDefault();
       }}
     >
-      <DragDiv className="drag" style={style} ref={target}>
-        <EditorPoint className="point-top"></EditorPoint>
-        <EditorPoint className="point-top-right"></EditorPoint>
-        <EditorPoint className="point-right"></EditorPoint>
-        <EditorPoint className="point-bottom-right"></EditorPoint>
-        <EditorPoint className="point-bottom"></EditorPoint>
-        <EditorPoint className="point-bottom-left"></EditorPoint>
-        <EditorPoint className="point-left"></EditorPoint>
-        <EditorPoint className="point-top-left"></EditorPoint>
-      </DragDiv>
+      {
+        selected.length && selected.map((item,index)=>(
+          <DragDiv className="drag" style={{
+            position: "absolute",
+            top: item.t,
+            left: item.l,
+            width: item.w,
+            height: item.h,
+            zIndex: item.order
+          }} ref={target} key={index} onMouseDown={down} onMouseMove = {move}>
+            <EditorPoint className="point-top"></EditorPoint>
+            <EditorPoint className="point-top-right"></EditorPoint>
+            <EditorPoint className="point-right"></EditorPoint>
+            <EditorPoint className="point-bottom-right"></EditorPoint>
+            <EditorPoint className="point-bottom"></EditorPoint>
+            <EditorPoint className="point-bottom-left"></EditorPoint>
+            <EditorPoint className="point-left"></EditorPoint>
+            <EditorPoint className="point-top-left"></EditorPoint>
+          </DragDiv>
+        ))
+      }
+      
     </PageDiv>
   );
 };

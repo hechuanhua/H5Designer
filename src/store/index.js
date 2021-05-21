@@ -1,8 +1,8 @@
 import { init } from '@rematch/core'
-import * as models from './models/setType'
-
+import * as models from './models/index'
+// import * as setLibrary from './models/setLibrary'
 const store = init({
-  models,
+  models
 })
 
 export default store

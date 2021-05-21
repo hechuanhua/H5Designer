@@ -7,33 +7,38 @@
   order:0,
 };
 const item = {
-  x:0,
-  y:0,
-  w:0,
-  h:0,
+  l:0,
+  t:0,
+  w:200,
+  h:100,
   order:0,
   type:''
 }
-export const userInfoModal = {
+export default {
   name: "selected",
-  state: initState,
+  state: [],
   effects: (dispatch) => ({
     addLibrary(payload, rootState) {
       console.log(payload,rootState,77777)
-      this.increment(payload)
+      const data = {
+        ...payload,
+        ...rootState.setType
+      }
+      this.add(data)
     },
     editLibrary(payload, rootState){
 
     }
   }),
   reducers: {
-    add(state, payload,rootState) {
-      console.log(state,rootState,1111)
-      let order = state.order + 1
-      return {
-        ...state,
-        ...payload,
-      };
+    add(state, payload) {
+      console.log(state,payload,1111)
+      const data = {
+        ...item,
+        ...payload
+      }
+      state.push(data)
+      return state
     },
     edit(){
 
