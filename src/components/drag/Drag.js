@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import store from "../../store";
+import GridLayout from 'react-grid-layout';
+import { Drag } from '@alex_xu/rc-drag'
 
 const PageDiv = styled.div`
   width: 500px;
@@ -68,12 +70,12 @@ const EditorPoint = styled.div`
     cursor: nwse-resize;
   }
 `;
-const Drag = () => {
+const Drag1 = () => {
   const dispatch = useDispatch();
   const selected = useSelector(state => {
     return state.selected
   })
-  console.log(selected,'selected')
+  console.log(selected, 'selected')
   const page = useRef();
   let startX = 0,
     startY = 0,
@@ -97,7 +99,7 @@ const Drag = () => {
   };
   const [style, setStyle] = useState(styleDefault);
   const down = (e) => {
-    console.log('down',e)
+    console.log('down', e)
     startX = e.pageX;
     startY = e.pageY;
     oldLeft = parseInt(e.target.style.left);
@@ -108,7 +110,7 @@ const Drag = () => {
   };
 
   const move = (e) => {
-    console.log('move',startX)
+    console.log('move', startX)
     e.stopPropagation();
     e.preventDefault();
     let moveX = e.pageX - startX;
@@ -172,11 +174,11 @@ const Drag = () => {
     setStyle({ ...style, top, left, width, height });
   };
 
-  const up = () => {};
+  const up = () => { };
 
   const target = useRef();
   useEffect(() => {
-    if(selected.length == 0)return
+    if (selected.length == 0) return
     console.log(333)
     maxWidth = page.current.offsetWidth - 2;
     maxHeight = page.current.offsetHeight - 2;
@@ -194,6 +196,7 @@ const Drag = () => {
   }, [JSON.stringify(selected)]);
 
   const onDrop = (e) => {
+    console.log(e.dataTransfer.getData('text'),44444)
     left = e.pageX - page.current.offsetLeft;
     top = e.pageY;
     setStyle({
@@ -204,11 +207,22 @@ const Drag = () => {
     dispatch({
       type: "selected/addLibrary",
       payload: {
-        l:left,
-        t:top
+        l: left,
+        t: top
       },
     });
   };
+  const layout = [ 
+    { i: 'c', x: 4, y: 0, w: 1, h: 2 }
+  ];
+  // return (
+
+  //   <GridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1200}>
+  //     <div key="a">a</div>
+  //     <div key="b">b</div>
+  //     <div key="c">c</div>
+  //   </GridLayout> 
+  // )
   return (
     <PageDiv
       ref={page}
@@ -217,7 +231,44 @@ const Drag = () => {
         e.preventDefault();
       }}
     >
-      {
+      <GridLayout 
+        className="layout" 
+        layout={layout}  //
+        cols={1} 
+        rowHeight={30}
+        width={500} 
+        autoSize={true} //容器高度自适应
+        compactType={'vertical'} 
+        draggableCancel='' //不可拖动的class  .test
+        draggableHandle=''  //用于标记的CSS选择器，它将用作可拖动的句柄
+        containerPadding={[0,0]}  //整个容器边距
+        isDroppable={true} //如果为true，则可以将可放置元素（具有`draggable = {true}`属性）//放置在网格上。它使用位置和事件对象作为参数触发// “ onDrop”回调。//对于将元素放在特定位置很有用
+        isDraggable={true} //是否可拖动
+        isResizable={true} //是否可调整大小
+        isBounded ={true} //只能在父级内移动
+        resizeHandles={['s']} //句柄位置
+        margin={[0,0]}  //每个子项目边距
+        CSSTransforms={false} //css3替换top left，提高性能
+        transformScale={1}  //拖动速度比例
+        preventCollision={false} //拖动后不会调换位置
+        onDrop={data=>{console.log('当元素从外部放入网格中时调用',data)}}  //data参数（ layout, oldItem, newItem, placeholder, e, element） 已删除？
+        onLayoutChange={(data)=>{console.log('回调，因此您可以保存布局',data)}}
+        onDropDragOver={data=>{console.log('当元素从外部从上方拖到网格上方时调用',data)}}  //已删除？
+        onDragStart={data=>{console.log('拖动开始时调用',data)}}
+        onDragStop={data=>{console.log('拖动完成时调用。',data)}}
+        onResizeStart={data=>{console.log('调整大小开始时调用',data)}}
+        onResize={data=>{console.log('发生尺寸调整移动时调用',data)}}
+        onResizeStop={data=>{console.log('调整大小后调用',data)}}
+        //innerRef={}  //Ref获取网格包装div的参考  //已删除？
+      >
+        {
+          layout.map((item,index)=>{
+            return <div key={index}>{item.i}</div>
+          })
+        }
+      </GridLayout>
+
+      {/* {
         selected.length && selected.map((item,index)=>(
           <DragDiv className="drag" style={{
             position: "absolute",
@@ -237,10 +288,10 @@ const Drag = () => {
             <EditorPoint className="point-top-left"></EditorPoint>
           </DragDiv>
         ))
-      }
-      
+      } */}
+
     </PageDiv>
   );
 };
 
-export default Drag;
+export default Drag1;

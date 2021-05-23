@@ -24,8 +24,7 @@ const Library = () => {
   const dispatch = useDispatch()
   const ondragstart = (e) => {
     console.log(e, 111)
-    dispatch({ type: 'setType/setType', payload:{type:'img'} })
-    
+    e.dataTransfer.setData("text/plain", 'aaaa');
   }
   return (
     <StyleLibarary>
