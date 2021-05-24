@@ -20,24 +20,24 @@ const StyleFont = styled.div.attrs(props=>({
   font-size:50px
 `
 
-const Library = () => {
+const Library = (e) => {
   const dispatch = useDispatch()
-  const ondragstart = (e) => {
+  const ondragstart = (e,type) => {
     console.log(e, 111)
-    e.dataTransfer.setData("text/plain", 'aaaa');
+    e.dataTransfer.setData("text/plain", type);
   }
   return (
     <StyleLibarary>
       <ul>
-        <StyleItem onDragStart={ondragstart}>
+        <StyleItem onDragStart={(e)=>{ondragstart(e,'img')}}>
           <div className="img">
             <StyleFont>&#xe607;</StyleFont>
             图片</div>
         </StyleItem>
-        <StyleItem onDragStart={ondragstart}>
+        <StyleItem onDragStart={()=>{ondragstart('')}}>
           <div className="img">图片</div>
         </StyleItem>
-        <StyleItem onDragStart={ondragstart}>
+        <StyleItem onDragStart={()=>{ondragstart('')}}>
           <div className="img">图片</div>
         </StyleItem>
       </ul>
