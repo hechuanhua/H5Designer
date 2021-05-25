@@ -4,6 +4,10 @@
        url('./iconFont/iconfont.woff?t=1620963995895') format('woff'),
        url('./iconFont/iconfont.ttf?t=1620963995895') format('truetype');
 }
+
+ul,li{
+  list-style: none;
+}
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
@@ -23,6 +27,7 @@
 .react-grid-item img {
   pointer-events: none;
   user-select: none;  
+  width: 100%;
 }
 .react-grid-item.cssTransforms {
   transition-property: transform;
@@ -217,7 +222,6 @@ body {
 }
 .react-grid-layout {
   background: #eee;
-  margin-top: 10px;
 }
 .layoutJSON {
   background: #ddd;

@@ -14,6 +14,11 @@ const item = {
   order:0,
   type:''
 }
+const json = {
+  img:{
+    
+  }
+}
 export default {
   name: "selected",
   state: [],
