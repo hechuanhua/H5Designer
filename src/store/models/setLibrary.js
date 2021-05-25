@@ -1,52 +1,89 @@
 /**
  * 当前选中的组件
  */
+import { createUuid } from '../../utils/index'
 
- const initState = {
-  type:'',
-  order:0,
-};
-const item = {
-  l:0,
-  t:0,
-  w:200,
-  h:100,
-  order:0,
-  type:''
-}
-const json = {
-  img:{
-    
+const imgItem = {
+  id: 0,
+  position: {
+    x: 0,
+    y: 0,
+    w: 1,
+    h: 119,
+    order: 0,
+    type: 'img',
+    i: 0
+  },
+  config: {
+    url: ''
   }
 }
-export default {
-  name: "selected",
-  state: [],
-  effects: (dispatch) => ({
-    addLibrary(payload, rootState) {
-      console.log(payload,rootState,77777)
-      const data = {
-        ...payload,
-        ...rootState.setType
-      }
-      this.add(data)
-    },
-    editLibrary(payload, rootState){
 
+const updata = (id, type) => {
+
+}
+// libraryData = {
+//   id:0,
+//   position:{
+//     x:0,
+//     y:0,
+//     t:0,
+//     l:0,
+//     i:0
+//   },
+//   config:{
+//     type:'img',
+//     url:''
+//   }
+// }
+export default {
+  name: "setLibrary",
+  state: {
+    libraryData: [],
+    current: null
+  },
+  effects: (dispatch) => ({
+    editLibrary(payload, rootState) {
     }
   }),
   reducers: {
     add(state, payload) {
-      console.log(state,payload,1111)
-      const data = {
-        ...item,
-        ...payload
+      let libraryData = {
+        id: payload.id,
+        position: payload.position,
+        config: {
+          type: payload.type,
+          url: ''
+        }
       }
-      state.push(data)
-      return state
-    },
-    edit(){
 
+      return {
+        ...state,
+        libraryData: [
+          ...state.libraryData,
+          libraryData
+        ],
+        current: libraryData,
+      }
+    },
+    edit() {
+
+    },
+    setting(state, payload) {
+      let obj = JSON.parse(JSON.stringify(state))
+      let cur = obj.libraryData.filter(item=>item.id == state.current.id)[0]
+      console.log(cur)
+      cur.config.url = payload.url
+      // let libraryData = [
+      //   ...state.libraryData,
+      //   {
+      //     config: {
+      //       ...config,
+      //       url: payload.url
+      //     }
+      //   }
+      // ]
+      return obj
     }
   },
 };

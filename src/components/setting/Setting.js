@@ -12,7 +12,22 @@ const Li = styled.li`
 display:flex
 `
 const Setting = (e) => {
- 
+  const current = useSelector(state => {
+    return state.setLibrary.current
+  })
+  const dispatch = useDispatch();
+  console.log(current,'current')
+  const [url,setUrl] =useState('')
+  const change = (e) =>{
+    console.log(e,'change')
+    // setUrl('https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png')
+    dispatch({
+      type: "setLibrary/setting",
+      payload:{
+        url:'https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png'
+      }
+    })
+  }
   return (
     <SettingDiv>
       <ul>
@@ -20,7 +35,9 @@ const Setting = (e) => {
           <div className="label">
             图片上传
           </div>
-          <input type="file" name="" id=""/>
+          <div className="inputDiv">
+            <input type="file" name="" id="" onChange={change}/>
+          </div>
         </Li>
       </ul>
     </SettingDiv>
