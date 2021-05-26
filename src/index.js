@@ -14,6 +14,9 @@ body{
   line-height: 1;
   font-size: 16px;
 }
+ul,li{
+  list-style: none;
+}
 `
 
 

@@ -5,7 +5,7 @@
  * @returns {*}
  */
 
-function createUuid(len, radix) {
+const createUuid = (len, radix) =>{
 	var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
 	var uuid = [], i;
 	radix = radix || 10;
@@ -34,6 +34,27 @@ function createUuid(len, radix) {
 	return uuid.join('');
 }
 
+
+// 获取图片宽高
+const getImgInfo = (url) => {
+	return new Promise((resolve, reject) => {
+			let img = new Image();
+			img.src = url;
+			let timer = setInterval(function () {
+					if (img.width > 0 || img.height > 0) {
+							resolve({
+									width: img.width,
+									height: img.height
+							})
+							clearInterval(timer);
+					}
+			}, 50);
+	});
+}
+
+
+
 export {
-	createUuid
+	createUuid,
+	getImgInfo
 }

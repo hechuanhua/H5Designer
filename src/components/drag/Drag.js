@@ -73,22 +73,26 @@ const EditorPoint = styled.div`
 `;
 const Drag1 = () => {
   const dispatch = useDispatch();
-  const layoutData = useSelector(state => {
-    return state.setLibrary.libraryData
+  // const a = "[{\"id\":\"266426\",\"position\":{\"x\":0,\"y\":0,\"w\":1,\"h\":238,\"i\":\"266426\"},\"config\":{\"type\":\"img\",\"url\":\"\"}},{\"id\":\"970646\",\"position\":{\"x\":0,\"y\":0,\"w\":1,\"h\":156.56565656565655,\"i\":\"970646\"},\"config\":{\"type\":\"img\",\"url\":\"https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png\"}},{\"id\":\"871656\",\"position\":{\"x\":0,\"y\":0,\"w\":1,\"h\":156.56565656565655,\"i\":\"871656\"},\"config\":{\"type\":\"img\",\"url\":\"https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png\"}},{\"id\":\"129012\",\"position\":{\"x\":0,\"y\":238,\"w\":1,\"h\":238,\"i\":\"129012\"},\"config\":{\"type\":\"img\",\"url\":\"\"}}]"
+  const [layout,setLayout] = useState([]) 
+  
+  const {layoutData,current} = useSelector(state => {
+    return state.setLibrary
   })
-  console.log(layoutData, 'layoutData')
+  // layoutData = JSON.parse(a)
+
+  
   const up = () => { };
 
-
   //{"i":"x-0","x":0,"y":0,"w":1,"h":119,"isBounded":true}
-  const [layout,setLayout] = useState(layoutData) 
   const target = useRef();
-
   useEffect(()=>{
-    console.log(layoutData,333)
-    setLayout(layoutData)
+    const layouts = layoutData.map(item=>(
+      item.position
+    ))
+    setLayout(layouts)
   },[layoutData])
-
+  
   const onDrop = (layout, item,  e) => {
     console.log('当元素从外部放入网格中时调用',layout,item,e)
     console.log(e.dataTransfer.getData('text'),44444)
@@ -97,8 +101,8 @@ const Drag1 = () => {
     const position = {
       x:item.x,
       y:item.y,
-      w:item.w,
-      h:119,
+      w:item.w, 
+      h:238,
       i:id
     }
     console.log(position,'position')
@@ -114,13 +118,15 @@ const Drag1 = () => {
 
   const onDragStart = ( layouts, oldItem, newItem, placeholder, e, element) => {
     console.log('拖动开始时调用', layout,layouts, oldItem, newItem, placeholder, e, element)
-    console.log(element.getAttribute('data-grid'))
-    dispatch({
-      type: "setType/setType",
-      payload: {
-        order:1
-      },
-    });
+    if((/^\d+$/).test(newItem.i)){
+      dispatch({
+        type: "setLibrary/setActive",
+        payload: {
+          id:newItem.i
+        },
+      });
+    }
+    
   }
   return (
     <PageDiv
@@ -130,12 +136,16 @@ const Drag1 = () => {
         e.preventDefault();
       }} 
     >
+      {
+        // console.log(layout,88888)
+        console.log(layoutData,layout,'layoutData')
+      }
       <GridLayout 
         style={{minHeight:700}}
         className="layout" 
-        // layout={layout.position}  //
+        layout={layout}  //
         cols={1} 
-        rowHeight={2}
+        rowHeight={1}
         width={500} 
         autoSize={true} //容器高度自适应
         compactType={'vertical'} 
@@ -163,8 +173,9 @@ const Drag1 = () => {
       >
         
         {
-          layout.map(item=>{
-            return <div key={item.id} data-grid={item.position}>
+          layoutData.map((item,index)=>{
+            console.log(item,'item')
+            return <div key={item.id} data-grid={item.position} className={item.id === current.id?'active':''}>
              { <img src={item.config.url?item.config.url:'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'} alt=""/>}
             </div>
           })

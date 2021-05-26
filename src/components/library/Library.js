@@ -2,10 +2,16 @@ import { useEffect, useRef, useState, useContext } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import styled from "styled-components";
 
-const StyleLibarary = styled.div`
-  flex:1
+const Sider = styled.div`
+  position:fixed;
+  top:20px;
+  left:320px;
+  ul{
+    display:flex;
+    flex-direction: column;
+  }
 `
-const StyleItem = styled.li.attrs(props => ({
+const Li = styled.li.attrs(props => ({
   draggable: 'true'
 }))`
   width:100px;
@@ -13,35 +19,44 @@ const StyleItem = styled.li.attrs(props => ({
   display:inline-block;
   text-align:center;
   cursor: pointer;
+  flex:1;
+  margin-top: 5px;
+  padding: 10px 20px;
+  border: 1px solid;
 `
-const StyleFont = styled.div.attrs(props=>({
-  className:'iconfont'
+const StyleFont = styled.div.attrs(props => ({
+  className: 'iconfont'
 }))`
   font-size:50px
 `
 
 const Library = (e) => {
   const dispatch = useDispatch()
-  const ondragstart = (e,type) => {
+  const ondragstart = (e, type) => {
     console.log(e, 111)
     e.dataTransfer.setData("text/plain", type);
   }
   return (
-    <StyleLibarary>
+    <Sider>
       <ul>
-        <StyleItem onDragStart={(e)=>{ondragstart(e,'img')}}>
-          <div className="img">
-            <StyleFont>&#xe607;</StyleFont>
-            图片</div>
-        </StyleItem>
-        <StyleItem onDragStart={()=>{ondragstart('')}}>
-          <div className="img">图片</div>
-        </StyleItem>
-        <StyleItem onDragStart={()=>{ondragstart('')}}>
-          <div className="img">图片</div>
-        </StyleItem>
+        <Li onDragStart={(e) => { ondragstart(e, 'img') }}>
+          <div className="name">图片</div>
+          <StyleFont>&#xe607;</StyleFont>
+        </Li>
+        <Li onDragStart={() => { ondragstart('') }}>
+          <div className="name">文本</div>
+          <StyleFont>&#xe8c2;</StyleFont>
+        </Li>
+        <Li onDragStart={() => { ondragstart('') }}>
+          <div className="name">视频</div>
+          <StyleFont>&#xe603;</StyleFont>
+        </Li>
+        <Li onDragStart={() => { ondragstart('') }}>
+          <div className="name">组件</div>
+          <StyleFont>&#xe7c2;</StyleFont>
+        </Li>
       </ul>
-    </StyleLibarary>
+    </Sider>
   );
 
 };

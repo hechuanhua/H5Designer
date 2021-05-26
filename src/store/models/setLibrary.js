@@ -2,27 +2,13 @@
  * 当前选中的组件
  */
 import { createUuid } from '../../utils/index'
+import _ from 'lodash'
 
-const imgItem = {
-  id: 0,
-  position: {
-    x: 0,
-    y: 0,
-    w: 1,
-    h: 119,
-    order: 0,
-    type: 'img',
-    i: 0
-  },
-  config: {
-    url: ''
-  }
+const saveLayout = (data) => {
+  localStorage.setItem('layout',JSON.stringify(data))
 }
 
-const updata = (id, type) => {
-
-}
-// libraryData = {
+// layoutData = {
 //   id:0,
 //   position:{
 //     x:0,
@@ -39,8 +25,8 @@ const updata = (id, type) => {
 export default {
   name: "setLibrary",
   state: {
-    libraryData: [],
-    current: null
+    layoutData: [],
+    current: {}
   },
   effects: (dispatch) => ({
     editLibrary(payload, rootState) {
@@ -48,7 +34,7 @@ export default {
   }),
   reducers: {
     add(state, payload) {
-      let libraryData = {
+      const layoutData = {
         id: payload.id,
         position: payload.position,
         config: {
@@ -56,34 +42,39 @@ export default {
           url: ''
         }
       }
-
+      const newState = {
+        ...state,
+        layoutData: [
+          ...state.layoutData,
+          layoutData
+        ],
+        current: layoutData,
+      }
+      saveLayout(newState.layoutData)
+      return newState
+    },
+    setActive(state, payload) {
+      const current = state.layoutData.filter(item=>item.id === payload.id)[0]
+      console.log(current,'current')
       return {
         ...state,
-        libraryData: [
-          ...state.libraryData,
-          libraryData
-        ],
-        current: libraryData,
+        current
       }
     },
-    edit() {
-
-    },
     setting(state, payload) {
-      let obj = JSON.parse(JSON.stringify(state))
-      let cur = obj.libraryData.filter(item=>item.id == state.current.id)[0]
-      console.log(cur)
-      cur.config.url = payload.url
-      // let libraryData = [
-      //   ...state.libraryData,
-      //   {
-      //     config: {
-      //       ...config,
-      //       url: payload.url
-      //     }
-      //   }
-      // ]
-      return obj
+      const layoutData = state.layoutData.map(item=>{
+        if(item.id === state.current.id){
+          item.position = {...item.position,...payload.position}
+          item.config.url = payload.config.url
+        }
+        return item
+      })
+      const newState = {
+        ...state,
+        layoutData
+      }
+      saveLayout(newState.layoutData)
+      return newState
     }
   },
 };

@@ -5,9 +5,6 @@
        url('./iconFont/iconfont.ttf?t=1620963995895') format('truetype');
 }
 
-ul,li{
-  list-style: none;
-}
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
@@ -239,7 +236,13 @@ body {
 }
 .react-grid-item:not(.react-grid-placeholder) {
   background: #ccc;
-  border: 1px solid black;
+  // border: 1px solid black;
+  &:hover{
+    border: 2px solid red;
+  }
+  &.active{
+    border: 2px solid red;
+  }
 }
 .react-grid-item.resizing {
   opacity: 0.9;
