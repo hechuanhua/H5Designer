@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, useContext } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import styled from "styled-components";
+import { Upload, Modal } from "antd"
+import { PlusOutlined } from '@ant-design/icons';
 import { getImgInfo } from '../../utils/index'
 
 const SettingWrap = styled.div` 
@@ -13,7 +15,8 @@ const SettingWrap = styled.div`
   top:20px;
 `
 const Li = styled.li`
-display:flex
+display:flex;
+align-items: center;
 `
 const Setting = (e) => {
   const current = useSelector(state => {
@@ -21,12 +24,12 @@ const Setting = (e) => {
   })
   const dispatch = useDispatch();
   console.log(current, 'current')
-  const [url, setUrl] = useState('')
-  const change = (e) => {
+  const [fileList, setFileList] = useState([])
+  const changeImg = (e) => {
     console.log(e, 'change')
-    // setUrl('https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png')
     const arr = ['https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png', 'http://www.hy-ls.com/test/img2/1.gif']
     const url = arr[parseInt(Math.random() * (arr.length), 10)]
+    setFileList([url])
     console.log(url, 'url')
     getImgInfo(url).then((res) => {
       console.log(res, 'img')
@@ -48,18 +51,40 @@ const Setting = (e) => {
       })
     })
   }
+
   return (
+
     <SettingWrap>
-      <ul>
-        <Li>
-          <div className="label">
-            图片上传
+      <h2>属性设置</h2>
+      {
+        current.id ?
+          <ul>
+            <Li>
+              <div className="label">
+                图片上传：
           </div>
-          <div className="inputDiv">
-            <input type="file" name="" id="" onChange={change} />
-          </div>
-        </Li>
-      </ul>
+
+              <div className="inputDiv">
+                <Upload
+                  accept="image/png,image/jpeg,image/gif,image/pjpeg"
+                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                  listType="picture-card"
+                  maxCount={1}
+                  fileList={fileList}
+                  // onPreview={this.handlePreview}
+                  onChange={changeImg}
+                >
+                  <div>
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>上传</div>
+                  </div>
+                </Upload>
+              </div>
+            </Li>
+          </ul> : ""
+      }
+
+
     </SettingWrap>
   );
 

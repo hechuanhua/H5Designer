@@ -71,7 +71,7 @@ const EditorPoint = styled.div`
     cursor: nwse-resize;
   }
 `;
-const Drag1 = () => {
+const Drag = () => {
   const dispatch = useDispatch();
   // const a = "[{\"id\":\"266426\",\"position\":{\"x\":0,\"y\":0,\"w\":1,\"h\":238,\"i\":\"266426\"},\"config\":{\"type\":\"img\",\"url\":\"\"}},{\"id\":\"970646\",\"position\":{\"x\":0,\"y\":0,\"w\":1,\"h\":156.56565656565655,\"i\":\"970646\"},\"config\":{\"type\":\"img\",\"url\":\"https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png\"}},{\"id\":\"871656\",\"position\":{\"x\":0,\"y\":0,\"w\":1,\"h\":156.56565656565655,\"i\":\"871656\"},\"config\":{\"type\":\"img\",\"url\":\"https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png\"}},{\"id\":\"129012\",\"position\":{\"x\":0,\"y\":238,\"w\":1,\"h\":238,\"i\":\"129012\"},\"config\":{\"type\":\"img\",\"url\":\"\"}}]"
   const [layout,setLayout] = useState([]) 
@@ -79,13 +79,7 @@ const Drag1 = () => {
   const {layoutData,current} = useSelector(state => {
     return state.setLibrary
   })
-  // layoutData = JSON.parse(a)
-
-  
-  const up = () => { };
-
   //{"i":"x-0","x":0,"y":0,"w":1,"h":119,"isBounded":true}
-  const target = useRef();
   useEffect(()=>{
     const layouts = layoutData.map(item=>(
       item.position
@@ -105,7 +99,6 @@ const Drag1 = () => {
       h:238,
       i:id
     }
-    console.log(position,'position')
     dispatch({
       type: "setLibrary/add",
       payload: {
@@ -129,15 +122,8 @@ const Drag1 = () => {
     
   }
   return (
-    <PageDiv
-      // ref={page}
-      // onDrop={onDrop}
-      onDragOver={(e) => {
-        e.preventDefault();
-      }} 
-    >
+    <PageDiv>
       {
-        // console.log(layout,88888)
         console.log(layoutData,layout,'layoutData')
       }
       <GridLayout 
@@ -186,4 +172,4 @@ const Drag1 = () => {
   );
 };
 
-export default Drag1;
+export default Drag;

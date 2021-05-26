@@ -25,6 +25,7 @@
   pointer-events: none;
   user-select: none;  
   width: 100%;
+  max-height: 100%;
 }
 .react-grid-item.cssTransforms {
   transition-property: transform;
@@ -236,7 +237,6 @@ body {
 }
 .react-grid-item:not(.react-grid-placeholder) {
   background: #ccc;
-  // border: 1px solid black;
   &:hover{
     border: 2px solid red;
   }
