@@ -41,19 +41,19 @@ const Library = (e) => {
       <h2>组件设置</h2>
       <ul>
         <Li onDragStart={(e) => { ondragstart(e, 'img') }}>
-          <div className="name">图片</div>
+          <div>图片</div>
           <StyleFont>&#xe607;</StyleFont>
         </Li>
         <Li onDragStart={(e) => { ondragstart(e, 'text') }}>
-          <div className="name">文本</div>
+          <div>文本</div>
           <StyleFont>&#xe8c2;</StyleFont>
         </Li>
-        <Li onDragStart={(e) => { ondragstart(e,'video') }}>
-          <div className="name">视频</div>
+        <Li onDragStart={(e) => { ondragstart(e, 'video') }}>
+          <div>视频</div>
           <StyleFont>&#xe603;</StyleFont>
         </Li>
-        <Li onDragStart={(e) => { ondragstart(e,'') }}>
-          <div className="name">组件</div>
+        <Li onDragStart={(e) => { ondragstart(e, '') }}>
+          <div>组件</div>
           <StyleFont>&#xe7c2;</StyleFont>
         </Li>
       </ul>
