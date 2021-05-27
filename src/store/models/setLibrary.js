@@ -8,58 +8,6 @@ const saveLayout = (data) => {
   localStorage.setItem('layout', JSON.stringify(data))
 }
 
-const createLayout = (type) => {
-  const id = createUuid(6)
-  let layoutData = {}
-  if (type === 'img') {
-    layoutData = {
-      id,
-      position: {
-        x: 0,
-        y: 0,
-        w: 50,
-        h: 240,
-        i: id.toString()
-      },
-      config: {
-        type,
-        url: 'https://dummyimage.com/500x240'
-      }
-    }
-  } else if (type === 'text') {
-    layoutData = {
-      id,
-      position: {
-        x: 0,
-        y: 0,
-        w: 50,
-        h: 40,
-        i: id.toString()
-      },
-      config: {
-        type,
-        text: '我是测试文字'
-      }
-    }
-  }
-
-  return layoutData
-}
-// layoutData = {
-//   id:0,
-//   position:{
-//     x:0,
-//     y:0,
-//     t:0,
-//     l:0,
-//     i:0
-//   },
-//   config:{
-//     type:'img',
-//     url:''
-//   }
-// }
-
 export default {
   name: "setLibrary",
   state: {
@@ -103,7 +51,7 @@ export default {
       const layoutData = state.layoutData.map(item => {
         if (item.id === state.current.id) {
           item.position = { ...item.position, ...payload.position }
-          item.config.url = payload.config.url
+          item.config = { ...item.config, ...payload.config }
         }
         return item
       })

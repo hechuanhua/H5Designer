@@ -24,7 +24,7 @@ const Li = styled.li.attrs(props => ({
   padding: 10px 20px;
   border: 1px solid;
 `
-const StyleFont = styled.div.attrs(props => ({
+const Icon = styled.div.attrs(props => ({
   className: 'iconfont'
 }))`
   font-size:50px
@@ -42,19 +42,19 @@ const Library = (e) => {
       <ul>
         <Li onDragStart={(e) => { ondragstart(e, 'img') }}>
           <div>图片</div>
-          <StyleFont>&#xe607;</StyleFont>
+          <Icon>&#xe607;</Icon>
         </Li>
         <Li onDragStart={(e) => { ondragstart(e, 'text') }}>
           <div>文本</div>
-          <StyleFont>&#xe8c2;</StyleFont>
+          <Icon>&#xe8c2;</Icon>
         </Li>
         <Li onDragStart={(e) => { ondragstart(e, 'video') }}>
           <div>视频</div>
-          <StyleFont>&#xe603;</StyleFont>
+          <Icon>&#xe603;</Icon>
         </Li>
         <Li onDragStart={(e) => { ondragstart(e, '') }}>
           <div>组件</div>
-          <StyleFont>&#xe7c2;</StyleFont>
+          <Icon>&#xe7c2;</Icon>
         </Li>
       </ul>
     </Sider>

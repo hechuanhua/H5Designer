@@ -73,7 +73,7 @@ const Drag = () => {
   };
 
   const onDragStart = (layouts, oldItem, newItem, placeholder, e, element) => {
-    console.log('拖动开始时调用', layout, layouts, oldItem, newItem, placeholder, e, element)
+    console.log('拖动开始时调用', layouts, oldItem, newItem, placeholder, e, element)
     if ((/^\d+$/).test(newItem.i)) {
       dispatch({
         type: "setLibrary/setActive",
