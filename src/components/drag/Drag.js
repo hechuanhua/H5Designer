@@ -25,7 +25,14 @@ const json = {
     }
   },
   radio:{
-    
+    w:50,
+    h:150,
+    config:{
+      type:'radio',
+      title:'我是单选字段标题',
+      list:['我是字段1','我是字段2','我是字段3','我是字段4','我是字段5'],
+      layoutType:'3'
+    }
   }
 }
 const PageDiv = styled.div`
@@ -36,6 +43,13 @@ const PageDiv = styled.div`
   position: relative;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 `;
+const Mt10 = styled.div`
+  margin-top:10px
+`
+const Label = styled.label`
+  display:inline-block;
+  margin-top:10px;
+`
 const Drag = () => {
   const dispatch = useDispatch();
   // const a = "[{\"id\":\"266426\",\"position\":{\"x\":0,\"y\":0,\"w\":1,\"h\":238,\"i\":\"266426\"},\"config\":{\"type\":\"img\",\"url\":\"\"}},{\"id\":\"970646\",\"position\":{\"x\":0,\"y\":0,\"w\":1,\"h\":156.56565656565655,\"i\":\"970646\"},\"config\":{\"type\":\"img\",\"url\":\"https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png\"}},{\"id\":\"871656\",\"position\":{\"x\":0,\"y\":0,\"w\":1,\"h\":156.56565656565655,\"i\":\"871656\"},\"config\":{\"type\":\"img\",\"url\":\"https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png\"}},{\"id\":\"129012\",\"position\":{\"x\":0,\"y\":238,\"w\":1,\"h\":238,\"i\":\"129012\"},\"config\":{\"type\":\"img\",\"url\":\"\"}}]"
@@ -96,6 +110,22 @@ const Drag = () => {
       } else if (item.config.type == 'text') {
         return <div key={item.id} data-grid={item.position} className={item.id === current.id ? 'active' : ''}>
           {item.config.text}
+        </div>
+      } else if (item.config.type == 'radio') {
+        return <div key={item.id} data-grid={item.position} className={item.id === current.id ? 'active' : ''}>
+          <div className="preview radio">
+            <Mt10>{item.config.title}</Mt10>
+            <div>
+            {
+              item.config.list.map((v,i)=>(
+                <Label style={{width:`${100/item.config.layoutType}%`}} key={i}>
+                  <input type="radio" name={`label${item.id}`} id={`label${item.id}`} />
+                  <span>{v}</span>
+                </Label>
+              ))
+            }
+            </div>
+          </div>
         </div>
       }
     })

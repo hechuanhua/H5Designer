@@ -21,10 +21,10 @@ ul,li{
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <App />
     <GlobalStyle/>
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );
 

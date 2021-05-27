@@ -31,10 +31,13 @@ const Setting = (e) => {
   const generateDOM = () => {
     console.log('generateDOM')
     if (current.config.type === 'img') {
-      return <RadioSetting current={current}></RadioSetting>
+      return <ImgSetting current={current}></ImgSetting>
     }
     if (current.config.type === 'text') {
       return <TextSetting current={current}></TextSetting>
+    }
+    if (current.config.type === 'radio') {
+      return <RadioSetting current={current}></RadioSetting>
     }
   }
   return (
