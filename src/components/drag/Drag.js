@@ -23,6 +23,9 @@ const json = {
       type:'text',
       text:'我是测试文字'
     }
+  },
+  radio:{
+    
   }
 }
 const PageDiv = styled.div`
@@ -50,9 +53,9 @@ const Drag = () => {
   }, [layoutData])
 
   const onDrop = (layout, item, e) => {
-    console.log('当元素从外部放入网格中时调用', layout, item, e)
-    console.log(e.dataTransfer.getData('text'), 44444)
+    // console.log('当元素从外部放入网格中时调用', layout, item, e)
     const type = e.dataTransfer.getData('text')
+    console.log(type, '类型')
     const id = createUuid(6)
     const position = {
       x:item.x,
@@ -100,9 +103,6 @@ const Drag = () => {
   
   return (
     <PageDiv>
-      {
-        console.log(layoutData, layout, 'layoutData')
-      }
       <GridLayout
         style={{ minHeight: 700 }}
         className="layout"

@@ -1,44 +1,3 @@
-// import { useEffect, useRef, useState, useContext } from "react";
-// import { useSelector, useDispatch } from 'react-redux'
-// import styled from "styled-components";
-// import { Upload, Modal } from "antd"
-// import { PlusOutlined } from '@ant-design/icons';
-
-// const Li = styled.li`
-// display:flex;
-// align-items: center;
-// `
-// const ImgSetting = (e) => {
-//   return (
-//     <ul>
-//       <Li>
-//         <div className="label">
-//           图片上传：
-//               </div>
-//         <div className="inputDiv">
-//           <Upload
-//             accept="image/png,image/jpeg,image/gif,image/pjpeg"
-//             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-//             listType="picture-card"
-//             maxCount={1}
-//             fileList={fileList}
-//             // onPreview={this.handlePreview}
-//             onChange={changeImg}
-//           >
-//             <div>
-//               <PlusOutlined />
-//               <div style={{ marginTop: 8 }}>上传</div>
-//             </div>
-//           </Upload>
-//         </div>
-//       </Li>
-//     </ul>
-//   );
-// };
-
-// export default ImgSetting;
-
-
 import { useEffect, useRef, useState, useContext } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import styled from "styled-components";
@@ -95,12 +54,6 @@ const ImgSetting = (props) => {
         })
       })
     }
-    // dispatch({
-    //   type: "setLibrary/setting",
-    //   payload: {
-    //     config: changedValues
-    //   }
-    // })
   }
   return (
     <Form {...layout} form={form} name="control-hooks" onFinish={onFinish} onValuesChange={onValuesChange}>

@@ -7,6 +7,7 @@ import { PlusOutlined } from '@ant-design/icons';
 
 import TextSetting from './TextSetting'
 import ImgSetting from './ImgSetting'
+import RadioSetting from './RadioSetting'
 
 const SettingWrap = styled.div` 
   display:flex;
@@ -30,7 +31,7 @@ const Setting = (e) => {
   const generateDOM = () => {
     console.log('generateDOM')
     if (current.config.type === 'img') {
-      return <ImgSetting current={current}></ImgSetting>
+      return <RadioSetting current={current}></RadioSetting>
     }
     if (current.config.type === 'text') {
       return <TextSetting current={current}></TextSetting>
