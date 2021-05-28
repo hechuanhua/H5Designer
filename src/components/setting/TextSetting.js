@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState, useContext } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import styled from "styled-components";
-import { Form, Input, Button, Select } from "antd"
-import { PlusOutlined } from '@ant-design/icons';
+import { Form, Input } from "antd"
 
-const TextSetting = (props) => {
-  const { current } = props
+const TextSetting = props => {
+  const config = useSelector(state => {
+    return state.setLibrary?.current?.config
+  })
   const dispatch = useDispatch();
-  console.log(current, 'current11')
+  console.log(config, 'config')
   const [form] = Form.useForm();
   const layout = {
     labelCol: { span: 8 },
@@ -17,13 +17,13 @@ const TextSetting = (props) => {
   const onFinish = (values) => {
     console.log(values);
   };
-  // const [values, setValues] = useState({ text: current.config.text });
-  const values = {text:current.config.text}
-  useEffect(()=>{
-    form.setFieldsValue({
-      text: current.config.text
-    })
-  },[current.id])
+
+  const values = { text: config.text }
+  // useEffect(() => {
+  //   form.setFieldsValue({
+  //     text: config.text
+  //   })
+  // }, [id])
 
   useEffect(() => {
     console.log(values, 'values')
@@ -37,8 +37,8 @@ const TextSetting = (props) => {
     })
   }, [values]);
 
-  const onValuesChange = (changedValues,allValues) =>{
-    console.log(changedValues,allValues,'changedValues')
+  const onValuesChange = (changedValues, allValues) => {
+    console.log(changedValues, allValues, 'changedValues')
     dispatch({
       type: "setLibrary/setting",
       payload: {
@@ -50,7 +50,7 @@ const TextSetting = (props) => {
   return (
     <Form {...layout} form={form} name="control-hooks" onFinish={onFinish} initialValues={values} onValuesChange={onValuesChange}>
       <Form.Item name="text" label="文本">
-        <Input/>
+        <Input />
       </Form.Item>
     </Form>
   );

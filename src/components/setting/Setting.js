@@ -19,25 +19,21 @@ const SettingWrap = styled.div`
   top:20px;
   width:300px;
 `
-const Li = styled.li`
-display:flex;
-align-items: center;
-`
 const Setting = (e) => {
-  const current = useSelector(state => {
-    return state.setLibrary.current
+  const config = useSelector(state => {
+    return state.setLibrary?.current?.config
   })
   console.log(current,'Setting')
   const generateDOM = () => {
     console.log('generateDOM')
     if (current.config.type === 'img') {
-      return <ImgSetting current={current}></ImgSetting>
+      return <ImgSetting></ImgSetting>
     }
     if (current.config.type === 'text') {
-      return <TextSetting current={current}></TextSetting>
+      return <TextSetting></TextSetting>
     }
     if (current.config.type === 'radio') {
-      return <RadioSetting current={current}></RadioSetting>
+      return <RadioSetting></RadioSetting>
     }
   }
   return (

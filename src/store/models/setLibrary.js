@@ -20,14 +20,6 @@ export default {
   }),
   reducers: {
     add(state, payload) {
-      // const layoutData = {
-      //   id: payload.id,
-      //   position: payload.position,
-      //   config: {
-      //     type: payload.type,
-      //     url: ''
-      //   }
-      // }
       const newState = {
         ...state,
         layoutData: [
@@ -41,7 +33,6 @@ export default {
     },
     setActive(state, payload) {
       const current = state.layoutData.filter(item => item.id === payload.id)[0]
-      console.log(current, 'current')
       return {
         ...state,
         current
@@ -51,7 +42,7 @@ export default {
       const layoutData = state.layoutData.map(item => {
         if (item.id === state.current.id) {
           item.position = { ...item.position, ...payload.position }
-          item.config = { ...item.config, ...payload.config }
+          item.config = { ...item.config, ...payload.config}
         }
         return item
       })

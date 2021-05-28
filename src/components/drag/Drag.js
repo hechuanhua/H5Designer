@@ -3,38 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import GridLayout from 'react-grid-layout';
 import { createUuid } from '../../utils/index'
+import initData from './initData'
 // import Draggable, {DraggableCore} from 'react-draggable';
 // import {Rnd} from 'react-rnd';
 
 
-const json = {
-  img: {
-    w: 50,
-    h: 238,
-    config:{
-      type:'img',
-      url:'https://dummyimage.com/500x240'
-    }
-  },
-  text: {
-    w: 50,
-    h: 40,
-    config:{
-      type:'text',
-      text:'我是测试文字'
-    }
-  },
-  radio:{
-    w:50,
-    h:150,
-    config:{
-      type:'radio',
-      title:'我是单选字段标题',
-      list:['我是字段1','我是字段2','我是字段3','我是字段4','我是字段5'],
-      layoutType:'3'
-    }
-  }
-}
+
 const PageDiv = styled.div`
   width: 500px;
   margin: 0 auto;
@@ -74,14 +48,14 @@ const Drag = () => {
     const position = {
       x:item.x,
       y:item.y,
-      w:json[type].w, 
-      h:json[type].h,
+      w:initData[type].w, 
+      h:initData[type].h,
       i:id
     }
     const payload = {
       id,
       position,
-      config:json[type].config
+      config:initData[type].config
     }
     dispatch({
       type: "setLibrary/add",
@@ -120,7 +94,7 @@ const Drag = () => {
               item.config.list.map((v,i)=>(
                 <Label style={{width:`${100/item.config.layoutType}%`}} key={i}>
                   <input type="radio" name={`label${item.id}`} id={`label${item.id}`} />
-                  <span>{v}</span>
+                  <span>{v.label}</span>
                 </Label>
               ))
             }

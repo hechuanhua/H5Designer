@@ -8,7 +8,7 @@ import CommonModal from '../common/Modal';
 const { TextArea } = Input;
 const { Option } = Select;
 const Icon = styled.div.attrs(props => ({
-	className: 'iconfont',
+  className: 'iconfont',
 }))`
 	font-size: 30px;
 `;
@@ -24,149 +24,138 @@ const Edit = styled.div`
 `;
 
 const RadioSetting = props => {
-	const { current } = props;
-	const dispatch = useDispatch();
-	console.log(current, 'current11');
-	const [form] = Form.useForm();
+  const config = useSelector(state => {
+    return state.setLibrary?.current?.config
+  })
+  const [form] = Form.useForm();
+  const dispatch = useDispatch();
+  console.log(config, 'config11');
 
-	const values = current.config
-
-	useEffect(() => {
-		console.log('current.id')
-		form.setFieldsValue({
-			...form.getFieldsValue(),
-			...current.config
-		});
-	}, [current.id]);
+  useEffect(() => {
+    console.log('config.id')
+    form.setFieldsValue({
+      ...form.getFieldsValue(),
+      ...config
+    });
+  }, [config]);
 
 
-	const onValuesChange = (changedValues, allValues) => {
-		console.log(changedValues, allValues, 'changedValues');
-		dispatch({
-			type: 'setLibrary/setting',
-			payload: {
-				config: changedValues,
-			},
-		});
-	};
+  const onValuesChange = (changedValues, allValues) => {
+    console.log(changedValues, allValues, 'changedValues');
+    dispatch({
+      type: 'setLibrary/setting',
+      payload: {
+        config: allValues,
+      },
+    });
+  };
 
-	const [visible, setVisible] = useState(false);
-	const handleOk = () => {
-		setVisible(false);
-	};
-	const handleCancel = () => {
-		setVisible(false);
-	};
+  const [visible, setVisible] = useState(false);
+  const handleOk = () => {
+    const newConfig = { ...config, list: labelArr }
+    console.log(newConfig,999)
+    dispatch({
+      type: 'setLibrary/setting',
+      payload: {
+        ...config,
+        config:newConfig
+      },
+    });
+    setVisible(false);
+  };
+  const [textAreaValue, setTextAreaValue] = useState('')
+  const openModal = () => {
+    let list = config.list.map(item => (
+      item.label
+    ))
+    list = list.join('\n')
+    console.log(list, 'list')
+    setTextAreaValue(list)
+    setVisible(true);
+  }
+  const handleCancel = () => {
+    setVisible(false);
+  };
 
-	const textAreaChange = e => {
-		console.log(e);
-	};
-	return (
-		<div>
-			<Form
-				labelCol={{ span: 8 }}
-				wrapperCol={{ span: 16 }}
-				form={form}
-				name="control-hooks"
-				initialValues={values}
-				onValuesChange={onValuesChange}
-				size={'middle'}
-			>
-				<Form.Item name="title" label="标题">
-					<Input />
-				</Form.Item>
-				<Form.Item label="选项">
-					<Radio.Group>
-						<RadioItem>
-							<Radio>
-								<Form.Item name="text1">
-									<Input />
-								</Form.Item>
-							</Radio>
-							<Icon>&#xe68a;</Icon>
-							<Icon>&#xe6bf;</Icon>
-						</RadioItem>
+  const [labelArr, setLabelArr] = useState([])
 
-						<RadioItem>
-							<Radio>
-								<Form.Item name="text2">
-									<Input />
-								</Form.Item>
-							</Radio>
-							<Icon>&#xe68a;</Icon>
-							<Icon>&#xe6bf;</Icon>
-						</RadioItem>
+  const textAreaChange = e => {
+    console.log(e);
+    setTextAreaValue(e.target.value)
+    let val = e.target.value
+    val = val.split(/\n/g)
+    const list = val.map(item => (
+      {
+        label: item
+      }
+    ))
+    
+    setLabelArr(list)
 
-						<RadioItem>
-							<Radio>
-								<Form.Item name="text3">
-									<Input />
-								</Form.Item>
-							</Radio>
-							<Icon>&#xe68a;</Icon>
-							<Icon>&#xe6bf;</Icon>
-						</RadioItem>
+  };
+  return (
+    <div>
+      <Form
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        form={form}
+        name="control-hooks"
+        initialValues={config}
+        onValuesChange={onValuesChange}
+        size={'middle'}
+      >
+        <Form.Item name="title" label="标题">
+          <Input />
+        </Form.Item>
+        <Form.Item label="选项">
+          <Radio.Group>
 
-						<Form.List name="users">
-							{(fields, { add, remove }) => (
-								<>
-									{fields.map(({ key, name, fieldKey, ...restField }) => (
-										// <Form.Item
-										// key={key}
-										// 	{...restField}
-										// 	name={[name, 'first']}
-										// 	fieldKey={[fieldKey, 'first']}
-										// 	rules={[{ required: true, message: 'Missing first name' }]}
-										// >
-										// 	<Input placeholder="First Name" />
-										// </Form.Item>
-										<RadioItem
-											key={key}
-											{...restField}
-											name={[name, 'first']}
-											fieldKey={[fieldKey, 'first']}
-										>
-											<Radio>
-												<Form.Item>
-													<Input />
-												</Form.Item>
-											</Radio>
-											<Icon onClick={() => add()}>&#xe68a;</Icon>
-											<Icon onClick={() => remove()}>&#xe6bf;</Icon>
-										</RadioItem>
-									))}
-									<Form.Item>
-										<Button type="dashed" onClick={() => add()} block>
-											Add field
-										</Button>
-									</Form.Item>
-								</>
-							)}
-						</Form.List>
-					</Radio.Group>
 
-					<Edit
-						onClick={() => {
-							setVisible(true);
-						}}
-					>
-						批量编辑
+            <Form.List name="list">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, fieldKey, ...restField }) => (
+                    <RadioItem
+                      key={key}
+                    >
+                      <Radio>
+                        <Form.Item
+                          {...restField}
+                          name={[name, 'label']}
+                          fieldKey={[fieldKey, 'label']}
+                        >
+                          <Input />
+                        </Form.Item>
+                      </Radio>
+                      <Icon onClick={() => add({ label: '' })}>&#xe68a;</Icon>
+                      <Icon onClick={() => remove(name)}>&#xe6bf;</Icon>
+                    </RadioItem>
+                  ))}
+                </>
+              )}
+            </Form.List>
+          </Radio.Group>
+
+          <Edit
+            onClick={openModal}
+          >
+            批量编辑
 					</Edit>
-				</Form.Item>
-				<Form.Item label="布局方式" name="layoutType">
-					<Select>
-						<Option value="1">一行一列</Option>
-						<Option value="2">一行二列</Option>
-						<Option value="3">一行三列</Option>
-					</Select>
-				</Form.Item>
-			</Form>
-			<CommonModal visible={visible} onOk={handleOk} onCancel={handleCancel}>
-				<div>每个选项请单列一行</div>
-				<TextArea placeholder="" allowClear onChange={textAreaChange} rows={8} />
-			</CommonModal>
-		</div>
-	);
+        </Form.Item>
+        <Form.Item label="布局方式" name="layoutType">
+          <Select>
+            <Option value="1">一行一列</Option>
+            <Option value="2">一行二列</Option>
+            <Option value="3">一行三列</Option>
+          </Select>
+        </Form.Item>
+      </Form>
+      <CommonModal visible={visible} onOk={handleOk} onCancel={handleCancel}>
+        <div>每个选项请单列一行</div>
+        <TextArea placeholder="" allowClear onChange={textAreaChange} rows={8} value={textAreaValue} />
+      </CommonModal>
+    </div>
+  );
 };
 
 export default RadioSetting;
