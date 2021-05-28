@@ -5,7 +5,7 @@
  * @returns {*}
  */
 
-const createUuid = (len, radix) =>{
+const createUuid = (len, radix) => {
 	var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
 	var uuid = [], i;
 	radix = radix || 10;
@@ -38,23 +38,45 @@ const createUuid = (len, radix) =>{
 // 获取图片宽高
 const getImgInfo = (url) => {
 	return new Promise((resolve, reject) => {
-			let img = new Image();
-			img.src = url;
-			let timer = setInterval(function () {
-					if (img.width > 0 || img.height > 0) {
-							resolve({
-									width: img.width,
-									height: img.height
-							})
-							clearInterval(timer);
-					}
-			}, 50);
+		let img = new Image();
+		img.src = url;
+		let timer = setInterval(function () {
+			if (img.width > 0 || img.height > 0) {
+				resolve({
+					width: img.width,
+					height: img.height
+				})
+				clearInterval(timer);
+			}
+		}, 50);
 	});
+}
+
+// 节流
+const throttle = (fun, delay) => {
+	let last, deferTimer
+	return function (args) {
+		let that = this;
+		let _args = arguments;
+
+		let now = +new Date();
+		if (last && now < last + delay) {
+			clearTimeout(deferTimer);
+			deferTimer = setTimeout(function () {
+				last = now;
+				fun.apply(that, _args);
+			}, delay)
+		} else {
+			last = now;
+			fun.apply(that, _args);
+		}
+	}
 }
 
 
 
 export {
 	createUuid,
-	getImgInfo
+	getImgInfo,
+	throttle
 }
