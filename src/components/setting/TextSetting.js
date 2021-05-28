@@ -9,33 +9,6 @@ const TextSetting = props => {
   const dispatch = useDispatch();
   console.log(config, 'config')
   const [form] = Form.useForm();
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-  };
-
-  const onFinish = (values) => {
-    console.log(values);
-  };
-
-  const values = { text: config.text }
-  // useEffect(() => {
-  //   form.setFieldsValue({
-  //     text: config.text
-  //   })
-  // }, [id])
-
-  useEffect(() => {
-    console.log(values, 'values')
-    dispatch({
-      type: "setLibrary/setting",
-      payload: {
-        config: {
-          text: values.text
-        }
-      }
-    })
-  }, [values]);
 
   const onValuesChange = (changedValues, allValues) => {
     console.log(changedValues, allValues, 'changedValues')
@@ -48,7 +21,8 @@ const TextSetting = props => {
   }
 
   return (
-    <Form {...layout} form={form} name="control-hooks" onFinish={onFinish} initialValues={values} onValuesChange={onValuesChange}>
+    <Form labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }} form={form} name="control-hooks" initialValues={config} onValuesChange={onValuesChange}>
       <Form.Item name="text" label="文本">
         <Input />
       </Form.Item>

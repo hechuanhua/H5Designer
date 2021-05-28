@@ -38,6 +38,23 @@ export default {
         current
       }
     },
+    update(state, payload){
+      console.log(payload,'update')
+      const layoutData = state.layoutData.map(item => {
+        if (item.id === payload.id) {
+          item.position = { ...item.position, ...payload.position }
+        }
+        return item
+      })
+      const current = state.layoutData.filter(item => item.id === payload.id)[0]
+      const newState = {
+        ...state,
+        layoutData,
+        current,
+      }
+      saveLayout(newState.layoutData)
+      return newState
+    },
     setting(state, payload) {
       const layoutData = state.layoutData.map(item => {
         if (item.id === state.current.id) {

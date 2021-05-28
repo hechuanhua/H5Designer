@@ -15,9 +15,6 @@ const ImgSetting = props => {
   const [fileList, setFileList] = useState([]);
   const [form] = Form.useForm();
 
-  const onFinish = values => {
-    console.log(values);
-  };
   const normFile = e => {
     console.log('Upload event:', e);
     if (Array.isArray(e)) {
@@ -60,7 +57,6 @@ const ImgSetting = props => {
       wrapperCol={{ span: 16 }}
       form={form}
       name="control-hooks"
-      onFinish={onFinish}
       onValuesChange={onValuesChange}
     >
       <Form.Item name="note" label="文本" rules={[{ required: true }]}>

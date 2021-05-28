@@ -26,7 +26,6 @@ const Label = styled.label`
 `
 const Drag = () => {
   const dispatch = useDispatch();
-  // const a = "[{\"id\":\"266426\",\"position\":{\"x\":0,\"y\":0,\"w\":1,\"h\":238,\"i\":\"266426\"},\"config\":{\"type\":\"img\",\"url\":\"\"}},{\"id\":\"970646\",\"position\":{\"x\":0,\"y\":0,\"w\":1,\"h\":156.56565656565655,\"i\":\"970646\"},\"config\":{\"type\":\"img\",\"url\":\"https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png\"}},{\"id\":\"871656\",\"position\":{\"x\":0,\"y\":0,\"w\":1,\"h\":156.56565656565655,\"i\":\"871656\"},\"config\":{\"type\":\"img\",\"url\":\"https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_e835568.png\"}},{\"id\":\"129012\",\"position\":{\"x\":0,\"y\":238,\"w\":1,\"h\":238,\"i\":\"129012\"},\"config\":{\"type\":\"img\",\"url\":\"\"}}]"
   const [layout, setLayout] = useState([])
 
   const { layoutData, current } = useSelector(state => {
@@ -34,6 +33,7 @@ const Drag = () => {
   })
   //{"i":"x-0","x":0,"y":0,"w":1,"h":119,"isBounded":true}
   useEffect(() => {
+    console.log(layoutData,'layoutData useEffect')
     const layouts = layoutData.map(item => (
       item.position
     ))
@@ -73,6 +73,41 @@ const Drag = () => {
         },
       });
     }
+  }
+  const onDragStop = (layouts, oldItem, newItem, placeholder, e, element) => {
+    console.log('拖动完成时调用。',layouts, oldItem, newItem, placeholder, e, element)
+    const position = {
+      x:newItem.x,
+      y:newItem.y,
+      // w:newItem.w, 
+      // h:newItem.h,
+      i:newItem.i
+    }
+    dispatch({
+      type: "setLibrary/update",
+      payload: {
+        id: newItem.i,
+        position
+      },
+    });
+  }
+
+  const onResizeStop = (layouts, oldItem, newItem, placeholder, e, element) => {
+    console.log('跳转大小完成时调用。',layouts, oldItem, newItem, placeholder, e, element)
+    const position = {
+      x:newItem.x,
+      y:newItem.y,
+      w:newItem.w, 
+      h:newItem.h,
+      i:newItem.i
+    }
+    dispatch({
+      type: "setLibrary/update",
+      payload: {
+        id: newItem.i,
+        position
+      },
+    });
   }
 
   const generateDOM = () => {
@@ -132,10 +167,10 @@ const Drag = () => {
         onLayoutChange={(data) => { console.log('回调，因此您可以保存布局', data) }}
         onDropDragOver={data => { console.log('当元素从外部从上方拖到网格上方时调用', data) }}
         onDragStart={onDragStart}
-        onDragStop={data => { console.log('拖动完成时调用。', data) }}
+        onDragStop={onDragStop}
         onResizeStart={data => { console.log('调整大小开始时调用', data) }}
         onResize={data => { console.log('发生尺寸调整移动时调用', data) }}
-        onResizeStop={data => { console.log('调整大小后调用', data) }}
+        onResizeStop={onResizeStop}
       //innerRef={}  //Ref获取网格包装div的参考  //已删除？
       >
 

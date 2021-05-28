@@ -8,7 +8,7 @@ const initData = {
     }
   },
   text: {
-    w: 50,
+    w: 20,
     h: 40,
     config:{
       type:'text',
@@ -16,7 +16,7 @@ const initData = {
     }
   },
   radio:{
-    w:50,
+    w:10,
     h:150,
     config:{
       type:'radio',

@@ -20,8 +20,8 @@ const SettingWrap = styled.div`
   width:300px;
 `
 const Setting = (e) => {
-  const config = useSelector(state => {
-    return state.setLibrary?.current?.config
+  const current = useSelector(state => {
+    return state.setLibrary.current
   })
   console.log(current,'Setting')
   const generateDOM = () => {

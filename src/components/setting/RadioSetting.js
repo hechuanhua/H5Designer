@@ -108,8 +108,7 @@ const RadioSetting = props => {
           <Input />
         </Form.Item>
         <Form.Item label="选项">
-          <Radio.Group>
-
+          <Radio.Group name={'radio'}>
 
             <Form.List name="list">
               {(fields, { add, remove }) => (
