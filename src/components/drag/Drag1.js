@@ -117,10 +117,10 @@ const Drag = () => {
     if (!target.current.mouseUp) return
     e.stopPropagation();
     e.preventDefault();
-    const oldWidth = target.current.oldWidth
-    const oldHeight = target.current.oldHeight
-    const oldTop = target.current.oldTop
-    const oldLeft = target.current.oldLeft
+    // const oldWidth = target.current.oldWidth
+    // const oldHeight = target.current.oldHeight
+    // const oldTop = target.current.oldTop
+    // const oldLeft = target.current.oldLeft
     let moveX = e.pageX - target.current.startX;
     let moveY = e.pageY - target.current.startY;
     switch (className) {
@@ -162,12 +162,12 @@ const Drag = () => {
       default:
         left = Number(oldLeft) + moveX;
         top = Number(oldTop) + moveY;
-        if (width + left > maxWidth) {
-          left = maxWidth - width;
-        }
-        if (height + top > maxHeight) {
-          top = maxHeight - height;
-        }
+        // if (width + left > maxWidth) {
+        //   left = maxWidth - width;
+        // }
+        // if (height + top > maxHeight) {
+        //   top = maxHeight - height;
+        // }
         console.log('move', moveX, moveY)
         console.log('left top', top, left)
         break;
