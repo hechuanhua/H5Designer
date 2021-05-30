@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import initData from '../../config/initData';
+import { throttle, createUuid } from '../../utils';
 
-import { throttle } from '../../utils/index';
-import _ from 'lodash';
 const PageDiv = styled.div`
 	width: 500px;
 	margin: 0 auto;
@@ -70,22 +70,32 @@ const EditorPoint = styled.div`
 	}
 `;
 const Drag = () => {
-	const { dispatch } = useDispatch();
+	const dispatch = useDispatch();
+	const { layoutData, current } = useSelector(state => {
+		return state.setLibrary;
+	});
 	const page = useRef();
+	const layoutDataRef = useRef()
+	// const
 	let left = 0,
 		top = 0,
 		width = 200,
-		height = 100;
-	let maxWidth = 500;
-	let maxHeight = 700;
-	const styleDefault = {
-		position: 'absolute',
-		top,
-		left,
-		width,
-		height,
-	};
-	const [style, setStyle] = useState([{ ...styleDefault }, { ...styleDefault }]);
+		height = 100,
+		maxWidth = 500,
+		maxHeight = 700;
+
+	const [layout, setLayout] = useState([]);
+	console.log(JSON.parse(JSON.stringify(layoutData)), JSON.parse(JSON.stringify(current)), 'current');
+	useEffect(() => {
+		console.log(JSON.parse(JSON.stringify(layoutData)), 'pppppp');
+		const layout = layoutData.map(item => item.position);
+		setLayout(layout);
+		layoutDataRef.current = {
+			layoutData,
+			current
+		}
+	}, [layoutData]);
+
 	const down = (e, index) => {
 		let className = e.target.className.replace(/(.*)point-/, '');
 		let target = e.target;
@@ -103,14 +113,18 @@ const Drag = () => {
 			className: className,
 			index,
 		};
+		
 	};
 	const move = e => {
 		if (!page.current || !page.current.mouseInfo || !page.current.mouseInfo.mouseUp) return;
 		e.stopPropagation();
 		e.preventDefault();
-		const { oldWidth, oldHeight, oldTop, oldLeft, index, className, startX, startY } = page.current.mouseInfo;
+		const { oldWidth, oldHeight, oldTop, oldLeft, index, className, startX, startY } =
+			page.current.mouseInfo;
 		let moveX = e.pageX - startX;
 		let moveY = e.pageY - startY;
+		top = oldTop
+		left = oldLeft
 		switch (className) {
 			case 'top':
 				height = oldHeight - moveY;
@@ -166,17 +180,37 @@ const Drag = () => {
 		if (height + top > maxHeight) {
 			height = maxHeight - top;
 		}
-		setStyle(style => {
-			return [
-				...style.slice(0, index),
-				{ ...style[index], top, left, width, height },
-				...style.slice(index + 1, style.length),
+		console.log(left,top,width,height,'heightheightheightheight')
+		setLayout(layout => {
+			const newLayout = [
+				...layout.slice(0, index),
+				{ ...layout[index], x: left, y: top, w: width, h: height },
+				...layout.slice(index + 1, layout.length),
 			];
+			console.log(layout, newLayout, 'newLayout');
+			return newLayout;
 		});
 	};
 
 	const up = () => {
-		console.log('up');
+		console.log('up', page.current.mouseInfo,layoutDataRef.current,layout);
+		// const ret = layoutDataRef.current.layoutData.filter(item => item.id === layoutDataRef.current.current.id)[0];
+		const ret  = layout
+		// current
+		const position = {
+			x: ret.x,
+			y: ret.y,
+			w: ret.w,
+			h: ret.h,
+			i: ret.i,
+		};
+		dispatch({
+			type: 'setLibrary/update',
+			payload: {
+				id: layoutDataRef.current.current.id,
+				position,
+			},
+		});
 		if (page.current.mouseInfo) {
 			page.current.mouseInfo = null;
 		}
@@ -192,10 +226,32 @@ const Drag = () => {
 	}, []);
 
 	const onDrop = e => {
-		const x = e.pageX;
-		const y = e.pageY;
+		const type = e.dataTransfer.getData('text');
+		console.log('onDrop', e, type);
+
+		const x = e.pageX - page.current.offsetLeft;
+		const y = e.pageY - page.current.offsetTop;
+
+		const id = createUuid(6);
+		const position = {
+			x,
+			y,
+			w: 200,
+			h: 100,
+			i: id,
+		};
+		const payload = {
+			id,
+			position,
+			config: initData[type].config,
+			type: 'freedom',
+		};
+		dispatch({
+			type: 'setLibrary/add',
+			payload: payload,
+		});
 	};
-	const a = [1, 2];
+
 	return (
 		<PageDiv
 			ref={page}
@@ -204,10 +260,17 @@ const Drag = () => {
 				e.preventDefault();
 			}}
 		>
-			{a.map((item, index) => (
+			{console.log(layout, 111)}
+			{layout.map((item, index) => (
 				<DragDiv
 					className="drag"
-					style={style[index]}
+					style={{
+						position: 'absolute',
+						left: item.x,
+						top: item.y,
+						width: item.w,
+						height: item.h,
+					}}
 					key={index}
 					onMouseDown={e => {
 						down(e, index);

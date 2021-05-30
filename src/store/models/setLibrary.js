@@ -1,8 +1,6 @@
 /**
  * 当前选中的组件
  */
-import { createUuid } from '../../utils/index'
-import _ from 'lodash'
 
 const saveLayout = (data) => {
   localStorage.setItem('layout', JSON.stringify(data))
@@ -28,6 +26,7 @@ export default {
         ],
         current: payload,
       }
+      console.log(newState,'newState')
       saveLayout(newState.layoutData)
       return newState
     },

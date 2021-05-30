@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Drag1 from "./components/drag/Drag1"
+import Drag from "./components/common/Drag"
 import Library from "./components/library/Library"
 import Setting from "./components/setting/Setting"
 import { Provider } from 'react-redux'
@@ -18,7 +18,7 @@ const App = (props) =>{
     <Provider store={store}>
       <AppWrap>
         <Library></Library>
-        <Drag1></Drag1>
+        <Drag></Drag>
         <Setting></Setting>
       </AppWrap>
     </Provider>

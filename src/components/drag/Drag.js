@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import GridLayout from 'react-grid-layout';
 import { createUuid } from '../../utils/index'
-import initData from './initData'
+import initData from '../../config/initData'
 // import Draggable, {DraggableCore} from 'react-draggable';
 // import {Rnd} from 'react-rnd';
 
