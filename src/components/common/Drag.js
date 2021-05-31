@@ -75,31 +75,13 @@ const Drag = () => {
 		return state.setLibrary;
 	});
 	const page = useRef();
-	const layoutDataRef = useRef()
-	const dragDom = useRef()
-	// const
-	let left = 0,
-		top = 0,
-		width = 200,
-		height = 100,
-		maxWidth = 500,
+	let maxWidth = 500,
 		maxHeight = 700;
 
 	const [layout, setLayout] = useState([]);
-	// console.log(JSON.parse(JSON.stringify(layoutData)), JSON.parse(JSON.stringify(current)), 'current');
-
-	layoutDataRef.current = {
-		layoutData,
-		current
-	}
 
 	useEffect(() => {
-		// console.log(JSON.parse(JSON.stringify(layoutData)), 'pppppp');
 		const layout = layoutData.map(item => item.position);
-		layoutDataRef.current = {
-			...layoutDataRef.current,
-			layout
-		}
 		setLayout(layout);
 	}, [layoutData]);
 
@@ -109,7 +91,7 @@ const Drag = () => {
 		if (target.className.indexOf('drag') == -1) {
 			target = target.parentElement;
 		}
-		let id = target.getAttribute('data-id')
+		let id = target.getAttribute('data-id');
 		page.current.mouseInfo = {
 			mouseDown: true,
 			mouseMove: false,
@@ -121,18 +103,19 @@ const Drag = () => {
 			oldHeight: parseInt(target.style.height),
 			className: className,
 			index,
-			id
+			id,
 		};
+		console.log('down', JSON.parse(JSON.stringify(page.current.mouseInfo)), id);
 		dispatch({
-			type: "setLibrary/setActive",
+			type: 'setLibrary/setActive',
 			payload: {
-				id
+				id,
 			},
 		});
 	};
 	const move = e => {
-		if(!page.current.mouseInfo)return
-		console.log('move',JSON.parse(JSON.stringify(page.current.mouseInfo)))
+		if (!page.current.mouseInfo) return;
+		console.log('move', JSON.parse(JSON.stringify(page.current.mouseInfo)));
 		if (!page.current || !page.current.mouseInfo || !page.current.mouseInfo.mouseDown) return;
 		e.stopPropagation();
 		e.preventDefault();
@@ -140,8 +123,10 @@ const Drag = () => {
 			page.current.mouseInfo;
 		let moveX = e.pageX - startX;
 		let moveY = e.pageY - startY;
-		top = oldTop
-		left = oldLeft
+		let top = oldTop;
+		let left = oldLeft;
+		let width = oldWidth;
+		let height = oldHeight;
 		switch (className) {
 			case 'top':
 				height = oldHeight - moveY;
@@ -197,14 +182,13 @@ const Drag = () => {
 		if (height + top > maxHeight) {
 			height = maxHeight - top;
 		}
-		console.log(left,top,width,height,'heightheightheightheight')
 		page.current.mouseInfo = {
 			...page.current.mouseInfo,
 			top,
 			left,
 			width,
 			height,
-			mouseMove:true
+			mouseMove: true,
 		};
 		setLayout(layout => {
 			const newLayout = [
@@ -212,27 +196,26 @@ const Drag = () => {
 				{ ...layout[index], x: left, y: top, w: width, h: height },
 				...layout.slice(index + 1, layout.length),
 			];
-			
-			layoutDataRef.current = {
-				...layoutDataRef.current,
-				layout:newLayout
-			}
-			console.log(layout, newLayout, 'newLayout');
 			return newLayout;
 		});
 	};
 
 	const up = () => {
-		console.log('up',JSON.parse(JSON.stringify(layoutDataRef.current)),
-		JSON.parse(JSON.stringify(page.current.mouseInfo)))
-		if(!page.current.mouseInfo || !page.current.mouseInfo.mouseDown || !page.current.mouseInfo.mouseMove)return;
-		// let {top,left,width,height} = page.current.mouseInfo
+		if (
+			!page.current.mouseInfo ||
+			!page.current.mouseInfo.mouseDown ||
+			!page.current.mouseInfo.mouseMove
+		) {
+			page.current.mouseInfo = null;
+			return;
+		}
+		const { top, left, width, height, id } = page.current.mouseInfo;
 		const position = {
-			x: page.current.mouseInfo.left,
-			y: page.current.mouseInfo.top,
-			w: page.current.mouseInfo.width,
-			h: page.current.mouseInfo.height,
-			i: page.current.mouseInfo.id
+			x: left,
+			y: top,
+			w: width,
+			h: height,
+			i: id,
 		};
 		dispatch({
 			type: 'setLibrary/update',
@@ -241,32 +224,7 @@ const Drag = () => {
 				position,
 			},
 		});
-		if (page.current.mouseInfo) {
-			page.current.mouseInfo = null;
-		}
-		return
-		// console.log('up', page.current.mouseInfo,layoutDataRef.current,JSON.parse(JSON.stringify(layout)));
-		// // const ret = layoutDataRef.current.layoutData.filter(item => item.id === layoutDataRef.current.current.id)[0];
-		// const {top,left,width,height} = page.current.mouseInfo
-		// const ret  = layout
-		// // current
-		// const position = {
-		// 	x: left,
-		// 	y: top,
-		// 	w: width,
-		// 	h: height,
-		// 	i: layoutDataRef.current.id,
-		// };
-		// dispatch({
-		// 	type: 'setLibrary/update',
-		// 	payload: {
-		// 		id: layoutDataRef.current.current.id,
-		// 		position,
-		// 	},
-		// });
-		// if (page.current.mouseInfo) {
-		// 	page.current.mouseInfo = null;
-		// }
+		page.current.mouseInfo = null;
 	};
 
 	useEffect(() => {
@@ -280,8 +238,6 @@ const Drag = () => {
 
 	const onDrop = e => {
 		const type = e.dataTransfer.getData('text');
-		// console.log('onDrop', e, type);
-
 		const x = e.pageX - page.current.offsetLeft;
 		const y = e.pageY - page.current.offsetTop;
 
@@ -328,7 +284,6 @@ const Drag = () => {
 					onMouseDown={e => {
 						down(e, index);
 					}}
-					ref={dragDom}
 				>
 					<EditorPoint className="point-top"></EditorPoint>
 					<EditorPoint className="point-top-right"></EditorPoint>
