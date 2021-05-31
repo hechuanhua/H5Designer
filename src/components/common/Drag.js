@@ -76,6 +76,7 @@ const Drag = () => {
 	});
 	const page = useRef();
 	const layoutDataRef = useRef()
+	const dragDom = useRef()
 	// const
 	let left = 0,
 		top = 0,
@@ -130,6 +131,8 @@ const Drag = () => {
 		});
 	};
 	const move = e => {
+		if(!page.current.mouseInfo)return
+		console.log('move',JSON.parse(JSON.stringify(page.current.mouseInfo)))
 		if (!page.current || !page.current.mouseInfo || !page.current.mouseInfo.mouseDown) return;
 		e.stopPropagation();
 		e.preventDefault();
@@ -221,7 +224,7 @@ const Drag = () => {
 
 	const up = () => {
 		console.log('up',JSON.parse(JSON.stringify(layoutDataRef.current)),
-		JSON.parse(JSON.stringify(page.current.mouseInfo)),page.current.mouseInfo)
+		JSON.parse(JSON.stringify(page.current.mouseInfo)))
 		if(!page.current.mouseInfo || !page.current.mouseInfo.mouseDown || !page.current.mouseInfo.mouseMove)return;
 		// let {top,left,width,height} = page.current.mouseInfo
 		const position = {
@@ -325,6 +328,7 @@ const Drag = () => {
 					onMouseDown={e => {
 						down(e, index);
 					}}
+					ref={dragDom}
 				>
 					<EditorPoint className="point-top"></EditorPoint>
 					<EditorPoint className="point-top-right"></EditorPoint>
