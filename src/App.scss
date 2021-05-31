@@ -243,6 +243,7 @@ body {
 }
 .react-grid-item:not(.react-grid-placeholder) {
   background: #ccc;
+  border: 2px solid #ccc;
   &:hover{
     border: 2px solid red;
   }

@@ -10,6 +10,14 @@ const TextSetting = props => {
   console.log(config, 'config')
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    console.log('config.id')
+    form.setFieldsValue({
+      ...form.getFieldsValue(),
+      ...config
+    });
+  }, [config]);
+  
   const onValuesChange = (changedValues, allValues) => {
     console.log(changedValues, allValues, 'changedValues')
     dispatch({

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import initData from '../../config/initData';
@@ -83,6 +83,7 @@ const Drag = () => {
 	useEffect(() => {
 		const layout = layoutData.map(item => item.position);
 		setLayout(layout);
+		console.log(layoutData,'layoutData')
 	}, [layoutData]);
 
 	const down = (e, index) => {
@@ -97,10 +98,10 @@ const Drag = () => {
 			mouseMove: false,
 			startX: e.pageX,
 			startY: e.pageY,
-			oldLeft: parseInt(target.style.left),
-			oldTop: parseInt(target.style.top),
-			oldWidth: parseInt(target.style.width),
-			oldHeight: parseInt(target.style.height),
+			styleLeft: parseInt(target.style.left),
+			styleTop: parseInt(target.style.top),
+			styleWidth: parseInt(target.style.width),
+			styleHeight: parseInt(target.style.height),
 			className: className,
 			index,
 			id,
@@ -114,58 +115,56 @@ const Drag = () => {
 		});
 	};
 	const move = e => {
-		if (!page.current.mouseInfo) return;
-		console.log('move', JSON.parse(JSON.stringify(page.current.mouseInfo)));
 		if (!page.current || !page.current.mouseInfo || !page.current.mouseInfo.mouseDown) return;
 		e.stopPropagation();
 		e.preventDefault();
-		const { oldWidth, oldHeight, oldTop, oldLeft, index, className, startX, startY } =
+		const { styleWidth, styleHeight, styleTop, styleLeft, index, className, startX, startY } =
 			page.current.mouseInfo;
 		let moveX = e.pageX - startX;
 		let moveY = e.pageY - startY;
-		let top = oldTop;
-		let left = oldLeft;
-		let width = oldWidth;
-		let height = oldHeight;
+		let top = styleTop;
+		let left = styleLeft;
+		let width = styleWidth;
+		let height = styleHeight;
 		switch (className) {
 			case 'top':
-				height = oldHeight - moveY;
-				top = oldTop + moveY;
+				height = styleHeight - moveY;
+				top = styleTop + moveY;
 				break;
 			case 'right':
-				width = moveX + oldWidth;
+				width = moveX + styleWidth;
 				break;
 			case 'bottom':
-				height = moveY + oldHeight;
+				height = moveY + styleHeight;
 				break;
 			case 'left':
-				width = oldWidth - moveX;
-				left = oldLeft + moveX;
+				width = styleWidth - moveX;
+				left = styleLeft + moveX;
 				break;
 			case 'top-right':
-				height = oldHeight - moveY;
-				width = moveX + oldWidth;
-				top = oldTop + moveY;
+				height = styleHeight - moveY;
+				width = moveX + styleWidth;
+				top = styleTop + moveY;
 				break;
 			case 'bottom-right':
-				height = moveY + oldHeight;
-				width = moveX + oldWidth;
+				height = moveY + styleHeight;
+				width = moveX + styleWidth;
 				break;
 			case 'bottom-left':
-				height = moveY + oldHeight;
-				width = oldWidth - moveX;
-				left = oldLeft + moveX;
+				height = moveY + styleHeight;
+				width = styleWidth - moveX;
+				left = styleLeft + moveX;
 				break;
 			case 'top-left':
-				height = oldHeight - moveY;
-				top = oldTop + moveY;
-				width = oldWidth - moveX;
-				left = oldLeft + moveX;
+				height = styleHeight - moveY;
+				top = styleTop + moveY;
+				width = styleWidth - moveX;
+				left = styleLeft + moveX;
 				break;
 
 			default:
-				left = Number(oldLeft) + moveX;
-				top = Number(oldTop) + moveY;
+				left = Number(styleLeft) + moveX;
+				top = Number(styleTop) + moveY;
 				if (width + left > maxWidth) {
 					left = maxWidth - width;
 				}
@@ -271,7 +270,7 @@ const Drag = () => {
 		>
 			{layout.map((item, index) => (
 				<DragDiv
-					className="drag"
+					className={item.i == current.id ? 'active drag' : 'drag'}
 					style={{
 						position: 'absolute',
 						left: item.x,

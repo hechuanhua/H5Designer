@@ -20,7 +20,7 @@ const ImgSetting = props => {
     if (Array.isArray(e)) {
       return e;
     }
-    return e && e.fileList;
+    // return e && e.fileList;
   };
 
   const onValuesChange = (changedValues, allValues) => {
