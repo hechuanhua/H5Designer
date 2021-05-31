@@ -51,6 +51,7 @@ export default {
         layoutData,
         current,
       }
+      console.log('update modal=>',newState)
       saveLayout(newState.layoutData)
       return newState
     },
