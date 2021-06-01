@@ -9,8 +9,12 @@ const PageDiv = styled.div`
 	margin: 0 auto;
 	border: 1px solid #ddd;
 	height: 800px;
-	position: relative;
+	position: absolute;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+	top:0;
+	left:0;
+	display:none;
+	pointer-events: none;
 `;
 const DragDiv = styled.div`
 	width: 200px;

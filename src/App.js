@@ -16,10 +16,7 @@ const App = (props) =>{
       <div className="a" onClick={()=>{setFree(!free)}}>切换模式</div>
       <div>
         <Library></Library>
-        {
-          free?<Drag></Drag>:<CommonDrag></CommonDrag>
-        }
-        
+        <Drag></Drag>
         <Setting></Setting>
       </div>
     </Provider>
