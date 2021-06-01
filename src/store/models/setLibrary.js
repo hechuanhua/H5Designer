@@ -10,6 +10,7 @@ export default {
   name: "setLibrary",
   state: {
     layoutData: [],
+    newLayoutData:[],
     current: {}
   },
   effects: (dispatch) => ({
@@ -18,20 +19,37 @@ export default {
   }),
   reducers: {
     add(state, payload) {
-      const newState = {
-        ...state,
-        layoutData: [
-          ...state.layoutData,
-          payload
-        ],
-        current: payload,
+      let newState = {}
+      if(payload.type == 'flow'){
+        newState = {
+          ...state,
+          layoutData: [
+            ...state.layoutData,
+            payload
+          ],
+          current: payload,
+        }
+      } else {
+        newState = {
+          ...state,
+          newLayoutData: [
+            ...state.newLayoutData,
+            payload
+          ],
+          current: payload,
+        }
       }
       console.log(newState,'newState')
       saveLayout(newState.layoutData)
       return newState
     },
     setActive(state, payload) {
-      const current = state.layoutData.filter(item => item.id === payload.id)[0]
+      let current = {}
+      if(payload.type === 'flow'){
+        current = state.layoutData.filter(item => item.id === payload.id)[0]
+      } else {
+        current = state.newLayoutData.filter(item => item.id === payload.id)[0]
+      }
       return {
         ...state,
         current
@@ -39,34 +57,70 @@ export default {
     },
     update(state, payload){
       console.log(payload,'update')
-      const layoutData = state.layoutData.map(item => {
-        if (item.id === payload.id) {
-          item.position = { ...item.position, ...payload.position }
+      let layoutData = []
+      let current = {}
+      let newState = {}
+      if(payload.type === 'flow'){
+        layoutData = state.layoutData.map(item => {
+          if (item.id === payload.id) {
+            item.position = { ...item.position, ...payload.position }
+          }
+          return item
+        })
+        current = state.layoutData.filter(item => item.id === payload.id)[0]
+        newState = {
+          ...state,
+          layoutData,
+          current,
         }
-        return item
-      })
-      const current = state.layoutData.filter(item => item.id === payload.id)[0]
-      const newState = {
-        ...state,
-        layoutData,
-        current,
+      } else {
+        layoutData = state.newLayoutData.map(item => {
+          if (item.id === payload.id) {
+            item.position = { ...item.position, ...payload.position }
+          }
+          return item
+        })
+        current = state.newLayoutData.filter(item => item.id === payload.id)[0]
+        newState = {
+          ...state,
+          newLayoutData:layoutData,
+          current,
+        }
       }
+      
       console.log('update modal=>',newState)
       saveLayout(newState.layoutData)
       return newState
     },
     setting(state, payload) {
-      const layoutData = state.layoutData.map(item => {
-        if (item.id === state.current.id) {
-          item.position = { ...item.position, ...payload.position }
-          item.config = { ...item.config, ...payload.config}
+      let layoutData = []
+      let newState = {}
+      if(payload.type === 'flow'){
+        layoutData = state.layoutData.map(item => {
+          if (item.id === state.current.id) {
+            item.position = { ...item.position, ...payload.position }
+            item.config = { ...item.config, ...payload.config}
+          }
+          return item
+        })
+        newState = {
+          ...state,
+          layoutData
         }
-        return item
-      })
-      const newState = {
-        ...state,
-        layoutData
-      }
+      } else {
+        layoutData = state.newLayoutData.map(item => {
+          if (item.id === state.current.id) {
+            item.position = { ...item.position, ...payload.position }
+            item.config = { ...item.config, ...payload.config}
+          }
+          return item
+        })
+        newState = {
+          ...state,
+          newLayoutData:layoutData
+        }
+      } 
+      
       saveLayout(newState.layoutData)
       return newState
     }

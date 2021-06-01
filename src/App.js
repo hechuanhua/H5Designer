@@ -10,13 +10,13 @@ import { useEffect, useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 
 const App = (props) =>{
-  const [free,setFree] = useState(true)
+  const [free,setFree] = useState(false)
   return(
     <Provider store={store}>
       <div className="a" onClick={()=>{setFree(!free)}}>切换模式</div>
       <div>
         <Library></Library>
-        <Drag></Drag>
+        <Drag free={free}></Drag>
         <Setting></Setting>
       </div>
     </Provider>

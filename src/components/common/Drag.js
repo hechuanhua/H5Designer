@@ -13,8 +13,11 @@ const PageDiv = styled.div`
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 	top:0;
 	left:0;
-	display:none;
 	pointer-events: none;
+	z-index:20;
+	&.free{
+		pointer-events: auto;
+	}
 `;
 const DragDiv = styled.div`
 	width: 200px;
@@ -73,22 +76,24 @@ const EditorPoint = styled.div`
 		cursor: nwse-resize;
 	}
 `;
-const Drag = () => {
+const Drag = (props) => {
 	const dispatch = useDispatch();
-	const { layoutData, current } = useSelector(state => {
+	const {free} = props
+	const { newLayoutData, current } = useSelector(state => {
 		return state.setLibrary;
 	});
+	console.log(free,'free')
 	const page = useRef();
 	let maxWidth = 500,
 		maxHeight = 700;
 
 	const [layout, setLayout] = useState([]);
-
+	
 	useEffect(() => {
-		const layout = layoutData.map(item => item.position);
+		const layout = newLayoutData.map(item => item.position);
 		setLayout(layout);
-		console.log(layoutData,'layoutData')
-	}, [layoutData]);
+		console.log(newLayoutData,'newLayoutData')
+	}, [newLayoutData]);
 
 	const down = (e, index) => {
 		let className = e.target.className.replace(/(.*)point-/, '');
@@ -241,9 +246,10 @@ const Drag = () => {
 
 	const onDrop = e => {
 		const type = e.dataTransfer.getData('text');
-		const x = e.pageX - page.current.offsetLeft;
-		const y = e.pageY - page.current.offsetTop;
-
+		const x = e.pageX - 470 || page.current.offsetLeft;
+		const y = e.pageY - 36 || page.current.offsetTop;
+		// const x = e.pageX
+		// const y = e.pageY
 		const id = createUuid(6);
 		const position = {
 			x,
@@ -271,6 +277,7 @@ const Drag = () => {
 			onDragOver={e => {
 				e.preventDefault();
 			}}
+			className={free?'free':''}
 		>
 			{layout.map((item, index) => (
 				<DragDiv

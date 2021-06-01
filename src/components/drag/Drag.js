@@ -12,7 +12,7 @@ const PageDiv = styled.div`
 	margin: 0 auto;
 	border: 1px solid #ddd;
 	height: 800px;
-	position: relative;
+  position:relative;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 `;
 const Mt10 = styled.div`
@@ -22,10 +22,10 @@ const Label = styled.label`
 	display: inline-block;
 	margin-top: 10px;
 `;
-const Drag = () => {
+const Drag = (props) => {
 	const dispatch = useDispatch();
 	const [layout, setLayout] = useState([]);
-
+  const {free} = props
 	const { layoutData, current } = useSelector(state => {
 		return state.setLibrary;
 	});
@@ -52,6 +52,7 @@ const Drag = () => {
 			id,
 			position,
 			config: initData[type].config,
+      type:'flow'
 		};
 		dispatch({
 			type: 'setLibrary/add',
@@ -66,6 +67,7 @@ const Drag = () => {
 				type: 'setLibrary/setActive',
 				payload: {
 					id: newItem.i,
+          type:'flow',
 				},
 			});
 		}
@@ -84,6 +86,7 @@ const Drag = () => {
 			payload: {
 				id: newItem.i,
 				position,
+        type:'flow'
 			},
 		});
 	};
@@ -102,6 +105,7 @@ const Drag = () => {
 			payload: {
 				id: newItem.i,
 				position,
+        type:'flow'
 			},
 		});
 	};
@@ -154,7 +158,7 @@ const Drag = () => {
 
 	return (
 		<PageDiv>
-      <CommonDrag></CommonDrag>
+      <CommonDrag free={free}></CommonDrag>
 			<GridLayout
 				style={{ minHeight: 700 }}
 				className="layout"
