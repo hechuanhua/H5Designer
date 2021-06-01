@@ -1,5 +1,5 @@
 /**
- * 当前选中的组件
+ * 设置组件布局
  */
 
 const saveLayout = (data) => {
@@ -95,7 +95,7 @@ export default {
     setting(state, payload) {
       let layoutData = []
       let newState = {}
-      if(payload.type === 'flow'){
+      if(state.current.type === 'flow'){
         layoutData = state.layoutData.map(item => {
           if (item.id === state.current.id) {
             item.position = { ...item.position, ...payload.position }
