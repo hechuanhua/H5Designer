@@ -21,6 +21,18 @@ const Label = styled.label`
 	display: inline-block;
 	margin-top: 10px;
 `;
+const Icon = styled.div.attrs(props => ({
+  className: 'iconfont'
+}))`
+  font-size:15px;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 15px;
+  cursor: pointer;
+  z-index: 30;
+`
+
 const Drag = (props) => {
 	const dispatch = useDispatch();
 	const [layout, setLayout] = useState([]);
@@ -109,6 +121,16 @@ const Drag = (props) => {
 		});
 	};
 
+  const removeItem = (id) => {
+    dispatch({
+			type: 'setLibrary/remove',
+			payload: {
+				id,
+        type:'flow'
+			},
+		});
+  }
+
 	const generateDOM = () => {
 		return layoutData.map((item, index) => {
 			if (item.config.type == 'img') {
@@ -118,6 +140,8 @@ const Drag = (props) => {
 						data-grid={item.position}
 						className={item.id === current.id ? 'active' : ''}
 					>
+            
+            <Icon onClick={()=>{removeItem(item.id)}}>&#xe60a;</Icon>
 						<img src={item.config.url} alt="" />
 					</div>
 				);
@@ -128,6 +152,7 @@ const Drag = (props) => {
 						data-grid={item.position}
 						className={item.id === current.id ? 'active' : ''}
 					>
+            <Icon onClick={()=>{removeItem(item.id)}}>&#xe60a;</Icon>
 						{item.config.text}
 					</div>
 				);
@@ -138,6 +163,7 @@ const Drag = (props) => {
 						data-grid={item.position}
 						className={item.id === current.id ? 'active' : ''}
 					>
+            <Icon onClick={()=>{removeItem(item.id)}}>&#xe60a;</Icon>
 						<div className="preview radio">
 							<Mt10>{item.config.title}</Mt10>
 							<div>

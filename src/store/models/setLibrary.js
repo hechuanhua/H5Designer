@@ -10,7 +10,7 @@ export default {
   name: "setLibrary",
   state: {
     layoutData: [],
-    newLayoutData:[],
+    newLayoutData: [],
     current: {}
   },
   effects: (dispatch) => ({
@@ -20,7 +20,7 @@ export default {
   reducers: {
     add(state, payload) {
       let newState = {}
-      if(payload.type == 'flow'){
+      if (payload.type === 'flow') {
         newState = {
           ...state,
           layoutData: [
@@ -39,13 +39,32 @@ export default {
           current: payload,
         }
       }
-      console.log(newState,'newState')
+      console.log(newState, 'newState')
       saveLayout(newState.layoutData)
+      return newState
+    },
+    remove(state, payload) {
+      let newState = {}
+      if (payload.type === 'flow') {
+        const layoutData = state.layoutData.filter(item => item.id !== payload.id)
+        newState = {
+          ...state,
+          layoutData,
+          current:{},
+        }
+      } else {
+        const newLayoutData = state.newLayoutData.filter(item => item.id !== payload.id)
+        newState = {
+          ...state,
+          newLayoutData,
+          current:{},
+        }
+      }
       return newState
     },
     setActive(state, payload) {
       let current = {}
-      if(payload.type === 'flow'){
+      if (payload.type === 'flow') {
         current = state.layoutData.filter(item => item.id === payload.id)[0]
       } else {
         current = state.newLayoutData.filter(item => item.id === payload.id)[0]
@@ -55,12 +74,12 @@ export default {
         current
       }
     },
-    update(state, payload){
-      console.log(payload,'update')
+    update(state, payload) {
+      console.log(payload, 'update')
       let layoutData = []
       let current = {}
       let newState = {}
-      if(payload.type === 'flow'){
+      if (payload.type === 'flow') {
         layoutData = state.layoutData.map(item => {
           if (item.id === payload.id) {
             item.position = { ...item.position, ...payload.position }
@@ -83,23 +102,23 @@ export default {
         current = state.newLayoutData.filter(item => item.id === payload.id)[0]
         newState = {
           ...state,
-          newLayoutData:layoutData,
+          newLayoutData: layoutData,
           current,
         }
       }
-      
-      console.log('update modal=>',newState)
+
+      console.log('update modal=>', newState)
       saveLayout(newState.layoutData)
       return newState
     },
     setting(state, payload) {
       let layoutData = []
       let newState = {}
-      if(state.current.type === 'flow'){
+      if (state.current.type === 'flow') {
         layoutData = state.layoutData.map(item => {
           if (item.id === state.current.id) {
             item.position = { ...item.position, ...payload.position }
-            item.config = { ...item.config, ...payload.config}
+            item.config = { ...item.config, ...payload.config }
           }
           return item
         })
@@ -111,16 +130,16 @@ export default {
         layoutData = state.newLayoutData.map(item => {
           if (item.id === state.current.id) {
             item.position = { ...item.position, ...payload.position }
-            item.config = { ...item.config, ...payload.config}
+            item.config = { ...item.config, ...payload.config }
           }
           return item
         })
         newState = {
           ...state,
-          newLayoutData:layoutData
+          newLayoutData: layoutData
         }
-      } 
-      
+      }
+
       saveLayout(newState.layoutData)
       return newState
     }
