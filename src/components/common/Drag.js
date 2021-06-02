@@ -8,15 +8,15 @@ const PageDiv = styled.div`
 	width: 500px;
 	margin: 0 auto;
 	border: 1px solid #ddd;
-	height: 800px;
+	height: 700px;
 	position: absolute;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 	top:0;
 	left:0;
 	pointer-events: none;
-	z-index:20;
 	&.free{
 		pointer-events: auto;
+		z-index:20;
 	}
 `;
 const DragDiv = styled.div`
@@ -254,8 +254,8 @@ const Drag = (props) => {
 		const position = {
 			x,
 			y,
-			w: 200,
-			h: 100,
+			w: initData[type].w*10,
+			h: initData[type].h,
 			i: id,
 		};
 		const payload = {
@@ -268,6 +268,34 @@ const Drag = (props) => {
 			type: 'setLibrary/add',
 			payload: payload,
 		});
+	};
+
+	const generateDOM = (item,index) => {
+			if (item.config.type == 'img') {
+				return (
+					<img src={item.config.url} alt="" />
+				);
+			} else if (item.config.type == 'text') {
+				return (
+					<>
+					{item.config.text}
+					</>
+				);
+			} else if (item.config.type == 'radio') {
+				return (
+					<div className="preview radio">
+							<Mt10>{item.config.title}</Mt10>
+							<div>
+								{item.config.list.map((v, i) => (
+									<Label style={{ width: `${100 / item.config.layoutType}%` }} key={i}>
+										<input type="radio" name={`label${item.id}`} id={`label${item.id}`} />
+										<span>{v.label}</span>
+									</Label>
+								))}
+							</div>
+						</div>
+				);
+			}
 	};
 
 	return (
@@ -303,6 +331,7 @@ const Drag = (props) => {
 					<EditorPoint className="point-bottom-left"></EditorPoint>
 					<EditorPoint className="point-left"></EditorPoint>
 					<EditorPoint className="point-top-left"></EditorPoint>
+					{generateDOM(newLayoutData[index],index)}
 				</DragDiv>
 			))}
 		</PageDiv>

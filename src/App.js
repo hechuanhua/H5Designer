@@ -12,8 +12,16 @@ import { Tabs, Radio } from 'antd';
 
 import 'antd/dist/antd.css';
 
-const Tc = styled.div`
-	text-align:center
+const Header = styled.div`
+	text-align:center;
+  position: fixed;
+  top: 10px;
+  width: 100%;
+`;
+const Container = styled.div`
+  top: 60px;
+  width: 100%;
+  margin-top:50px;
 `;
 
 const App = (props) => {
@@ -23,17 +31,17 @@ const App = (props) => {
   }
   return (
     <Provider store={store}>
-      <Tc>
+      <Header>
         <Radio.Group defaultValue={false} onChange={onChange} style={{ marginBottom: 16 }}>
           <Radio.Button value={false}>流动布局</Radio.Button>
           <Radio.Button value={true}>嵌套布局</Radio.Button>
         </Radio.Group>
-      </Tc>
-      <div>
+      </Header>
+      <Container>
         <Library></Library>
         <Drag free={free}></Drag>
         <Setting></Setting>
-      </div>
+      </Container>
     </Provider>
   )
 }

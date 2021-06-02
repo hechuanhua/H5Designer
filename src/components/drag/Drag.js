@@ -10,7 +10,6 @@ import CommonDrag from '../common/Drag'
 const PageDiv = styled.div`
 	width: 500px;
 	margin: 0 auto;
-	border: 1px solid #ddd;
 	height: 800px;
   position:relative;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
