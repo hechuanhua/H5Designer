@@ -5,14 +5,16 @@
 const saveLayout = (data) => {
   localStorage.setItem('layout', JSON.stringify(data))
 }
-
+// {"layoutData":[{"id":"671868","position":{"x":12,"y":0,"w":50,"h":238,"i":"671868"},"config":{"type":"img","url":"https://dummyimage.com/500x240"},"type":"flow"},{"id":"432600","position":{"x":5,"y":238,"w":20,"h":40,"i":"432600"},"config":{"type":"text","text":"我是测试文字111"},"type":"flow"}],"newLayoutData":[{"id":"367481","position":{"x":0,"y":25,"w":200,"h":40,"i":"367481"},"config":{"type":"text","text":"我是测试文字2222"},"type":"freedom"},{"id":"908797","position":{"x":300,"y":80,"w":200,"h":40,"i":"908797"},"config":{"type":"text","text":"我是测试文字3333"},"type":"freedom"},{"id":"479011","position":{"x":30,"y":123,"w":401,"h":150,"i":"479011"},"config":{"type":"radio","title":"我是单选字段标题","list":[{"label":"我是字段122"},{"label":"我是字段233"},{"label":"我是字段344"}],"layoutType":"1"},"type":"freedom"}],"current":{"id":"479011","position":{"x":30,"y":123,"w":401,"h":150,"i":"479011"},"config":{"type":"radio","title":"我是单选字段标题","list":[{"label":"我是字段122"},{"label":"我是字段233"},{"label":"我是字段344"}],"layoutType":"1"},"type":"freedom"}}
+// const initData = JSON.parse(localStorage.getItem('layout'))
+const initData = {
+  layoutData: [],
+  newLayoutData: [],
+  current: {}
+}
 export default {
   name: "setLibrary",
-  state: {
-    layoutData: [],
-    newLayoutData: [],
-    current: {}
-  },
+  state: initData,
   effects: (dispatch) => ({
     editLibrary(payload, rootState) {
     }
@@ -40,7 +42,7 @@ export default {
         }
       }
       console.log(newState, 'newState')
-      saveLayout(newState.layoutData)
+      saveLayout(newState)
       return newState
     },
     remove(state, payload) {
@@ -60,6 +62,7 @@ export default {
           current:{},
         }
       }
+      saveLayout(newState)
       return newState
     },
     setActive(state, payload) {
@@ -108,7 +111,7 @@ export default {
       }
 
       console.log('update modal=>', newState)
-      saveLayout(newState.layoutData)
+      saveLayout(newState)
       return newState
     },
     setting(state, payload) {
@@ -140,7 +143,7 @@ export default {
         }
       }
 
-      saveLayout(newState.layoutData)
+      saveLayout(newState)
       return newState
     }
   },
