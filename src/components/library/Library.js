@@ -4,18 +4,20 @@ import styled from "styled-components";
 
 const Sider = styled.div`
   position:fixed;
-  top:20px;
-  left:320px;
+  top:52px;
+  left:0;
+  bottom:0;
+  background:#fff;
+  width:300px;
   ul{
     display:flex;
     flex-direction: column;
+    align-items: center;
   }
 `
 const Li = styled.li.attrs(props => ({
   draggable: 'true'
 }))`
-  width:100px;
-  height:100px;
   display:inline-block;
   text-align:center;
   cursor: pointer;
@@ -23,11 +25,12 @@ const Li = styled.li.attrs(props => ({
   margin-top: 5px;
   padding: 10px 20px;
   border: 1px solid;
+  width:80px;
 `
 const Icon = styled.div.attrs(props => ({
   className: 'iconfont'
 }))`
-  font-size:50px
+  font-size:30px
 `
 
 const Library = (e) => {

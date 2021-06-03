@@ -10,6 +10,9 @@
        url('//at.alicdn.com/t/font_2547986_0itraq6sdo9k.woff?t=1622615943237') format('woff'),
        url('//at.alicdn.com/t/font_2547986_0itraq6sdo9k.ttf?t=1622615943237') format('truetype');
 }
+body{
+  background: #f8f7f7;
+}
 img{
   max-width: 100%;
 }
@@ -220,13 +223,6 @@ img{
 
 
 
-
-body {
-  padding: 20px;
-}
-#content {
-  width: 100%;
-}
 .react-grid-layout {
   background: #eee;
 }

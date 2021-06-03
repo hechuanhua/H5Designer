@@ -59,9 +59,6 @@ const ImgSetting = props => {
       name="control-hooks"
       onValuesChange={onValuesChange}
     >
-      <Form.Item name="note" label="文本" rules={[{ required: true }]}>
-        <Input />
-      </Form.Item>
       <Form.Item label="上传图片：">
         <Form.Item
           name="img"

@@ -16,7 +16,7 @@ const initData = {
     }
   },
   radio:{
-    w:10,
+    w:50,
     h:150,
     config:{
       type:'radio',

@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import styled from "styled-components";
 import store from './store'
 
-import { Tabs, Radio } from 'antd';
+import { Tabs, Radio, Button } from 'antd';
 
 import 'antd/dist/antd.css';
 
@@ -32,6 +32,11 @@ const App = (props) => {
   return (
     <Provider store={store}>
       <Header>
+        <>
+        <Button type="primary">预览</Button>
+        <Button type="primary">保存</Button>
+        <Button type="primary">发布</Button>
+        </>
         <Radio.Group defaultValue={false} onChange={onChange} style={{ marginBottom: 16 }}>
           <Radio.Button value={false}>流动布局</Radio.Button>
           <Radio.Button value={true}>嵌套布局</Radio.Button>
