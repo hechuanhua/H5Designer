@@ -6,9 +6,9 @@ import { createGlobalStyle } from "styled-components";
 import store from './store'
 import Routes from './pages/Routers'
 
-
-import './App.scss';
 import 'antd/dist/antd.css';
+import './App.scss';
+import './antRest.scss';
 
 const GlobalStyle = createGlobalStyle`
 *{

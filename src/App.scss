@@ -323,3 +323,20 @@ img{
   margin: 10px 0;
   padding: 10px;
 }
+
+.preview{
+  box-shadow:none!important;
+  height: auto!important;
+  .react-grid-layout {
+    transition: none;
+  }
+  .react-grid-item {
+    transition: none;
+    &:hover{
+      border:2px solid #ccc;
+    }
+    &.active{
+      border:2px solid #ccc;
+    }
+  }
+}

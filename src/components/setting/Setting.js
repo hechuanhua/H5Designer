@@ -15,7 +15,7 @@ const SettingWrap = styled.div`
   flex:1;
   position:fixed;
   right:0;
-  top:52px;
+  top:54px;
   bottom:0;
   width:300px;
   background:#fff;

@@ -2,30 +2,18 @@ import { useEffect, useRef, useState, useContext } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import styled from "styled-components";
 
-const Sider = styled.div`
-  position:fixed;
-  top:52px;
-  left:0;
-  bottom:0;
-  background:#fff;
-  width:300px;
-  ul{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-  }
-`
+
 const Li = styled.li.attrs(props => ({
   draggable: 'true'
 }))`
-  display:inline-block;
   text-align:center;
   cursor: pointer;
   flex:1;
-  margin-top: 5px;
+  margin-bottom: 5px;
   padding: 10px 20px;
   border: 1px solid;
   width:80px;
+  margin-left:10px;
 `
 const Icon = styled.div.attrs(props => ({
   className: 'iconfont'
@@ -40,8 +28,7 @@ const Library = (e) => {
     e.dataTransfer.setData("text/plain", type);
   }
   return (
-    <Sider>
-      <h2>组件设置</h2>
+    <>
       <ul>
         <Li onDragStart={(e) => { ondragstart(e, 'img') }}>
           <div>图片</div>
@@ -68,7 +55,7 @@ const Library = (e) => {
           <Icon>&#xe7c2;</Icon>
         </Li>
       </ul>
-    </Sider>
+    </>
   );
 
 };

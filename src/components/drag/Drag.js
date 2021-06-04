@@ -36,7 +36,6 @@ const Icon = styled.div.attrs(props => ({
 const Drag = (props) => {
 	const dispatch = useDispatch();
 	const [layout, setLayout] = useState([]);
-  const {free} = props
 	const { layoutData, current } = useSelector(state => {
 		return state.setLibrary;
 	});
@@ -183,7 +182,7 @@ const Drag = (props) => {
 
 	return (
 		<PageDiv>
-      <CommonDrag free={free}></CommonDrag>
+      <CommonDrag></CommonDrag>
 			<GridLayout
 				style={{ minHeight: 700 }}
 				className="layout"

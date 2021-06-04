@@ -96,11 +96,9 @@ const Icon = styled.div.attrs(props => ({
 `
 const Drag = (props) => {
 	const dispatch = useDispatch();
-	const { free } = props
-	const { newLayoutData, current } = useSelector(state => {
+	const { newLayoutData, current, layoutType } = useSelector(state => {
 		return state.setLibrary;
 	});
-	console.log(free, current, 'free')
 	const page = useRef();
 	let maxWidth = 500,
 		maxHeight = 700;
@@ -340,7 +338,7 @@ const Drag = (props) => {
 			onDragOver={e => {
 				e.preventDefault();
 			}}
-			className={free ? 'free' : ''}
+			className={layoutType =='freedom' ? 'free' : ''}
 		>
 			{
 				console.log(layout, newLayoutData, 'newLayoutDatanewLayoutDatanewLayoutData')
