@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import './App.scss';
+import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals';
 import { createGlobalStyle } from "styled-components";
+import store from './store'
+import Routes from './pages/Routers'
+
+import 'antd/dist/antd.css';
+import './App.scss';
+import './antRest.scss';
 
 const GlobalStyle = createGlobalStyle`
 *{
@@ -22,7 +27,9 @@ ul,li{
 
 ReactDOM.render(
   <>
-    <App />
+    <Provider store={store}>
+      <Routes></Routes>
+    </Provider>,
     <GlobalStyle/>
   </>,
   document.getElementById('root')

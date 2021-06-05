@@ -6,9 +6,15 @@
 // }
 @font-face {
   font-family: 'iconfont';  /* Project id 2547986 */
-  src: url('//at.alicdn.com/t/font_2547986_ye023rcykbs.woff2?t=1622113803148') format('woff2'),
-       url('//at.alicdn.com/t/font_2547986_ye023rcykbs.woff?t=1622113803148') format('woff'),
-       url('//at.alicdn.com/t/font_2547986_ye023rcykbs.ttf?t=1622113803148') format('truetype');
+  src: url('//at.alicdn.com/t/font_2547986_ym2w6gj9eie.woff2?t=1622860770918') format('woff2'),
+       url('//at.alicdn.com/t/font_2547986_ym2w6gj9eie.woff?t=1622860770918') format('woff'),
+       url('//at.alicdn.com/t/font_2547986_ym2w6gj9eie.ttf?t=1622860770918') format('truetype');
+}
+body{
+  background: #f8f7f7;
+}
+img{
+  max-width: 100%;
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -217,13 +223,6 @@
 
 
 
-
-body {
-  padding: 20px;
-}
-#content {
-  width: 100%;
-}
 .react-grid-layout {
   background: #eee;
 }
@@ -323,4 +322,21 @@ body {
   border: 1px solid black;
   margin: 10px 0;
   padding: 10px;
+}
+
+.preview{
+  box-shadow:none!important;
+  height: auto!important;
+  .react-grid-layout {
+    transition: none;
+  }
+  .react-grid-item {
+    transition: none;
+    &:hover{
+      border:2px solid #ccc;
+    }
+    &.active{
+      border:2px solid #ccc;
+    }
+  }
 }

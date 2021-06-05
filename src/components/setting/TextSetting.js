@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useContext } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { Form, Input } from "antd"
+import { Form, Input, Select } from "antd"
 
 const TextSetting = props => {
   const config = useSelector(state => {
@@ -19,6 +19,7 @@ const TextSetting = props => {
   }, [config]);
   
   const onValuesChange = (changedValues, allValues) => {
+    return
     console.log(changedValues, allValues, 'changedValues')
     dispatch({
       type: "setLibrary/setting",
@@ -34,6 +35,12 @@ const TextSetting = props => {
       <Form.Item name="text" label="文本">
         <Input />
       </Form.Item>
+      <Form.Item label="固定位置" name="fixed">
+				<Select allowClear>
+          <Option value="current">固定当前位置</Option>
+					<Option value="bottom">固定底部</Option>
+				</Select>
+			</Form.Item>
     </Form>
   );
 }

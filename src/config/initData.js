@@ -4,7 +4,8 @@ const initData = {
     h: 238,
     config:{
       type:'img',
-      url:'https://dummyimage.com/500x240'
+      url:'https://dummyimage.com/500x240',
+      fixed:'bottom'
     }
   },
   text: {
@@ -16,7 +17,7 @@ const initData = {
     }
   },
   radio:{
-    w:10,
+    w:50,
     h:150,
     config:{
       type:'radio',

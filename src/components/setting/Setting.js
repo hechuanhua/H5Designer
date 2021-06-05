@@ -13,11 +13,12 @@ const SettingWrap = styled.div`
   display:flex;
   flex-direction: column;
   flex:1;
-  margin-left:100px;
   position:fixed;
-  right:120px;
-  top:20px;
+  right:0;
+  top:54px;
+  bottom:0;
   width:300px;
+  background:#fff;
 `
 const Setting = (e) => {
   const current = useSelector(state => {
