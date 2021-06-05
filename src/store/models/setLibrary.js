@@ -5,10 +5,10 @@
 const saveLayout = (data) => {
   localStorage.setItem('layout', JSON.stringify(data))
 }
-// {"layoutData":[{"id":"671868","position":{"x":12,"y":0,"w":50,"h":238,"i":"671868"},"config":{"type":"img","url":"https://dummyimage.com/500x240"},"type":"flow"},{"id":"432600","position":{"x":5,"y":238,"w":20,"h":40,"i":"432600"},"config":{"type":"text","text":"我是测试文字111"},"type":"flow"}],"newLayoutData":[{"id":"367481","position":{"x":0,"y":25,"w":200,"h":40,"i":"367481"},"config":{"type":"text","text":"我是测试文字2222"},"type":"freedom"},{"id":"908797","position":{"x":300,"y":80,"w":200,"h":40,"i":"908797"},"config":{"type":"text","text":"我是测试文字3333"},"type":"freedom"},{"id":"479011","position":{"x":30,"y":123,"w":401,"h":150,"i":"479011"},"config":{"type":"radio","title":"我是单选字段标题","list":[{"label":"我是字段122"},{"label":"我是字段233"},{"label":"我是字段344"}],"layoutType":"1"},"type":"freedom"}],"current":{"id":"479011","position":{"x":30,"y":123,"w":401,"h":150,"i":"479011"},"config":{"type":"radio","title":"我是单选字段标题","list":[{"label":"我是字段122"},{"label":"我是字段233"},{"label":"我是字段344"}],"layoutType":"1"},"type":"freedom"}}
+// {"layoutData":[{"id":"671868","position":{"x":12,"y":0,"w":50,"h":238,"i":"671868"},"config":{"type":"img","url":"https://dummyimage.com/500x240"},"type":"flow"},{"id":"432600","position":{"x":5,"y":238,"w":20,"h":40,"i":"432600"},"config":{"type":"text","text":"我是测试文字111"},"type":"flow"}],"freedomLayout":[{"id":"367481","position":{"x":0,"y":25,"w":200,"h":40,"i":"367481"},"config":{"type":"text","text":"我是测试文字2222"},"type":"freedom"},{"id":"908797","position":{"x":300,"y":80,"w":200,"h":40,"i":"908797"},"config":{"type":"text","text":"我是测试文字3333"},"type":"freedom"},{"id":"479011","position":{"x":30,"y":123,"w":401,"h":150,"i":"479011"},"config":{"type":"radio","title":"我是单选字段标题","list":[{"label":"我是字段122"},{"label":"我是字段233"},{"label":"我是字段344"}],"layoutType":"1"},"type":"freedom"}],"current":{"id":"479011","position":{"x":30,"y":123,"w":401,"h":150,"i":"479011"},"config":{"type":"radio","title":"我是单选字段标题","list":[{"label":"我是字段122"},{"label":"我是字段233"},{"label":"我是字段344"}],"layoutType":"1"},"type":"freedom"}}
 let initData = {
   layoutData: [],
-  newLayoutData: [],
+  freedomLayout: [],
   current: {},
   layoutType: 'flow',
 }
@@ -39,8 +39,8 @@ export default {
       } else {
         newState = {
           ...state,
-          newLayoutData: [
-            ...state.newLayoutData,
+          freedomLayout: [
+            ...state.freedomLayout,
             payload
           ],
           current: payload,
@@ -60,10 +60,10 @@ export default {
           current: {},
         }
       } else {
-        const newLayoutData = state.newLayoutData.filter(item => item.id !== payload.id)
+        const freedomLayout = state.freedomLayout.filter(item => item.id !== payload.id)
         newState = {
           ...state,
-          newLayoutData,
+          freedomLayout,
           current: {},
         }
       }
@@ -75,7 +75,7 @@ export default {
       if (payload.type === 'flow') {
         current = state.layoutData.filter(item => item.id === payload.id)[0]
       } else {
-        current = state.newLayoutData.filter(item => item.id === payload.id)[0]
+        current = state.freedomLayout.filter(item => item.id === payload.id)[0]
       }
       return {
         ...state,
@@ -101,16 +101,16 @@ export default {
           current,
         }
       } else {
-        layoutData = state.newLayoutData.map(item => {
+        layoutData = state.freedomLayout.map(item => {
           if (item.id === payload.id) {
             item.position = { ...item.position, ...payload.position }
           }
           return item
         })
-        current = state.newLayoutData.filter(item => item.id === payload.id)[0]
+        current = state.freedomLayout.filter(item => item.id === payload.id)[0]
         newState = {
           ...state,
-          newLayoutData: layoutData,
+          freedomLayout: layoutData,
           current,
         }
       }
@@ -135,7 +135,7 @@ export default {
           layoutData
         }
       } else {
-        layoutData = state.newLayoutData.map(item => {
+        layoutData = state.freedomLayout.map(item => {
           if (item.id === state.current.id) {
             item.position = { ...item.position, ...payload.position }
             item.config = { ...item.config, ...payload.config }
@@ -144,7 +144,7 @@ export default {
         })
         newState = {
           ...state,
-          newLayoutData: layoutData
+          freedomLayout: layoutData
         }
       }
 

@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState, useContext } from "react";
 /**
  * 生成uuid唯一识别码
  * @param len       生成的uuid长度
@@ -73,10 +74,37 @@ const throttle = (fun, delay) => {
 	}
 }
 
+// 防抖
+const debounce = (func, delay) => {
+  let timeout
+  return function() {
+		console.log(delay,'delay')
+    clearTimeout(timeout) 
+    timeout = setTimeout(() => {
+      func.apply(this, arguments)
+    }, delay)
+  }
+}
 
+function useDebounce(fn, delay, dep = []) {
+  const { current } = useRef({ fn, timer: null });
+  useEffect(function () {
+    current.fn = fn;
+  }, [fn]);
 
+  return useCallback(function f(...args) {
+    if (current.timer) {
+      clearTimeout(current.timer);
+    }
+    current.timer = setTimeout(() => {
+      current.fn.call(this, ...args);
+    }, delay);
+  }, dep)
+}
 export {
 	createUuid,
 	getImgInfo,
-	throttle
+	throttle,
+	debounce,
+	useDebounce
 }

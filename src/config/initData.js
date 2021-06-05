@@ -4,7 +4,8 @@ const initData = {
     h: 238,
     config:{
       type:'img',
-      url:'https://dummyimage.com/500x240'
+      url:'https://dummyimage.com/500x240',
+      fixed:'bottom'
     }
   },
   text: {

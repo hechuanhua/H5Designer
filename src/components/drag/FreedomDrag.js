@@ -11,12 +11,12 @@ const PageDiv = styled.div`
 	height: 700px;
 	position: absolute;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-	top:0;
-	left:0;
+	top: 0;
+	left: 0;
 	pointer-events: none;
-	&.free{
+	&.free {
 		pointer-events: auto;
-		z-index:20;
+		z-index: 20;
 	}
 `;
 const DragDiv = styled.div`
@@ -24,6 +24,12 @@ const DragDiv = styled.div`
 	height: 100px;
 	border: 1px solid #000;
 	cursor: move;
+	user-select: none;
+	img {
+		width: 100%;
+		max-height: 100%;
+		user-select: none;
+	}
 `;
 const EditorPoint = styled.div`
 	position: absolute;
@@ -84,19 +90,23 @@ const Label = styled.label`
 	margin-top: 10px;
 `;
 const Icon = styled.div.attrs(props => ({
-	className: 'iconfont'
+	className: 'iconfont',
 }))`
-  font-size:15px;
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  font-size: 15px;
-  cursor: pointer;
-  z-index: 30;
+	font-size: 15px;
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	font-size: 15px;
+	cursor: pointer;
+	z-index: 30;
+`;
+const EditText = styled.div`
+	padding:5px;
+	line-height:1.5;
 `
-const Drag = (props) => {
+const Drag = props => {
 	const dispatch = useDispatch();
-	const { newLayoutData, current, layoutType } = useSelector(state => {
+	const { freedomLayout, current, layoutType } = useSelector(state => {
 		return state.setLibrary;
 	});
 	const page = useRef();
@@ -106,33 +116,34 @@ const Drag = (props) => {
 	const [layout, setLayout] = useState([]);
 
 	useEffect(() => {
-		const layout = newLayoutData.map(item => item.position);
+		const layout = freedomLayout.map(item => item.position);
 		setLayout(layout);
-		console.log(newLayoutData, layout, 'newLayoutData useEffect')
-	}, [newLayoutData]);
+		console.log(freedomLayout, layout, 'freedomLayout useEffect');
+	}, [freedomLayout]);
 
-	const queryParent = (target) => {
-		if (target.className.indexOf('drag')>-1){
-			return target
-		}else{
-			target = target.parentElement
-			return queryParent(target)
+	const queryParent = target => {
+		if (target.className.indexOf('drag') > -1) {
+			return target;
+		} else {
+			target = target.parentElement;
+			return queryParent(target);
 		}
-	}
+	};
 
 	const down = (e, index) => {
+		console.log('down');
 		let className = e.target.className.replace(/(.*)point-/, '');
-		let target = queryParent(e.target)
+		let target = queryParent(e.target);
 		let id = target.getAttribute('data-id');
 		page.current.mouseInfo = {
 			mouseDown: true,
 			mouseMove: false,
 			startX: e.pageX,
 			startY: e.pageY,
-			styleLeft: parseInt(target.style.left),
-			styleTop: parseInt(target.style.top),
-			styleWidth: parseInt(target.style.width),
-			styleHeight: parseInt(target.style.height),
+			styleLeft: parseInt(target.style.left) || 0,
+			styleTop: parseInt(target.style.top) || 0,
+			styleWidth: parseInt(target.style.width) || 0,
+			styleHeight: parseInt(target.style.height) || 0,
 			className: className,
 			index,
 			id,
@@ -268,10 +279,13 @@ const Drag = (props) => {
 
 	const onDrop = e => {
 		const type = e.dataTransfer.getData('text');
-		const x = e.pageX - 470 || page.current.offsetLeft;
-		const y = e.pageY - 36 || page.current.offsetTop;
-		// const x = e.pageX
-		// const y = e.pageY
+		console.log(type, '555');
+		if (type !== 'img' && type !== 'radio' && type !== 'text') return;
+		let x = e.pageX - 470 || page.current.offsetLeft;
+		let y = e.pageY - 36 || page.current.offsetTop;
+		if (initData[type].w * 10 === 500) {
+			x = 0;
+		}
 		const id = createUuid(6);
 		const position = {
 			x,
@@ -291,8 +305,8 @@ const Drag = (props) => {
 		});
 	};
 
-	const removeItem = (id) => {
-		console.log(id, layout, newLayoutData, 'iiiiiii')
+	const removeItem = id => {
+		console.log(id, layout, freedomLayout, 'iiiiiii');
 		dispatch({
 			type: 'setLibrary/remove',
 			payload: {
@@ -300,20 +314,25 @@ const Drag = (props) => {
 				type: 'freedom',
 			},
 		});
-	}
+	};
 
+	const blur = (e) => {
+		const config = {
+			text:e.target.innerText
+		}
+		dispatch({
+			type: "setLibrary/setting",
+			payload: {
+				config
+			}
+		})
+	}
 	const generateDOM = (item, index) => {
-		if(!item)return null
+		if (!item) return null;
 		if (item.config.type == 'img') {
-			return (
-				<img src={item.config.url} alt="" />
-			);
+			return <img src={item.config.url} alt="" />;
 		} else if (item.config.type == 'text') {
-			return (
-				<>
-					{item.config.text}
-				</>
-			);
+			return <EditText contentEditable suppressContentEditableWarning={true} onBlur={blur}>{item.config.text}</EditText>;
 		} else if (item.config.type == 'radio') {
 			return (
 				<div className="preview radio">
@@ -338,24 +357,32 @@ const Drag = (props) => {
 			onDragOver={e => {
 				e.preventDefault();
 			}}
-			className={layoutType =='freedom' ? 'free' : ''}
+			className={layoutType == 'freedom' ? 'free' : ''}
 		>
-			{
-				console.log(layout, newLayoutData, 'newLayoutDatanewLayoutDatanewLayoutData')
-			}
 			{layout.map((item, index) => (
 				<DragDiv
 					className={item.i == current.id ? 'active drag' : 'drag'}
 					style={{
 						position: 'absolute',
 						left: item.x,
-						top: item.y,
+						top: freedomLayout[index].config.fixed == 'bottom' ? 'initial' : item.y,
 						width: item.w,
 						height: item.h,
+						bottom: freedomLayout[index].config.fixed == 'bottom' ? 0 : 'initial',
 					}}
 					data-id={item.i}
 					key={item.i}
 					onMouseDown={e => {
+						// console.log(freedomLayout[index].config.fixed)
+						// if(freedomLayout[index].config.fixed == 'bottom'){return}
+						let className = e.target.className.replace(/(.*)point-/, '');
+						console.log(className, freedomLayout[index].config.fixed, 1111);
+						if (
+							freedomLayout[index].config.fixed == 'bottom' &&
+							(className === 'bottom' || !className)
+						) {
+							return;
+						}
 						down(e, index);
 					}}
 				>
@@ -367,8 +394,14 @@ const Drag = (props) => {
 					<EditorPoint className="point-bottom-left"></EditorPoint>
 					<EditorPoint className="point-left"></EditorPoint>
 					<EditorPoint className="point-top-left"></EditorPoint>
-					<Icon onClick={() => { removeItem(item.i) }}>&#xe60a;</Icon>
-					{generateDOM(newLayoutData[index], index)}
+					<Icon
+						onClick={() => {
+							removeItem(item.i);
+						}}
+					>
+						&#xe60a;
+					</Icon>
+					{generateDOM(freedomLayout[index], index)}
 				</DragDiv>
 			))}
 		</PageDiv>

@@ -45,25 +45,21 @@ const DragDiv = styled.div`
 
 const Preview = (props) => {
   const [layout, setLayout] = useState([]);
-  const [freedomLayout, setFreedomLayout] = useState([]);
+  const [freedomLayoutData, setFreedomLayoutData] = useState([]);
 
-  const { layoutData, newLayoutData, current } = useSelector(state => {
+  const { layoutData, freedomLayout, current } = useSelector(state => {
     return state.setLibrary;
   });
 
-  const w = document.documentElement.clientWidth
-  const [clientWidth, setClientWidth] = useState(w)
-
   useEffect(() => {
-    console.log(layoutData, 'layoutData useEffect');
     const layouts = layoutData.map(item => item.position);
     setLayout(layouts);
   }, [layoutData]);
 
   useEffect(() => {
-		const freedomLayout = newLayoutData.map(item => item.position);
-		setFreedomLayout(freedomLayout);
-	}, [newLayoutData]);
+		const data = freedomLayout.map(item => item.position);
+		setFreedomLayoutData(data);
+	}, [freedomLayout]);
 
   const generateDOM = () => {
     return layoutData.map((item, index) => {
@@ -152,7 +148,7 @@ const Preview = (props) => {
         isResizable={false}
         cols={50}
         rowHeight={1}
-        width={clientWidth}
+        width={document.documentElement.clientWidth}
         // autoSize={true} //容器高度自适应
         compactType={'vertical'}
         containerPadding={[0, 0]} //整个容器边距
@@ -160,7 +156,7 @@ const Preview = (props) => {
       >
         {generateDOM()}
       </ReactGridLayout>
-      {freedomLayout.map((item, index) => (
+      {freedomLayoutData.map((item, index) => (
           <DragDiv
             className={item.i == current.id ? 'active drag' : 'drag'}
             style={{
@@ -173,7 +169,7 @@ const Preview = (props) => {
             data-id={item.i}
             key={item.i}
           >
-            {generateFreedomDOM(newLayoutData[index], index)}
+            {generateFreedomDOM(freedomLayout[index], index)}
           </DragDiv>
         ))}
     </PageDiv>

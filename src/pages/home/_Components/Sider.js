@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Tabs, Radio, Button, Menu } from 'antd';
-import Drag from '../../components/drag/FlowDrag';
-import Library from '../../components/library/Library';
-import Setting from '../../components/setting/Setting';
+import Drag from '../../../components/drag/FlowDrag';
+import Template from '../../../components/sider/Template';
+import Library from '../../../components/sider/Library';
+import MyPages from '../../../components/sider/MyPages';
+
+import Setting from '../../../components/setting/Setting';
 import styled from 'styled-components';
 import { PieChartOutlined, DesktopOutlined, ContainerOutlined } from '@ant-design/icons';
 
@@ -15,18 +18,21 @@ const SiderDiv = styled.div`
 	width: 300px;
 	display: flex;
 `;
-
+const FlexItem = styled.div`
+	flex: 1;
+`;
 const Sider = props => {
 	const [menuIndex, setMenuIndex] = useState('1');
 	const generateDOM = () => {
 		console.log(menuIndex);
 		if (menuIndex === '1') {
+			return <Template></Template>;
 		} else if (menuIndex === '2') {
 			return <Library></Library>;
 		} else if (menuIndex === '3') {
-			return '我的页面';
+			return <MyPages></MyPages>;
 		}
-	};	
+	};
 	return (
 		<SiderDiv>
 			<Menu
@@ -56,7 +62,7 @@ const Sider = props => {
 					我的页面
 				</Menu.Item>
 			</Menu>
-			{generateDOM()}
+			<FlexItem>{generateDOM()}</FlexItem>
 		</SiderDiv>
 	);
 };
