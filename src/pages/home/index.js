@@ -1,19 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Tabs, Radio, Button, Menu } from 'antd';
-import Drag from '../../components/drag/Drag';
+import Drag from '../../components/drag/FlowDrag';
 import Library from '../../components/library/Library';
 import Setting from '../../components/setting/Setting';
 import styled from 'styled-components';
 import Header from './_Components/Header';
-import {
-	AppstoreOutlined,
-	MenuUnfoldOutlined,
-	MenuFoldOutlined,
-	PieChartOutlined,
-	DesktopOutlined,
-	ContainerOutlined,
-	MailOutlined,
-} from '@ant-design/icons';
+import { PieChartOutlined, DesktopOutlined, ContainerOutlined } from '@ant-design/icons';
 const Container = styled.div`
 	top: 60px;
 	width: 100%;
@@ -28,7 +20,19 @@ const Sider = styled.div`
 	width: 300px;
 	display: flex;
 `;
+
 const Home = props => {
+  const [menuIndex,setMenuIndex] = useState('1')
+  const generateDOM = () => {
+    console.log(menuIndex)
+    if(menuIndex === '1'){
+
+    } else if(menuIndex === '2'){
+      return <Library></Library>
+    } else if(menuIndex === '3'){
+      return '我的页面'
+    }
+  }
 	return (
 		<>
 			<Header></Header>
@@ -36,16 +40,19 @@ const Home = props => {
 				<Sider>
 					<Menu
 						defaultSelectedKeys={['1']}
-						defaultOpenKeys={['sub1']}
 						mode="inline"
 						theme="dark"
+						onSelect={({item, key, keyPath, selectedKeys, domEvent}) => {
+              setMenuIndex(key)
+							console.log(item, key, keyPath, selectedKeys, domEvent);
+						}}
 						inlineCollapsed={false}
 						style={{
 							width: '100px',
 							background: '#fff',
 							color: '#000',
 							borderRight: '1px solid #ccd5db',
-              boxShadow: '-1px 0 0 0 #e6ebed',
+							boxShadow: '-1px 0 0 0 #e6ebed',
 						}}
 					>
 						<Menu.Item key="1" icon={<PieChartOutlined />}>
@@ -58,7 +65,7 @@ const Home = props => {
 							我的页面
 						</Menu.Item>
 					</Menu>
-					<Library></Library>
+          {generateDOM()}
 				</Sider>
 
 				<Drag></Drag>

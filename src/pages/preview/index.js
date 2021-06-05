@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import RGL, { WidthProvider } from 'react-grid-layout';
 import { createUuid } from '../../utils/index';
 import initData from '../../config/initData';
-import CommonDrag from '../../components/common/Drag'
+import CommonDrag from '../../components/drag/FreedomDrag'
 
 const ReactGridLayout = WidthProvider(RGL);
 
