@@ -9,11 +9,17 @@ const initData = {
     }
   },
   text: {
-    w: 20,
+    w: 50,
     h: 40,
     config:{
       type:'text',
-      text:'我是测试文字'
+      text:'我是测试文字',
+      align:'center',
+      fontSize:'14',
+      backgroundColor:'#fff',
+      color:'#000',
+      fixed:'',
+      bottomY:0
     }
   },
   radio:{

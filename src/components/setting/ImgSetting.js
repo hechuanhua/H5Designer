@@ -21,8 +21,20 @@ const ImgSetting = props => {
 		}
 		// return e && e.fileList;
 	};
+	const onChange = (info) => {
+    const { status } = info.file;
+    if (status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully.`);
+    } else if (status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  }
 
 	const onValuesChange = (changedValues, allValues) => {
+		return
 		console.log(changedValues, allValues, 'changedValues');
 		if (Object.keys(changedValues)[0] === 'img') {
 			const arr = [
@@ -68,12 +80,12 @@ const ImgSetting = props => {
 			<Form.Item label="上传图片：">
 				<Form.Item
 					name="img"
-					valuePropName="fileList"
-					getValueFromEvent={normFile}
+					// valuePropName="fileList"
+					// getValueFromEvent={normFile}
 					noStyle
 					accept="image/png,image/jpeg,image/gif,image/pjpeg"
 				>
-					<Upload.Dragger name="files" action="/upload.do" maxCount={1}>
+					<Upload.Dragger name="files" action="http://localhost:7001/upload" maxCount={1} onChange={onChange} fileList={fileList}>
 						<p className="ant-upload-drag-icon">
 							<InboxOutlined />
 						</p>
@@ -82,7 +94,6 @@ const ImgSetting = props => {
 				</Form.Item>
 			</Form.Item>
 			<Form.Item label="固定位置" name="fixed">
-        {/* <Switch/> */}
 				<Select allowClear>
           <Option value="current">固定当前位置</Option>
 					<Option value="bottom">固定底部</Option>
