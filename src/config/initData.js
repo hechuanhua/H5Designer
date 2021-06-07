@@ -5,7 +5,7 @@ const initData = {
     config:{
       type:'img',
       url:'https://dummyimage.com/500x240',
-      fixed:'bottom'
+      fixed:''
     }
   },
   text: {
