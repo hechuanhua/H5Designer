@@ -281,14 +281,14 @@ const Drag = props => {
 		const type = e.dataTransfer.getData('text');
 		console.log(type, '555');
 		if (type !== 'img' && type !== 'radio' && type !== 'text') return;
-		let x = e.pageX - 470 || page.current.offsetLeft;
+		// let x = e.pageX - 470 || page.current.offsetLeft;
 		let y = e.pageY - 36 || page.current.offsetTop;
-		if (initData[type].w * 10 === 500) {
-			x = 0;
-		}
+		// if (initData[type].w * 10 === 500) {
+		// 	x = 0;
+		// }
 		const id = createUuid(6);
 		const position = {
-			x,
+			x:0,
 			y,
 			w: initData[type].w * 10,
 			h: initData[type].h,
@@ -317,8 +317,9 @@ const Drag = props => {
 	};
 
 	const blur = (e) => {
+		let val = e.target.innerText.replace(/\n/g,'<br/>')
 		const config = {
-			text:e.target.innerText
+			text:val
 		}
 		dispatch({
 			type: "setLibrary/setting",
@@ -332,7 +333,7 @@ const Drag = props => {
 		if (item.config.type == 'img') {
 			return <img src={item.config.url} alt="" />;
 		} else if (item.config.type == 'text') {
-			return <EditText contentEditable suppressContentEditableWarning={true} onBlur={blur}>{item.config.text}</EditText>;
+			return <EditText contentEditable suppressContentEditableWarning={true} onBlur={blur} dangerouslySetInnerHTML={{__html:item.config.text}}></EditText>;
 		} else if (item.config.type == 'radio') {
 			return (
 				<div className="preview radio">
@@ -368,7 +369,11 @@ const Drag = props => {
 						top: freedomLayout[index].config.fixed == 'bottom' ? 'initial' : item.y,
 						width: item.w,
 						height: item.h,
-						bottom: freedomLayout[index].config.fixed == 'bottom' ? 0 : 'initial',
+						bottom: freedomLayout[index].config.fixed == 'bottom' ? freedomLayout[index].config.bottomY + 'px' : 'initial',
+						color:freedomLayout[index].config.color,
+						fontSize:freedomLayout[index].config.fontSize + 'px',
+						backgroundColor:freedomLayout[index].config.backgroundColor,
+						textAlign:freedomLayout[index].config.align,
 					}}
 					data-id={item.i}
 					key={item.i}
