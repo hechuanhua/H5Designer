@@ -27,9 +27,11 @@ const RadioSetting = props => {
   const config = useSelector(state => {
     return state.setLibrary?.current?.config
   })
+  
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  console.log(config, 'config11');
+
+  console.log(config, 'RadioSettingconfig');
 
   useEffect(() => {
     console.log('config.id')

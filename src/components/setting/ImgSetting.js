@@ -10,9 +10,9 @@ const ImgSetting = props => {
 		return state.setLibrary?.current?.config;
 	});
 	const dispatch = useDispatch();
-	console.log(config, 'config');
-	const [fileList, setFileList] = useState([]);
 	const [form] = Form.useForm();
+
+	console.log(config, 'ImgSettingconfig');
 
 	const normFile = e => {
 		console.log('Upload event:', e);
@@ -20,18 +20,6 @@ const ImgSetting = props => {
 			return e;
 		}
 		// return e && e.fileList;
-	};
-	const onChange = info => {
-		// const { status, response } = info.file;
-		// if (status !== 'uploading') {
-		// 	console.log(info.file, info.fileList);
-		// }
-		// if (status === 'done') {
-		// 	const url = response.data.url;
-		// 	console.log(`${info.file.name} file uploaded successfully.`);
-		// } else if (status === 'error') {
-		// 	console.error(`${info.file.name} file upload failed.`);
-		// }
 	};
 
 	const onValuesChange = (changedValues, allValues) => {

@@ -50,7 +50,7 @@ const Library = (e) => {
           <div>视频</div>
           <Icon>&#xe603;</Icon>
         </Li>
-        <Li onDragStart={(e) => { ondragstart(e, 'wechat') }}>
+        <Li onDragStart={(e) => { ondragstart(e, 'chat') }}>
           <div>微信对话</div>
           <Icon>&#xe6c7;</Icon>
         </Li>

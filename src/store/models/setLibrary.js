@@ -12,7 +12,7 @@ let initData = {
   current: {},
   layoutType: 'flow',
 }
-console.log(111)
+
 if (localStorage.getItem('layout')) {
   initData = JSON.parse(localStorage.getItem('layout'))
 }
@@ -122,6 +122,7 @@ export default {
     setting(state, payload) {
       let layoutData = []
       let newState = {}
+      
       if (state.current.type === 'flow') {
         layoutData = state.layoutData.map(item => {
           if (item.id === state.current.id) {
@@ -132,9 +133,11 @@ export default {
         })
         newState = {
           ...state,
+          current:layoutData[0],
           layoutData
         }
       } else {
+        
         layoutData = state.freedomLayout.map(item => {
           if (item.id === state.current.id) {
             item.position = { ...item.position, ...payload.position }
@@ -144,6 +147,7 @@ export default {
         })
         newState = {
           ...state,
+          current:layoutData[0],
           freedomLayout: layoutData
         }
       }
