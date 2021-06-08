@@ -50,6 +50,10 @@ const Library = (e) => {
           <div>视频</div>
           <Icon>&#xe603;</Icon>
         </Li>
+        <Li onDragStart={(e) => { ondragstart(e, 'wechat') }}>
+          <div>微信对话</div>
+          <Icon>&#xe6c7;</Icon>
+        </Li>
         <Li onDragStart={(e) => { ondragstart(e, '') }}>
           <div>组件</div>
           <Icon>&#xe7c2;</Icon>
