@@ -74,7 +74,7 @@ const ImgSetting = props => {
 						name="files"
 						action="http://localhost:7001/upload"
 						maxCount={1}
-						onChange={onChange}
+						// onChange={onChange}
 					>
 						<p className="ant-upload-drag-icon">
 							<InboxOutlined />

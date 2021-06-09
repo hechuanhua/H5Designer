@@ -240,9 +240,22 @@ const Drag = props => {
 			];
 			return newLayout;
 		});
+		// setLayout(layout => {
+		// 	const newLayout = [
+		// 		...layout.slice(0, index),
+		// 		{
+		// 			...layout[index],
+		// 			position:{ ...layout[index].position, x: left, y: top, w: width, h: height }
+		// 		},
+		// 		// { ...layout[index], x: left, y: top, w: width, h: height },
+		// 		...layout.slice(index + 1, layout.length),
+		// 	];
+		// 	return newLayout;
+		// });
 	};
 
 	const up = () => {
+		console.log('up',page.current)
 		if (
 			!page.current.mouseInfo ||
 			!page.current.mouseInfo.mouseDown ||
@@ -329,7 +342,8 @@ const Drag = props => {
 			},
 		});
 	};
-	const generateDOM = (item, index) => {
+	const generateFreedomDOM = (item, index) => {
+		console.log(item,'generateFreedomDOMgenerateFreedomDOMgenerateFreedomDOM')
 		if (!item) return null;
 		if (item.config.type == 'img') {
 			return <img src={item.config.url} alt="" />;
@@ -418,7 +432,7 @@ const Drag = props => {
 							>
 								&#xe60a;
 							</Icon>
-							{generateDOM(freedomLayout[index], index)}
+							{generateFreedomDOM(freedomLayout[index], index)}
 						</DragDiv>
 				  ))
 				: ''}

@@ -323,11 +323,15 @@ img {
 		&.active {
 			border: 2px solid #ccc;
 		}
+    .iconfont{
+      display: none;
+    }
 	}
 }
 
 .chatBox {
 	line-height: 22px;
+  padding-bottom: 110px;
 	.chatItem {
 		display: flex;
 		align-items: center;
@@ -409,6 +413,9 @@ img {
 	display: flex;
 	padding: 10px 0;
 	background: #fff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 	.copyWechatBox {
 		width: 70%;
 		text-align: center;

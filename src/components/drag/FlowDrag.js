@@ -4,42 +4,24 @@ import styled from 'styled-components';
 import GridLayout from 'react-grid-layout';
 import { createUuid } from '../../utils/index';
 import initData from '../../config/initData';
-import CommonDrag from '../drag/FreedomDrag'
-
+import CommonDrag from '../drag/FreedomDrag';
+import Chat from '../library/Chat';
+import { generateFlowDOM } from './generateDom';
 
 const PageDiv = styled.div`
 	width: 500px;
 	margin: 0 auto;
 	height: 800px;
-  position:relative;
+	position: relative;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 `;
-const Mt10 = styled.div`
-	margin-top: 10px;
-`;
-const Label = styled.label`
-	display: inline-block;
-	margin-top: 10px;
-`;
-const Icon = styled.div.attrs(props => ({
-  className: 'iconfont'
-}))`
-  font-size:15px;
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  font-size: 15px;
-  cursor: pointer;
-  z-index: 30;
-`
 
-const Drag = (props) => {
+const Drag = props => {
 	const dispatch = useDispatch();
 	const [layout, setLayout] = useState([]);
 	const { layoutData, current } = useSelector(state => {
 		return state.setLibrary;
 	});
-	//{"i":"x-0","x":0,"y":0,"w":1,"h":119,"isBounded":true}
 	useEffect(() => {
 		console.log(layoutData, 'layoutData useEffect');
 		const layouts = layoutData.map(item => item.position);
@@ -47,7 +29,6 @@ const Drag = (props) => {
 	}, [layoutData]);
 
 	const onDrop = (layout, item, e) => {
-		// console.log('当元素从外部放入网格中时调用', layout, item, e)
 		const type = e.dataTransfer.getData('text');
 		console.log(type, '类型');
 		const id = createUuid(6);
@@ -62,7 +43,7 @@ const Drag = (props) => {
 			id,
 			position,
 			config: initData[type].config,
-      type:'flow'
+			type: 'flow',
 		};
 		dispatch({
 			type: 'setLibrary/add',
@@ -77,7 +58,7 @@ const Drag = (props) => {
 				type: 'setLibrary/setActive',
 				payload: {
 					id: newItem.i,
-          type:'flow',
+					type: 'flow',
 				},
 			});
 		}
@@ -96,7 +77,7 @@ const Drag = (props) => {
 			payload: {
 				id: newItem.i,
 				position,
-        type:'flow'
+				type: 'flow',
 			},
 		});
 	};
@@ -115,74 +96,24 @@ const Drag = (props) => {
 			payload: {
 				id: newItem.i,
 				position,
-        type:'flow'
+				type: 'flow',
 			},
 		});
 	};
 
-  const removeItem = (id) => {
-    dispatch({
+	const removeItem = id => {
+		dispatch({
 			type: 'setLibrary/remove',
 			payload: {
 				id,
-        type:'flow'
+				type: 'flow',
 			},
-		});
-  }
-
-	const generateDOM = () => {
-		return layoutData.map((item, index) => {
-			if (item.config.type == 'img') {
-				return (
-					<div
-						key={item.id}
-						data-grid={item.position}
-						className={item.id === current.id ? 'active' : ''}
-					>
-            
-            <Icon onClick={()=>{removeItem(item.id)}}>&#xe60a;</Icon>
-						<img src={item.config.url} alt="" />
-					</div>
-				);
-			} else if (item.config.type == 'text') {
-				return (
-					<div
-						key={item.id}
-						data-grid={item.position}
-						className={item.id === current.id ? 'active' : ''}
-					>
-            <Icon onClick={()=>{removeItem(item.id)}}>&#xe60a;</Icon>
-						{item.config.text}
-					</div>
-				);
-			} else if (item.config.type == 'radio') {
-				return (
-					<div
-						key={item.id}
-						data-grid={item.position}
-						className={item.id === current.id ? 'active' : ''}
-					>
-            <Icon onClick={()=>{removeItem(item.id)}}>&#xe60a;</Icon>
-						<div className="preview radio">
-							<Mt10>{item.config.title}</Mt10>
-							<div>
-								{item.config.list.map((v, i) => (
-									<Label style={{ width: `${100 / item.config.layoutType}%` }} key={i}>
-										<input type="radio" name={`label${item.id}`} id={`label${item.id}`} />
-										<span>{v.label}</span>
-									</Label>
-								))}
-							</div>
-						</div>
-					</div>
-				);
-			}
 		});
 	};
 
 	return (
 		<PageDiv>
-      <CommonDrag></CommonDrag>
+			<CommonDrag></CommonDrag>
 			<GridLayout
 				style={{ minHeight: 700 }}
 				className="layout"
@@ -222,7 +153,7 @@ const Drag = (props) => {
 				onResizeStop={onResizeStop}
 				//innerRef={}  //Ref获取网格包装div的参考  //已删除？
 			>
-				{generateDOM()}
+				{generateFlowDOM(layoutData, current)}
 			</GridLayout>
 		</PageDiv>
 	);

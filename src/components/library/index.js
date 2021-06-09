@@ -2,31 +2,22 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-const Chat = () => {
-	const config = useSelector(state => {
-		return state.setLibrary?.current?.config;
-	});
-	console.log(config,'ChatChatChat')
-	const [dataSource,setDataSource] = useState(JSON.parse(config.data))
-	
+const ChatBox = e => {
 	const [speechIndex, setSpeechIndex] = useState(0);
 	const [chatText, setChatText] = useState([]);
-	useEffect(() => {
-		setDataSource(JSON.parse(config.data))
-	}, [config]);
 	const showSpeech = index => {
-		console.log(dataSource[speechIndex], index, speechIndex, 'oooooo');
-		const selfText = dataSource[speechIndex].data[index].name;
+		console.log(banList[speechIndex], index, speechIndex, 'oooooo');
+		const selfText = banList[speechIndex].data[index].name;
 		let chatTextArr = [];
 		if (speechIndex > 0) {
-			chatTextArr = dataSource[speechIndex].speech.map(item => {
+			chatTextArr = banList[speechIndex].speech.map(item => {
 				return {
 					self: false,
 					text: item,
 				};
 			});
 		} else {
-			chatTextArr = dataSource[speechIndex].data[index].speech.map(item => {
+			chatTextArr = banList[speechIndex].data[index].speech.map(item => {
 				return {
 					self: false,
 					text: item,
@@ -42,14 +33,11 @@ const Chat = () => {
 			...chatTextArr,
 		];
 		const chat = [...chatText, ...obj];
+		console.log(chat, 3333);
 		setChatText(chat);
 		const i = speechIndex + 1;
 		setSpeechIndex(i);
-		
 	};
-	useEffect(()=>{
-		document.documentElement.scrollTop = 100000
-	},[speechIndex])
 	return (
 		<>
 			<div className="chatBox">
@@ -112,14 +100,14 @@ const Chat = () => {
 					''
 				)}
 				<div className="select_botton">
-					{dataSource[speechIndex] &&
-						dataSource[speechIndex].data.map((item, index) => (
+					{banList[speechIndex] &&
+						banList[speechIndex].data.map((item, index) => (
 							<a
 								key={index}
 								onClick={() => {
 									showSpeech(index);
 								}}
-								style={{ width: dataSource[speechIndex].width }}
+								style={{ width: banList[speechIndex].width }}
 							>
 								{item.name}
 							</a>
@@ -130,4 +118,4 @@ const Chat = () => {
 	);
 };
 
-export default Chat;
+export default ChatBox;
