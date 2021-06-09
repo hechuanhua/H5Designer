@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import RGL, { WidthProvider } from 'react-grid-layout';
 import Chat from '../../components/library/Chat';
-import { generateFlowDOM } from '../../components/drag/generateDom';
+import { generateFlowDOM, generateFreedomDOM } from '../../components/drag/generateDom';
 const ReactGridLayout = WidthProvider(RGL);
 
 const PageDiv = styled.div.attrs(props => ({
@@ -51,34 +51,6 @@ const Preview = props => {
 		setLayout(layouts);
 	}, [layoutData]);
 
-	const generateFreedomDOM = (item, index) => {
-		if (!item) return null;
-		if (item.type == 'img') {
-			return <img src={item.url} alt="" />;
-		} else if (item.type == 'text') {
-			return <>{item.text}</>;
-		} else if (item.type == 'radio') {
-			return (
-				<div className="preview radio">
-					<Mt10>{item.title}</Mt10>
-					<div>
-						{item.list.map((v, i) => (
-							<Label style={{ width: `${100 / item.layoutType}%` }} key={i}>
-								<input type="radio" name={`label${item.id}`} id={`label${item.id}`} />
-								<span>{v.label}</span>
-							</Label>
-						))}
-					</div>
-				</div>
-			);
-		} else if (item.type == 'chat') {
-			return (
-				<div>
-					<Chat></Chat>
-				</div>
-			);
-		}
-	};
 	return (
 		<PageDiv>
 			<ReactGridLayout
@@ -102,14 +74,19 @@ const Preview = props => {
 					style={{
 						position: 'absolute',
 						left: item.position.x,
-						top: item.position.y,
+						top: item.config.fixed == 'bottom' ? 'initial' : item.position.y,
 						width: item.position.w,
 						height: item.position.h,
+						bottom: item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial',
+						color: item.config.color,
+						fontSize: item.config.fontSize + 'px',
+						backgroundColor: item.config.backgroundColor,
+						textAlign: item.config.align,
 					}}
 					data-id={item.position.i}
 					key={item.position.i}
 				>
-					{generateFreedomDOM(item.config, index)}
+					{generateFreedomDOM(item.config, 'preview')}
 				</DragDiv>
 			))}
 		</PageDiv>
