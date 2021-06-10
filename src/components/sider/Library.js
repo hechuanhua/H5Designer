@@ -22,9 +22,7 @@ const Icon = styled.div.attrs(props => ({
 `
 
 const Library = (e) => {
-  const dispatch = useDispatch()
   const ondragstart = (e, type) => {
-    console.log(e, 111)
     e.dataTransfer.setData("text/plain", type);
   }
   return (

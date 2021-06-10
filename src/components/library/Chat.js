@@ -2,18 +2,14 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-const Chat = () => {
-	const config = useSelector(state => {
-		return state.setLibrary?.current?.config;
-	});
-	console.log(config,'ChatChatChat')
-	const [dataSource,setDataSource] = useState(JSON.parse(config.data))
+const Chat = (props) => {
+
+	const dataSource = JSON.parse(props.data)
+	console.log(dataSource,'ChatChatChat')
 	
 	const [speechIndex, setSpeechIndex] = useState(0);
 	const [chatText, setChatText] = useState([]);
-	useEffect(() => {
-		setDataSource(JSON.parse(config.data))
-	}, [config]);
+
 	const showSpeech = index => {
 		console.log(dataSource[speechIndex], index, speechIndex, 'oooooo');
 		const selfText = dataSource[speechIndex].data[index].name;

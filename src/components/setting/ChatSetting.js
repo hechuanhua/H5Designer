@@ -30,9 +30,10 @@ const ChatSetting = props => {
 			form={form}
 			name="control-hooks"
 			onValuesChange={onValuesChange}
+			initialValues={config}
 		>
 			<Form.Item name="data" label="数据源">
-				<TextArea placeholder="" allowClear rows={8} defaultValue={config.data} />
+				<TextArea placeholder="" allowClear rows={8} />
 			</Form.Item>
 		</Form>
 	);

@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import Chat from '../library/Chat';
 import { createUuid } from '../../utils/index';
@@ -29,6 +30,7 @@ const EditText = styled.div`
 
 export const generateFlowDOM = (data, current, removeItem) => {
 	current = current || {};
+	
 	return data.map((item, index) => {
 		if (item.config.type == 'img') {
 			return (
@@ -92,6 +94,7 @@ export const generateFlowDOM = (data, current, removeItem) => {
 				</div>
 			);
 		} else if (item.config.type == 'chat') {
+			
 			return (
 				<div
 					key={item.id}
@@ -105,7 +108,7 @@ export const generateFlowDOM = (data, current, removeItem) => {
 					>
 						&#xe60a;
 					</Icon>
-					<Chat></Chat>
+					<Chat data={item.config.data}></Chat>;
 				</div>
 			);
 		}
@@ -144,7 +147,7 @@ export const generateFreedomDOM = (item, type, blur) => {
 			</div>
 		);
 	} else if (item.type == 'chat') {
-		return <Chat></Chat>;
+		return <Chat data={item.data}></Chat>;
 	}
 };
 
@@ -154,8 +157,7 @@ export const onDrop = (e, dragType, dispatch) => {
 		type !== 'img' &&
 		type !== 'radio' &&
 		type !== 'text' &&
-		type !== 'chat' &&
-		type !== 'checkbox'
+		type !== 'chat' 
 	)
 		return;
 	console.log(type, '类型');

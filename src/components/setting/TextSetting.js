@@ -44,9 +44,9 @@ const TextSetting = props => {
 			</Form.Item>
 			<Form.Item name="align" label="对齐方式">
 				<Select>
-					<Option value="left">左对齐</Option>
-					<Option value="center">居中</Option>
-					<Option value="right">右对齐</Option>
+					<Select.Option value="left">左对齐</Select.Option>
+					<Select.Option value="center">居中</Select.Option>
+					<Select.Option value="right">右对齐</Select.Option>
 				</Select>
 			</Form.Item>
 			<Form.Item name="fontSize" label="文字大小">
@@ -60,8 +60,8 @@ const TextSetting = props => {
 			</Form.Item>
 			<Form.Item name="fixed" label="固定位置">
 				<Select allowClear>
-					<Option value="current">固定当前位置</Option>
-					<Option value="bottom">固定底部</Option>
+					<Select.Option value="current">固定当前位置</Select.Option>
+					<Select.Option value="bottom">固定底部</Select.Option>
 				</Select>
 			</Form.Item>
 			{config.fixed === 'bottom' ? (

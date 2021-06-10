@@ -163,13 +163,13 @@ const RadioSetting = props => {
 				</Form.Item>
 				<Form.Item label="布局方式" name="layoutType">
 					<Select>
-						<Option value="1">一行一列</Option>
-						<Option value="2">一行二列</Option>
-						<Option value="3">一行三列</Option>
+						<Select.Option value="1">一行一列</Select.Option>
+						<Select.Option value="2">一行二列</Select.Option>
+						<Select.Option value="3">一行三列</Select.Option>
 					</Select>
 				</Form.Item>
 				<Form.Item label="是否多选" name="isCheckBox">
-					<Switch onChange={changeCheckBox}></Switch>
+					<Switch onChange={changeCheckBox} checked={config.isCheckBox}></Switch>
 				</Form.Item>
 			</Form>
 			<CommonModal visible={visible} onOk={handleOk} onCancel={handleCancel}>

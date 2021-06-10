@@ -85,8 +85,8 @@ const ImgSetting = props => {
 			</Form.Item>
 			<Form.Item label="固定位置" name="fixed">
 				<Select allowClear>
-					<Option value="current">固定当前位置</Option>
-					<Option value="bottom">固定底部</Option>
+					<Select.Option value="current">固定当前位置</Select.Option>
+					<Select.Option value="bottom">固定底部</Select.Option>
 				</Select>
 			</Form.Item>
 		</Form>

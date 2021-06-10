@@ -39,7 +39,6 @@ export default {
 					current: payload,
 				};
 			}
-			console.log(newState, 'newState');
 			saveLayout(newState);
 			return newState;
 		},
@@ -77,7 +76,6 @@ export default {
 			};
 		},
 		update(state, payload) {
-			console.log(payload, 'update');
 			let layoutData = [];
 			let current = {};
 			let newState = {};
@@ -108,8 +106,6 @@ export default {
 					current,
 				};
 			}
-
-			console.log('update modal=>', newState);
 			saveLayout(newState);
 			return newState;
 		},

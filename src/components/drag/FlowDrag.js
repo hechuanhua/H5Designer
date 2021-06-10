@@ -23,33 +23,9 @@ const Drag = props => {
 		return state.setLibrary;
 	});
 	useEffect(() => {
-		console.log(layoutData, 'layoutData useEffect');
 		const layouts = layoutData.map(item => item.position);
 		setLayout(layouts);
 	}, [layoutData]);
-
-	const onDrop1 = (layout, item, e) => {
-		const type = e.dataTransfer.getData('text');
-		console.log(type, '类型');
-		const id = createUuid(6);
-		const position = {
-			x: 0,
-			y: 0,
-			w: initData[type].w,
-			h: initData[type].h,
-			i: id,
-		};
-		const payload = {
-			id,
-			position,
-			config: initData[type].config,
-			type: 'flow',
-		};
-		dispatch({
-			type: 'setLibrary/add',
-			payload: payload,
-		});
-	};
 
 	const onDragStart = (layouts, oldItem, newItem, placeholder, e, element) => {
 		console.log('拖动开始时调用', layouts, oldItem, newItem, placeholder, e, element);

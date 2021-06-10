@@ -26,7 +26,6 @@ const Setting = e => {
 	});
 	console.log(current, 'Settingcurrent');
 	const generateDOM = () => {
-		console.log('generateDOM');
 		if (current.config.type === 'img') {
 			return <ImgSetting></ImgSetting>;
 		}

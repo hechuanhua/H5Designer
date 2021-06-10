@@ -24,7 +24,6 @@ const FlexItem = styled.div`
 const Sider = props => {
 	const [menuIndex, setMenuIndex] = useState('1');
 	const generateDOM = () => {
-		console.log(menuIndex);
 		if (menuIndex === '1') {
 			return <Template></Template>;
 		} else if (menuIndex === '2') {

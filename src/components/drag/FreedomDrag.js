@@ -131,7 +131,6 @@ const Drag = props => {
 	};
 
 	const down = (e, index) => {
-		console.log('down');
 		let className = e.target.className.replace(/(.*)point-/, '');
 		let target = queryParent(e.target);
 		let id = target.getAttribute('data-id');
@@ -291,34 +290,6 @@ const Drag = props => {
 		document.addEventListener('mouseup', up);
 	}, []);
 
-	const onDrop1 = e => {
-		const type = e.dataTransfer.getData('text');
-		console.log(type, '555');
-		if (type !== 'img' && type !== 'radio' && type !== 'text' && type !== 'chat') return;
-		// let x = e.pageX - 470 || page.current.offsetLeft;
-		let y = e.pageY - 36 || page.current.offsetTop;
-		// if (initData[type].w * 10 === 500) {
-		// 	x = 0;
-		// }
-		const id = createUuid(6);
-		const position = {
-			x: 0,
-			y,
-			w: initData[type].w * 10,
-			h: initData[type].h,
-			i: id,
-		};
-		dispatch({
-			type: 'setLibrary/add',
-			payload: {
-				id,
-				position,
-				config: initData[type].config,
-				type: 'freedom',
-			},
-		});
-	};
-
 	const removeItem = id => {
 		console.log(id, layout, freedomLayout, 'iiiiiii');
 		dispatch({
@@ -343,37 +314,6 @@ const Drag = props => {
 			},
 		});
 	};
-	// const generateFreedomDOM = (item, index) => {
-	// 	if (!item) return null;
-	// 	if (item.config.type == 'img') {
-	// 		return <img src={item.config.url} alt="" />;
-	// 	} else if (item.config.type == 'text') {
-	// 		return (
-	// 			<EditText
-	// 				contentEditable
-	// 				suppressContentEditableWarning={true}
-	// 				onBlur={blur}
-	// 				dangerouslySetInnerHTML={{ __html: item.config.text }}
-	// 			></EditText>
-	// 		);
-	// 	} else if (item.config.type == 'radio') {
-	// 		return (
-	// 			<div className="preview radio">
-	// 				<Mt10>{item.config.title}</Mt10>
-	// 				<div>
-	// 					{item.config.list.map((v, i) => (
-	// 						<Label style={{ width: `${100 / item.config.layoutType}%` }} key={i}>
-	// 							<input type="radio" name={`label${item.id}`} id={`label${item.id}`} />
-	// 							<span>{v.label}</span>
-	// 						</Label>
-	// 					))}
-	// 				</div>
-	// 			</div>
-	// 		);
-	// 	} else if (item.config.type == 'chat') {
-	// 		return <Chat></Chat>;
-	// 	}
-	// };
 
 	return (
 		<PageDiv
@@ -406,7 +346,6 @@ const Drag = props => {
 							key={item.id}
 							onMouseDown={e => {
 								let className = e.target.className.replace(/(.*)point-/, '');
-								console.log(className, item.config.fixed, 1111);
 								if (item.config.fixed == 'bottom' && (className === 'bottom' || !className)) {
 									return;
 								}
