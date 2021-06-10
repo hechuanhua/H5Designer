@@ -6,7 +6,7 @@ import { createUuid } from '../../utils/index';
 import initData from '../../config/initData';
 import CommonDrag from '../drag/FreedomDrag';
 import Chat from '../library/Chat';
-import { generateFlowDOM } from './generateDom';
+import { generateFlowDOM, onDrop } from './generateDom';
 
 const PageDiv = styled.div`
 	width: 500px;
@@ -28,13 +28,13 @@ const Drag = props => {
 		setLayout(layouts);
 	}, [layoutData]);
 
-	const onDrop = (layout, item, e) => {
+	const onDrop1 = (layout, item, e) => {
 		const type = e.dataTransfer.getData('text');
 		console.log(type, '类型');
 		const id = createUuid(6);
 		const position = {
-			x: item.x,
-			y: item.y,
+			x: 0,
+			y: 0,
 			w: initData[type].w,
 			h: initData[type].h,
 			i: id,
@@ -135,7 +135,9 @@ const Drag = props => {
 				CSSTransforms={false} //css3替换top left，提高性能
 				// transformScale={1}  //拖动速度比例
 				preventCollision={false} //拖动后不会调换位置
-				onDrop={onDrop} //data参数（ layout, oldItem, newItem, placeholder, e, element）
+				onDrop={(layout, item, e) => {
+					onDrop(e, 'flow', dispatch);
+				}} //data参数（ layout, oldItem, newItem, placeholder, e, element）
 				onLayoutChange={data => {
 					console.log('回调，因此您可以保存布局', data);
 				}}
@@ -153,7 +155,7 @@ const Drag = props => {
 				onResizeStop={onResizeStop}
 				//innerRef={}  //Ref获取网格包装div的参考  //已删除？
 			>
-				{generateFlowDOM(layoutData, current)}
+				{generateFlowDOM(layoutData, current, removeItem)}
 			</GridLayout>
 		</PageDiv>
 	);

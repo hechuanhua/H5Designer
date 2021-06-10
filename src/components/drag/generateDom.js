@@ -1,4 +1,7 @@
+import { useSelector, useDispatch } from 'react-redux';
 import Chat from '../library/Chat';
+import { createUuid } from '../../utils/index';
+import initData from '../../config/initData';
 import styled from 'styled-components';
 
 const Mt10 = styled.div`
@@ -23,7 +26,8 @@ const EditText = styled.div`
 	padding: 5px;
 	line-height: 1.5;
 `;
-export const generateFlowDOM = (data, current) => {
+
+export const generateFlowDOM = (data, current, removeItem) => {
 	current = current || {};
 	return data.map((item, index) => {
 		if (item.config.type == 'img') {
@@ -108,7 +112,7 @@ export const generateFlowDOM = (data, current) => {
 	});
 };
 
-export const generateFreedomDOM = (item, type) => {
+export const generateFreedomDOM = (item, type, blur) => {
 	if (!item) return null;
 	if (item.type == 'img') {
 		return <img src={item.url} alt="" />;
@@ -128,7 +132,11 @@ export const generateFreedomDOM = (item, type) => {
 				<div>
 					{item.list.map((v, i) => (
 						<Label style={{ width: `${100 / item.layoutType}%` }} key={i}>
-							<input type="radio" name={`label${item.i}`} id={`label${item.i}`} />
+							<input
+								type={item.isCheckBox ? 'checkbox' : 'radio'}
+								name={`label${item.i}`}
+								id={`label${item.i}`}
+							/>
 							<span>{v.label}</span>
 						</Label>
 					))}
@@ -138,4 +146,42 @@ export const generateFreedomDOM = (item, type) => {
 	} else if (item.type == 'chat') {
 		return <Chat></Chat>;
 	}
+};
+
+export const onDrop = (e, dragType, dispatch) => {
+	const type = e.dataTransfer.getData('text');
+	if (
+		type !== 'img' &&
+		type !== 'radio' &&
+		type !== 'text' &&
+		type !== 'chat' &&
+		type !== 'checkbox'
+	)
+		return;
+	console.log(type, '类型');
+	let scale = 1;
+	let y = 0;
+	if (dragType === 'freedom') {
+		scale = 10;
+		// let x = e.pageX - 470 || page.current.offsetLeft;
+		y = e.pageY - 100; //  page.current.offsetTop;
+	}
+	const id = createUuid(6);
+	const position = {
+		x: 0,
+		y,
+		w: initData[type].w * scale,
+		h: initData[type].h,
+		i: id,
+	};
+	const payload = {
+		id,
+		position,
+		config: initData[type].config,
+		type: dragType,
+	};
+	dispatch({
+		type: 'setLibrary/add',
+		payload: payload,
+	});
 };

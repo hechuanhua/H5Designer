@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import initData from '../../config/initData';
 import { throttle, createUuid } from '../../utils';
 import Chat from '../library/Chat';
-import { generateFreedomDOM } from './generateDom'
+import { generateFreedomDOM, onDrop } from './generateDom';
+
 const PageDiv = styled.div`
 	width: 500px;
 	margin: 0 auto;
@@ -148,12 +149,14 @@ const Drag = props => {
 			id,
 		};
 		console.log('down', JSON.parse(JSON.stringify(page.current.mouseInfo)), id);
-		dispatch({
-			type: 'setLibrary/setActive',
-			payload: {
-				id,
-			},
-		});
+		setTimeout(() => {
+			dispatch({
+				type: 'setLibrary/setActive',
+				payload: {
+					id,
+				},
+			});
+		}, 0);
 	};
 	const move = e => {
 		if (!page.current || !page.current.mouseInfo || !page.current.mouseInfo.mouseDown) return;
@@ -288,7 +291,7 @@ const Drag = props => {
 		document.addEventListener('mouseup', up);
 	}, []);
 
-	const onDrop = e => {
+	const onDrop1 = e => {
 		const type = e.dataTransfer.getData('text');
 		console.log(type, '555');
 		if (type !== 'img' && type !== 'radio' && type !== 'text' && type !== 'chat') return;
@@ -328,6 +331,7 @@ const Drag = props => {
 	};
 
 	const blur = e => {
+		console.log('blurblurblurblurblur');
 		let val = e.target.innerText.replace(/\n/g, '<br/>');
 		const config = {
 			text: val,
@@ -374,7 +378,9 @@ const Drag = props => {
 	return (
 		<PageDiv
 			ref={page}
-			onDrop={onDrop}
+			onDrop={e => {
+				onDrop(e, 'freedom', dispatch);
+			}}
 			onDragOver={e => {
 				e.preventDefault();
 			}}
@@ -422,7 +428,7 @@ const Drag = props => {
 							>
 								&#xe60a;
 							</Icon>
-							{generateFreedomDOM(item.config, index)}
+							{generateFreedomDOM(item.config, index, blur)}
 						</DragDiv>
 				  ))
 				: ''}

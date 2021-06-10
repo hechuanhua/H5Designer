@@ -39,13 +39,13 @@ const Library = (e) => {
           <Icon>&#xe8c2;</Icon>
         </Li>
         <Li onDragStart={(e) => { ondragstart(e, 'radio') }}>
-          <div>单选</div>
-          <Icon>&#xe667;</Icon>
+          <div>多选单选</div>
+          <Icon>&#xe6ac;</Icon>
         </Li>
-        <Li onDragStart={(e) => { ondragstart(e, 'checkbox') }}>
+        {/* <Li onDragStart={(e) => { ondragstart(e, 'checkbox') }}>
           <div>多选</div>
           <Icon>&#xe690;</Icon>
-        </Li>
+        </Li> */}
         <Li onDragStart={(e) => { ondragstart(e, 'video') }}>
           <div>视频</div>
           <Icon>&#xe603;</Icon>
