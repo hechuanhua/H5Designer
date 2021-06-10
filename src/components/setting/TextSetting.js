@@ -6,9 +6,11 @@ const TextSetting = props => {
 	const config = useSelector(state => {
 		return state.setLibrary?.current?.config;
 	});
+	
 	const dispatch = useDispatch();
-	console.log(config, 'config');
 	const [form] = Form.useForm();
+
+	console.log(config, 'TextSettingconfig');
 
 	useEffect(() => {
 		console.log('config.id');
