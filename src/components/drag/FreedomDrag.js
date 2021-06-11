@@ -108,7 +108,7 @@ const EditText = styled.div`
 `;
 const Drag = props => {
 	const dispatch = useDispatch();
-	const { freedomLayout, current, layoutType } = useSelector(state => {
+	const { freedomLayout, current, layoutType, popup } = useSelector(state => {
 		return state.setLibrary;
 	});
 	const page = useRef();
@@ -116,7 +116,7 @@ const Drag = props => {
 		maxHeight = 700;
 
 	const [layout, setLayout] = useState([]);
-
+	console.log(freedomLayout,'freedomLayoutfreedomLayout')
 	useEffect(() => {
 		setLayout(freedomLayout);
 	}, [freedomLayout]);
@@ -314,6 +314,15 @@ const Drag = props => {
 			},
 		});
 	};
+	const setPopup = () => {
+		console.log('setPopup')
+		dispatch({
+			type: 'setLibrary/setPopup',
+			payload: {
+				popup:!popup
+			},
+		});
+	}
 
 	return (
 		<PageDiv
@@ -326,6 +335,7 @@ const Drag = props => {
 			}}
 			className={layoutType == 'freedom' ? 'free' : ''}
 		>
+			
 			{layout.length
 				? layout.map((item, index) => (
 						<DragDiv
@@ -341,6 +351,7 @@ const Drag = props => {
 								fontSize: item.config.fontSize + 'px',
 								backgroundColor: item.config.backgroundColor,
 								textAlign: item.config.align,
+								borderRadius: item.config.borderRadius + 'px',
 							}}
 							data-id={item.id}
 							key={item.id}
@@ -367,7 +378,7 @@ const Drag = props => {
 							>
 								&#xe60a;
 							</Icon>
-							{generateFreedomDOM(item.config, index, blur)}
+							{generateFreedomDOM({config:item.config, index, blur, setPopup})}
 						</DragDiv>
 				  ))
 				: ''}

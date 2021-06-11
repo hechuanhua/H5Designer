@@ -12,6 +12,10 @@
 }
 body {
 	background: #f8f7f7;
+  height: 100%;
+}
+#root{
+  height: 100%;
 }
 img {
 	max-width: 100%;
@@ -311,7 +315,7 @@ img {
 
 .preview {
 	box-shadow: none !important;
-	height: auto !important;
+	height: 100%!important;
 	.react-grid-layout {
 		transition: none;
 	}
@@ -327,6 +331,9 @@ img {
       display: none;
     }
 	}
+  img{
+    max-height: 100%;
+  }
 }
 
 .chatBox {

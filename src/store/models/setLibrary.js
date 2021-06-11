@@ -11,6 +11,7 @@ let initData = {
 	freedomLayout: [],
 	current: {},
 	layoutType: 'freedom',
+  popup:false
 };
 
 if (localStorage.getItem('layout')) {
@@ -152,7 +153,16 @@ export default {
 				...state,
 				layoutType: payload.layoutType,
 			};
+      saveLayout(newState);
 			return newState;
 		},
+    setPopup(state, payload){
+      const newState = {
+				...state,
+				popup: payload.popup,
+			};
+      saveLayout(newState);
+			return newState;
+    }
 	},
 };

@@ -40,8 +40,8 @@ const Library = (e) => {
           <div>多选单选</div>
           <Icon>&#xe6ac;</Icon>
         </Li>
-        {/* <Li onDragStart={(e) => { ondragstart(e, 'checkbox') }}>
-          <div>多选</div>
+        {/* <Li onDragStart={(e) => { ondragstart(e, 'popup') }}>
+          <div>弹窗组件</div>
           <Icon>&#xe690;</Icon>
         </Li> */}
         <Li onDragStart={(e) => { ondragstart(e, 'video') }}>

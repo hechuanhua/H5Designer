@@ -29,7 +29,7 @@ ReactDOM.render(
   <>
     <Provider store={store}>
       <Routes></Routes>
-    </Provider>,
+    </Provider>
     <GlobalStyle/>
   </>,
   document.getElementById('root')

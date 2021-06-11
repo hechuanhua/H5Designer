@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Form, Input, Select } from 'antd';
+import { Form, Input, Select, Switch } from 'antd';
 
 const TextSetting = props => {
 	const config = useSelector(state => {
@@ -58,6 +58,9 @@ const TextSetting = props => {
 			<Form.Item name="color" label="字体颜色">
 				<Input />
 			</Form.Item>
+      <Form.Item name="borderRadius" label="圆角">
+				<Input type="number"/>
+			</Form.Item>
 			<Form.Item name="fixed" label="固定位置">
 				<Select allowClear>
 					<Select.Option value="current">固定当前位置</Select.Option>
@@ -71,6 +74,9 @@ const TextSetting = props => {
 			) : (
 				''
 			)}
+      <Form.Item name="popup" label="点击弹窗">
+        <Switch checked={config.popup}></Switch>
+      </Form.Item>
 		</Form>
 	);
 };

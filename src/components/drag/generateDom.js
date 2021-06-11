@@ -1,9 +1,10 @@
-import { useMemo } from 'react'
+import { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Chat from '../library/Chat';
 import { createUuid } from '../../utils/index';
 import initData from '../../config/initData';
 import styled from 'styled-components';
+import WechatPopup from '../library/WechatPopup';
 
 const Mt10 = styled.div`
 	margin-top: 10px;
@@ -27,10 +28,13 @@ const EditText = styled.div`
 	padding: 5px;
 	line-height: 1.5;
 `;
+const H100 = styled.div`
+	height:100%;
+`
 
 export const generateFlowDOM = (data, current, removeItem) => {
 	current = current || {};
-	
+
 	return data.map((item, index) => {
 		if (item.config.type == 'img') {
 			return (
@@ -46,7 +50,7 @@ export const generateFlowDOM = (data, current, removeItem) => {
 					>
 						&#xe60a;
 					</Icon>
-					<img src={item.config.url} alt="" />
+					<img src={item.config.url} />
 				</div>
 			);
 		} else if (item.config.type == 'text') {
@@ -94,7 +98,6 @@ export const generateFlowDOM = (data, current, removeItem) => {
 				</div>
 			);
 		} else if (item.config.type == 'chat') {
-			
 			return (
 				<div
 					key={item.id}
@@ -115,51 +118,52 @@ export const generateFlowDOM = (data, current, removeItem) => {
 	});
 };
 
-export const generateFreedomDOM = (item, type, blur) => {
-	if (!item) return null;
-	if (item.type == 'img') {
-		return <img src={item.url} alt="" />;
-	} else if (item.type == 'text') {
+export const generateFreedomDOM = ({ config, type, blur, setPopup }) => {
+	if (!config) return null;
+	if (config.type == 'img') {
 		return (
-			<EditText
-				contentEditable={type === 'preview' ? false : true}
-				suppressContentEditableWarning={true}
-				onBlur={blur}
-				dangerouslySetInnerHTML={{ __html: item.text }}
-			></EditText>
+			<H100>
+				<img src={config.url} onClick={config.popup?setPopup:()=>{}} />
+			</H100>
 		);
-	} else if (item.type == 'radio') {
+	} else if (config.type == 'text') {
 		return (
-			<div className="preview radio">
-				<Mt10>{item.title}</Mt10>
+			<H100>
+				<EditText
+					contentEditable={type === 'preview' ? false : true}
+					suppressContentEditableWarning={true}
+					onBlur={blur}
+					dangerouslySetInnerHTML={{ __html: config.text }}
+					onClick={config.popup?setPopup:()=>{}}
+				></EditText>
+			</H100>
+		);
+	} else if (config.type == 'radio') {
+		return (
+			<H100>
+				<Mt10>{config.title}</Mt10>
 				<div>
-					{item.list.map((v, i) => (
-						<Label style={{ width: `${100 / item.layoutType}%` }} key={i}>
+					{config.list.map((v, i) => (
+						<Label style={{ width: `${100 / config.layoutType}%` }} key={i}>
 							<input
-								type={item.isCheckBox ? 'checkbox' : 'radio'}
-								name={`label${item.i}`}
-								id={`label${item.i}`}
+								type={config.isCheckBox ? 'checkbox' : 'radio'}
+								name={`label${config.i}`}
+								id={`label${config.i}`}
 							/>
 							<span>{v.label}</span>
 						</Label>
 					))}
 				</div>
-			</div>
+			</H100>
 		);
-	} else if (item.type == 'chat') {
-		return <Chat data={item.data}></Chat>;
+	} else if (config.type == 'chat') {
+		return <Chat data={config.data}></Chat>;
 	}
 };
 
 export const onDrop = (e, dragType, dispatch) => {
 	const type = e.dataTransfer.getData('text');
-	if (
-		type !== 'img' &&
-		type !== 'radio' &&
-		type !== 'text' &&
-		type !== 'chat' 
-	)
-		return;
+	if (type !== 'img' && type !== 'radio' && type !== 'text' && type !== 'chat') return;
 	console.log(type, '类型');
 	let scale = 1;
 	let y = 0;

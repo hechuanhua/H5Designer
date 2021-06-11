@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import RGL, { WidthProvider } from 'react-grid-layout';
 import { generateFlowDOM, generateFreedomDOM } from '../../components/drag/generateDom';
+import WechatPopup from '../../components/library/WechatPopup'
 const ReactGridLayout = WidthProvider(RGL);
 
 const PageDiv = styled.div.attrs(props => ({
-	className: 'preview'
+	className: 'preview',
 }))`
 	width: 100%;
 	margin: 0 auto;
@@ -15,50 +16,44 @@ const PageDiv = styled.div.attrs(props => ({
 	max-width: 500px;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 `;
-const Mt10 = styled.div`
-	margin-top: 10px;
-`;
-const Label = styled.label`
-	display: inline-block;
-	margin-top: 10px;
-`;
 const DragDiv = styled.div`
 	width: 200px;
 	height: 100px;
 	cursor: move;
 `;
-const Icon = styled.div.attrs(props => ({
-	className: 'iconfont',
-}))`
-	font-size: 15px;
-	position: absolute;
-	top: 2px;
-	right: 2px;
-	font-size: 15px;
-	cursor: pointer;
-	z-index: 30;
-`;
+
 const Preview = props => {
 	const [layout, setLayout] = useState([]);
-
-	const { layoutData, freedomLayout, current } = useSelector(state => {
+	const dispatch = useDispatch();
+	const { layoutData, freedomLayout, current, popup } = useSelector(state => {
 		return state.setLibrary;
 	});
-  let w = document.documentElement.clientWidth
-  
+	let w = document.documentElement.clientWidth;
+
 	useEffect(() => {
-    if(w>500){w = 500}
-    const scale = w / 500
-    freedomLayout.forEach((item,index)=>{
-      item.position.x = item.position.x * scale
-      item.position.y = item.position.y * scale
-      item.position.w = item.position.w * scale
-      item.position.h = item.position.h * scale
-    })
+		if (w > 500) {
+			w = 500;
+		}
+		const scale = w / 500;
+		freedomLayout.forEach((item, index) => {
+			item.position.x = item.position.x * scale;
+			item.position.y = item.position.y * scale;
+			item.position.w = item.position.w * scale;
+			item.position.h = item.position.h * scale;
+		});
 		const layouts = layoutData.map(item => item.position);
 		setLayout(layouts);
 	}, [layoutData]);
 
+	const setPopup = () => {
+		console.log('setPopup',popup)
+		dispatch({
+			type: 'setLibrary/setPopup',
+			payload: {
+				popup:!popup
+			},
+		});
+	}
 	return (
 		<PageDiv>
 			<ReactGridLayout
@@ -74,6 +69,7 @@ const Preview = props => {
 			>
 				{generateFlowDOM(layoutData)}
 			</ReactGridLayout>
+      <WechatPopup visibility={popup} setPopup={setPopup}></WechatPopup>
 			{freedomLayout.map((item, index) => (
 				<DragDiv
 					className={item.position.i == current.id ? 'active drag' : 'drag'}
@@ -92,7 +88,7 @@ const Preview = props => {
 					data-id={item.position.i}
 					key={item.position.i}
 				>
-					{generateFreedomDOM(item.config, 'preview')}
+					{generateFreedomDOM({ config: item.config, type: 'preview', setPopup })}
 				</DragDiv>
 			))}
 		</PageDiv>

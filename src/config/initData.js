@@ -6,6 +6,8 @@ const initData = {
 			type: 'img',
 			url: 'https://dummyimage.com/500x240',
 			fixed: '',
+      borderRadius:0,
+      popup:false
 		},
 	},
 	text: {
@@ -20,6 +22,8 @@ const initData = {
 			color: '#000',
 			fixed: '',
 			bottomY: 0,
+      borderRadius:0,
+      popup:false
 		},
 	},
 	radio: {

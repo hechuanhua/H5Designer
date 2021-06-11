@@ -89,6 +89,9 @@ const ImgSetting = props => {
 					<Select.Option value="bottom">固定底部</Select.Option>
 				</Select>
 			</Form.Item>
+			<Form.Item name="popup" label="点击弹窗">
+        <Switch checked={config.popup}></Switch>
+      </Form.Item>
 		</Form>
 	);
 };
