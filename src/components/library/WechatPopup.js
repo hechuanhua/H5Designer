@@ -8,7 +8,7 @@ const Popup = styled.div`
 	transform: scale(1);
 	height: 100%;
 	width: 100%;
-	z-index: 1;
+	z-index: 100;
 	position: relative;
 `;
 const Wrap = styled.div`
