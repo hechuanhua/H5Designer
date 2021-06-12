@@ -5,7 +5,14 @@ import RGL, { WidthProvider } from 'react-grid-layout';
 import { generateFlowDOM, generateFreedomDOM } from '../../components/drag/generateDom';
 import WechatPopup from '../../components/library/WechatPopup'
 import initData from '../../config/initData';
+import { createGlobalStyle } from 'styled-components'
 const ReactGridLayout = WidthProvider(RGL);
+
+const Globalstyle = createGlobalStyle`　
+	body,html{
+　　width:${initData.maxWidth}px;
+		margin:0 auto;
+	}`;
 
 const PageDiv = styled.div.attrs(props => ({
 	className: 'preview',
@@ -31,20 +38,22 @@ const Preview = props => {
 	});
 	
 	let w = document.documentElement.clientWidth;
-	const [width,setWidth] = useState(document.documentElement.clientWidth)
-	console.log(111)
+	const [width,setWidth] = useState(initData.maxWidth)
+	console.log(width)
 	useEffect(() => {
+		// alert(w)
 		let scale = 1
-		if (width > initData.maxWidth) {
-			scale =  width/initData.maxWidth
-			// width = initData.maxWidth;
-			setWidth(width)
+		if (width > w) {
+			scale = w/width
+			// // width = initData.maxWidth;
+			// setWidth(width)
 		} else {
-			scale = initData.maxWidth/width;
+			scale =  w/width ;
 		}
+		// alert(scale)
 		// const scale = w / initData.maxWidth;
-		console.log(scale,'scale')
-		document.getElementById('viewport').setAttribute('content',`width=device-width, initial-scale=${scale}, minimum-scale=${scale}, maximum-scale=${scale}, user-scalable=no`) 
+		console.log(scale,width,'scale')
+		document.getElementById('viewport').setAttribute('content',`width=375, initial-scale=${scale}, minimum-scale=${scale}, maximum-scale=${scale}, user-scalable=no`) 
 
 		// freedomLayout.forEach((item, index) => {
 		// 	item.position.x = item.position.x * scale;
@@ -68,6 +77,7 @@ const Preview = props => {
 	}
 	return (
 		<PageDiv width={width}>
+			<Globalstyle></Globalstyle>
 			<ReactGridLayout
 				layout={layout}
 				isDraggable={false}
