@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-
-const Chat = (props) => {
+import initData from '../../config/initData';
+const ChatDialog = (props) => {
 
 	const dataSource = JSON.parse(props.data)
 	console.log(dataSource,'ChatChatChat')
 	
 	const [speechIndex, setSpeechIndex] = useState(0);
 	const [chatText, setChatText] = useState([]);
-
+	const w = document.documentElement.clientWidth > initData.maxWidth? initData.maxWidth : document.documentElement.clientWidth
 	const showSpeech = index => {
 		console.log(dataSource[speechIndex], index, speechIndex, 'oooooo');
 		const selfText = dataSource[speechIndex].data[index].name;
@@ -107,7 +107,7 @@ const Chat = (props) => {
 				) : (
 					''
 				)}
-				<div className="select_botton">
+				<div className="select_botton" style={{width:w}}>
 					{dataSource[speechIndex] &&
 						dataSource[speechIndex].data.map((item, index) => (
 							<a
@@ -126,4 +126,4 @@ const Chat = (props) => {
 	);
 };
 
-export default Chat;
+export default ChatDialog;

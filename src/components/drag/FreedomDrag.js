@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import initData from '../../config/initData';
 import { throttle, createUuid } from '../../utils';
-import Chat from '../library/Chat';
 import { generateFreedomDOM, onDrop } from './generateDom';
+import initData from '../../config/initData';
 
 const PageDiv = styled.div`
-	width: 500px;
+	width: ${initData.maxWidth}px;
 	margin: 0 auto;
 	border: 1px solid #ddd;
 	height: 700px;
@@ -84,13 +83,6 @@ const EditorPoint = styled.div`
 		cursor: nwse-resize;
 	}
 `;
-const Mt10 = styled.div`
-	margin-top: 10px;
-`;
-const Label = styled.label`
-	display: inline-block;
-	margin-top: 10px;
-`;
 const Icon = styled.div.attrs(props => ({
 	className: 'iconfont',
 }))`
@@ -101,11 +93,9 @@ const Icon = styled.div.attrs(props => ({
 	font-size: 15px;
 	cursor: pointer;
 	z-index: 30;
+	color: #000;
 `;
-const EditText = styled.div`
-	padding: 5px;
-	line-height: 1.5;
-`;
+
 const Drag = props => {
 	const dispatch = useDispatch();
 	const { freedomLayout, current, layoutType, popup } = useSelector(state => {
@@ -208,8 +198,8 @@ const Drag = props => {
 			default:
 				left = Number(styleLeft) + moveX;
 				top = Number(styleTop) + moveY;
-				if (width + left > maxWidth) {
-					left = maxWidth - width;
+				if (width + left > initData.maxWidth) {
+					left = initData.maxWidth - width;
 				}
 				if (height + top > maxHeight) {
 					top = maxHeight - height;
@@ -218,8 +208,8 @@ const Drag = props => {
 		}
 		if (top < 0) top = 0;
 		if (left < 0) left = 0;
-		if (width + left > maxWidth) {
-			width = maxWidth - left;
+		if (width + left > initData.maxWidth) {
+			width = initData.maxWidth - left;
 		}
 		if (height + top > maxHeight) {
 			height = maxHeight - top;
@@ -303,7 +293,7 @@ const Drag = props => {
 
 	const blur = e => {
 		console.log('blurblurblurblurblur');
-		let val = e.target.innerText.replace(/\n/g, '<br/>');
+		let val = e.target.innerHTML.replace(/\n/g, '<br/>');
 		const config = {
 			text: val,
 		};

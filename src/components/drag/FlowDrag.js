@@ -2,14 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import GridLayout from 'react-grid-layout';
-import { createUuid } from '../../utils/index';
-import initData from '../../config/initData';
 import CommonDrag from '../drag/FreedomDrag';
-import Chat from '../library/Chat';
 import { generateFlowDOM, onDrop } from './generateDom';
+import initData from '../../config/initData';
 
 const PageDiv = styled.div`
-	width: 500px;
+	width: ${initData.maxWidth}px;
 	margin: 0 auto;
 	height: 800px;
 	position: relative;
@@ -96,7 +94,7 @@ const Drag = props => {
 				layout={layout} //
 				cols={50}
 				rowHeight={1}
-				width={500}
+				width={initData.maxWidth}
 				autoSize={true} //容器高度自适应
 				compactType={'vertical'}
 				draggableCancel="" //不可拖动的class  .test

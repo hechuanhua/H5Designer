@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Chat from '../library/Chat';
+import ChatDialog from '../library/ChatDialog';
 import { createUuid } from '../../utils/index';
 import initData from '../../config/initData';
 import styled from 'styled-components';
-import WechatPopup from '../library/WechatPopup';
 
 const Mt10 = styled.div`
 	margin-top: 10px;
@@ -23,9 +22,10 @@ const Icon = styled.div.attrs(props => ({
 	font-size: 15px;
 	cursor: pointer;
 	z-index: 30;
+	color: #000;
 `;
 const EditText = styled.div`
-	padding: 5px;
+	padding: 0 5px;
 	line-height: 1.5;
 `;
 const H100 = styled.div`
@@ -111,7 +111,7 @@ export const generateFlowDOM = (data, current, removeItem) => {
 					>
 						&#xe60a;
 					</Icon>
-					<Chat data={item.config.data}></Chat>;
+					<ChatDialog data={item.config.data}></ChatDialog>;
 				</div>
 			);
 		}
@@ -157,7 +157,7 @@ export const generateFreedomDOM = ({ config, type, blur, setPopup }) => {
 			</H100>
 		);
 	} else if (config.type == 'chat') {
-		return <Chat data={config.data}></Chat>;
+		return <ChatDialog data={config.data}></ChatDialog>;
 	}
 };
 
