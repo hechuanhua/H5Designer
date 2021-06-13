@@ -21,7 +21,7 @@ const PageDiv = styled.div.attrs(props => ({
 	margin: 0 auto;
 	height: 800px;
 	position: relative;
-	max-width: ${props=>props.width}px;
+	max-width: ${initData.maxWidth}px;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 `;
 const DragDiv = styled.div`
@@ -37,31 +37,16 @@ const Preview = props => {
 		return state.setLibrary;
 	});
 	
-	let w = document.documentElement.clientWidth;
-	const [width,setWidth] = useState(initData.maxWidth)
-	console.log(width)
+	let clientWidth = document.documentElement.clientWidth;
 	useEffect(() => {
-		// alert(w)
 		let scale = 1
-		if (width > w) {
-			scale = w/width
-			// // width = initData.maxWidth;
-			// setWidth(width)
+		if (initData.maxWidth > clientWidth) {
+			scale = clientWidth/initData.maxWidth
 		} else {
-			scale =  w/width ;
+			scale =  clientWidth/initData.maxWidth ;
 		}
-		// alert(scale)
-		// const scale = w / initData.maxWidth;
-		console.log(scale,width,'scale')
+		console.log(scale,initData.maxWidth,'scale')
 		document.getElementById('viewport').setAttribute('content',`width=375, initial-scale=${scale}, minimum-scale=${scale}, maximum-scale=${scale}, user-scalable=no`) 
-
-		// freedomLayout.forEach((item, index) => {
-		// 	item.position.x = item.position.x * scale;
-		// 	item.position.y = item.position.y * scale;
-		// 	item.position.w = item.position.w * scale;
-		// 	item.position.h = item.position.h * scale;
-		// });
-
 		const layouts = layoutData.map(item => item.position);
 		setLayout(layouts);
 	}, [layoutData]);
@@ -76,7 +61,7 @@ const Preview = props => {
 		});
 	}
 	return (
-		<PageDiv width={width}>
+		<PageDiv>
 			<Globalstyle></Globalstyle>
 			<ReactGridLayout
 				layout={layout}
@@ -84,7 +69,7 @@ const Preview = props => {
 				isResizable={false}
 				cols={50}
 				rowHeight={1}
-				width={width}
+				width={initData.maxWidth}
 				compactType={'vertical'}
 				containerPadding={[0, 0]} //整个容器边距
 				margin={[0, 0]} //每个子项目边距

@@ -172,7 +172,7 @@ const RadioSetting = props => {
 					<Switch onChange={changeCheckBox} checked={config.isCheckBox}></Switch>
 				</Form.Item>
 			</Form>
-			<CommonModal visible={visible} onOk={handleOk} onCancel={handleCancel}>
+			<CommonModal visible={visible} onOk={handleOk} onCancel={handleCancel} title={'批量编辑'}>
 				<div>每个选项请单列一行</div>
 				<TextArea
 					placeholder=""

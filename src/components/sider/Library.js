@@ -13,7 +13,6 @@ const Li = styled.li.attrs(props => ({
   padding: 10px 20px;
   border: 1px solid;
   width:80px;
-  margin-left:10px;
 `
 const Icon = styled.div.attrs(props => ({
   className: 'iconfont'

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
 import { getImgInfo } from '../../utils/index';
+import { baseUrl } from '../../config/config'
 
 const ImgSetting = props => {
 	const config = useSelector(state => {
@@ -72,7 +73,7 @@ const ImgSetting = props => {
 				>
 					<Upload.Dragger
 						name="files"
-						action="http://localhost:7001/upload"
+						action={`${baseUrl}/upload`}
 						maxCount={1}
 						// onChange={onChange}
 					>

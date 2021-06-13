@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import Draggable from 'react-draggable';
 
 const CommonModal = props => {
-	const { visible, onOk, onCancel } = props;
+	const { visible, onOk, onCancel, title } = props;
 	const [disabled, setDisabled] = useState(false);
 	const [bounds, setBounds] = useState({
 		left: 0,
@@ -41,7 +41,7 @@ const CommonModal = props => {
 					onFocus={() => {}}
 					onBlur={() => {}}
 				>
-					批量编辑
+					{title}
 				</div>
 			}
 			visible={visible}

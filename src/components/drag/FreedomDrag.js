@@ -9,7 +9,7 @@ const PageDiv = styled.div`
 	width: ${initData.maxWidth}px;
 	margin: 0 auto;
 	border: 1px solid #ddd;
-	height: 700px;
+	height:  ${initData.height}px;
 	position: absolute;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 	top: 0;
@@ -222,14 +222,6 @@ const Drag = props => {
 			height,
 			mouseMove: true,
 		};
-		// setLayout(layout => {
-		// 	const newLayout = [
-		// 		...layout.slice(0, index),
-		// 		{ ...layout[index], x: left, y: top, w: width, h: height },
-		// 		...layout.slice(index + 1, layout.length),
-		// 	];
-		// 	return newLayout;
-		// });
 		setLayout(layout => {
 			const newLayout = [
 				...layout.slice(0, index),

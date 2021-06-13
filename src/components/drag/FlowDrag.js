@@ -6,10 +6,12 @@ import CommonDrag from '../drag/FreedomDrag';
 import { generateFlowDOM, onDrop } from './generateDom';
 import initData from '../../config/initData';
 
-const PageDiv = styled.div`
+const PageDiv = styled.div.attrs(props => ({
+	id: 'canvas',
+}))`
 	width: ${initData.maxWidth}px;
 	margin: 0 auto;
-	height: 800px;
+	height: ${initData.height}px;
 	position: relative;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 `;
@@ -89,7 +91,7 @@ const Drag = props => {
 		<PageDiv>
 			<CommonDrag></CommonDrag>
 			<GridLayout
-				style={{ minHeight: 700 }}
+				style={{ minHeight: initData.height }}
 				className="layout"
 				layout={layout} //
 				cols={50}

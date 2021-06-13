@@ -7,8 +7,8 @@ import store from './store'
 import Routes from './pages/Routers'
 
 import 'antd/dist/antd.css';
-import './App.scss';
-import './antRest.scss';
+import './assets/style/App.scss';
+import './assets/style/antRest.scss';
 
 const GlobalStyle = createGlobalStyle`
 *{

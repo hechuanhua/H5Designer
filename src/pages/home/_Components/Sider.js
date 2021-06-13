@@ -15,11 +15,12 @@ const SiderDiv = styled.div`
 	left: 0;
 	bottom: 0;
 	background: #fff;
-	width: 300px;
+	width: 360px;
 	display: flex;
 `;
 const FlexItem = styled.div`
 	flex: 1;
+	padding:0 10px;
 `;
 const Sider = props => {
 	const [menuIndex, setMenuIndex] = useState('1');
@@ -44,7 +45,7 @@ const Sider = props => {
 				}}
 				inlineCollapsed={false}
 				style={{
-					width: '100px',
+					width: '80px',
 					background: '#fff',
 					color: '#000',
 					borderRight: '1px solid #ccd5db',
