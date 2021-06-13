@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PreImage from '../common/Image'
+import { getTemplateList, getLayoutById } from '../../api'
+
 const TemplateBox = styled.ul`
 	// display:flex
 `;
@@ -52,17 +54,26 @@ const LI = styled.li`
 `
 
 const Template = e => {
-	const [templateData,setTemplateData] = useState([1,2,3,4])
+	const [templateList,setTemplateList] = useState([])
 	const use = () => {
 		console.log('use')
 	}
+	useEffect(()=>{
+		getTemplateList().then((res)=>{
+			console.log(res)
+			setTemplateList(res.list)
+		})
+		getLayoutById({tid:'A46A56'}).then((res)=>{
+			console.log(res)
+		})
+	},[])
 	return( <TemplateBox>
 		{
-			templateData.map((item,index)=>(
+			templateList.map((item,index)=>(
 				<LI key={index}>
 					<Mask></Mask>
 					<Use onClick={use}>立即使用</Use>
-					<PreImage src="http://192.168.1.134:7001/public/uploads/QQ%E5%9B%BE%E7%89%8720210613122926.png" alt="" />
+					<PreImage src={item.cover}/>
 				</LI>
 			))
 		}

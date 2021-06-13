@@ -14,6 +14,17 @@ const PageDiv = styled.div.attrs(props => ({
 	height: ${initData.height}px;
 	position: relative;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+	&.print{
+		.active{
+			border:none;
+			div[class*='point-']{
+				display:none;
+			}
+			.iconfont{
+				display:none;
+			}
+		}
+	}
 `;
 
 const Drag = props => {

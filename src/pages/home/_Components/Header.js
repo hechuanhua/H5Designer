@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom"
 import styled from "styled-components";
 import html2canvas from 'html2canvas';
 import CommonModal from '../../../components/common/Modal';
-import {upload} from '../../../api'
 
 const Head = styled.div`
 	text-align:center;
@@ -49,21 +48,12 @@ const Header = (props) => {
 
   const [visible,setVisible] = useState(false)
   const [title,setTitle] = useState('') 
-  const [base64Img,setBase64Img] = useState('')
+  // const [base64Img,setBase64Img] = useState('')
   const savePage = () => {
-    html2canvas(document.getElementById('canvas'),{
-      useCORS:true
-    }).then(function(canvas) {
-      console.log(canvas,333)
-      var image = new Image();
-      image.src = canvas.toDataURL("image/png");
-      // upload(image)
-      setBase64Img(image)
-    });
     if(!freedomLayout.length && !layoutData.length){
       return message.error('请添加数据后再保存')
     }
-    // setVisible(true)
+    setVisible(true)
   }
 
   const handleOk = () => {
@@ -72,21 +62,37 @@ const Header = (props) => {
       return message.error('必须填写标题')
     }
 
-   
-    dispatch({
-      type: 'setLibrary/saveTemplateData',
-      payload: {
-        title,
-        img: base64Img
-      }
-    }).then((res)=>{
-      message.success('保存成功',1,()=>{
-        dispatch({
-          type: 'setLibrary/clearAllData',
-          payload: {}
-        })
-      });
-    })
+    const canvas = document.getElementById('canvas')
+    canvas.classList.add('print')
+    html2canvas(canvas,{
+      useCORS:true,
+      scrollX: -10, 
+    }).then(function(canvas) {
+      canvas.classList.remove('print')
+      const image = new Image();
+      const src = canvas.toDataURL("image/png");
+      image.src = src
+      document.body.appendChild(image)
+      // setBase64Img(src)
+
+      dispatch({
+        type: 'setLibrary/saveTemplateData',
+        payload: {
+          title,
+          base64: src
+        }
+      }).then((res)=>{
+        message.success('保存成功',1,()=>{
+          dispatch({
+            type: 'setLibrary/clearAllData',
+            payload: {}
+          })
+        });
+      })
+
+    });
+
+    
   }
 
   const changTitle = (e) => {

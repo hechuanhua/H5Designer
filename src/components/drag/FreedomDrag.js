@@ -23,9 +23,18 @@ const PageDiv = styled.div`
 const DragDiv = styled.div`
 	width: 200px;
 	height: 100px;
-	border: 1px solid #000;
+	// border: 1px solid #000;
 	cursor: move;
 	user-select: none;
+	div[class*="point-"],.iconfont{
+		display:none;
+	}
+	&.active{
+		border: 1px solid #000;
+		div[class*="point-"],.iconfont{
+			display:block;
+		}
+	}
 	img {
 		width: 100%;
 		max-height: 100%;
@@ -318,8 +327,7 @@ const Drag = props => {
 			className={layoutType == 'freedom' ? 'free' : ''}
 		>
 			
-			{layout.length
-				? layout.map((item, index) => (
+			{ layout.map((item, index) => (
 						<DragDiv
 							className={item.id == current.id ? 'active drag' : 'drag'}
 							style={{
@@ -363,7 +371,7 @@ const Drag = props => {
 							{generateFreedomDOM({config:item.config, index, blur, setPopup})}
 						</DragDiv>
 				  ))
-				: ''}
+				}
 		</PageDiv>
 	);
 };
