@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import Draggable from 'react-draggable';
 
 const CommonModal = props => {
-	const { visible, onOk, onCancel, title } = props;
+	const { visible, onOk, onCancel, title, confirmLoading } = props;
 	const [disabled, setDisabled] = useState(false);
 	const [bounds, setBounds] = useState({
 		left: 0,
@@ -46,6 +46,7 @@ const CommonModal = props => {
 			}
 			visible={visible}
 			onOk={onOk}
+			confirmLoading={confirmLoading}
 			onCancel={onCancel}
 			modalRender={modal => (
 				<Draggable

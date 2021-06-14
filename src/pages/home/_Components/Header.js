@@ -1,11 +1,13 @@
 
 import { useEffect, useRef, useState } from 'react';
-import { Radio, Button, message, Input, Form } from 'antd';
+import { Radio, Button, message, Input, Form, Spin } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom"
 import styled from "styled-components";
 import html2canvas from 'html2canvas';
 import CommonModal from '../../../components/common/Modal';
+
+import { saveTemplate } from '../../../api'
 
 const Head = styled.div`
 	text-align:center;
@@ -31,9 +33,14 @@ const Center = styled.div`
 `
 const Header = (props) => {
   const dispatch = useDispatch();
-  const { layoutType, freedomLayout, flowLayout } = useSelector(state => {
+  const layoutData =  useSelector(state => {
     return state.layoutData;
   });
+  const {selected} =  useSelector(state => {
+    return state.templateData;
+  });
+
+  const { layoutType, freedomLayout, flowLayout } = layoutData
   const onChange = (e) => {
     dispatch({
       type: 'layoutData/setType',
@@ -48,7 +55,7 @@ const Header = (props) => {
 
   const [visible,setVisible] = useState(false)
   const [title,setTitle] = useState('') 
-  // const [base64Img,setBase64Img] = useState('')
+  const [loading,setLoading] = useState(false)
   const savePage = () => {
     if(!freedomLayout.length && !flowLayout.length){
       return message.error('请添加数据后再保存')
@@ -56,49 +63,59 @@ const Header = (props) => {
     setVisible(true)
   }
 
+  useEffect(()=>{
+    setTitle(selected.title)
+    console.log(selected,title,'useEffect')
+  },[selected.title])
+
   const handleOk = () => {
-    
     if(!title.replace(/^\s+|\s+$/g,'')){
       return message.error('必须填写标题')
     }
 
-    const canvas = document.getElementById('canvas')
-    // canvas.classList.add('print')
+    setLoading(true)
     dispatch({
       type: 'layoutData/setActive',
       payload: {},
     })
+    
     setTimeout(()=>{
+    //   const canvas = document.getElementById('canvas')
+    //   canvas.classList.add('print')
       html2canvas(canvas,{
         useCORS:true,
         // scrollX: -10, 
       }).then(function(canvas) {
-        canvas.classList.remove('print')
+        // canvas.classList.remove('print')
         const image = new Image();
         const src = canvas.toDataURL("image/png");
         image.src = src
         // document.body.appendChild(image)
-        dispatch({
-          type: 'layoutData/saveTemplateData',
-          payload: {
-            title,
-            base64: src
-          }
+
+        saveTemplate({
+          title,
+          tid:selected.tid,
+          base64: src,
+          layoutData
         }).then((res)=>{
+          setLoading(false)
           setVisible(false)
+          dispatch({
+            type: 'layoutData/clearAllData',
+            payload: {}
+          })
           message.success('保存成功',1,()=>{
             dispatch({
-              type: 'layoutData/clearAllData',
+              type: 'templateData/getTemplateList',
               payload: {}
             })
-          });
+          })
+        }).catch((res)=>{
+          setLoading(false)
         })
   
       });
-    },0)
-    
-
-    
+    },0)  
   }
 
   const changTitle = (e) => {
@@ -108,6 +125,7 @@ const Header = (props) => {
 
   return (
     <Head>
+      {console.log(title,'title')}
       <Operation>
         <Center>
           <Radio.Group defaultValue={layoutType} onChange={onChange} style={{ marginBottom: 16 }}>
@@ -115,19 +133,20 @@ const Header = (props) => {
             <Radio.Button value={'freedom'}>嵌套布局</Radio.Button>
           </Radio.Group>
         </Center>
-        <Button type="primary" onClick={preview}>预览</Button>
+        <Button type='primary' onClick={preview}>预览</Button>
         <Button onClick={savePage}>保存</Button>
         <Button>发布</Button>
       </Operation>
 
-      <CommonModal visible={visible} onOk={handleOk} onCancel={()=>{setVisible(false)}} title={'确定保存？'}>
+     
+      <CommonModal visible={visible} onOk={handleOk} onCancel={()=>{setVisible(false)}} title={'确定保存？'} confirmLoading={loading}>
         <Form>
-          <Form.Item label="模板标题" name="title">
+          <Form.Item label="模板标题">
             <Input onChange={changTitle} value={title}></Input>
           </Form.Item>
         </Form>
-			</CommonModal>
-
+      </CommonModal>
+      
     </Head>
   )
 }

@@ -1,7 +1,6 @@
 /**
- * 设置组件布局
+ * 组件布局数据
  */
- import { saveTemplate } from '../../api'
 
 const saveLayout = data => {
 	localStorage.setItem('layout', JSON.stringify(data));
@@ -25,16 +24,16 @@ export default {
 	name: 'layoutData',
 	state: initData,
 	effects: dispatch => ({
-		saveTemplateData(payload, rootState) {
-			console.log(payload, rootState)
-			return saveTemplate({
-				title:payload.title,
-				template:rootState.setLibrary,
-				base64:payload.base64
-			})
-		},
+		// saveTemplateData(payload, rootState) {
+		// 	console.log(payload, rootState)
+		// 	return saveTemplate({
+		// 		title:payload.title,
+		// 		layoutData:rootState.layoutData,
+		// 		base64:payload.base64
+		// 	})
+		// },
 	}),
-	reducers: {
+	reducers: { 
 		add(state, payload) {
 			let newState = {};
 			if (payload.type === 'flow') {
@@ -188,9 +187,8 @@ export default {
 			return newState
 		},
 		switchLayout(state, payload){
-			const newState = JSON.parse(payload.template)
+			const newState = JSON.parse(payload.layoutData)
 			newState.current = []
-			console.log(newState)
 			saveLayout(newState);
 			return newState
 		}

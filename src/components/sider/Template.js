@@ -62,30 +62,39 @@ const TemplateTitle = styled.div`
 `
 
 const Template = e => {
-	const [templateList,setTemplateList] = useState([])
+	
 	const dispatch = useDispatch()
-
+	const { list } =  useSelector(state => {
+    return state.templateData;
+  });
+	console.log(list,'listlist')
+	// const [templateList,setTemplateList] = useState([])
 	const use = (data) => {
 		dispatch({
 			type: 'layoutData/switchLayout',
 			payload: data
 		})
+		dispatch({
+			type: 'templateData/select',
+			payload: {
+				tid:data.tid,
+				title:data.title,
+			}
+		})
 	}
 
 	useEffect(()=>{
-
-		getTemplateList().then((res)=>{
-			console.log(res)
-			setTemplateList(res.list)
+		dispatch({
+			type: 'templateData/getTemplateList',
+			payload: {}
 		})
-
 		// getLayoutByTid({tid:'5A8349'})
 
 	},[])
 
 	return( <TemplateBox>
 		{
-			templateList.map((item,index)=>(
+			list.map((item,index)=>(
 				<LI key={index}>
 					<Mask></Mask>
 					<Use onClick={()=>{use(item)}}>立即使用</Use>
