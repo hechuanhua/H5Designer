@@ -63,34 +63,40 @@ const Header = (props) => {
     }
 
     const canvas = document.getElementById('canvas')
-    canvas.classList.add('print')
-    html2canvas(canvas,{
-      useCORS:true,
-      scrollX: -10, 
-    }).then(function(canvas) {
-      canvas.classList.remove('print')
-      const image = new Image();
-      const src = canvas.toDataURL("image/png");
-      image.src = src
-      document.body.appendChild(image)
-      // setBase64Img(src)
-
-      dispatch({
-        type: 'setLibrary/saveTemplateData',
-        payload: {
-          title,
-          base64: src
-        }
-      }).then((res)=>{
-        message.success('保存成功',1,()=>{
-          dispatch({
-            type: 'setLibrary/clearAllData',
-            payload: {}
-          })
-        });
-      })
-
-    });
+    // canvas.classList.add('print')
+    dispatch({
+      type: 'setLibrary/setActive',
+      payload: {},
+    })
+    setTimeout(()=>{
+      html2canvas(canvas,{
+        useCORS:true,
+        // scrollX: -10, 
+      }).then(function(canvas) {
+        canvas.classList.remove('print')
+        const image = new Image();
+        const src = canvas.toDataURL("image/png");
+        image.src = src
+        // document.body.appendChild(image)
+        dispatch({
+          type: 'setLibrary/saveTemplateData',
+          payload: {
+            title,
+            base64: src
+          }
+        }).then((res)=>{
+          setVisible(false)
+          message.success('保存成功',1,()=>{
+            dispatch({
+              type: 'setLibrary/clearAllData',
+              payload: {}
+            })
+          });
+        })
+  
+      });
+    },0)
+    
 
     
   }

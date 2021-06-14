@@ -4,9 +4,14 @@ import styled from 'styled-components';
 import loadingImg from '../../assets/images/loading.gif';
 
 const ImageBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 const PreImage = props => {
-  const {src,width,height,preview,onError} = props
+  const {src,width,height,preview,onError,style} = props
   const [imgSrc,setImgSrc] = useState(loadingImg)
   let img = new Image();
 	img.src = src;
@@ -20,6 +25,7 @@ const PreImage = props => {
 	return (
     <ImageBox>
       <AntImage
+        style={style}
         src={imgSrc}
         width={width}
         height={height}

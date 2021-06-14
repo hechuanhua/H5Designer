@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import config from '../config/config';
 
 function obj2String(obj, arr = [], idx = 0) {
@@ -17,6 +18,7 @@ const get = (url, params) => {
 				if (res.code === '200') {
 					resolve(res.data);
 				} else {
+					message.error(res.message,'3')
 					reject(res);
 				}
 			})
@@ -43,6 +45,7 @@ const post = (url, params) => {
 				if (res.code === '200') {
 					resolve(res.data);
 				} else {
+					message.error(res.message,'3')
 					reject(res);
 				}
 			})

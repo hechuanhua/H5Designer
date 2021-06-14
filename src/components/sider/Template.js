@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PreImage from '../common/Image'
-import { getTemplateList, getLayoutById } from '../../api'
+import { getTemplateList, getLayoutByTid } from '../../api'
 
 const TemplateBox = styled.ul`
 	// display:flex
@@ -35,11 +35,11 @@ const Mask = styled.div`
 const LI = styled.li`
 	width:120px;
 	display:inline-block;
-	height:213px;
 	margin-right:10px;
 	margin-top:10px;
 	cursor: pointer;
 	position:relative;
+	vertical-align: middle;
 	&:nth-child(2n){
 		margin-right:0;
 	}
@@ -52,28 +52,45 @@ const LI = styled.li`
 		}
 	}
 `
+const TemplateTitle = styled.div`
+	text-align: center;
+	background: #1890ff;
+	color: #fff;
+	margin-top: 5px;
+	padding: 5px 0;
+	font-size: 14px;
+`
 
 const Template = e => {
 	const [templateList,setTemplateList] = useState([])
-	const use = () => {
-		console.log('use')
+	const dispatch = useDispatch()
+
+	const use = (data) => {
+		dispatch({
+			type: 'setLibrary/switchLayout',
+			payload: data
+		})
 	}
+
 	useEffect(()=>{
+
 		getTemplateList().then((res)=>{
 			console.log(res)
 			setTemplateList(res.list)
 		})
-		getLayoutById({tid:'A46A56'}).then((res)=>{
-			console.log(res)
-		})
+
+		// getLayoutByTid({tid:'5A8349'})
+
 	},[])
+
 	return( <TemplateBox>
 		{
 			templateList.map((item,index)=>(
 				<LI key={index}>
 					<Mask></Mask>
-					<Use onClick={use}>立即使用</Use>
-					<PreImage src={item.cover}/>
+					<Use onClick={()=>{use(item)}}>立即使用</Use>
+					<PreImage src={item.cover} style={{height:'213px'}}/>
+					<TemplateTitle>{item.title}</TemplateTitle>
 				</LI>
 			))
 		}
@@ -81,3 +98,4 @@ const Template = e => {
 };
 
 export default Template;
+
