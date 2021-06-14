@@ -8,7 +8,7 @@ import globalConfig  from '../../config/config'
 
 const ImgSetting = props => {
 	const config = useSelector(state => {
-		return state.setLibrary?.current?.config;
+		return state.layoutData?.current?.config;
 	});
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
@@ -36,7 +36,7 @@ const ImgSetting = props => {
 						h,
 					};
 					dispatch({
-						type: 'setLibrary/setting',
+						type: 'layoutData/setting',
 						payload: {
 							position,
 							config: {
@@ -48,7 +48,7 @@ const ImgSetting = props => {
 			}
 		} else {
 			dispatch({
-				type: 'setLibrary/setting',
+				type: 'layoutData/setting',
 				payload: {
 					config: changedValues,
 				},

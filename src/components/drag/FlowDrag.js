@@ -30,19 +30,19 @@ const PageDiv = styled.div.attrs(props => ({
 const Drag = props => {
 	const dispatch = useDispatch();
 	const [layout, setLayout] = useState([]);
-	const { layoutData, current } = useSelector(state => {
-		return state.setLibrary;
+	const { flowLayout, current } = useSelector(state => {
+		return state.layoutData;
 	});
 	useEffect(() => {
-		const layouts = layoutData.map(item => item.position);
+		const layouts = flowLayout.map(item => item.position);
 		setLayout(layouts);
-	}, [layoutData]);
+	}, [flowLayout]);
 
 	const onDragStart = (layouts, oldItem, newItem, placeholder, e, element) => {
 		console.log('拖动开始时调用', layouts, oldItem, newItem, placeholder, e, element);
 		if (/^\d+$/.test(newItem.i)) {
 			dispatch({
-				type: 'setLibrary/setActive',
+				type: 'layoutData/setActive',
 				payload: {
 					id: newItem.i,
 					type: 'flow',
@@ -60,7 +60,7 @@ const Drag = props => {
 			i: newItem.i,
 		};
 		dispatch({
-			type: 'setLibrary/update',
+			type: 'layoutData/update',
 			payload: {
 				id: newItem.i,
 				position,
@@ -79,7 +79,7 @@ const Drag = props => {
 			i: newItem.i,
 		};
 		dispatch({
-			type: 'setLibrary/update',
+			type: 'layoutData/update',
 			payload: {
 				id: newItem.i,
 				position,
@@ -90,7 +90,7 @@ const Drag = props => {
 
 	const removeItem = id => {
 		dispatch({
-			type: 'setLibrary/remove',
+			type: 'layoutData/remove',
 			payload: {
 				id,
 				type: 'flow',
@@ -142,7 +142,7 @@ const Drag = props => {
 				onResizeStop={onResizeStop}
 				//innerRef={}  //Ref获取网格包装div的参考  //已删除？
 			>
-				{generateFlowDOM(layoutData, current, removeItem)}
+				{generateFlowDOM(flowLayout, current, removeItem)}
 			</GridLayout>
 		</PageDiv>
 	);

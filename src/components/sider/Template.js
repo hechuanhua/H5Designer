@@ -67,7 +67,7 @@ const Template = e => {
 
 	const use = (data) => {
 		dispatch({
-			type: 'setLibrary/switchLayout',
+			type: 'layoutData/switchLayout',
 			payload: data
 		})
 	}

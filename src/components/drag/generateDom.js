@@ -187,7 +187,7 @@ export const onDrop = (e, dragType, dispatch) => {
 		type: dragType,
 	};
 	dispatch({
-		type: 'setLibrary/add',
+		type: 'layoutData/add',
 		payload: payload,
 	});
 };

@@ -108,7 +108,7 @@ const Icon = styled.div.attrs(props => ({
 const Drag = props => {
 	const dispatch = useDispatch();
 	const { freedomLayout, current, layoutType, popup } = useSelector(state => {
-		return state.setLibrary;
+		return state.layoutData;
 	});
 	const page = useRef();
 	let maxWidth = 500,
@@ -149,7 +149,7 @@ const Drag = props => {
 		console.log('down', JSON.parse(JSON.stringify(page.current.mouseInfo)), id);
 		setTimeout(() => {
 			dispatch({
-				type: 'setLibrary/setActive',
+				type: 'layoutData/setActive',
 				payload: {
 					id,
 				},
@@ -256,7 +256,7 @@ const Drag = props => {
 		}
 		const { top, left, width, height, id } = page.current.mouseInfo;
 		dispatch({
-			type: 'setLibrary/update',
+			type: 'layoutData/update',
 			payload: {
 				id: page.current.mouseInfo.id,
 				position: {
@@ -284,7 +284,7 @@ const Drag = props => {
 	const removeItem = id => {
 		console.log(id, layout, freedomLayout, 'iiiiiii');
 		dispatch({
-			type: 'setLibrary/remove',
+			type: 'layoutData/remove',
 			payload: {
 				id,
 				type: 'freedom',
@@ -299,7 +299,7 @@ const Drag = props => {
 			text: val,
 		};
 		dispatch({
-			type: 'setLibrary/setting',
+			type: 'layoutData/setting',
 			payload: {
 				config,
 			},
@@ -308,7 +308,7 @@ const Drag = props => {
 	const setPopup = () => {
 		console.log('setPopup')
 		dispatch({
-			type: 'setLibrary/setPopup',
+			type: 'layoutData/setPopup',
 			payload: {
 				popup:!popup
 			},

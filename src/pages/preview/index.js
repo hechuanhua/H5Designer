@@ -33,8 +33,8 @@ const DragDiv = styled.div`
 const Preview = props => {
 	const [layout, setLayout] = useState([]);
 	const dispatch = useDispatch();
-	const { layoutData, freedomLayout, current, popup } = useSelector(state => {
-		return state.setLibrary;
+	const { flowLayout, freedomLayout, current, popup } = useSelector(state => {
+		return state.layoutData;
 	});
 	
 	let clientWidth = document.documentElement.clientWidth;
@@ -47,14 +47,14 @@ const Preview = props => {
 		}
 		console.log(scale,initData.maxWidth,'scale')
 		document.getElementById('viewport').setAttribute('content',`width=375, initial-scale=${scale}, minimum-scale=${scale}, maximum-scale=${scale}, user-scalable=no`) 
-		const layouts = layoutData.map(item => item.position);
+		const layouts = flowLayout.map(item => item.position);
 		setLayout(layouts);
-	}, [layoutData]);
+	}, [flowLayout]);
 
 	const setPopup = () => {
 		console.log('setPopup',popup)
 		dispatch({
-			type: 'setLibrary/setPopup',
+			type: 'layoutData/setPopup',
 			payload: {
 				popup:!popup
 			},
@@ -74,7 +74,7 @@ const Preview = props => {
 				containerPadding={[0, 0]} //整个容器边距
 				margin={[0, 0]} //每个子项目边距
 			>
-				{generateFlowDOM(layoutData)}
+				{generateFlowDOM(flowLayout)}
 			</ReactGridLayout>
       <WechatPopup visibility={popup} setPopup={setPopup}></WechatPopup>
 			{freedomLayout.map((item, index) => (
@@ -103,3 +103,5 @@ const Preview = props => {
 };
 
 export default Preview;
+
+

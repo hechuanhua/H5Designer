@@ -31,12 +31,12 @@ const Center = styled.div`
 `
 const Header = (props) => {
   const dispatch = useDispatch();
-  const { layoutType, freedomLayout, layoutData } = useSelector(state => {
-    return state.setLibrary;
+  const { layoutType, freedomLayout, flowLayout } = useSelector(state => {
+    return state.layoutData;
   });
   const onChange = (e) => {
     dispatch({
-      type: 'setLibrary/setType',
+      type: 'layoutData/setType',
       payload: {
         layoutType: e.target.value
       }
@@ -50,7 +50,7 @@ const Header = (props) => {
   const [title,setTitle] = useState('') 
   // const [base64Img,setBase64Img] = useState('')
   const savePage = () => {
-    if(!freedomLayout.length && !layoutData.length){
+    if(!freedomLayout.length && !flowLayout.length){
       return message.error('请添加数据后再保存')
     }
     setVisible(true)
@@ -65,7 +65,7 @@ const Header = (props) => {
     const canvas = document.getElementById('canvas')
     // canvas.classList.add('print')
     dispatch({
-      type: 'setLibrary/setActive',
+      type: 'layoutData/setActive',
       payload: {},
     })
     setTimeout(()=>{
@@ -79,7 +79,7 @@ const Header = (props) => {
         image.src = src
         // document.body.appendChild(image)
         dispatch({
-          type: 'setLibrary/saveTemplateData',
+          type: 'layoutData/saveTemplateData',
           payload: {
             title,
             base64: src
@@ -88,7 +88,7 @@ const Header = (props) => {
           setVisible(false)
           message.success('保存成功',1,()=>{
             dispatch({
-              type: 'setLibrary/clearAllData',
+              type: 'layoutData/clearAllData',
               payload: {}
             })
           });

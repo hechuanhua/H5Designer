@@ -23,9 +23,8 @@ const PreImage = props => {
   }
 
 	return (
-    <ImageBox>
+    <ImageBox style={style}>
       <AntImage
-        style={style}
         src={imgSrc}
         width={width}
         height={height}

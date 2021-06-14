@@ -4,7 +4,7 @@ import { Form, Input, Select, Switch } from 'antd';
 
 const TextSetting = props => {
 	const config = useSelector(state => {
-		return state.setLibrary?.current?.config;
+		return state.layoutData?.current?.config;
 	});
 	
 	const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const TextSetting = props => {
 		// return
 		console.log(changedValues, allValues, 'changedValues');
 		dispatch({
-			type: 'setLibrary/setting',
+			type: 'layoutData/setting',
 			payload: {
 				config: changedValues,
 			},

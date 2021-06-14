@@ -22,7 +22,7 @@ const SettingWrap = styled.div`
 `;
 const Setting = e => {
 	const current = useSelector(state => {
-		return state.setLibrary.current;
+		return state.layoutData.current;
 	});
 	console.log(current, 'Settingcurrent');
 	const generateDOM = () => {

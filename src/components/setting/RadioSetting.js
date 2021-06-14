@@ -25,7 +25,7 @@ const Edit = styled.div`
 
 const RadioSetting = props => {
 	const config = useSelector(state => {
-		return state.setLibrary?.current?.config;
+		return state.layoutData?.current?.config;
 	});
   
 	const [form] = Form.useForm();
@@ -44,7 +44,7 @@ const RadioSetting = props => {
 	const onValuesChange = (changedValues, allValues) => {
 		console.log(changedValues, allValues, 'changedValues');
 		dispatch({
-			type: 'setLibrary/setting',
+			type: 'layoutData/setting',
 			payload: {
 				config: allValues,
 			},
@@ -56,7 +56,7 @@ const RadioSetting = props => {
 		const newConfig = { ...config, list: labelArr };
 		console.log(newConfig, 999);
 		dispatch({
-			type: 'setLibrary/setting',
+			type: 'layoutData/setting',
 			payload: {
 				...config,
 				config: newConfig,

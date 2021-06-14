@@ -1,1 +1,1 @@
-export { default as setLibrary } from './setLibrary'
+export { default as layoutData } from './layoutData'

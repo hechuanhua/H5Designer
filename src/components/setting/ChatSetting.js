@@ -8,7 +8,7 @@ import { getImgInfo } from '../../utils/index';
 const { TextArea } = Input;
 const ChatSetting = props => {
 	const config = useSelector(state => {
-		return state.setLibrary?.current?.config;
+		return state.layoutData?.current?.config;
 	});
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
@@ -17,7 +17,7 @@ const ChatSetting = props => {
 
 	const onValuesChange = (changedValues, allValues) => {
 		dispatch({
-			type: 'setLibrary/setting',
+			type: 'layoutData/setting',
 			payload: {
 				config: changedValues,
 			},
