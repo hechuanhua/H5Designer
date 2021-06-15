@@ -98,7 +98,7 @@ const Template = e => {
 				<LI key={index}>
 					<Mask></Mask>
 					<Use onClick={()=>{use(item)}}>立即使用</Use>
-					<PreImage src={item.cover} style={{height:'213px'}}/>
+					<PreImage src={item.cover} style={{height:'213px',overflow:'hidden'}}/>
 					<TemplateTitle>{item.title}</TemplateTitle>
 				</LI>
 			))

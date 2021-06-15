@@ -11,7 +11,7 @@ const PageDiv = styled.div`
 	border: 1px solid #ddd;
 	height:  ${initData.height}px;
 	position: absolute;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+	// box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 	top: 0;
 	left: 0;
 	pointer-events: none;
@@ -111,8 +111,6 @@ const Drag = props => {
 		return state.layoutData;
 	});
 	const page = useRef();
-	let maxWidth = 500,
-		maxHeight = 700;
 
 	const [layout, setLayout] = useState([]);
 	console.log(freedomLayout,'freedomLayoutfreedomLayout')
@@ -210,8 +208,8 @@ const Drag = props => {
 				if (width + left > initData.maxWidth) {
 					left = initData.maxWidth - width;
 				}
-				if (height + top > maxHeight) {
-					top = maxHeight - height;
+				if (height + top > initData.maxHeight) {
+					top = initData.maxHeight - height;
 				}
 				break;
 		}
@@ -220,8 +218,8 @@ const Drag = props => {
 		if (width + left > initData.maxWidth) {
 			width = initData.maxWidth - left;
 		}
-		if (height + top > maxHeight) {
-			height = maxHeight - top;
+		if (height + top > initData.maxHeight) {
+			height = initData.maxHeight - top;
 		}
 		page.current.mouseInfo = {
 			...page.current.mouseInfo,
@@ -305,7 +303,7 @@ const Drag = props => {
 			},
 		});
 	};
-	const setPopup = () => {
+	const showPopup = () => {
 		console.log('setPopup')
 		dispatch({
 			type: 'layoutData/setPopup',
@@ -368,7 +366,7 @@ const Drag = props => {
 							>
 								&#xe60a;
 							</Icon>
-							{generateFreedomDOM({config:item.config, index, blur, setPopup})}
+							{generateFreedomDOM({config:item.config, index, blur, showPopup})}
 						</DragDiv>
 				  ))
 				}

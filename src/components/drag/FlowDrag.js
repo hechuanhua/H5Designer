@@ -11,7 +11,7 @@ const PageDiv = styled.div.attrs(props => ({
 }))`
 	width: ${initData.maxWidth}px;
 	margin: 0 auto;
-	height: ${initData.height}px;
+	min-height: ${initData.height}px;
 	position: relative;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 	&.print{
@@ -105,7 +105,7 @@ const Drag = props => {
 				style={{ minHeight: initData.height }}
 				className="layout"
 				layout={layout} //
-				cols={50}
+				cols={12}
 				rowHeight={1}
 				width={initData.maxWidth}
 				autoSize={true} //容器高度自适应
@@ -142,7 +142,7 @@ const Drag = props => {
 				onResizeStop={onResizeStop}
 				//innerRef={}  //Ref获取网格包装div的参考  //已删除？
 			>
-				{generateFlowDOM(flowLayout, current, removeItem)}
+				{generateFlowDOM({flowLayout, current, removeItem})}
 			</GridLayout>
 		</PageDiv>
 	);

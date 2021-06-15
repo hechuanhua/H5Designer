@@ -90,8 +90,8 @@ const Header = (props) => {
         const image = new Image();
         const src = canvas.toDataURL("image/png");
         image.src = src
-        // document.body.appendChild(image)
-
+        document.body.appendChild(image)
+        return
         saveTemplate({
           title,
           tid:selected.tid,

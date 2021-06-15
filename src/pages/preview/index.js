@@ -33,7 +33,7 @@ const DragDiv = styled.div`
 const Preview = props => {
 	const [layout, setLayout] = useState([]);
 	const dispatch = useDispatch();
-	const { flowLayout, freedomLayout, current, popup } = useSelector(state => {
+	const { flowLayout, freedomLayout, current } = useSelector(state => {
 		return state.layoutData;
 	});
 	
@@ -46,42 +46,37 @@ const Preview = props => {
 			scale =  clientWidth/initData.maxWidth ;
 		}
 		console.log(scale,initData.maxWidth,'scale')
-		document.getElementById('viewport').setAttribute('content',`width=375, initial-scale=${scale}, minimum-scale=${scale}, maximum-scale=${scale}, user-scalable=no`) 
+		document.getElementById('viewport').setAttribute('content',`width=${initData.maxWidth}, initial-scale=${scale}, minimum-scale=${scale}, maximum-scale=${scale}, user-scalable=no`) 
 		const layouts = flowLayout.map(item => item.position);
 		setLayout(layouts);
 	}, [flowLayout]);
 
-	const setPopup = () => {
-		console.log('setPopup',popup)
-		dispatch({
-			type: 'layoutData/setPopup',
-			payload: {
-				popup:!popup
-			},
-		});
-	}
+	const [wechatPopupVisibility, setWechatPopupVisibility] = useState(false);
+
 	return (
+		<>
 		<PageDiv>
 			<Globalstyle></Globalstyle>
 			<ReactGridLayout
 				layout={layout}
 				isDraggable={false}
 				isResizable={false}
-				cols={50}
+				CSSTransforms={true}
+				cols={12}
 				rowHeight={1}
 				width={initData.maxWidth}
 				compactType={'vertical'}
 				containerPadding={[0, 0]} //整个容器边距
 				margin={[0, 0]} //每个子项目边距
 			>
-				{generateFlowDOM(flowLayout)}
+				{generateFlowDOM({flowLayout, showPopup:()=>{setWechatPopupVisibility(true)} })}
 			</ReactGridLayout>
-      <WechatPopup visibility={popup} setPopup={setPopup}></WechatPopup>
+      
 			{freedomLayout.map((item, index) => (
 				<DragDiv
 					className={item.position.i == current.id ? 'active drag' : 'drag'}
 					style={{
-						position: 'absolute',
+						position: item.config.fixed == 'bottom' ? 'fixed' : 'absolute',
 						left: item.position.x,
 						top: item.config.fixed == 'bottom' ? 'initial' : item.position.y,
 						width: item.position.w,
@@ -95,10 +90,14 @@ const Preview = props => {
 					data-id={item.position.i}
 					key={item.position.i}
 				>
-					{generateFreedomDOM({ config: item.config, type: 'preview', setPopup })}
+					{generateFreedomDOM({ config: item.config, type: 'preview', showPopup:()=>{setWechatPopupVisibility(true)} })}
 				</DragDiv>
 			))}
 		</PageDiv>
+		{
+			wechatPopupVisibility?<WechatPopup onClose={()=>{setWechatPopupVisibility(false)}}></WechatPopup>:''
+		}
+		</>
 	);
 };
 

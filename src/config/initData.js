@@ -5,10 +5,10 @@ const initData = {
 	height:height,
 	img: {
 		w: maxWidth/10,
-		h: 238,
+		h: 200,
 		config: {
 			type: 'img',
-			url: 'https://dummyimage.com/500x240',
+			url: `https://dummyimage.com/${maxWidth}x200`,
 			fixed: '',
       borderRadius:0,
       popup:false

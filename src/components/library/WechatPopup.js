@@ -5,11 +5,12 @@ import styled from 'styled-components';
 
 
 const Popup = styled.div`
-	transform: scale(1);
 	height: 100%;
 	width: 100%;
 	z-index: 100;
-	position: relative;
+	position: fixed;
+	left: 0;
+	top: 0;
 `;
 const Wrap = styled.div`
 	border-radius: 10px;
@@ -79,15 +80,11 @@ const Avatar = styled.div`
 `
 
 const WechatPopup = props => {
-	const {visibility,setPopup} = props
-	console.log('popup=>',props,visibility)
-
+	const {onClose} = props
 	return (
 		<>
-		{
-			visibility?
-			<Popup>
-				<Mask onClick={setPopup}></Mask>
+		<Popup>
+				<Mask onClick={onClose}></Mask>
 				<Wrap>
 					<Avatar>
 						<img src="https://qu.xueyaun.cn/yina/110/Picture/kiki_t.png" alt="" />
@@ -98,11 +95,10 @@ const WechatPopup = props => {
 						<WxhBox></WxhBox>
 					</Top>
 					<Bottom>
-						<img src="http://localhost:7001/public/uploads/go.gif" alt="" style={{width:'145px'}} />
+						<img src="http://localhost:7001/static/uploads/go.gif" alt="" style={{width:'145px'}} />
 					</Bottom>
 				</Wrap>
-			</Popup>:''
-		}
+			</Popup>
 		</>
 	);
 };

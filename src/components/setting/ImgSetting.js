@@ -5,6 +5,7 @@ import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
 import { getImgInfo } from '../../utils/index';
 import globalConfig  from '../../config/config'
+import initData from '../../config/initData';
 
 const ImgSetting = props => {
 	const config = useSelector(state => {
@@ -31,7 +32,7 @@ const ImgSetting = props => {
 				let url = response.data.url;
 				getImgInfo(url).then(res => {
 					console.log(res, 'img');
-					const h = (500 * res.height) / res.width;
+					const h = (initData.maxWidth * res.height) / res.width;
 					const position = {
 						h,
 					};

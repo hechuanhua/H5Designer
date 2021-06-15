@@ -321,6 +321,7 @@ img {
 	}
 	.react-grid-item {
 		transition: none;
+		border: none!important;
 		&:hover {
 			border: 2px solid #ccc;
 		}
@@ -333,6 +334,7 @@ img {
 	}
   img{
     max-height: 100%;
+		width: 100%;
   }
 }
 

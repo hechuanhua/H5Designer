@@ -11,6 +11,9 @@ const Mt10 = styled.div`
 const Label = styled.label`
 	display: inline-block;
 	margin-top: 10px;
+	input{
+		margin-right:5px;
+	}
 `;
 const Icon = styled.div.attrs(props => ({
 	className: 'iconfont',
@@ -31,17 +34,29 @@ const EditText = styled.div`
 const H100 = styled.div`
 	height:100%;
 `
+const PreviewImg = styled.div`
 
-export const generateFlowDOM = (data, current, removeItem) => {
+`
+const PreviewRadio = styled.div`
+
+`
+const PreviewText = styled.div`
+
+`
+export const generateFlowDOM = ({flowLayout, current, removeItem, showPopup}) => {
 	current = current || {};
 
-	return data.map((item, index) => {
+	return flowLayout.map((item, index) => {
 		if (item.config.type == 'img') {
 			return (
 				<div
 					key={item.id}
 					data-grid={item.position}
+					top={item.position.y}
+					left={item.position.x}
 					className={item.id === current.id ? 'active' : ''}
+					onClick={item.config.popup?showPopup:()=>{}}
+					style={{top:item.position.y,left:item.position.x}}
 				>
 					<Icon
 						onClick={() => {
@@ -50,7 +65,9 @@ export const generateFlowDOM = (data, current, removeItem) => {
 					>
 						&#xe60a;
 					</Icon>
-					<img src={item.config.url} />
+					<PreviewImg>
+						<img src={item.config.url} />
+					</PreviewImg>
 				</div>
 			);
 		} else if (item.config.type == 'text') {
@@ -58,7 +75,10 @@ export const generateFlowDOM = (data, current, removeItem) => {
 				<div
 					key={item.id}
 					data-grid={item.position}
+					top={item.position.y}
+					left={item.position.x}
 					className={item.id === current.id ? 'active' : ''}
+					onClick={item.config.popup?showPopup:()=>{}}
 				>
 					<Icon
 						onClick={() => {
@@ -67,7 +87,9 @@ export const generateFlowDOM = (data, current, removeItem) => {
 					>
 						&#xe60a;
 					</Icon>
-					{item.config.text}
+					<PreviewText>
+						{item.config.text}
+					</PreviewText>
 				</div>
 			);
 		} else if (item.config.type == 'radio') {
@@ -75,6 +97,8 @@ export const generateFlowDOM = (data, current, removeItem) => {
 				<div
 					key={item.id}
 					data-grid={item.position}
+					top={item.position.y}
+					left={item.position.x}
 					className={item.id === current.id ? 'active' : ''}
 				>
 					<Icon
@@ -84,7 +108,7 @@ export const generateFlowDOM = (data, current, removeItem) => {
 					>
 						&#xe60a;
 					</Icon>
-					<div className="preview radio">
+					<PreviewRadio>
 						<Mt10>{item.config.title}</Mt10>
 						<div>
 							{item.config.list.map((v, i) => (
@@ -94,7 +118,7 @@ export const generateFlowDOM = (data, current, removeItem) => {
 								</Label>
 							))}
 						</div>
-					</div>
+					</PreviewRadio>
 				</div>
 			);
 		} else if (item.config.type == 'chat') {
@@ -118,42 +142,48 @@ export const generateFlowDOM = (data, current, removeItem) => {
 	});
 };
 
-export const generateFreedomDOM = ({ config, type, blur, setPopup }) => {
+export const generateFreedomDOM = ({ config, type, blur, showPopup }) => {
 	if (!config) return null;
 	if (config.type == 'img') {
 		return (
 			<H100>
-				<img src={config.url} onClick={config.popup?setPopup:()=>{}} />
+				<PreviewImg>
+					<img src={config.url} onClick={config.popup?showPopup:()=>{}} />
+				</PreviewImg>
 			</H100>
 		);
 	} else if (config.type == 'text') {
 		return (
 			<H100>
-				<EditText
-					contentEditable={type === 'preview' ? false : true}
-					suppressContentEditableWarning={true}
-					onBlur={blur}
-					dangerouslySetInnerHTML={{ __html: config.text }}
-					onClick={config.popup?setPopup:()=>{}}
-				></EditText>
+				<PreviewText>
+					<EditText
+						contentEditable={type === 'preview' ? false : true}
+						suppressContentEditableWarning={true}
+						onBlur={blur}
+						dangerouslySetInnerHTML={{ __html: config.text }}
+						onClick={config.popup?showPopup:()=>{}}
+					></EditText>
+				</PreviewText>
 			</H100>
 		);
 	} else if (config.type == 'radio') {
 		return (
-			<H100>
-				<Mt10>{config.title}</Mt10>
-				<div>
-					{config.list.map((v, i) => (
-						<Label style={{ width: `${100 / config.layoutType}%` }} key={i}>
-							<input
-								type={config.isCheckBox ? 'checkbox' : 'radio'}
-								name={`label${config.i}`}
-								id={`label${config.i}`}
-							/>
-							<span>{v.label}</span>
-						</Label>
-					))}
-				</div>
+			<H100 style={{padding:'0 10px'}}>
+				<PreviewRadio>
+					<Mt10>{config.title}</Mt10>
+					<div>
+						{config.list.map((v, i) => (
+							<Label style={{ width: `${100 / config.layoutType}%` }} key={i}>
+								<input
+									type={config.isCheckBox ? 'checkbox' : 'radio'}
+									name={`label${config.i}`}
+									id={`label${config.i}`}
+								/>
+								<span>{v.label}</span>
+							</Label>
+						))}
+					</div>
+				</PreviewRadio>
 			</H100>
 		);
 	} else if (config.type == 'chat') {
