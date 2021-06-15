@@ -6,6 +6,7 @@ import CommonDrag from '../drag/FreedomDrag';
 import { generateFlowDOM, onDrop } from './generateDom';
 import initData from '../../config/initData';
 
+
 const PageDiv = styled.div.attrs(props => ({
 	id: 'canvas',
 }))`
@@ -30,7 +31,7 @@ const PageDiv = styled.div.attrs(props => ({
 const Drag = props => {
 	const dispatch = useDispatch();
 	const [layout, setLayout] = useState([]);
-	const { flowLayout, current } = useSelector(state => {
+	const { flowLayout, current, print } = useSelector(state => {
 		return state.layoutData;
 	});
 	useEffect(() => {
@@ -97,7 +98,7 @@ const Drag = props => {
 			},
 		});
 	};
-
+	console.log(print,'printprintprint')
 	return (
 		<PageDiv>
 			<CommonDrag></CommonDrag>
@@ -119,7 +120,7 @@ const Drag = props => {
 				isBounded={true} //只能在父级内移动
 				resizeHandles={['s', 'e']} //句柄位置
 				margin={[0, 0]} //每个子项目边距
-				CSSTransforms={false} //css3替换top left，提高性能
+				useCSSTransforms={!print} //css3替换top left，提高性能
 				// transformScale={1}  //拖动速度比例
 				preventCollision={false} //拖动后不会调换位置
 				onDrop={(layout, item, e) => {

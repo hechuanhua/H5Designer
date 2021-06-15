@@ -32,7 +32,7 @@ const initData = {
 	},
 	radio: {
 		w: maxWidth/10,
-		h: 150,
+		h: 70,
 		config: {
 			type: 'radio',
 			title: '我是标题',

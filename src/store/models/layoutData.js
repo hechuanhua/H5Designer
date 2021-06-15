@@ -11,7 +11,8 @@ let initData = {
 	freedomLayout: [],
 	current: {},
 	layoutType: 'freedom',
-  popup:false
+  popup:false,
+	print:false,
 };
 
 if (localStorage.getItem('layout')) {
@@ -189,6 +190,14 @@ export default {
 		switchLayout(state, payload){
 			const newState = JSON.parse(payload.layoutData)
 			newState.current = []
+			saveLayout(newState);
+			return newState
+		},
+		setPrint(state, payload){
+			const newState = {
+				...state,
+				print:payload.print
+			}
 			saveLayout(newState);
 			return newState
 		}

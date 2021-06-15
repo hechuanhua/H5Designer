@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import PreImage from '../common/Image'
+import PreImage from '../common/PreImage'
 import { getTemplateList, getLayoutByTid } from '../../api'
 
 const TemplateBox = styled.ul`

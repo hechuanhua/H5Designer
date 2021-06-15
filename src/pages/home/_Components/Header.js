@@ -40,7 +40,7 @@ const Header = (props) => {
     return state.templateData;
   });
 
-  const { layoutType, freedomLayout, flowLayout } = layoutData
+  const { layoutType, freedomLayout, flowLayout, print } = layoutData
   const onChange = (e) => {
     dispatch({
       type: 'layoutData/setType',
@@ -57,6 +57,7 @@ const Header = (props) => {
   const [title,setTitle] = useState('') 
   const [loading,setLoading] = useState(false)
   const savePage = () => {
+
     if(!freedomLayout.length && !flowLayout.length){
       return message.error('请添加数据后再保存')
     }
@@ -78,6 +79,12 @@ const Header = (props) => {
       type: 'layoutData/setActive',
       payload: {},
     })
+    dispatch({
+      type: 'layoutData/setPrint',
+      payload: {
+        print:true
+      },
+    })
     
     setTimeout(()=>{
     //   const canvas = document.getElementById('canvas')
@@ -91,6 +98,12 @@ const Header = (props) => {
         const src = canvas.toDataURL("image/png");
         image.src = src
         document.body.appendChild(image)
+        dispatch({
+          type: 'layoutData/setPrint',
+          payload: {
+            print:false
+          },
+        })
         return
         saveTemplate({
           title,
@@ -125,7 +138,6 @@ const Header = (props) => {
 
   return (
     <Head>
-      {console.log(title,'title')}
       <Operation>
         <Center>
           <Radio.Group defaultValue={layoutType} onChange={onChange} style={{ marginBottom: 16 }}>

@@ -5,6 +5,8 @@ import { throttle, createUuid } from '../../utils';
 import { generateFreedomDOM, onDrop } from './generateDom';
 import initData from '../../config/initData';
 
+import RemoveIcon from '../library/RemoveIcon';
+
 const PageDiv = styled.div`
 	width: ${initData.maxWidth}px;
 	margin: 0 auto;
@@ -359,13 +361,7 @@ const Drag = props => {
 							<EditorPoint className="point-bottom-left"></EditorPoint>
 							<EditorPoint className="point-left"></EditorPoint>
 							<EditorPoint className="point-top-left"></EditorPoint>
-							<Icon
-								onClick={() => {
-									removeItem(item.id);
-								}}
-							>
-								&#xe60a;
-							</Icon>
+							<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
 							{generateFreedomDOM({config:item.config, index, blur, showPopup})}
 						</DragDiv>
 				  ))
