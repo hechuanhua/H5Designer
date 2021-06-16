@@ -1,16 +1,17 @@
 import { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ChatDialog from '../library/ChatDialog';
+
 import { createUuid } from '../../utils/index';
 import initData from '../../config/initData';
 
-import PreviewImage from '../library/Image';
-import PreviewRadio from '../library/Radio';
-import PreviewText from '../library/Text';
-import RemoveIcon from '../library/RemoveIcon';
+import PreviewImage from '../Library/Image';
+import PreviewRadio from '../Library/Radio';
+import PreviewText from '../Library/Text';
+import RemoveIcon from '../Library/RemoveIcon';
+import ChatDialog from '../Library/ChatDialog';
 
 
-export const generateFlowDOM = ({ flowLayout, current, removeItem, showPopup }) => {
+export const generateFlowDOM = ({ flowLayout, current, removeItem, showPopup, blur, type }) => {
 	current = current || {};
 
 	return flowLayout.map((item, index) => {
@@ -18,9 +19,7 @@ export const generateFlowDOM = ({ flowLayout, current, removeItem, showPopup }) 
 			return (
 				<div
 					key={item.id}
-					data-grid={item.position}
-					top={item.position.y}
-					left={item.position.x}
+					// data-grid={item.position}
 					className={item.id === current.id ? 'active' : ''}
 				>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
@@ -31,23 +30,31 @@ export const generateFlowDOM = ({ flowLayout, current, removeItem, showPopup }) 
 			return (
 				<div
 					key={item.id}
-					data-grid={item.position}
-					top={item.position.y}
-					left={item.position.x}
+					// data-grid={item.position}
 					className={item.id === current.id ? 'active' : ''}
-					onClick={item.config.popup ? showPopup : () => {}}
+					style={{
+						// position: 'absolute',
+						// left: item.position.x,
+						// top: item.config.fixed == 'bottom' ? 'initial' : item.position.y,
+						// bottom: item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial',
+						width: item.position.w,
+						height: item.position.h,
+						color: item.config.color,
+						fontSize: item.config.fontSize + 'px',
+						backgroundColor: item.config.backgroundColor,
+						textAlign: item.config.align,
+						borderRadius: item.config.borderRadius + 'px',
+					}}
 				>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
-					<PreviewText config={item.config}></PreviewText>
+					<PreviewText config={item.config} blur={blur} showPopup={showPopup} type={type}></PreviewText>
 				</div>
 			);
 		} else if (item.config.type == 'radio') {
 			return (
 				<div
 					key={item.id}
-					data-grid={item.position}
-					top={item.position.y}
-					left={item.position.x}
+					// data-grid={item.position}
 					className={item.id === current.id ? 'active' : ''}
 				>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
@@ -58,11 +65,11 @@ export const generateFlowDOM = ({ flowLayout, current, removeItem, showPopup }) 
 			return (
 				<div
 					key={item.id}
-					data-grid={item.position}
+					// data-grid={item.position}
 					className={item.id === current.id ? 'active' : ''}
 				>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
-					<ChatDialog data={item.config.data}></ChatDialog>;
+					<ChatDialog config={item.config} type={type}></ChatDialog>;
 				</div>
 			);
 		}
@@ -74,11 +81,11 @@ export const generateFreedomDOM = ({ config, type, blur, showPopup }) => {
 	if (config.type == 'img') {
 		return <PreviewImage config={config} showPopup={showPopup}></PreviewImage>;
 	} else if (config.type == 'text') {
-		return <PreviewText config={config} blur={blur} showPopup={showPopup}></PreviewText>;
+		return <PreviewText config={config} blur={blur} showPopup={showPopup} type={type}></PreviewText>;
 	} else if (config.type == 'radio') {
 		return <PreviewRadio config={config} id={config.id}></PreviewRadio>;
 	} else if (config.type == 'chat') {
-		return <ChatDialog data={config.data}></ChatDialog>;
+		return <ChatDialog config={config} type={type}></ChatDialog>;
 	}
 };
 

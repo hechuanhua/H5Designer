@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Tabs, Radio, Button, Menu } from 'antd';
-import Drag from '../../components/drag/FlowDrag';
-import Setting from '../../components/setting/Setting';
+import Drag from '../../components/Drag/FlowDrag';
+import Setting from '../../components/Setting/Setting';
 import styled from 'styled-components';
 import Header from './_Components/Header';
 import Sider from './_Components/Sider';

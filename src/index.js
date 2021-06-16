@@ -7,8 +7,10 @@ import store from './store'
 import Routes from './pages/Routers'
 
 import 'antd/dist/antd.css';
-import './assets/style/App.scss';
+import './assets/style/gridLayout.scss';
+import './assets/style/app.scss';
 import './assets/style/antRest.scss';
+
 
 const GlobalStyle = createGlobalStyle`
 *{
@@ -30,7 +32,7 @@ ReactDOM.render(
     <Provider store={store}>
       <Routes></Routes>
     </Provider>
-    <GlobalStyle/>
+    {/* <GlobalStyle/> */}
   </>,
   document.getElementById('root')
 );

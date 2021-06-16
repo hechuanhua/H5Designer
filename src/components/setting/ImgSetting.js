@@ -23,7 +23,6 @@ const ImgSetting = props => {
 		}
 		// return e && e.fileList;
 	};
-
 	const onValuesChange = (changedValues, allValues) => {
 		console.log(changedValues, allValues,'onValuesChange')
 		if (Object.keys(changedValues)[0] === 'img') {
@@ -64,18 +63,20 @@ const ImgSetting = props => {
 			name="control-hooks"
 			onValuesChange={onValuesChange}
 		>
+			{console.log(config,2222)}
 			<Form.Item label="上传图片：">
 				<Form.Item
-					name="img"
+					// name="img"
 					// valuePropName="fileList"
 					// getValueFromEvent={normFile}
 					noStyle
 					accept="image/png,image/jpeg,image/gif,image/pjpeg"
 				>
 					<Upload.Dragger
-						name="files"
+						// name="files"
 						action={`${globalConfig.baseUrl}/upload`}
 						maxCount={1}
+						// fileList={[{url:config.url,name:'img.jpg'},]}
 						// onChange={onChange}
 					>
 						<p className="ant-upload-drag-icon">

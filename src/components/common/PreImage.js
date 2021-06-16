@@ -6,24 +6,34 @@ import loadingImg from '../../assets/images/loading.gif';
 const ImageBox = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  &.done{
+    display: flex;
+    align-item: center;
+    justify-content: center;
+    .ant-image{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width:50px!important;
+    }
+  }
 `
 const PreImage = props => {
   const {src,width,height,preview,onError,style} = props
   const [imgSrc,setImgSrc] = useState(loadingImg)
-  let img = new Image();
+  const [done, setDone] = useState(false)
+  const img = new Image();
 	img.src = src;
   img.onload = () => {
     setImgSrc(src)
+    setDone(true)
   }
   img.onerror = () => {
     setImgSrc(src)
   }
 
 	return (
-    <ImageBox style={style}>
+    <ImageBox style={style} className={!done?'done':''}>
       <AntImage
         src={imgSrc}
         width={width}

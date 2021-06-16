@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import initData from '../../config/initData';
 const ChatDialog = (props) => {
 
-	const dataSource = JSON.parse(props.data)
+	const dataSource = JSON.parse(props.config.data)
+	const { type } = props
 	console.log(dataSource,'ChatChatChat')
 	
 	const [speechIndex, setSpeechIndex] = useState(0);
@@ -44,7 +45,9 @@ const ChatDialog = (props) => {
 		
 	};
 	useEffect(()=>{
-		document.documentElement.scrollTop = 100000
+		if(type === 'preview'){
+			document.documentElement.scrollTop = 100000
+		}
 	},[speechIndex])
 	return (
 		<>

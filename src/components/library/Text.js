@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import PreImage from '../common/PreImage';
+import PreImage from '../Common/PreImage';
 
 const PreviewTextBox = styled.div`
 	height: 100%;
@@ -17,7 +17,7 @@ const PreviewText = props => {
 			<EditText
 				contentEditable={type === 'preview' ? false : true}
 				suppressContentEditableWarning={true}
-				onBlur={blur}
+				onBlur={type !== 'preview'?blur:()=>{}}
 				dangerouslySetInnerHTML={{ __html: text }}
 				onClick={popup ? showPopup : () => {}}
 			></EditText>

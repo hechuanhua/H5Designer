@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Radio, Checkbox, Modal, Switch } from 'antd';
 import Draggable from 'react-draggable';
-import CommonModal from '../common/Modal';
+import CommonModal from '../Common/Modal';
 
 const { TextArea } = Input;
 const { Option } = Select;

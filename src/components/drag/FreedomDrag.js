@@ -5,13 +5,13 @@ import { throttle, createUuid } from '../../utils';
 import { generateFreedomDOM, onDrop } from './generateDom';
 import initData from '../../config/initData';
 
-import RemoveIcon from '../library/RemoveIcon';
+import RemoveIcon from '../Library/RemoveIcon';
 
 const PageDiv = styled.div`
 	width: ${initData.maxWidth}px;
 	margin: 0 auto;
 	border: 1px solid #ddd;
-	height:  ${initData.height}px;
+	min-height:  ${initData.height}px;
 	position: absolute;
 	// box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 	top: 0;
@@ -94,23 +94,14 @@ const EditorPoint = styled.div`
 		cursor: nwse-resize;
 	}
 `;
-const Icon = styled.div.attrs(props => ({
-	className: 'iconfont',
-}))`
-	font-size: 15px;
-	position: absolute;
-	top: 2px;
-	right: 2px;
-	font-size: 15px;
-	cursor: pointer;
-	z-index: 30;
-	color: #000;
-`;
 
 const Drag = props => {
 	const dispatch = useDispatch();
 	const { freedomLayout, current, layoutType, popup } = useSelector(state => {
 		return state.layoutData;
+	});
+	const { pageHeight } = useSelector(state => {
+		return state.pageData;
 	});
 	const page = useRef();
 
@@ -305,6 +296,7 @@ const Drag = props => {
 			},
 		});
 	};
+
 	const showPopup = () => {
 		console.log('setPopup')
 		dispatch({
@@ -325,6 +317,7 @@ const Drag = props => {
 				e.preventDefault();
 			}}
 			className={layoutType == 'freedom' ? 'free' : ''}
+			style={{height:pageHeight}}
 		>
 			
 			{ layout.map((item, index) => (

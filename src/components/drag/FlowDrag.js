@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import GridLayout from 'react-grid-layout';
-import CommonDrag from '../drag/FreedomDrag';
+import FreedomDrag from '../Drag/FreedomDrag';
 import { generateFlowDOM, onDrop } from './generateDom';
 import initData from '../../config/initData';
 
@@ -34,10 +34,24 @@ const Drag = props => {
 	const { flowLayout, current, print } = useSelector(state => {
 		return state.layoutData;
 	});
+	const box = useRef()
 	useEffect(() => {
 		const layouts = flowLayout.map(item => item.position);
+		console.log(box.current && box.current.style.height,222)
 		setLayout(layouts);
 	}, [flowLayout]);
+
+	useEffect(() => {
+		setTimeout(()=>{
+			const pageHeight = box.current.style.height
+			dispatch({
+				type: 'pageData/updateHeight',
+				payload: {
+					pageHeight
+				},
+			});
+		},0)
+	}, [flowLayout.length]);
 
 	const onDragStart = (layouts, oldItem, newItem, placeholder, e, element) => {
 		console.log('拖动开始时调用', layouts, oldItem, newItem, placeholder, e, element);
@@ -98,10 +112,24 @@ const Drag = props => {
 			},
 		});
 	};
-	console.log(print,'printprintprint')
+
+	const blur = e => {
+		console.log('blurblurblurblurblur');
+		let val = e.target.innerHTML.replace(/\n/g, '<br/>');
+		const config = {
+			text: val,
+		};
+		dispatch({
+			type: 'layoutData/setting',
+			payload: {
+				config,
+			},
+		});
+	};
+	
 	return (
 		<PageDiv>
-			<CommonDrag></CommonDrag>
+			<FreedomDrag></FreedomDrag>
 			<GridLayout
 				style={{ minHeight: initData.height }}
 				className="layout"
@@ -141,9 +169,9 @@ const Drag = props => {
 					console.log('发生尺寸调整移动时调用', data);
 				}}
 				onResizeStop={onResizeStop}
-				//innerRef={}  //Ref获取网格包装div的参考  //已删除？
+				innerRef={box}  //Ref获取网格包装div的参考  //已删除？
 			>
-				{generateFlowDOM({flowLayout, current, removeItem})}
+				{generateFlowDOM({flowLayout, current, blur, removeItem})}
 			</GridLayout>
 		</PageDiv>
 	);

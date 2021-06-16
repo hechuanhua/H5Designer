@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const RemoveIconBox = styled.div.attrs(props => ({
-	className: 'iconfont',
+	className: 'iconfont removeIcon',
 }))`
 	font-size: 15px;
 	position: absolute;

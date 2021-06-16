@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import PreImage from '../common/PreImage'
+import PreImage from '../Common/PreImage'
 import { getTemplateList, getLayoutByTid } from '../../api'
 
 const TemplateBox = styled.ul`
@@ -42,9 +42,6 @@ const LI = styled.li`
 	vertical-align: middle;
 	&:nth-child(2n){
 		margin-right:0;
-	}
-	img{
-		height:100%;
 	}
 	&:hover{
 		${Use},${Mask}{

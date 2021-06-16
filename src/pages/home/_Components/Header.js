@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom"
 import styled from "styled-components";
 import html2canvas from 'html2canvas';
-import CommonModal from '../../../components/common/Modal';
+import CommonModal from '../../../components/Common/Modal';
 
 import { saveTemplate } from '../../../api'
 
@@ -104,7 +104,7 @@ const Header = (props) => {
             print:false
           },
         })
-        return
+        // return
         saveTemplate({
           title,
           tid:selected.tid,
@@ -140,7 +140,7 @@ const Header = (props) => {
     <Head>
       <Operation>
         <Center>
-          <Radio.Group defaultValue={layoutType} onChange={onChange} style={{ marginBottom: 16 }}>
+          <Radio.Group defaultValue={layoutType} value={layoutType} onChange={onChange} style={{ marginBottom: 16 }}>
             <Radio.Button value={'flow'}>流动布局</Radio.Button>
             <Radio.Button value={'freedom'}>嵌套布局</Radio.Button>
           </Radio.Group>

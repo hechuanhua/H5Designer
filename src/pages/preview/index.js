@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import RGL, { WidthProvider } from 'react-grid-layout';
-import { generateFlowDOM, generateFreedomDOM } from '../../components/drag/generateDom';
-import WechatPopup from '../../components/library/WechatPopup'
+import { generateFlowDOM, generateFreedomDOM } from '../../components/Drag/generateDom';
+import WechatPopup from '../../components/Library/WechatPopup'
 import initData from '../../config/initData';
 import { createGlobalStyle } from 'styled-components'
 const ReactGridLayout = WidthProvider(RGL);
@@ -28,6 +28,7 @@ const DragDiv = styled.div`
 	width: 200px;
 	height: 100px;
 	cursor: move;
+	z-index: 11;
 `;
 
 const Preview = props => {
@@ -69,7 +70,7 @@ const Preview = props => {
 				containerPadding={[0, 0]} //整个容器边距
 				margin={[0, 0]} //每个子项目边距
 			>
-				{generateFlowDOM({flowLayout, showPopup:()=>{setWechatPopupVisibility(true)} })}
+				{generateFlowDOM({flowLayout, type: 'preview', showPopup:()=>{setWechatPopupVisibility(true)} })}
 			</ReactGridLayout>
       
 			{freedomLayout.map((item, index) => (

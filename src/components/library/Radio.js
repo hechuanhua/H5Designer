@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const PreviewRadioBox = styled.div`
 	height: 100%;
+	padding:0 10px;
 `;
 const Mt10 = styled.div`
 	margin-top: 10px;
@@ -15,7 +16,7 @@ const Label = styled.label`
 `;
 
 const PreviewRadio = props => {
-	const { list, title, layoutType, i } = props.config;
+	const { list, title, layoutType, isCheckBox } = props.config;
   const { id } = props
 	return (
 		<PreviewRadioBox>
@@ -23,7 +24,7 @@ const PreviewRadio = props => {
       <div>
         {list.map((v, i) => (
           <Label style={{ width: `${100 / layoutType}%` }} key={i}>
-            <input type="radio" name={`label${id}`} id={`label${id}`} />
+            <input type={isCheckBox?'checkbox':'radio'} name={`label${id}`} id={`label${id}`} />
             <span>{v.label}</span>
           </Label>
         ))}

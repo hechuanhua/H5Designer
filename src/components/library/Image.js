@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import PreImage from '../common/PreImage';
+import PreImage from '../Common/PreImage';
 
 const PreviewImgBox = styled.div`
 	height: 100%;
