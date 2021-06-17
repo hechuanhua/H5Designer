@@ -50,7 +50,7 @@ const CanvasBox = styled.div`
 
 const Preview = props => {
 	const [layout, setLayout] = useState([]);
-	const [bigScreen, setBigScreen] = useState(false)
+	const [showQRcode, setShowQRcode] = useState(false)
 	const dispatch = useDispatch();
 	const { flowLayout, freedomLayout, current } = useSelector(state => {
 		return state.layoutData;
@@ -63,7 +63,7 @@ const Preview = props => {
 	useEffect(()=>{
 		const clientWidth = document.documentElement.clientWidth;
 		if(clientWidth > 640 ){
-			setBigScreen(true)
+			setShowQRcode(true)
 		}
 		const tid = query.get('tid')
 		let scale = 1
@@ -76,6 +76,7 @@ const Preview = props => {
 		document.getElementById('viewport').setAttribute('content',`width=${initData.maxWidth}, initial-scale=${scale}, minimum-scale=${scale}, maximum-scale=${scale}, user-scalable=no`)
 
 		if(tid){
+			setShowQRcode(true)
 			localStorage.clear()
 			dispatch({
 				type: 'pageData/getLayout',
@@ -83,6 +84,8 @@ const Preview = props => {
 					tid
 				}
 			});
+		} else {
+			setShowQRcode(false)
 		}
 	},[])
 
@@ -103,7 +106,7 @@ const Preview = props => {
 	return (
 		<>
 		{
-			bigScreen?<QRcodeBox>
+			showQRcode?<QRcodeBox>
 			<QRCodeName>手机扫码预览</QRCodeName>
 			<CanvasBox>
 				<QRCode value = {window.location.href}></QRCode>
