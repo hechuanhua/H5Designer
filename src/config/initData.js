@@ -11,6 +11,7 @@ const initData = {
 			url: `https://dummyimage.com/${maxWidth}x200`,
 			fixed: '',
       borderRadius:0,
+			bottomY: 0,
       popup:false
 		},
 	},

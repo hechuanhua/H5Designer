@@ -3,6 +3,7 @@
  */
 
  import initData from '../../config/initData';
+ import { getLayoutByTid } from '../../api'
 
 export default {
 	name: 'pageData',
@@ -10,6 +11,10 @@ export default {
 		pageHeight:initData.height
 	},
 	effects: dispatch => ({
+    async getLayout(payload,rootState){
+      const data =  await getLayoutByTid({tid:payload.tid})
+      dispatch({type:'layoutData/switchLayout',payload:data})
+    }
 	}),
 	reducers: {
     updateHeight(state, payload){

@@ -92,6 +92,13 @@ const ImgSetting = props => {
 					<Select.Option value="bottom">固定底部</Select.Option>
 				</Select>
 			</Form.Item>
+			{config.fixed === 'bottom' ? (
+				<Form.Item name="bottomY" label="距离底部">
+					<Input type="number" />
+				</Form.Item>
+			) : (
+				''
+			)}
 			<Form.Item name="popup" label="点击弹窗">
         <Switch checked={config.popup}></Switch>
       </Form.Item>

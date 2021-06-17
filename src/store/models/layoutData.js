@@ -188,6 +188,8 @@ export default {
 			return newState
 		},
 		switchLayout(state, payload){
+			console.log(payload.layout_data,'payload.layout_data')
+			console.log(JSON.parse(payload.layout_data),'JSON.parse(payload.layout_data)')
 			const newState = JSON.parse(payload.layout_data)
 			newState.current = []
 			saveLayout(newState);

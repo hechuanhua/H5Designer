@@ -30,6 +30,7 @@ const TextSetting = props => {
 			},
 		});
 	};
+	
 	return (
 		<Form
 			labelCol={{ span: 8 }}

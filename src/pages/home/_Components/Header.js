@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Radio, Button, message, Input, Form, Spin } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom"
 import styled from "styled-components";
 import html2canvas from 'html2canvas';
 import CommonModal from '../../../components/Common/Modal';
@@ -50,7 +49,7 @@ const Header = (props) => {
     });
   }
   const preview = () => {
-    window.open(window.location.origin+'/preview')
+    window.open(`${window.location.origin}/preview${selected.tid?'?tid='+selected.tid:''}`)
   }
 
   const [visible,setVisible] = useState(false)
@@ -97,7 +96,7 @@ const Header = (props) => {
         const image = new Image();
         const src = canvas.toDataURL("image/png");
         image.src = src
-        document.body.appendChild(image)
+        // document.body.appendChild(image)
         dispatch({
           type: 'layoutData/setPrint',
           payload: {
@@ -135,7 +134,13 @@ const Header = (props) => {
     setTitle(e.target.value)
   }
 
-
+  const clearData = (e) => {
+    dispatch({
+      type: 'layoutData/clearAllData',
+      payload: {}
+    })
+  }
+  
   return (
     <Head>
       <Operation>
@@ -145,6 +150,7 @@ const Header = (props) => {
             <Radio.Button value={'freedom'}>嵌套布局</Radio.Button>
           </Radio.Group>
         </Center>
+        <Button onClick={clearData}>清空数据</Button>
         <Button type='primary' onClick={preview}>预览</Button>
         <Button onClick={savePage}>保存</Button>
         <Button>发布</Button>
@@ -164,3 +170,5 @@ const Header = (props) => {
 }
 
 export default Header;
+
+
