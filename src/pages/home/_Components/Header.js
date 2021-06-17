@@ -49,7 +49,7 @@ const Header = (props) => {
     });
   }
   const preview = () => {
-    window.open(`${window.location.origin}/preview${selected.tid?'?tid='+selected.tid:''}`)
+    window.open(`${window.location.origin}/#/preview${selected.tid?'?tid='+selected.tid:''}`)
   }
 
   const [visible,setVisible] = useState(false)
