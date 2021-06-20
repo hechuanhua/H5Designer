@@ -30,16 +30,10 @@ const PageDiv = styled.div.attrs(props => ({
 
 const Drag = props => {
 	const dispatch = useDispatch();
-	const [layout, setLayout] = useState([]);
 	const { flowLayout, current, print } = useSelector(state => {
 		return state.layoutData;
 	});
 	const box = useRef()
-	useEffect(() => {
-		const layouts = flowLayout.map(item => item.position);
-		console.log(box.current && box.current.style.height,222)
-		setLayout(layouts);
-	}, [flowLayout]);
 
 	useEffect(() => {
 		setTimeout(()=>{
@@ -126,15 +120,15 @@ const Drag = props => {
 			},
 		});
 	};
-	
+	console.log(flowLayout,'flowLayoutflowLayoutflowLayout')
 	return (
 		<PageDiv>
 			<FreedomDrag></FreedomDrag>
 			<GridLayout
 				style={{ minHeight: initData.height }}
 				className="layout"
-				layout={layout} //
-				cols={12}
+				// layout={layout} //
+				cols={375}
 				rowHeight={1}
 				width={initData.maxWidth}
 				autoSize={true} //容器高度自适应
@@ -152,11 +146,12 @@ const Drag = props => {
 				// transformScale={1}  //拖动速度比例
 				preventCollision={false} //拖动后不会调换位置
 				onDrop={(layout, item, e) => {
-					onDrop(e, 'flow', dispatch);
+					console.log(layout,item,'layout,item,')
+					onDrop(e, 'flow', dispatch,item,flowLayout);
 				}} //data参数（ layout, oldItem, newItem, placeholder, e, element）
-				onLayoutChange={data => {
-					console.log('回调，因此您可以保存布局', data);
-				}}
+				// onLayoutChange={data => {
+				// 	console.log('回调，因此您可以保存布局', data);
+				// }}
 				onDropDragOver={data => {
 					console.log('当元素从外部从上方拖到网格上方时调用', data);
 				}}

@@ -95,12 +95,12 @@ export default {
 			let newState = {};
 			if (payload.type === 'flow') {
 				const flowLayout = state.flowLayout.map(item => {
-					if (item.id === payload.id) {
+					if (item.id === state.current.id) {
 						item.position = { ...item.position, ...payload.position };
 					}
 					return item;
 				});
-				current = state.flowLayout.filter(item => item.id === payload.id)[0];
+				current = state.flowLayout.filter(item => item.id === state.current.id)[0];
 				newState = {
 					...state,
 					flowLayout,
@@ -205,5 +205,3 @@ export default {
 		}
 	},
 };
-
-

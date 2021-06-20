@@ -4,7 +4,7 @@ const initData = {
 	maxWidth:maxWidth,
 	height:height,
 	img: {
-		w: maxWidth/10,
+		w: 1,
 		h: 200,
 		config: {
 			type: 'img',
@@ -16,7 +16,7 @@ const initData = {
 		},
 	},
 	text: {
-		w: maxWidth/10,
+		w: maxWidth,
 		h: 40,
 		config: {
 			type: 'text',
@@ -32,7 +32,7 @@ const initData = {
 		},
 	},
 	radio: {
-		w: maxWidth/10,
+		w: maxWidth,
 		h: 70,
 		config: {
 			type: 'radio',
@@ -53,7 +53,7 @@ const initData = {
 		},
 	},
 	chat: {
-		w: maxWidth/10,
+		w: maxWidth,
 		h: 150,
 		config: {
 			type: 'chat',
