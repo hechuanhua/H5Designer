@@ -4,7 +4,7 @@ const initData = {
 	maxWidth:maxWidth,
 	height:height,
 	img: {
-		w: 1,
+		w: maxWidth,
 		h: 200,
 		config: {
 			type: 'img',
