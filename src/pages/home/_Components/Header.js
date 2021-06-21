@@ -38,8 +38,7 @@ const Header = (props) => {
   const {selected} =  useSelector(state => {
     return state.templateData;
   });
-
-  const { layoutType, freedomLayout, flowLayout, print } = layoutData
+  const { layoutType, freedomLayout, flowLayout } = layoutData
   const onChange = (e) => {
     dispatch({
       type: 'layoutData/setType',
@@ -79,20 +78,16 @@ const Header = (props) => {
       payload: {},
     })
     dispatch({
-      type: 'layoutData/setPrint',
+      type: 'pageData/setPrint',
       payload: {
         print:true
       },
     })
     
     setTimeout(()=>{
-    //   const canvas = document.getElementById('canvas')
-    //   canvas.classList.add('print')
       html2canvas(canvas,{
         useCORS:true,
-        // scrollX: -10, 
       }).then(function(canvas) {
-        // canvas.classList.remove('print')
         const image = new Image();
         const src = canvas.toDataURL("image/png");
         image.src = src
@@ -103,7 +98,6 @@ const Header = (props) => {
             print:false
           },
         })
-        // return
         saveTemplate({
           title,
           tid:selected.tid,

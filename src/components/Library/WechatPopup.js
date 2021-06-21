@@ -84,21 +84,21 @@ const WechatPopup = props => {
 	return (
 		<>
 		<Popup>
-				<Mask onClick={onClose}></Mask>
-				<Wrap>
-					<Avatar>
-						<img src="https://qu.xueyaun.cn/yina/110/Picture/kiki_t.png" alt="" />
-					</Avatar>
-					<Top>
-						<P>添加微信号，获取祛痘秘籍</P>
-						<P>↓长按复制，添加微信号↓</P>
-						<WxhBox></WxhBox>
-					</Top>
-					<Bottom>
-						<img src="http://localhost:7001/static/uploads/go.gif" alt="" style={{width:'145px'}} />
-					</Bottom>
-				</Wrap>
-			</Popup>
+			<Mask onClick={onClose}></Mask>
+			<Wrap>
+				<Avatar>
+					<img src="https://qu.xueyaun.cn/yina/110/Picture/kiki_t.png" alt="" />
+				</Avatar>
+				<Top>
+					<P>添加微信号，获取祛痘秘籍</P>
+					<P>↓长按复制，添加微信号↓</P>
+					<WxhBox className="wxh"></WxhBox>
+				</Top>
+				<Bottom>
+					<img src="http://localhost:7001/static/uploads/go.gif" alt="" style={{width:'145px'}} />
+				</Bottom>
+			</Wrap>
+		</Popup>
 		</>
 	);
 };

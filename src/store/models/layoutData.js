@@ -12,7 +12,6 @@ let initData = {
 	current: {},
 	layoutType: 'freedom',
   popup:false,
-	print:true,
 };
 
 if (localStorage.getItem('layout')) {
@@ -195,13 +194,5 @@ export default {
 			saveLayout(newState);
 			return newState
 		},
-		setPrint(state, payload){
-			const newState = {
-				...state,
-				print:payload.print
-			}
-			saveLayout(newState);
-			return newState
-		}
 	},
 };

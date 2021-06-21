@@ -101,7 +101,6 @@ const ChatDialog = (props) => {
 						<div className="copyWechatBox">
 							<span className="name">微信号:</span>
 							<span oncopy="myFunction2()" className="wxh">
-								asdfsdf
 							</span>
 							<span>(长按复制)</span>
 						</div>

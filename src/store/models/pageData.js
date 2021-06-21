@@ -8,7 +8,8 @@
 export default {
 	name: 'pageData',
 	state: {
-		pageHeight:initData.height
+		pageHeight:initData.height,
+    print:true,
 	},
 	effects: dispatch => ({
     async getLayout(payload,rootState){
@@ -23,7 +24,15 @@ export default {
         pageHeight:payload.pageHeight
       }
       return newState
-    }
+    },
+    setPrint(state, payload){
+			const newState = {
+				...state,
+				print:payload.print
+			}
+			saveLayout(newState);
+			return newState
+		}
 	},
 };
 
