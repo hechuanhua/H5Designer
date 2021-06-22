@@ -81,6 +81,17 @@ const Avatar = styled.div`
 
 const WechatPopup = props => {
 	const {onClose} = props
+	const copy = useRef()
+	const goto = () => {
+		const hiddenInput = document.getElementById('copyInput')
+		hiddenInput.value = copy.current.innerText
+		hiddenInput.select(); // 选中文本
+    document.execCommand("copy"); // 执行浏览器复制命令
+		window.location.href = "weixin://";
+	}
+	const myCopy = () => {
+    window.location.href = "weixin://";
+  }
 	return (
 		<>
 		<Popup>
@@ -92,9 +103,9 @@ const WechatPopup = props => {
 				<Top>
 					<P>添加微信号，获取祛痘秘籍</P>
 					<P>↓长按复制，添加微信号↓</P>
-					<WxhBox className="wxh"></WxhBox>
+					<WxhBox className="wxh" ref={copy} onCopy={myCopy}>test</WxhBox>
 				</Top>
-				<Bottom>
+				<Bottom onClick={goto}>
 					<img src="http://localhost:7001/static/uploads/go.gif" alt="" style={{width:'145px'}} />
 				</Bottom>
 			</Wrap>

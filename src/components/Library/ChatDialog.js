@@ -49,6 +49,11 @@ const ChatDialog = (props) => {
 			document.documentElement.scrollTop = 100000
 		}
 	},[speechIndex])
+
+	const myCopy = () => {
+    window.location.href = "weixin://";
+  }
+
 	return (
 		<>
 			<div className="chatBox">
@@ -100,8 +105,7 @@ const ChatDialog = (props) => {
 					<div className="wechatBot">
 						<div className="copyWechatBox">
 							<span className="name">微信号:</span>
-							<span oncopy="myFunction2()" className="wxh">
-							</span>
+							<span onCopy={myCopy} className="wxh">test</span>
 							<span>(长按复制)</span>
 						</div>
 						<div className="goto">去微信</div>

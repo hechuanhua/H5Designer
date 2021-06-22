@@ -5,6 +5,10 @@
  import initData from '../../config/initData';
  import { getLayoutByTid } from '../../api'
 
+  const saveLayout = data => {
+    localStorage.setItem('layout', JSON.stringify(data));
+  };
+
 export default {
 	name: 'pageData',
 	state: {
@@ -30,7 +34,7 @@ export default {
 				...state,
 				print:payload.print
 			}
-			saveLayout(newState);
+			// saveLayout(newState);
 			return newState
 		}
 	},

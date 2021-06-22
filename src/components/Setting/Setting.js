@@ -8,6 +8,7 @@ import TextSetting from './TextSetting';
 import ImgSetting from './ImgSetting';
 import RadioSetting from './RadioSetting';
 import ChatSetting from './ChatSetting';
+import BottomWechat from './BottomWechatSetting';
 
 const SettingWrap = styled.div`
 	display: flex;
@@ -37,6 +38,9 @@ const Setting = e => {
 		}
 		if (current.config.type === 'chat') {
 			return <ChatSetting></ChatSetting>;
+		}
+		if (current.config.type === 'bottomWechat') {
+			return <BottomWechat></BottomWechat>;
 		}
 	};
 	return (

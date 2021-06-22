@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { message } from 'antd';
 
 import { createUuid } from '../../utils/index';
 import initData from '../../config/initData';
@@ -9,6 +10,7 @@ import PreviewRadio from '../Library/Radio';
 import PreviewText from '../Library/Text';
 import RemoveIcon from '../Library/RemoveIcon';
 import ChatDialog from '../Library/ChatDialog';
+import BottomWechat from '../Library/BottomWechat';
 
 
 export const generateFlowDOM = ({ flowLayout, current, removeItem, showPopup, blur, type }) => {
@@ -86,18 +88,16 @@ export const generateFreedomDOM = ({ config, type, blur, showPopup }) => {
 		return <PreviewRadio config={config} id={config.id}></PreviewRadio>;
 	} else if (config.type == 'chat') {
 		return <ChatDialog config={config} type={type}></ChatDialog>;
+	} else if (config.type == 'bottomWechat') {
+		return <BottomWechat config={config} type={type}></BottomWechat>;
 	}
 };
 
 export const onDrop = (e, dragType, dispatch) => {
 	const type = e.dataTransfer.getData('text');
-	if (type !== 'img' && type !== 'radio' && type !== 'text' && type !== 'chat') return;
-	console.log(type, '类型');
-	let y = 0;
-	if (dragType === 'freedom') {
-		// let x = e.pageX - 470 || page.current.offsetLeft;
-		y = e.pageY - 100; //  page.current.offsetTop;
-	}
+	if (type !== 'img' && type !== 'radio' && type !== 'text' && type !== 'chat' && type !== 'bottomWechat') return;
+	console.log(type, dragType, '类型');
+	let y = e.pageY - 100;
 	const id = createUuid(6);
 	const position = {
 		x: 0,

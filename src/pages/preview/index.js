@@ -29,6 +29,7 @@ const DragDiv = styled.div`
 	z-index: 11;
 `;
 const FreedomDragBox = styled.div`
+	box-sizing: content-box;
 `
 const QRcodeBox = styled.div`
 	position:fixed;
@@ -47,10 +48,16 @@ const CanvasBox = styled.div`
 	background:#fff;
 	padding:10px;
 `
+const HiddenInput = styled.input`
+	position:absolute;
+	left:-99999px;
+	opacity: 0;
+`
 
 const Preview = props => {
 	const [layout, setLayout] = useState([]);
 	const [showQRcode, setShowQRcode] = useState(false)
+	const [style,setStyle] = useState({})
 	const dispatch = useDispatch();
 	const { flowLayout, freedomLayout, current } = useSelector(state => {
 		return state.layoutData;
@@ -87,6 +94,13 @@ const Preview = props => {
 		} else {
 			setShowQRcode(false)
 		}
+
+		const ret =freedomLayout.filter(item=>item.config.type === 'bottomWechat')
+		console.log(ret)
+		if(ret.length){
+			
+			setStyle({'paddingBottom':'70px'})
+		}
 	},[])
 
 	useEffect(() => {
@@ -113,7 +127,7 @@ const Preview = props => {
 			</CanvasBox>
 		</QRcodeBox>:''
 		}
-		
+		<HiddenInput type='text' id='copyInput'></HiddenInput>
 		<PageDiv>
 			<GridLayout
 				layout={layout}
@@ -130,17 +144,17 @@ const Preview = props => {
 			>
 				{generateFlowDOM({flowLayout, type: 'preview', showPopup:()=>{setWechatPopupVisibility(true)} })}
 			</GridLayout>
-      <FreedomDragBox>
+      <FreedomDragBox style={style}>
 				{freedomLayout.map((item, index) => (
 					<DragDiv
 						className={item.position.i == current.id ? 'active drag' : 'drag'}
 						style={{
-							position: item.config.fixed == 'bottom' ? 'fixed' : 'absolute',
+							position: item.config.type === 'bottomWechat'?'fixed':(item.config.fixed == 'bottom' ? 'fixed' : 'absolute'),
 							left: item.position.x,
-							top: item.config.fixed == 'bottom' ? 'initial' : item.position.y,
-							width: item.config.fixed == 'bottom' ?'100%':item.position.w,
+							top: item.config.type === 'bottomWechat'?'initial':(item.config.fixed == 'bottom' ? 'initial' : item.position.y),
+							width: item.config.type === 'bottomWechat'?'100%':(item.config.fixed == 'bottom' ?'100%':item.position.w),
 							height: item.position.h,
-							bottom: item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial',
+							bottom: item.config.type === 'bottomWechat'?0:(item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial'),
 							color: item.config.color,
 							fontSize: item.config.fontSize + 'px',
 							backgroundColor: item.config.backgroundColor,
@@ -150,6 +164,7 @@ const Preview = props => {
 						key={item.position.i}
 					>
 						{generateFreedomDOM({ config: item.config, type: 'preview', showPopup:()=>{setWechatPopupVisibility(true)} })}
+						
 					</DragDiv>
 				))}
 			</FreedomDragBox>

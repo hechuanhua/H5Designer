@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from "styled-components";
 import html2canvas from 'html2canvas';
 import CommonModal from '../../../components/Common/Modal';
-
+import SaveModal from './SaveModal'
+import PublishModal from './PublishModal'
 import { saveTemplate } from '../../../api'
 
 const Head = styled.div`
@@ -51,81 +52,15 @@ const Header = (props) => {
     window.open(`${window.location.origin}/#/preview${selected.tid?'?tid='+selected.tid:''}`)
   }
 
-  const [visible,setVisible] = useState(false)
-  const [title,setTitle] = useState('') 
-  const [loading,setLoading] = useState(false)
-  const savePage = () => {
+  const [saveVisible,setSaveVisible] = useState(false)
+  const [publishVisible,setPublishVisible] = useState(false)
 
+  // const [saveLoading,setSaveLoading] = useState(false)
+  const savePage = () => {
     if(!freedomLayout.length && !flowLayout.length){
       return message.error('请添加数据后再保存')
     }
-    setVisible(true)
-  }
-
-  useEffect(()=>{
-    setTitle(selected.title)
-    console.log(selected,title,'useEffect')
-  },[selected.title])
-
-  const handleOk = () => {
-    if(!title.replace(/^\s+|\s+$/g,'')){
-      return message.error('必须填写标题')
-    }
-
-    setLoading(true)
-    dispatch({
-      type: 'layoutData/setActive',
-      payload: {},
-    })
-    dispatch({
-      type: 'pageData/setPrint',
-      payload: {
-        print:true
-      },
-    })
-    
-    setTimeout(()=>{
-      html2canvas(canvas,{
-        useCORS:true,
-      }).then(function(canvas) {
-        const image = new Image();
-        const src = canvas.toDataURL("image/png");
-        image.src = src
-        // document.body.appendChild(image)
-        dispatch({
-          type: 'layoutData/setPrint',
-          payload: {
-            print:false
-          },
-        })
-        saveTemplate({
-          title,
-          tid:selected.tid,
-          base64: src,
-          layoutData
-        }).then((res)=>{
-          setLoading(false)
-          setVisible(false)
-          dispatch({
-            type: 'layoutData/clearAllData',
-            payload: {}
-          })
-          message.success('保存成功',1,()=>{
-            dispatch({
-              type: 'templateData/getTemplateList',
-              payload: {}
-            })
-          })
-        }).catch((res)=>{
-          setLoading(false)
-        })
-  
-      });
-    },0)  
-  }
-
-  const changTitle = (e) => {
-    setTitle(e.target.value)
+    setSaveVisible(true)
   }
 
   const clearData = (e) => {
@@ -150,14 +85,19 @@ const Header = (props) => {
         <Button>发布</Button>
       </Operation>
 
-     
-      <CommonModal visible={visible} onOk={handleOk} onCancel={()=>{setVisible(false)}} title={'确定保存？'} confirmLoading={loading}>
-        <Form>
-          <Form.Item label="模板标题">
-            <Input onChange={changTitle} value={title}></Input>
-          </Form.Item>
-        </Form>
-      </CommonModal>
+      <SaveModal
+        visible={saveVisible}
+        onCancel={()=>{setSaveVisible(false)}}
+        defaultTitle={'确定保存？'}
+      >
+      </SaveModal>
+
+      <PublishModal
+        visible={publishVisible}
+        onCancel={()=>{setPublishVisible(false)}}
+        defaultTitle={'确定发布？'}
+      >
+      </PublishModal>
       
     </Head>
   )

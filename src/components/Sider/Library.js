@@ -24,6 +24,10 @@ const Library = (e) => {
   const ondragstart = (e, type) => {
     e.dataTransfer.setData("text/plain", type);
   }
+  const dispatch = useDispatch()
+	const { layoutType } =  useSelector(state => {
+    return state.layoutData;
+  });
   return (
     <>
       <ul>
@@ -43,18 +47,25 @@ const Library = (e) => {
           <div>弹窗组件</div>
           <Icon>&#xe690;</Icon>
         </Li> */}
-        <Li onDragStart={(e) => { ondragstart(e, 'video') }}>
+        {/* <Li onDragStart={(e) => { ondragstart(e, 'video') }}>
           <div>视频</div>
           <Icon>&#xe603;</Icon>
-        </Li>
+        </Li> */}
+        {
+          layoutType === 'freedom'?
+          <Li onDragStart={(e) => { ondragstart(e, 'bottomWechat') }}>
+            <div>底部微信</div>
+            <Icon>&#xe6c7;</Icon>
+          </Li>:''
+        }
         <Li onDragStart={(e) => { ondragstart(e, 'chat') }}>
           <div>微信对话</div>
           <Icon>&#xe6c7;</Icon>
         </Li>
-        <Li onDragStart={(e) => { ondragstart(e, '') }}>
+        {/* <Li onDragStart={(e) => { ondragstart(e, '') }}>
           <div>组件</div>
           <Icon>&#xe7c2;</Icon>
-        </Li>
+        </Li> */}
       </ul>
     </>
   );

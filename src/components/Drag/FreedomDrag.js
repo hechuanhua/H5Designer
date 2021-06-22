@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { throttle, createUuid } from '../../utils';
 import { generateFreedomDOM, onDrop } from './generateDom';
 import initData from '../../config/initData';
-
+import BottomWechat from '../Library/BottomWechat';
 import RemoveIcon from '../Library/RemoveIcon';
 
 const PageDiv = styled.div`
@@ -13,7 +13,6 @@ const PageDiv = styled.div`
 	border: 1px solid #ddd;
 	min-height:  ${initData.height}px;
 	position: absolute;
-	// box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 	top: 0;
 	left: 0;
 	pointer-events: none;
@@ -25,7 +24,6 @@ const PageDiv = styled.div`
 const DragDiv = styled.div`
 	width: 200px;
 	height: 100px;
-	// border: 1px solid #000;
 	cursor: move;
 	user-select: none;
 	div[class*="point-"],.iconfont{
@@ -120,7 +118,7 @@ const Drag = props => {
 		}
 	};
 
-	const down = (e, index) => {
+	const down = (e, index, type) => {
 		let className = e.target.className.replace(/(.*)point-/, '');
 		let target = queryParent(e.target);
 		let id = target.getAttribute('data-id');
@@ -136,6 +134,7 @@ const Drag = props => {
 			className: className,
 			index,
 			id,
+			type
 		};
 		console.log('down', JSON.parse(JSON.stringify(page.current.mouseInfo)), id);
 		setTimeout(() => {
@@ -148,7 +147,7 @@ const Drag = props => {
 		}, 0);
 	};
 	const move = e => {
-		if (!page.current || !page.current.mouseInfo || !page.current.mouseInfo.mouseDown) return;
+		if (!page.current || !page.current.mouseInfo || !page.current.mouseInfo.mouseDown || page.current.mouseInfo.type === 'bottomWechat') return;
 		e.stopPropagation();
 		e.preventDefault();
 		const { styleWidth, styleHeight, styleTop, styleLeft, index, className, startX, startY } =
@@ -240,7 +239,8 @@ const Drag = props => {
 		if (
 			!page.current.mouseInfo ||
 			!page.current.mouseInfo.mouseDown ||
-			!page.current.mouseInfo.mouseMove
+			!page.current.mouseInfo.mouseMove ||
+			page.current.mouseInfo.type === 'bottomWechat'
 		) {
 			page.current.mouseInfo = null;
 			return;
@@ -321,44 +321,47 @@ const Drag = props => {
 		>
 			
 			{ layout.map((item, index) => (
-						<DragDiv
-							className={item.id == current.id ? 'active drag' : 'drag'}
-							style={{
-								position: 'absolute',
-								left: item.position.x,
-								top: item.config.fixed == 'bottom' ? 'initial' : item.position.y,
-								width: item.position.w,
-								height: item.position.h,
-								bottom: item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial',
-								color: item.config.color,
-								fontSize: item.config.fontSize + 'px',
-								backgroundColor: item.config.backgroundColor,
-								textAlign: item.config.align,
-								borderRadius: item.config.borderRadius + 'px',
-							}}
-							data-id={item.id}
-							key={item.id}
-							onMouseDown={e => {
-								let className = e.target.className.replace(/(.*)point-/, '');
-								if (item.config.fixed == 'bottom' && (className === 'bottom' || !className)) {
-									return;
-								}
-								down(e, index);
-							}}
-						>
-							<EditorPoint className="point-top"></EditorPoint>
-							<EditorPoint className="point-top-right"></EditorPoint>
-							<EditorPoint className="point-right"></EditorPoint>
-							<EditorPoint className="point-bottom-right"></EditorPoint>
-							<EditorPoint className="point-bottom"></EditorPoint>
-							<EditorPoint className="point-bottom-left"></EditorPoint>
-							<EditorPoint className="point-left"></EditorPoint>
-							<EditorPoint className="point-top-left"></EditorPoint>
-							<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
-							{generateFreedomDOM({config:item.config, index, blur, showPopup})}
-						</DragDiv>
-				  ))
-				}
+				<DragDiv
+					className={item.id == current.id ? 'active drag' : 'drag'}
+					style={{
+						position: 'absolute',
+						left: item.position.x,
+						top: item.config.type === 'bottomWechat'?'initial':(item.config.fixed == 'bottom' ? 'initial' : item.position.y),
+						width: item.position.w,
+						height: item.position.h,
+						bottom: item.config.type === 'bottomWechat'?0:(item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial'),
+						color: item.config.color,
+						fontSize: item.config.fontSize + 'px',
+						backgroundColor: item.config.backgroundColor,
+						textAlign: item.config.align,
+						borderRadius: item.config.borderRadius + 'px',
+					}}
+					data-id={item.id}
+					key={item.id}
+					onMouseDown={e => {
+						let className = e.target.className.replace(/(.*)point-/, '');
+						// if(item.config.type === 'bottomWechat'){
+						// 	return
+						// }
+						if (item.config.fixed == 'bottom' && (className === 'bottom' || !className)) {
+							return;
+						}
+						down(e, index, item.config.type);
+					}}
+				>
+					<EditorPoint className="point-top"></EditorPoint>
+					<EditorPoint className="point-top-right"></EditorPoint>
+					<EditorPoint className="point-right"></EditorPoint>
+					<EditorPoint className="point-bottom-right"></EditorPoint>
+					<EditorPoint className="point-bottom"></EditorPoint>
+					<EditorPoint className="point-bottom-left"></EditorPoint>
+					<EditorPoint className="point-left"></EditorPoint>
+					<EditorPoint className="point-top-left"></EditorPoint>
+					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
+					{generateFreedomDOM({config:item.config, index, blur, showPopup})}
+				</DragDiv>
+			))
+			}
 		</PageDiv>
 	);
 };
