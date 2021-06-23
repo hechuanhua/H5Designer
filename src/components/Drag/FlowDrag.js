@@ -30,9 +30,14 @@ const PageDiv = styled.div.attrs(props => ({
 
 const Drag = props => {
 	const dispatch = useDispatch();
-	const { flowLayout, current, print } = useSelector(state => {
+	const { flowLayout, current } = useSelector(state => {
 		return state.layoutData;
 	});
+
+	const { print } = useSelector(state => {
+		return state.pageData;
+	});
+	const [layout,setLayout] = useState([])
 	const box = useRef()
 
 	useEffect(() => {
@@ -47,6 +52,10 @@ const Drag = props => {
 		},0)
 	}, [flowLayout.length]);
 
+	useEffect(()=>{
+		setLayout(flowLayout.map(item=>item.position))
+	},[flowLayout]);
+
 	const onDragStart = (layouts, oldItem, newItem, placeholder, e, element) => {
 		console.log('拖动开始时调用', layouts, oldItem, newItem, placeholder, e, element);
 		if (/^\d+$/.test(newItem.i)) {
@@ -59,6 +68,7 @@ const Drag = props => {
 			});
 		}
 	};
+
 	const onDragStop = (layouts, oldItem, newItem, placeholder, e, element) => {
 		console.log('拖动完成时调用。', layouts, oldItem, newItem, placeholder, e, element);
 		const position = {
@@ -108,7 +118,6 @@ const Drag = props => {
 	};
 
 	const blur = e => {
-		console.log('blurblurblurblurblur');
 		let val = e.target.innerHTML.replace(/\n/g, '<br/>');
 		const config = {
 			text: val,
@@ -120,49 +129,30 @@ const Drag = props => {
 			},
 		});
 	};
-	console.log(flowLayout,'flowLayoutflowLayoutflowLayout')
+
 	return (
 		<PageDiv>
 			<FreedomDrag></FreedomDrag>
 			<GridLayout
 				style={{ minHeight: initData.height }}
 				className="layout"
-				// layout={layout} //
-				cols={1}
+				layout={layout} //
+				cols={375}
 				rowHeight={1}
 				width={initData.maxWidth}
 				autoSize={true} //容器高度自适应
 				compactType={'vertical'}
-				draggableCancel="" //不可拖动的class  .test
-				draggableHandle="" //用于标记的CSS选择器，它将用作可拖动的句柄
 				containerPadding={[0, 0]} //整个容器边距
-				isDroppable={true} //如果为true，则可以将可放置元素（具有`draggable = {true}`属性）//放置在网格上。它使用位置和事件对象作为参数触发// “ onDrop”回调。//对于将元素放在特定位置很有用
-				isDraggable={true} //是否可拖动
-				isResizable={true} //是否可调整大小
 				isBounded={true} //只能在父级内移动
+				isDroppable={true} //如果为true，则可以将可放置元素（具有`draggable = {true}`属性）//放置在网格上。它使用位置和事件对象作为参数触发// “ onDrop”回调。//对于将元素放在特定位置很有用
 				resizeHandles={['s', 'e']} //句柄位置
 				margin={[0, 0]} //每个子项目边距
 				useCSSTransforms={!print} //css3替换top left，提高性能
-				// transformScale={1}  //拖动速度比例
-				preventCollision={false} //拖动后不会调换位置
 				onDrop={(layout, item, e) => {
-					console.log(layout,item,'layout,item,')
-					onDrop(e, 'flow', dispatch,item,flowLayout);
+					onDrop(e, 'flow', dispatch);
 				}} //data参数（ layout, oldItem, newItem, placeholder, e, element）
-				// onLayoutChange={data => {
-				// 	console.log('回调，因此您可以保存布局', data);
-				// }}
-				onDropDragOver={data => {
-					console.log('当元素从外部从上方拖到网格上方时调用', data);
-				}}
 				onDragStart={onDragStart}
 				onDragStop={onDragStop}
-				onResizeStart={data => {
-					console.log('调整大小开始时调用', data);
-				}}
-				onResize={data => {
-					console.log('发生尺寸调整移动时调用', data);
-				}}
 				onResizeStop={onResizeStop}
 				innerRef={box}  //Ref获取网格包装div的参考  //已删除？
 			>
@@ -173,3 +163,5 @@ const Drag = props => {
 };
 
 export default Drag;
+
+

@@ -11,15 +11,14 @@ const EditText = styled.div`
 
 const PreviewText = props => {
   const { blur, showPopup, type } = props
-	const { text, popup } = props.config;
+	const { text, popup, popupType } = props.config;
 	return (
-		<PreviewTextBox>
+		<PreviewTextBox onClick={popup ? ()=>{showPopup(popupType)} : () => {}}>
 			<EditText
 				contentEditable={type === 'preview' ? false : true}
 				suppressContentEditableWarning={true}
 				onBlur={type !== 'preview'?blur:()=>{}}
 				dangerouslySetInnerHTML={{ __html: text }}
-				onClick={popup ? showPopup : () => {}}
 			></EditText>
 		</PreviewTextBox>
 	);

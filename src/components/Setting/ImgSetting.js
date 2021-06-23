@@ -66,14 +66,14 @@ const ImgSetting = props => {
 			{console.log(config,2222)}
 			<Form.Item label="上传图片：">
 				<Form.Item
-					// name="img"
+					name="img"
 					// valuePropName="fileList"
 					// getValueFromEvent={normFile}
 					noStyle
 					accept="image/png,image/jpeg,image/gif,image/pjpeg"
 				>
 					<Upload.Dragger
-						// name="files"
+						name="files"
 						action={`${globalConfig.baseUrl}/upload`}
 						maxCount={1}
 						// fileList={[{url:config.url,name:'img.jpg'},]}
@@ -102,6 +102,15 @@ const ImgSetting = props => {
 			<Form.Item name="popup" label="点击弹窗">
         <Switch checked={config.popup}></Switch>
       </Form.Item>
+			{
+				config.popup?
+				<Form.Item name="popupType" label="弹窗样式">
+					<Select allowClear>
+						<Select.Option value="1">弹窗样式1</Select.Option>
+						<Select.Option value="2">弹窗样式2</Select.Option>
+					</Select>
+				</Form.Item>:''
+			}
 		</Form>
 	);
 };

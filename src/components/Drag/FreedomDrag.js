@@ -95,10 +95,10 @@ const EditorPoint = styled.div`
 
 const Drag = props => {
 	const dispatch = useDispatch();
-	const { freedomLayout, current, layoutType, popup } = useSelector(state => {
+	const { freedomLayout, current, layoutType } = useSelector(state => {
 		return state.layoutData;
 	});
-	const { pageHeight } = useSelector(state => {
+	const { pageHeight, wechatPopup } = useSelector(state => {
 		return state.pageData;
 	});
 	const page = useRef();
@@ -298,11 +298,11 @@ const Drag = props => {
 	};
 
 	const showPopup = () => {
-		console.log('setPopup')
+		console.log('setWechatPopup')
 		dispatch({
-			type: 'layoutData/setPopup',
+			type: 'pageData/setWechatPopup',
 			payload: {
-				popup:!popup
+				wechatPopup:!wechatPopup
 			},
 		});
 	}

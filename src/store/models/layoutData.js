@@ -10,8 +10,7 @@ let initData = {
 	flowLayout: [],
 	freedomLayout: [],
 	current: {},
-	layoutType: 'freedom',
-  popup:false,
+	layoutType: 'freedom'
 };
 
 if (localStorage.getItem('layout')) {
@@ -167,14 +166,6 @@ export default {
       saveLayout(newState);
 			return newState;
 		},
-    setPopup(state, payload){
-      const newState = {
-				...state,
-				popup: payload.popup,
-			};
-      saveLayout(newState);
-			return newState;
-    },
 		clearAllData(){
 			const newState = {
 				flowLayout: [],

@@ -9,7 +9,7 @@ import QRCode from 'qrcode.react';
 import { generateFlowDOM, generateFreedomDOM } from '../../components/Drag/generateDom';
 import WechatPopup from '../../components/Library/WechatPopup'
 import initData from '../../config/initData';
-
+import DouPop from '../../components/Library/DouPop'
 
 const PageDiv = styled.div.attrs(props => ({
 	className: 'preview',
@@ -98,7 +98,6 @@ const Preview = props => {
 		const ret =freedomLayout.filter(item=>item.config.type === 'bottomWechat')
 		console.log(ret)
 		if(ret.length){
-			
 			setStyle({'paddingBottom':'70px'})
 		}
 	},[])
@@ -116,7 +115,15 @@ const Preview = props => {
 	}, [flowLayout]);
 
 	const [wechatPopupVisibility, setWechatPopupVisibility] = useState(false);
+	const [douPopupVisibility, setDouPopupVisibility] = useState(false);
 
+	const showPopup = (popupType) => {
+		if(popupType == 1){
+			setWechatPopupVisibility(true)
+		} else if(popupType == 2){
+			setDouPopupVisibility(true)
+		}
+	}
 	return (
 		<>
 		{
@@ -142,7 +149,7 @@ const Preview = props => {
 				margin={[0, 0]} //每个子项目边距
 				innerRef={FreeBox}
 			>
-				{generateFlowDOM({flowLayout, type: 'preview', showPopup:()=>{setWechatPopupVisibility(true)} })}
+				{generateFlowDOM({flowLayout, type: 'preview', showPopup})}
 			</GridLayout>
       <FreedomDragBox style={style}>
 				{freedomLayout.map((item, index) => (
@@ -163,15 +170,17 @@ const Preview = props => {
 						data-id={item.position.i}
 						key={item.position.i}
 					>
-						{generateFreedomDOM({ config: item.config, type: 'preview', showPopup:()=>{setWechatPopupVisibility(true)} })}
-						
+						{generateFreedomDOM({ config: item.config, type: 'preview', showPopup })}
 					</DragDiv>
 				))}
 			</FreedomDragBox>
+			{
+				wechatPopupVisibility?<WechatPopup onClose={()=>{setWechatPopupVisibility(false)}}></WechatPopup>:<></>
+			}
 			
 		</PageDiv>
 		{
-			wechatPopupVisibility?<WechatPopup onClose={()=>{setWechatPopupVisibility(false)}}></WechatPopup>:''
+			douPopupVisibility?<DouPop onClose={()=>{setDouPopupVisibility(false)}}></DouPop>:''
 		}
 		</>
 	);

@@ -6,10 +6,10 @@ const PreviewImgBox = styled.div`
 `;
 
 const PreviewImage = props => {
-	const { url, popup } = props.config;
+	const { url, popup, popupType } = props.config;
   const { showPopup } = props
 	return (
-		<PreviewImgBox onClick={popup ? showPopup : () => {}}>
+		<PreviewImgBox onClick={popup ? ()=>{showPopup(popupType)} : () => {}}>
 			<PreImage src={url} />
 		</PreviewImgBox>
 	);

@@ -14,6 +14,7 @@ export default {
 	state: {
 		pageHeight:initData.height,
     print:true,
+    wechatPopup:false
 	},
 	effects: dispatch => ({
     async getLayout(payload,rootState){
@@ -36,7 +37,15 @@ export default {
 			}
 			// saveLayout(newState);
 			return newState
-		}
+		},
+    setWechatPopup(state, payload){
+      const newState = {
+				...state,
+				popup: payload.wechatPopup,
+			};
+      // saveLayout(newState);
+			return newState;
+    },
 	},
 };
 

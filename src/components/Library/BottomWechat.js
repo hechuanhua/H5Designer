@@ -4,13 +4,8 @@ import styled from 'styled-components';
 import initData from '../../config/initData';
 
 const BottomWechatBox = styled.div`
-	// width: ${initData.maxWidth}px;
-	// position: fixed;
 	bottom:0;
-  text-align:center;
-  background: rgba(0,0,0);
   z-index: 111;
-  color: #fff;
   font-size: 18px;
   padding: 10px;
 `;

@@ -12,7 +12,8 @@ const initData = {
 			fixed: '',
       borderRadius:0,
 			bottomY: 0,
-      popup:false
+      popup:false,
+			popupType:'1',
 		},
 	},
 	text: {
@@ -28,7 +29,8 @@ const initData = {
 			fixed: '',
 			bottomY: 0,
       borderRadius:0,
-      popup:false
+      popup:false,
+			popupType:'1',
 		},
 	},
 	radio: {
@@ -66,6 +68,15 @@ const initData = {
 		config: {
 			type: 'bottomWechat',
 			text: '公众号',
+			align: 'center',
+			fontSize: '18',
+			backgroundColor: '#000',
+			color: '#fff',
+			fixed: '',
+			bottomY: 0,
+      borderRadius:0,
+      popup:false,
+			popupType:'1',
 		},
 	},
 };

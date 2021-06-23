@@ -21,7 +21,6 @@ const TextSetting = props => {
 	}, [config]);
 
 	const onValuesChange = (changedValues, allValues) => {
-		// return
 		console.log(changedValues, allValues, 'changedValues');
 		dispatch({
 			type: 'layoutData/setting',
@@ -30,7 +29,7 @@ const TextSetting = props => {
 			},
 		});
 	};
-	
+
 	return (
 		<Form
 			labelCol={{ span: 8 }}
@@ -78,6 +77,15 @@ const TextSetting = props => {
       <Form.Item name="popup" label="点击弹窗">
         <Switch checked={config.popup}></Switch>
       </Form.Item>
+			{
+				config.popup?
+				<Form.Item name="popupType" label="弹窗样式">
+					<Select allowClear>
+						<Select.Option value="1">弹窗样式1</Select.Option>
+						<Select.Option value="2">弹窗样式2</Select.Option>
+					</Select>
+				</Form.Item>:''
+			}
 		</Form>
 	);
 };
