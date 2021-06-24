@@ -35,17 +35,13 @@ export const generateFlowDOM = ({ flowLayout, current, removeItem, showPopup, bl
 					data-grid={item.position}
 					className={item.id === current.id ? 'active' : ''}
 					style={{
-						// position: 'absolute',
-						// left: item.position.x,
-						// top: item.config.fixed == 'bottom' ? 'initial' : item.position.y,
-						// bottom: item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial',
 						width: item.position.w,
 						height: item.position.h,
 						color: item.config.color,
 						fontSize: item.config.fontSize + 'px',
 						backgroundColor: item.config.backgroundColor,
 						textAlign: item.config.align,
-						borderRadius: item.config.borderRadius + 'px',
+						borderRadius: /^\d+$/.test(item.config.borderRadius)? item.config.borderRadius + 'px':item.config.borderRadius,
 					}}
 				>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
@@ -58,6 +54,16 @@ export const generateFlowDOM = ({ flowLayout, current, removeItem, showPopup, bl
 					key={item.id}
 					data-grid={item.position}
 					className={item.id === current.id ? 'active' : ''}
+					style={{
+						width: item.position.w,
+						height: item.position.h,
+						color: item.config.color,
+						fontSize: item.config.fontSize + 'px',
+						backgroundColor: item.config.backgroundColor,
+						textAlign: item.config.align,
+						borderRadius: /^\d+$/.test(item.config.borderRadius)? item.config.borderRadius + 'px':item.config.borderRadius,
+					}}
+
 				>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
 					<PreviewRadio config={item.config} id={item.id}></PreviewRadio>

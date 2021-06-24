@@ -141,7 +141,7 @@ const Preview = props => {
 				isDraggable={false}
 				isResizable={false}
 				CSSTransforms={true}
-				cols={12}
+				cols={375}
 				rowHeight={1}
 				width={initData.maxWidth}
 				compactType={'vertical'}
@@ -166,6 +166,7 @@ const Preview = props => {
 							fontSize: item.config.fontSize + 'px',
 							backgroundColor: item.config.backgroundColor,
 							textAlign: item.config.align,
+							borderRadius: /^\d+$/.test(item.config.borderRadius)? item.config.borderRadius + 'px':item.config.borderRadius,
 						}}
 						data-id={item.position.i}
 						key={item.position.i}

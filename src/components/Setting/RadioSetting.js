@@ -171,6 +171,19 @@ const RadioSetting = props => {
 				<Form.Item label="是否多选" name="isCheckBox">
 					<Switch onChange={changeCheckBox} checked={config.isCheckBox}></Switch>
 				</Form.Item>
+				<Form.Item name="backgroundColor" label="背景颜色">
+					<Input />
+				</Form.Item>
+				<Form.Item label="样式" name="templateVal">
+					<Select>
+						{
+							config.template.map(item=>(
+								<Select.Option value={item.value} key={item.value}>{item.name}</Select.Option>
+							))
+						}
+					</Select>
+				</Form.Item>
+				
 			</Form>
 			<CommonModal visible={visible} onOk={handleOk} onCancel={handleCancel} title={'批量编辑'}>
 				<div>每个选项请单列一行</div>

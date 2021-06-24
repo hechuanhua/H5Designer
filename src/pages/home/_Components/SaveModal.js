@@ -49,8 +49,8 @@ const SaveModal = (props) => {
         const image = new Image();
         const src = canvas.toDataURL("image/png");
         image.src = src
-        document.body.appendChild(image)
-      
+        // document.body.appendChild(image)
+        console.log(333)
         dispatch({
           type: 'layoutData/setPrint',
           payload: {
@@ -64,7 +64,7 @@ const SaveModal = (props) => {
           layoutData
         }).then((res)=>{
           setLoading(false)
-          setVisible(false)
+          onCancel()
           dispatch({
             type: 'layoutData/clearAllData',
             payload: {}
@@ -90,7 +90,7 @@ const SaveModal = (props) => {
   
   return (
     <>
-      <CommonModal visible={visible} onOk={handleOk} onCancel={onCancel} title={'确定保存？'} confirmLoading={loading}>
+      <CommonModal visible={visible} onOk={handleOk} onCancel={onCancel} title={defaultTitle?defaultTitle:'确定保存？'} confirmLoading={loading}>
         <Form>
           <Form.Item label="模板标题">
             <Input onChange={changTitle} value={title}></Input>

@@ -59,7 +59,7 @@ const TextSetting = props => {
 				<Input />
 			</Form.Item>
       <Form.Item name="borderRadius" label="圆角">
-				<Input type="number"/>
+				<Input type="text"/>
 			</Form.Item>
 			<Form.Item name="fixed" label="固定位置">
 				<Select allowClear>

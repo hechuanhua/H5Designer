@@ -63,6 +63,10 @@ const Header = (props) => {
     setSaveVisible(true)
   }
 
+  const publish = () => {
+    setPublishVisible(true)
+  }
+
   const clearData = (e) => {
     dispatch({
       type: 'layoutData/clearAllData',
@@ -82,7 +86,7 @@ const Header = (props) => {
         <Button onClick={clearData}>清空数据</Button>
         <Button type='primary' onClick={preview}>预览</Button>
         <Button onClick={savePage}>保存</Button>
-        <Button>发布</Button>
+        <Button onClick={publish}>发布</Button>
       </Operation>
 
       <SaveModal

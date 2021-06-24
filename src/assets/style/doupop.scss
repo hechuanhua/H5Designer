@@ -60,13 +60,16 @@
 }
 .douPopBox .fs-fields > li {
   position: absolute;
-  top: 0;
+  top: 100%;
   left: 0;
   z-index: 11;
   visibility: hidden;
+  
 }
 .douPopBox .fs-fields > li.fs-current {
   visibility: visible;
+  top: 0;
+  transition: all 0.3s ease;
 }
 .douPopBox .douPop_page {
   background: #b9e0ff;

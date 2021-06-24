@@ -39,6 +39,7 @@ const initData = {
 		config: {
 			type: 'radio',
 			title: '我是标题',
+			backgroundColor: '#fff',
 			list: [
 				{
 					label: '我是字段1',
@@ -52,6 +53,17 @@ const initData = {
 			],
 			layoutType: '3',
       isCheckBox:false,
+			templateVal:'1',
+			template:[
+				{
+					'name':'模板1',
+					'value':'1'
+				},
+				{
+					'name':'模板2',
+					'value':'2'
+				}
+			]
 		},
 	},
 	chat: {

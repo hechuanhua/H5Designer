@@ -334,7 +334,7 @@ const Drag = props => {
 						fontSize: item.config.fontSize + 'px',
 						backgroundColor: item.config.backgroundColor,
 						textAlign: item.config.align,
-						borderRadius: item.config.borderRadius + 'px',
+						borderRadius: /^\d+$/.test(item.config.borderRadius)? item.config.borderRadius + 'px':item.config.borderRadius,
 					}}
 					data-id={item.id}
 					key={item.id}

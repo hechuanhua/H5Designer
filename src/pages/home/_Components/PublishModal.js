@@ -5,95 +5,56 @@ import { useSelector, useDispatch } from 'react-redux';
 import html2canvas from 'html2canvas';
 import CommonModal from '../../../components/Common/Modal';
 
-import { saveTemplate } from '../../../api'
+import { publish } from '../../../api'
 
 const PublishModal = (props) => {
   const dispatch = useDispatch();
+
+  const {visible,onCancel,defaultTitle} = props
+
   const layoutData =  useSelector(state => {
     return state.layoutData;
   });
-  const {selected} =  useSelector(state => {
-    return state.templateData;
-  });
-  const {visible,onCancel,defaultTitle} = props
-
-  const [title,setTitle] = useState(defaultTitle) 
+  
   const [loading,setLoading] = useState(false)
 
-  useEffect(()=>{
-    setTitle(selected.title)
-    console.log(selected,title,'useEffect')
-  },[selected.title])
+  const [form] = Form.useForm();
+
+  const pageData = {
+    title:'',
+    wechatNumber:'',
+    fileName:''
+  }
+  // const [formData, setFormData] = useState(pageData)
+
 
   const handleOk = () => {
-    if(!title.replace(/^\s+|\s+$/g,'')){
-      return message.error('必须填写标题')
-    }
-
-    setLoading(true)
-    dispatch({
-      type: 'layoutData/setActive',
-      payload: {},
+    console.log(layoutData,99999)
+    form.validateFields().then(()=>{
+      console.log(3333)
+      // setLoading(true)
+      publish({data:layoutData}).then((res)=>{
+        message.success(res.message,'1')
+      })
+    }).catch(()=>{
+      console.log(4444)
     })
-    dispatch({
-      type: 'pageData/setPrint',
-      payload: {
-        print:true
-      },
-    })
-    
-    setTimeout(()=>{
-      html2canvas(canvas,{
-        useCORS:true,
-      }).then(function(canvas) {
-        const image = new Image();
-        const src = canvas.toDataURL("image/png");
-        image.src = src
-        document.body.appendChild(image)
-        return
-        dispatch({
-          type: 'layoutData/setPrint',
-          payload: {
-            print:false
-          },
-        })
-        saveTemplate({
-          title,
-          tid:selected.tid,
-          base64: src,
-          layoutData
-        }).then((res)=>{
-          setLoading(false)
-          setVisible(false)
-          dispatch({
-            type: 'layoutData/clearAllData',
-            payload: {}
-          })
-          message.success('保存成功',1,()=>{
-            dispatch({
-              type: 'templateData/getTemplateList',
-              payload: {}
-            })
-          })
-        }).catch((res)=>{
-          setLoading(false)
-        })
-  
-      });
-    },0)  
   }
 
-  const changTitle = (e) => {
-    setTitle(e.target.value)
-  }
 
   
   return (
     <>
-      <CommonModal visible={visible} onOk={handleOk} onCancel={onCancel} title={'确定保存？'} confirmLoading={loading}>
-        <Form>
-          <Form.Item label="模板标题">
-            <Input onChange={changTitle} value={title}></Input>
+      <CommonModal visible={visible} onOk={handleOk} onCancel={onCancel} title={defaultTitle?defaultTitle:'确定保存？'} confirmLoading={loading}>
+        <Form name="pageData" form={form} initialValues={pageData} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }}>
+          <Form.Item label="页面标题" name="title" rules={[{ required: true, message: '页面标题必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
+            <Input></Input>
+          </Form.Item>
+          <Form.Item label="默认微信号" name="wechatNumber" rules={[{ required: true, message: '默认微信号必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
+            <Input></Input>
+          </Form.Item>
+          <Form.Item label="文件路径" name="fileName" rules={[{ required: true, message: '文件路径必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
+            <Input></Input>
           </Form.Item>
         </Form>
       </CommonModal>

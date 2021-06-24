@@ -76,7 +76,7 @@ const ImgSetting = props => {
 						name="files"
 						action={`${globalConfig.baseUrl}/upload`}
 						maxCount={1}
-						// fileList={[{url:config.url,name:'img.jpg'},]}
+						// fileList={[{url:config.url,name:config.url.match(/\/(\w+\.(?:png|jpg|gif|bmp))$/i)?config.url.match(/\/(\w+\.(?:png|jpg|gif|bmp))$/i)[1]:'defaultImg'}]}
 						// onChange={onChange}
 					>
 						<p className="ant-upload-drag-icon">
