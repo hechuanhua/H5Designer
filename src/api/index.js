@@ -9,3 +9,6 @@ export const getTemplateList = params => get(`/getTemplateList`, params);
 export const getLayoutByTid = params => get(`/getLayoutByTid`, params);
 
 export const publish = params => post(`/publish`, params);
+
+export const deleteTemplate = params => post(`/deleteTemplate`, params);
+

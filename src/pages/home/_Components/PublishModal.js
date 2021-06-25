@@ -29,15 +29,17 @@ const PublishModal = (props) => {
 
 
   const handleOk = () => {
-    console.log(layoutData,99999)
     form.validateFields().then(()=>{
-      console.log(3333)
-      // setLoading(true)
-      publish({data:layoutData}).then((res)=>{
-        message.success(res.message,'1')
+      publish({
+        layoutData,
+        pageData:form.getFieldsValue()
+      }).then((res)=>{
+        onCancel()
+        message.success('发布成功','1')
       })
-    }).catch(()=>{
+    }).catch((e)=>{
       console.log(4444)
+      message.error(e,'3')
     })
   }
 
@@ -46,7 +48,7 @@ const PublishModal = (props) => {
   return (
     <>
       <CommonModal visible={visible} onOk={handleOk} onCancel={onCancel} title={defaultTitle?defaultTitle:'确定保存？'} confirmLoading={loading}>
-        <Form name="pageData" form={form} initialValues={pageData} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }}>
+        <Form name="pageData" form={form} initialValues={pageData} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} >
           <Form.Item label="页面标题" name="title" rules={[{ required: true, message: '页面标题必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
             <Input></Input>
           </Form.Item>

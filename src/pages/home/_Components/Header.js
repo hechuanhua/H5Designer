@@ -55,7 +55,6 @@ const Header = (props) => {
   const [saveVisible,setSaveVisible] = useState(false)
   const [publishVisible,setPublishVisible] = useState(false)
 
-  // const [saveLoading,setSaveLoading] = useState(false)
   const savePage = () => {
     if(!freedomLayout.length && !flowLayout.length){
       return message.error('请添加数据后再保存')
@@ -64,6 +63,9 @@ const Header = (props) => {
   }
 
   const publish = () => {
+    if(!freedomLayout.length && !flowLayout.length){
+      return message.error('请添加数据后再保存')
+    }
     setPublishVisible(true)
   }
 
