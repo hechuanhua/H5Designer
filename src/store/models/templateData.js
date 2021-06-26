@@ -2,6 +2,7 @@
  * 模板数据
  */
  import { getTemplateList } from '../../api'
+ import config from '../../config/config';
 
 export default {
 	name: 'templateData',
@@ -13,6 +14,9 @@ export default {
 		async getTemplateList(payload, rootState) {
 			console.log(payload, rootState)
 			const data = await getTemplateList()
+			data.list.forEach(item=>{
+				item.cover = config.baseUrl + item.cover
+			})
 			this.saveList(data)
 		},
 	}),
