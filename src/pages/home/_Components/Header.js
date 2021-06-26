@@ -3,11 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 import { Radio, Button, message, Input, Form, Spin } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from "styled-components";
-import html2canvas from 'html2canvas';
-import CommonModal from '../../../components/Common/Modal';
 import SaveModal from './SaveModal'
 import PublishModal from './PublishModal'
-import { saveTemplate } from '../../../api'
+
 
 const Head = styled.div`
 	text-align:center;

@@ -340,9 +340,6 @@ const Drag = props => {
 					key={item.id}
 					onMouseDown={e => {
 						let className = e.target.className.replace(/(.*)point-/, '');
-						// if(item.config.type === 'bottomWechat'){
-						// 	return
-						// }
 						if (item.config.fixed == 'bottom' && (className === 'bottom' || !className)) {
 							return;
 						}

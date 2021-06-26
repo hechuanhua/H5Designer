@@ -4,7 +4,7 @@ import { Radio, Button, message, Input, Form, Spin } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import html2canvas from 'html2canvas';
 import CommonModal from '../../../components/Common/Modal';
-
+import config from '../../../config/config';
 import { publish } from '../../../api'
 
 const PublishModal = (props) => {
@@ -35,7 +35,9 @@ const PublishModal = (props) => {
         pageData:form.getFieldsValue()
       }).then((res)=>{
         onCancel()
-        message.success('发布成功','1')
+        message.success('发布成功','1',()=>{
+          window.open(`${config.baseUrl}${res.url}`)
+        })
       })
     }).catch((e)=>{
       console.log(4444)
@@ -65,5 +67,7 @@ const PublishModal = (props) => {
 }
 
 export default PublishModal;
+
+
 
 
