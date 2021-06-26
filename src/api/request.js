@@ -10,7 +10,7 @@ function obj2String(obj, arr = [], idx = 0) {
 
 const get = (url, params) => {
 	return new Promise((resolve, reject) => {
-		fetch(`${config.baseUrl}${url}${params ? '?' + obj2String(params) : ''}`, {
+		fetch(`${config.baseUrl}/api${url}${params ? '?' + obj2String(params) : ''}`, {
 			method: 'GET',
 		})
 			.then(response => response.json())
@@ -31,7 +31,7 @@ const get = (url, params) => {
 
 const post = (url, params) => {
 	return new Promise((resolve, reject) => {
-		fetch(`${config.baseUrl}${url}`, {
+		fetch(`${config.baseUrl}/api${url}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json;charset=utf-8',

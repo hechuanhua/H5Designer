@@ -31,6 +31,7 @@ const DragDiv = styled.div`
 	}
 	&.active{
 		border: 1px solid #000;
+		z-index:1;
 		div[class*="point-"],.iconfont{
 			display:block;
 		}
