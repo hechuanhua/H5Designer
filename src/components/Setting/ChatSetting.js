@@ -34,6 +34,9 @@ const ChatSetting = props => {
 			<Form.Item name="data" label="数据源">
 				<TextArea placeholder="" allowClear rows={8} />
 			</Form.Item>
+			<Form.Item name="isTransform" label="是否转换">
+				<Switch checked={config.isTransform}></Switch>
+			</Form.Item>
 		</Form>
 	);
 };

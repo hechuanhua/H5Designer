@@ -6,7 +6,8 @@ import PreImage from '../Common/PreImage'
 import { getTemplateList, getLayoutByTid, deleteTemplate } from '../../api'
 
 const TemplateBox = styled.ul`
-	// display:flex
+	height: 100%;
+	overflow-y: auto;
 `;
 
 const Use = styled.div`

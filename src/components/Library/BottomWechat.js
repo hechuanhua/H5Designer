@@ -20,15 +20,15 @@ const WxhBox = styled.span`
 `
 
 const BottomWechat = props => {
-  const {text} = props.config
+  const {text1, text2} = props.config
   const myCopy = () => {
     window.location.href = "weixin://";
   }
 	return (
 		<>
 		<BottomWechatBox>
-      <div>{text}：<WxhBox className='wxh' onCopy={myCopy}>test</WxhBox></div>
-      <Mt10>长按复制，获取祛痘方案</Mt10>
+      <div>{text1}：<WxhBox className='wxh' onCopy={myCopy}>test</WxhBox></div>
+      <Mt10>{text2}</Mt10>
     </BottomWechatBox>
 		</>
 	);

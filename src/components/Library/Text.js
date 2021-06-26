@@ -7,6 +7,7 @@ const PreviewTextBox = styled.div`
 const EditText = styled.div`
 	padding: 0 5px;
 	line-height: 1.5;
+	outline: none;
 `;
 
 const PreviewText = props => {
