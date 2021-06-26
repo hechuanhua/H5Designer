@@ -1,6 +1,6 @@
 
 import { useEffect, useRef, useState } from 'react';
-import { Radio, Button, message, Input, Form, Spin } from 'antd';
+import { Radio, Button, message, Input, Form, Select } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import html2canvas from 'html2canvas';
 import CommonModal from '../../../components/Common/Modal';
@@ -16,6 +16,10 @@ const PublishModal = (props) => {
     return state.layoutData;
   });
   
+  const {hostList} =  useSelector(state => {
+    return state.pageData;
+  });
+  console.log(hostList,'PublishModal')
   const [loading,setLoading] = useState(false)
 
   const [form] = Form.useForm();
@@ -40,8 +44,7 @@ const PublishModal = (props) => {
         })
       })
     }).catch((e)=>{
-      console.log(4444)
-      message.error(e,'3')
+      console.log(e)
     })
   }
 
@@ -57,7 +60,14 @@ const PublishModal = (props) => {
           <Form.Item label="默认微信号" name="wechatNumber" rules={[{ required: true, message: '默认微信号必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
             <Input></Input>
           </Form.Item>
-          <Form.Item label="文件路径" name="fileName" rules={[{ required: true, message: '文件路径必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
+          <Form.Item label="发布域名" name="host" rules={[{ required: true, message: '发布域名必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
+            <Select>
+              {hostList.map(item => (
+                <Select.Option key={item.host}>{item.host}-{item.remake}</Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item label="文件名称" name="fileName" rules={[{ required: true, message: '文件名称必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
             <Input></Input>
           </Form.Item>
         </Form>

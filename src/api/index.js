@@ -12,3 +12,5 @@ export const publish = params => post(`/publish`, params);
 
 export const deleteTemplate = params => post(`/deleteTemplate`, params);
 
+export const getHostList = params => get(`/getHostList`, params);
+

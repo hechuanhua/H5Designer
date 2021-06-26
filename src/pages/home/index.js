@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Tabs, Radio, Button, Menu } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
 import Drag from '../../components/Drag/FlowDrag';
 import Setting from '../../components/Setting/Setting';
 import styled from 'styled-components';
@@ -13,6 +14,10 @@ const Container = styled.div`
 `;
 
 const Home = props => {
+	const dispatch = useDispatch();
+	useEffect(()=>{
+		dispatch({type:'pageData/getHostList',payload:{}})
+	},[])
 	return (
 		<>
 			<Header></Header>

@@ -3,23 +3,24 @@
  */
 
  import initData from '../../config/initData';
- import { getLayoutByTid } from '../../api'
-
-  const saveLayout = data => {
-    localStorage.setItem('layout', JSON.stringify(data));
-  };
+ import { getLayoutByTid, getHostList } from '../../api'
 
 export default {
 	name: 'pageData',
 	state: {
 		pageHeight:initData.height,
     print:true,
-    wechatPopup:false
+    wechatPopup:false,
+    hostList:[]
 	},
 	effects: dispatch => ({
     async getLayout(payload,rootState){
       const data =  await getLayoutByTid({tid:payload.tid})
       dispatch({type:'layoutData/switchLayout',payload:data})
+    },
+    async getHostList(payload,rootState){
+      const data =  await getHostList()
+      dispatch({type:'pageData/saveHostList',payload:data})
     }
 	}),
 	reducers: {
@@ -35,7 +36,6 @@ export default {
 				...state,
 				print:payload.print
 			}
-			// saveLayout(newState);
 			return newState
 		},
     setWechatPopup(state, payload){
@@ -43,7 +43,13 @@ export default {
 				...state,
 				popup: payload.wechatPopup,
 			};
-      // saveLayout(newState);
+			return newState;
+    },
+    saveHostList(state, payload){
+      const newState = {
+				...state,
+				hostList: payload,
+			};
 			return newState;
     },
 	},
