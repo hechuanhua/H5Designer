@@ -6,7 +6,7 @@ const config = {
   api:`${baseUrl}/V1`,
   fileApi:`${fileUrl}`
 }
-
+ 
 export default config
 
 
