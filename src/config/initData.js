@@ -14,6 +14,7 @@ const initData = {
 			bottomY: 0,
       popup:false,
 			popupType:'1',
+			isTransform:false,
 		},
 	},
 	text: {
@@ -31,6 +32,7 @@ const initData = {
       borderRadius:0,
       popup:false,
 			popupType:'1',
+			isTransform:false,
 		},
 	},
 	radio: {
@@ -98,4 +100,3 @@ const initData = {
 
 
 export default initData;
-

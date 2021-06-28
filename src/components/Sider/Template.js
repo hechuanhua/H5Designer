@@ -75,6 +75,9 @@ const TemplateTitle = styled.div`
 	margin-top: 5px;
 	padding: 5px 0;
 	font-size: 14px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 `
 
 

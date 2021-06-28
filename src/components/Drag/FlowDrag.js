@@ -33,8 +33,7 @@ const Drag = props => {
 	const { flowLayout, current } = useSelector(state => {
 		return state.layoutData;
 	});
-
-	const { print } = useSelector(state => {
+	const { print, wechatPopup } = useSelector(state => {
 		return state.pageData;
 	});
 	const [layout,setLayout] = useState([])
@@ -130,6 +129,16 @@ const Drag = props => {
 		});
 	};
 
+	const showPopup = () => {
+		console.log('setWechatPopup')
+		dispatch({
+			type: 'pageData/setWechatPopup',
+			payload: {
+				wechatPopup:!wechatPopup
+			},
+		});
+	}
+
 	return (
 		<PageDiv>
 			<FreedomDrag></FreedomDrag>
@@ -156,7 +165,7 @@ const Drag = props => {
 				onResizeStop={onResizeStop}
 				innerRef={box}  //Ref获取网格包装div的参考  //已删除？
 			>
-				{generateFlowDOM({flowLayout, current, blur, removeItem})}
+				{generateFlowDOM({flowLayout, current, blur, removeItem, showPopup})}
 			</GridLayout>
 		</PageDiv>
 	);

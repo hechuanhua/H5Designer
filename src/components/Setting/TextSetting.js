@@ -77,15 +77,16 @@ const TextSetting = props => {
       <Form.Item name="popup" label="点击弹窗">
         <Switch checked={config.popup}></Switch>
       </Form.Item>
-			{
-				config.popup?
-				<Form.Item name="popupType" label="弹窗样式">
-					<Select allowClear>
-						<Select.Option value="1">弹窗样式1</Select.Option>
-						<Select.Option value="2">弹窗样式2</Select.Option>
-					</Select>
-				</Form.Item>:''
-			}
+			<Form.Item name="popupType" label="弹窗样式" hidden={!config.popup}>
+				<Select allowClear>
+					<Select.Option value="1">弹窗样式1</Select.Option>
+					<Select.Option value="2">弹窗样式2</Select.Option>
+				</Select>
+			</Form.Item>
+			<Form.Item name="isTransform" label="是否转换" hidden={!config.popup}>
+				<Switch checked={config.isTransform}></Switch>
+			</Form.Item>
+			
 		</Form>
 	);
 };

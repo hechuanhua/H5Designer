@@ -1,6 +1,10 @@
 
+const baseUrl = `https://h5designer-dev-server.mongacloud.com`
+const fileUrl = `https://fs-test.mongacloud.com`
 const config = {
-  baseUrl:'http://39.108.233.233:7001'
+  baseUrl,
+  api:`${baseUrl}/V1`,
+  fileApi:`${fileUrl}`
 }
 
 export default config

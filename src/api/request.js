@@ -10,7 +10,7 @@ function obj2String(obj, arr = [], idx = 0) {
 
 const get = (url, params) => {
 	return new Promise((resolve, reject) => {
-		fetch(`${config.baseUrl}/api${url}${params ? '?' + obj2String(params) : ''}`, {
+		fetch(`${config.api}${url}${params ? '?' + obj2String(params) : ''}`, {
 			method: 'GET',
 		})
 			.then(response => response.json())
@@ -23,15 +23,14 @@ const get = (url, params) => {
 				}
 			})
 			.catch(e => {
-				console.log(e, 'error');
-				reject(e);
+				console.log('error');
 			});
 	});
 };
 
 const post = (url, params) => {
 	return new Promise((resolve, reject) => {
-		fetch(`${config.baseUrl}/api${url}`, {
+		fetch(`${config.api}${url}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json;charset=utf-8',
@@ -50,8 +49,7 @@ const post = (url, params) => {
 				}
 			})
 			.catch(e => {
-				console.log(e, 'error');
-				reject(e);
+				console.log('error');
 			});
 	});
 };
