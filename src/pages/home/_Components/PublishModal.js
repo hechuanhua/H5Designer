@@ -1,6 +1,6 @@
 
 import { useEffect, useRef, useState } from 'react';
-import { Radio, Button, message, Input, Form, Select } from 'antd';
+import { Radio, Button, message, Input, Form, Select, } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import CommonModal from '../../../components/Common/Modal';
 import config from '../../../config/config';
@@ -56,7 +56,7 @@ const PublishModal = (props) => {
 
   return (
     <>
-      <CommonModal visible={visible} onOk={handleOk} onCancel={onCancel} title={defaultTitle} confirmLoading={loading}>
+      <CommonModal visible={visible} onOk={handleOk} onCancel={()=>{onCancel();setLoading(false)}} title={defaultTitle} confirmLoading={loading}>
         <Form name="pageData" form={form} initialValues={pageData} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} >
           <Form.Item label="页面标题" name="title" rules={[{ required: true, message: '页面标题必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
             <Input></Input>
@@ -64,7 +64,7 @@ const PublishModal = (props) => {
           <Form.Item label="默认微信号" name="wechatNumber" rules={[{ required: true, message: '默认微信号必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
             <Input></Input>
           </Form.Item>
-          <Form.Item label="发布域名" name="host" rules={[{ required: true, message: '发布域名必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
+          <Form.Item label="发布域名" name="host" rules={[{ required: true, message: '发布域名必须选择' }]} validateTrigger={['onChange', 'onBlur']}>
             <Select>
               {hostList.map(item => (
                 <Select.Option key={item.host}>{item.host}-{item.remake}</Select.Option>
@@ -74,10 +74,29 @@ const PublishModal = (props) => {
           <Form.Item label="文件名称" name="fileName" rules={[{ required: true, message: '文件名称必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
             <Input></Input>
           </Form.Item>
-          <Form.Item label="基础代码" name="basicsCode" rules={[{ required: true, message: '基础代码必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
+          <Form.Item label="基础代码" name="basicsCode" rules={[{ required: true, message: '基础代码必须填写' },
+          ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (value && (/script>/).test(value)) {
+                  return Promise.reject(new Error('代码格式错误，不能包含<script>标签'));
+                }
+                return Promise.resolve();
+              },
+            }),
+          ]} 
+          validateTrigger={['onChange', 'onBlur']}>
             <TextArea rows={4}></TextArea>
           </Form.Item>
-          <Form.Item label="转换代码" name="transformCode" rules={[{ required: true, message: '转换代码必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
+          <Form.Item label="转换代码" name="transformCode" rules={[{ required: true, message: '转换代码必须填写' },
+          ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (value && !((/(meteor\.track)|(_ks_trace\.push)/).test(value))) {
+                  return Promise.reject(new Error('代码格式错误，与预期代码不服'));
+                }
+                return Promise.resolve();
+              },
+            }),
+          ]} validateTrigger={['onChange', 'onBlur']}>
             <Input></Input>
           </Form.Item>
         </Form>
@@ -93,11 +112,11 @@ const PublishModal = (props) => {
 // 基础代码:添加在您网页的<head>与</head>之间，用于收集与上报转化行为。注意：所有需要上报转化的页面中都需要添加基础代码；不支持在iframe中使用基础代码
 // <!-- Bytedance Tracking -->
 // <script>
-  `(function(r,d,s,l){var meteor=r.meteor=r.meteor||[];meteor.methods=["track","off","on"];meteor.factory=function(method){return function(){
-  var args=Array.prototype.slice.call(arguments);args.unshift(method);meteor.push(args);return meteor}};for(var i=0;i<meteor.methods.length;i++){
-  var key=meteor.methods[i];meteor[key]=meteor.factory(key)}meteor.load=function(){var js,fjs=d.getElementsByTagName(s)[0];js=d.createElement(s);
-  js.src="https://analytics.snssdk.com/meteor.js/v1/"+l+"/sdk";fjs.parentNode.insertBefore(js,fjs)};meteor.load();if(meteor.invoked){return}
-  meteor.invoked=true;meteor.track("pageview")})(window,document,"script","1651336618979341")`;
+  // `(function(r,d,s,l){var meteor=r.meteor=r.meteor||[];meteor.methods=["track","off","on"];meteor.factory=function(method){return function(){
+  // var args=Array.prototype.slice.call(arguments);args.unshift(method);meteor.push(args);return meteor}};for(var i=0;i<meteor.methods.length;i++){
+  // var key=meteor.methods[i];meteor[key]=meteor.factory(key)}meteor.load=function(){var js,fjs=d.getElementsByTagName(s)[0];js=d.createElement(s);
+  // js.src="https://analytics.snssdk.com/meteor.js/v1/"+l+"/sdk";fjs.parentNode.insertBefore(js,fjs)};meteor.load();if(meteor.invoked){return}
+  // meteor.invoked=true;meteor.track("pageview")})(window,document,"script","1651336618979341")`;
 // </script>
 // <!-- End Bytedance Tracking -->
 

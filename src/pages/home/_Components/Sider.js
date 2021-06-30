@@ -15,7 +15,7 @@ const SiderDiv = styled.div`
 	left: 0;
 	bottom: 0;
 	background: #fff;
-	width: 360px;
+	width: 380px;
 	display: flex;
 `;
 const FlexItem = styled.div`

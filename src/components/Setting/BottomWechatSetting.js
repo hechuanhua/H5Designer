@@ -56,9 +56,10 @@ const BottomWechatSetting = props => {
       <Form.Item name="borderRadius" label="圆角">
 				<Input type="number"/>
 			</Form.Item>
-			<Form.Item name="isTransform" label="是否转换">
+			<Form.Item name="isTransform" label="是否转换" tooltip="开代表漏量，关代表不漏量">
 				<Switch checked={config.isTransform}></Switch>
 			</Form.Item>
+			
 			
 		</Form>
 	);

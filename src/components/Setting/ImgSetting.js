@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
-import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
+import { PlusOutlined, InboxOutlined, } from '@ant-design/icons';
 import { getImgInfo } from '../../utils/index';
 import globalConfig  from '../../config/config'
 import initData from '../../config/initData';
@@ -28,7 +28,7 @@ const ImgSetting = props => {
 		if (Object.keys(changedValues)[0] === 'img') {
 			const { status, response } = changedValues.img.file;
 			if (status === 'done') {
-				let url = `${globalConfig.baseUrl}${response.data.url}`;
+				let url = `${response.data.showUrl}`;
 				console.log(url,'url111')
 				getImgInfo(url).then(res => {
 					console.log(res, 'img');
@@ -56,6 +56,11 @@ const ImgSetting = props => {
 			});
 		}
 	};
+
+	const getExtraData = (file) => {
+		console.log(file)
+		return {ossPath:'common/marketing/H5Designer'}
+	}
 	return (
 		<Form
 			labelCol={{ span: 8 }}
@@ -75,7 +80,8 @@ const ImgSetting = props => {
 				>
 					<Upload.Dragger
 						name="files"
-						action={`${globalConfig.api}/upload`}
+						action={`${globalConfig.fileUpload}`}
+						data={getExtraData}
 						maxCount={1}
 						// fileList={[{url:config.url,name:config.url.match(/\/(\w+\.(?:png|jpg|gif|bmp))$/i)?config.url.match(/\/(\w+\.(?:png|jpg|gif|bmp))$/i)[1]:'defaultImg'}]}
 						// onChange={onChange}
@@ -104,12 +110,12 @@ const ImgSetting = props => {
         <Switch checked={config.popup}></Switch>
       </Form.Item>
 			<Form.Item name="popupType" label="弹窗样式" hidden={!config.popup}>
-				<Select allowClear>
+				<Select>
 					<Select.Option value="1">弹窗样式1</Select.Option>
 					<Select.Option value="2">弹窗样式2</Select.Option>
 				</Select>
 			</Form.Item>
-			<Form.Item name="isTransform" label="是否转换" hidden={!config.popup}>
+			<Form.Item name="isTransform" label="是否漏量" hidden={!config.popup} tooltip="开代表漏量，关代表不漏量">
 				<Switch checked={config.isTransform}></Switch>
 			</Form.Item>
 		</Form>
