@@ -28,7 +28,7 @@ const ImgSetting = props => {
 		if (Object.keys(changedValues)[0] === 'img') {
 			const { status, response } = changedValues.img.file;
 			if (status === 'done') {
-				let url = `${response.data.showUrl}`;
+				let url = `${globalConfig.staticImg}${response.data.url}`;
 				console.log(url,'url111')
 				getImgInfo(url).then(res => {
 					console.log(res, 'img');
@@ -41,7 +41,7 @@ const ImgSetting = props => {
 						payload: {
 							position,
 							config: {
-								url: url,
+								url: response.data.url,
 							},
 						},
 					});

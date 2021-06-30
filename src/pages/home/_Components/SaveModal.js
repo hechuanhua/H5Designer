@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import html2canvas from 'html2canvas';
 import CommonModal from '../../../components/Common/Modal';
 
-import { saveTemplate } from '../../../api'
+import { saveTemplate,uploadImages } from '../../../api'
 
 const SaveModal = (props) => {
   const dispatch = useDispatch();
@@ -50,7 +50,6 @@ const SaveModal = (props) => {
         const src = canvas.toDataURL("image/png");
         image.src = src
         // document.body.appendChild(image)
-        console.log(333)
         dispatch({
           type: 'layoutData/setPrint',
           payload: {

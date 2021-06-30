@@ -121,7 +121,6 @@ const Template = e => {
 			type: 'templateData/getTemplateList',
 			payload: {}
 		})
-
 	},[])
 
 	return( <TemplateBox>
@@ -130,6 +129,9 @@ const Template = e => {
 				<LI key={index}>
 					<Mask></Mask>
 					<Use onClick={()=>{use(item)}}>立即使用</Use>
+					{
+						console.log(item.cover,'item.cover')
+					}
 					{
 						item.source === 'system'?'':
 						<Popconfirm
