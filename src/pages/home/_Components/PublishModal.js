@@ -44,8 +44,8 @@ const PublishModal = (props) => {
         setLoading(false)
         message.success('发布成功','1',()=>{
           setSuccessVisible(true)
-          setSuccessUrl(`https://${res.url}`)
-          window.open(`https://${res.url}`)
+          setSuccessUrl(`${res.url}`)
+          window.open(`${res.url}`)
         })
       })
     }).catch((e)=>{
@@ -91,7 +91,7 @@ const PublishModal = (props) => {
           ({ getFieldValue }) => ({
               validator(_, value) {
                 if (value && !((/(meteor\.track)|(_ks_trace\.push)/).test(value))) {
-                  return Promise.reject(new Error('代码格式错误，与预期代码不服'));
+                  return Promise.reject(new Error('代码格式错误，与预期代码不符'));
                 }
                 return Promise.resolve();
               },

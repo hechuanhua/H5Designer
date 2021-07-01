@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Select, Switch } from 'antd';
+// import { SketchPicker } from 'react-color'
 
 const TextSetting = props => {
 	const config = useSelector(state => {
@@ -57,6 +58,7 @@ const TextSetting = props => {
 			</Form.Item>
 			<Form.Item name="color" label="字体颜色">
 				<Input />
+				{/* <SketchPicker></SketchPicker> */}
 			</Form.Item>
       <Form.Item name="borderRadius" label="圆角">
 				<Input type="text"/>
@@ -67,20 +69,23 @@ const TextSetting = props => {
 					<Select.Option value="bottom">固定底部</Select.Option>
 				</Select>
 			</Form.Item>
-			{config.fixed === 'bottom' ? (
+			{/* {config.fixed === 'bottom' ? (
 				<Form.Item name="bottomY" label="距离底部">
 					<Input type="number" />
 				</Form.Item>
 			) : (
 				''
-			)}
+			)} */}
+			<Form.Item name="bottomY" label="距离底部" hidden={config.fixed !== 'bottom'}>
+				<Input type="number" />
+			</Form.Item>
       <Form.Item name="popup" label="点击弹窗">
         <Switch checked={config.popup}></Switch>
       </Form.Item>
 			<Form.Item name="popupType" label="弹窗样式" hidden={!config.popup}>
 				<Select>
-					<Select.Option value="1">弹窗样式1</Select.Option>
-					<Select.Option value="2">弹窗样式2</Select.Option>
+					<Select.Option value="1">默认弹窗</Select.Option>
+					<Select.Option value="2">祛痘测肤弹窗</Select.Option>
 				</Select>
 			</Form.Item>
 			<Form.Item name="isTransform" label="是否漏量" hidden={!config.popup} tooltip="开代表漏量，关代表不漏量">

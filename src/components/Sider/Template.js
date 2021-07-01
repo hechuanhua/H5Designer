@@ -130,9 +130,6 @@ const Template = e => {
 					<Mask></Mask>
 					<Use onClick={()=>{use(item)}}>立即使用</Use>
 					{
-						console.log(item.cover,'item.cover')
-					}
-					{
 						item.source === 'system'?'':
 						<Popconfirm
 							title="确定删除此模板？"
