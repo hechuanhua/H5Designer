@@ -59,7 +59,7 @@ const Preview = props => {
 	const [showQRcode, setShowQRcode] = useState(false)
 	const [style,setStyle] = useState({})
 	const dispatch = useDispatch();
-	const { flowLayout, freedomLayout, current } = useSelector(state => {
+	const { flowLayout, freedomLayout, current } = useSelector((state:any) => {
 		return state.layoutData;
 	});
 

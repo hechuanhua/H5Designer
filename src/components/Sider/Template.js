@@ -85,7 +85,7 @@ const TemplateTitle = styled.div`
 const Template = e => {
 	
 	const dispatch = useDispatch()
-	const { list } =  useSelector(state => {
+	const { list } =  useSelector((state:any) => {
     return state.templateData;
   });
 	console.log(list,'listlist')

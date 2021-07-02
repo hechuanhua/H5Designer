@@ -31,10 +31,10 @@ const Center = styled.div`
 `
 const Header = (props) => {
   const dispatch = useDispatch();
-  const layoutData =  useSelector(state => {
+  const layoutData =  useSelector((state:any) => {
     return state.layoutData;
   });
-  const {selected} =  useSelector(state => {
+  const {selected} =  useSelector((state:any) => {
     return state.templateData;
   });
   const { layoutType, freedomLayout, flowLayout } = layoutData

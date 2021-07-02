@@ -6,7 +6,7 @@ import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 const ChatSetting = props => {
-	const config = useSelector(state => {
+	const config = useSelector((state:any) => {
 		return state.layoutData?.current?.config;
 	});
 	const dispatch = useDispatch();

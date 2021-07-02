@@ -4,7 +4,7 @@ import { Form, Input, Select, Switch } from 'antd';
 import Color from '../Common/Color'
 
 const TextSetting = props => {
-	const config = useSelector(state => {
+	const config = useSelector((state:any) => {
 		return state.layoutData?.current?.config;
 	});
 	

@@ -12,11 +12,11 @@ const PublishModal = (props) => {
 
   const {visible,onCancel,defaultTitle} = props
 
-  const layoutData =  useSelector(state => {
+  const layoutData =  useSelector((state:any) => {
     return state.layoutData;
   });
   
-  const {hostList} =  useSelector(state => {
+  const {hostList} =  useSelector((state:any) => {
     return state.pageData;
   });
   console.log(hostList,'PublishModal')

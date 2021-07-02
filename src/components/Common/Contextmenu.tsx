@@ -23,12 +23,12 @@ const MenuBox = styled.ul`
 `
 
 
-const Contextmenu = (props) => {
-  const current = useSelector(state => {
+const Contextmenu = () => {
+  const current = useSelector((state:any) => {
 		return state.layoutData.current;
 	});
 
-  const contextmenu = useSelector(state => {
+  const contextmenu = useSelector((state:any) => {
 		return state.pageData.contextmenu;
 	});
 

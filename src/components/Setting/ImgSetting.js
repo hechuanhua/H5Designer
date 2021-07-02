@@ -8,7 +8,7 @@ import globalConfig  from '../../config/config'
 import initData from '../../config/initData';
 
 const ImgSetting = props => {
-	const config = useSelector(state => {
+	const config = useSelector((state:any) => {
 		return state.layoutData?.current?.config;
 	});
 	const dispatch = useDispatch();

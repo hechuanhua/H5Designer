@@ -96,10 +96,10 @@ const EditorPoint = styled.div`
 
 const Drag = props => {
 	const dispatch = useDispatch();
-	const { freedomLayout, current, layoutType } = useSelector(state => {
+	const { freedomLayout, current, layoutType } = useSelector((state:any) => {
 		return state.layoutData;
 	});
-	const { pageHeight, wechatPopup } = useSelector(state => {
+	const { pageHeight, wechatPopup } = useSelector((state:any) => {
 		return state.pageData;
 	});
 	const page = useRef();

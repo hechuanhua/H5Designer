@@ -25,7 +25,7 @@ const Library = (e) => {
     e.dataTransfer.setData("text/plain", type);
   }
   const dispatch = useDispatch()
-	const { layoutType } =  useSelector(state => {
+	const { layoutType } =  useSelector((state:any) => {
     return state.layoutData;
   });
   return (

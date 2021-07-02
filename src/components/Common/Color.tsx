@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SketchPicker } from 'react-color'
+import { SketchPicker, ColorResult } from 'react-color'
 import styled from 'styled-components'
 
 const Swatch = styled.div`
@@ -26,8 +26,14 @@ const ColorDiv = styled.div`
   height: 14px;
   border-radius: 2px;
 `
+// export type ColorConfigType = string;
 
-const Color = (props) => {
+interface ColorProps {
+  color: string;
+  onChange: (v: string) => void;
+}
+
+const Color = (props:ColorProps) => {
   const {color,onChange} = props
   const [displayColorPicker,setDisplayColorPicker] = useState(false)
   const [colorValue, setColorValue] = useState(color)
@@ -39,7 +45,7 @@ const Color = (props) => {
     setDisplayColorPicker(false)
   };
 
-  const handleChange = (color) => {
+  const handleChange = (color:ColorResult) => {
     setColorValue(color.hex)
     onChange(color.hex)
   };

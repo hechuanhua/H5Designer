@@ -99,7 +99,15 @@ export const generateFreedomDOM = ({ config, type, blur, showPopup }) => {
 	}
 };
 
-export const onDrop = ({e, dispatch, type, data}) => {
+interface DropProps {
+	e:React.DragEvent,
+	dispatch:any,
+	type?:string,
+	data?:any
+}
+
+export const onDrop = (props:DropProps) => {
+	const {e,dispatch,type,data} = props
 	let y = 0;
 	let x = 0
 	let position = {}

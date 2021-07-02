@@ -30,10 +30,10 @@ const PageDiv = styled.div.attrs(props => ({
 
 const Drag = props => {
 	const dispatch = useDispatch();
-	const { flowLayout, current } = useSelector(state => {
+	const { flowLayout, current } = useSelector((state:any) => {
 		return state.layoutData;
 	});
-	const { print, wechatPopup } = useSelector(state => {
+	const { print, wechatPopup } = useSelector((state:any) => {
 		return state.pageData;
 	});
 	const [layout,setLayout] = useState([])

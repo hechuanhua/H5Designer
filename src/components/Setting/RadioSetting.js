@@ -24,7 +24,7 @@ const Edit = styled.div`
 `;
 
 const RadioSetting = props => {
-	const config = useSelector(state => {
+	const config = useSelector((state:any) => {
 		return state.layoutData?.current?.config;
 	});
   

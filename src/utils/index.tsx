@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, useContext } from "react";
  * @returns {*}
  */
 
-const createUuid = (len, radix) => {
+const createUuid = (len, radix?:number) => {
 	var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
 	var uuid = [], i;
 	radix = radix || 10;
