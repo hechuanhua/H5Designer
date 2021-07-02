@@ -69,10 +69,10 @@ const Preview = props => {
 	
 	useEffect(()=>{
 		const clientWidth = document.documentElement.clientWidth;
-		if(clientWidth > 640 ){
-			setShowQRcode(true)
-		}
-		const tid = query.get('tid')
+		// if(clientWidth > 640 ){
+		// 	setShowQRcode(true)
+		// }
+		// const tid = query.get('tid')
 		let scale = 1
 		if (initData.maxWidth > clientWidth) {
 			scale = clientWidth/initData.maxWidth
