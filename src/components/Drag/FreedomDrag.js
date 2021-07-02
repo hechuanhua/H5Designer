@@ -312,7 +312,7 @@ const Drag = props => {
 		<PageDiv
 			ref={page}
 			onDrop={e => {
-				onDrop(e, 'freedom', dispatch);
+				onDrop({e, dispatch});
 			}}
 			onDragOver={e => {
 				e.preventDefault();

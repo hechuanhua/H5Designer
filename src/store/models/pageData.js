@@ -11,7 +11,12 @@ export default {
 		pageHeight:initData.height,
     print:true,
     wechatPopup:false,
-    hostList:[]
+    hostList:[],
+    contextmenu:{
+      isShow:false,
+      x:0,
+      y:0
+    },
 	},
 	effects: dispatch => ({
     async getLayout(payload,rootState){
@@ -52,6 +57,13 @@ export default {
 			};
 			return newState;
     },
+    setContextmenu(state, payload){
+      const newState = {
+				...state,
+				contextmenu: payload,
+			};
+			return newState;
+    }
 	},
 };
 

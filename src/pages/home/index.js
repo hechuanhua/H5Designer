@@ -6,6 +6,7 @@ import Setting from '../../components/Setting/Setting';
 import styled from 'styled-components';
 import Header from './_Components/Header';
 import Sider from './_Components/Sider';
+import Contextmenu from '@/components/Common/Contextmenu';
 
 const Container = styled.div`
 	top: 60px;
@@ -18,15 +19,23 @@ const Home = props => {
 	useEffect(()=>{
 		dispatch({type:'pageData/getHostList',payload:{}})
 	},[])
+
+	const handleHide = () => {
+		dispatch({type:'pageData/setContextmenu',payload:{
+			isShow:false,
+		}})
+	}
+	
 	return (
-		<>
+		<div onClick={handleHide}>
 			<Header></Header>
 			<Container>
 				<Sider></Sider>
 				<Drag></Drag>
 				<Setting></Setting>
 			</Container>
-		</>
+			<Contextmenu></Contextmenu>
+		</div>
 	);
 };
 

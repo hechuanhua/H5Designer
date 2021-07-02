@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { Upload, Modal } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 
 import TextSetting from './TextSetting';
 import ImgSetting from './ImgSetting';

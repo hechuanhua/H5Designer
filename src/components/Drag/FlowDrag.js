@@ -158,7 +158,7 @@ const Drag = props => {
 				margin={[0, 0]} //每个子项目边距
 				useCSSTransforms={!print} //css3替换top left，提高性能
 				onDrop={(layout, item, e) => {
-					onDrop(e, 'flow', dispatch);
+					onDrop({e, dispatch});
 				}} //data参数（ layout, oldItem, newItem, placeholder, e, element）
 				onDragStart={onDragStart}
 				onDragStop={onDragStop}

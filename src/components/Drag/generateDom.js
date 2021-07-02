@@ -99,26 +99,42 @@ export const generateFreedomDOM = ({ config, type, blur, showPopup }) => {
 	}
 };
 
-export const onDrop = (e, dragType, dispatch) => {
-	const type = e.dataTransfer.getData('text');
-	if (type !== 'img' && type !== 'radio' && type !== 'text' && type !== 'chat' && type !== 'bottomWechat') return;
-	console.log(type, dragType, '类型');
-	let y = e.pageY - 100;
+export const onDrop = ({e, dispatch, type, data}) => {
+	let y = 0;
+	let x = 0
+	let position = {}
+	let libraryType = ''
+	let payload = {}
 	const id = createUuid(6);
-	const position = {
-		x: 0,
-		y,
-		w: initData[type].w,
-		h: initData[type].h,
-		i: id,
-	};
-	console.log(position,'position')
-	const payload = {
-		id,
-		position,
-		config: initData[type].config,
-		type: dragType,
-	};
+	if(type === 'contextmenu'){  //右键新增
+		payload = {
+			...data,
+			position:{
+				...data.position,
+				i:id,
+			},
+			id
+		};
+	} else {
+		y = e.pageY - 100;
+		libraryType = e.dataTransfer.getData('text');
+		if (libraryType !== 'img' && libraryType !== 'radio' && libraryType !== 'text' && libraryType !== 'chat' && libraryType !== 'bottomWechat') return;
+		console.log(libraryType, '类型');
+		position = {
+			x,
+			y,
+			w: initData[libraryType].w,
+			h: initData[libraryType].h,
+			i: id,
+		};
+		console.log(position,'position')
+		payload = {
+			id,
+			position,
+			config: initData[libraryType].config,
+		};
+	}
+	
 	dispatch({
 		type: 'layoutData/add',
 		payload: payload,

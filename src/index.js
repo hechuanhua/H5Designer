@@ -12,27 +12,11 @@ import './assets/style/app.scss';
 import './assets/style/antRest.scss';
 
 
-const GlobalStyle = createGlobalStyle`
-*{
-  margin: 0;
-  padding: 0;
-}
-body{
-  line-height: 1;
-  font-size: 16px;
-}
-ul,li{
-  list-style: none;
-}
-`
-
-
 ReactDOM.render(
   <>
     <Provider store={store}>
       <Routes></Routes>
     </Provider>
-    {/* <GlobalStyle/> */}
   </>,
   document.getElementById('root')
 );

@@ -33,7 +33,7 @@ export default {
 	reducers: { 
 		add(state, payload) {
 			let newState = {};
-			if (payload.type === 'flow') {
+			if (state.layoutType === 'flow') {
 				newState = {
 					...state,
 					flowLayout: [...state.flowLayout, payload],
@@ -51,6 +51,10 @@ export default {
 		},
 		remove(state, payload) {
 			let newState = {};
+			if(!payload.id){
+				payload.id = state.current.id
+				payload.type = state.current.type
+			}
 			if (payload.type === 'flow') {
 				const flowLayout = state.flowLayout.filter(item => item.id !== payload.id);
 				newState = {
@@ -81,10 +85,12 @@ export default {
 			if(!current){
 				current = []
 			}
-			return {
+			const newState =  {
 				...state,
 				current,
 			};
+			saveLayout(newState);
+			return newState
 		},
 		update(state, payload) {
 			let current = {};
@@ -175,8 +181,6 @@ export default {
 			return newState
 		},
 		switchLayout(state, payload){
-			console.log(payload.layout_data,'payload.layout_data')
-			console.log(JSON.parse(payload.layout_data),'JSON.parse(payload.layout_data)')
 			const newState = JSON.parse(payload.layout_data)
 			newState.current = []
 			saveLayout(newState);

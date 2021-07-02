@@ -8,11 +8,13 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.16.0",
+    "customize-cra": "^1.0.0",
     "html2canvas": "^1.0.0-rc.7",
     "lodash": "^4.17.21",
     "node-sass": "^4.0.0",
     "qrcode.react": "^1.0.1",
     "react": "^17.0.2",
+    "react-app-rewired": "^2.1.8",
     "react-color": "^2.19.3",
     "react-dom": "^17.0.2",
     "react-draggable": "^4.4.3",
@@ -27,6 +29,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start1": "react-app-rewired start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
