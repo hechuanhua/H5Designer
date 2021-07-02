@@ -82,18 +82,18 @@ const Preview = props => {
 
 		document.getElementById('viewport').setAttribute('content',`width=${initData.maxWidth}, initial-scale=${scale}, minimum-scale=${scale}, maximum-scale=${scale}, user-scalable=no`)
 
-		if(tid){
-			setShowQRcode(true)
-			localStorage.clear()
-			dispatch({
-				type: 'pageData/getLayout',
-				payload: {
-					tid
-				}
-			});
-		} else {
-			setShowQRcode(false)
-		}
+		// if(tid){
+		// 	setShowQRcode(true)
+		// 	localStorage.clear()
+		// 	dispatch({
+		// 		type: 'pageData/getLayout',
+		// 		payload: {
+		// 			tid
+		// 		}
+		// 	});
+		// } else {
+		// 	setShowQRcode(false)
+		// }
 
 		const ret =freedomLayout.filter(item=>item.config.type === 'bottomWechat')
 		console.log(ret)

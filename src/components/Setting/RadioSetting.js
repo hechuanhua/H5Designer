@@ -2,8 +2,8 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Radio, Checkbox, Modal, Switch } from 'antd';
-import Draggable from 'react-draggable';
 import CommonModal from '../Common/Modal';
+import Color from '../Common/Color'
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -94,6 +94,17 @@ const RadioSetting = props => {
 		console.log(checked);
 	};
 
+	const colorChange = (color,type) => {
+		dispatch({
+			type: 'layoutData/setting',
+			payload: {
+				config: {
+					[type]:color
+				},
+			},
+		});
+	}
+
 	return (
 		<div>
 			<Form
@@ -172,7 +183,7 @@ const RadioSetting = props => {
 					<Switch onChange={changeCheckBox} checked={config.isCheckBox}></Switch>
 				</Form.Item>
 				<Form.Item name="backgroundColor" label="背景颜色">
-					<Input />
+					<Color color={config.backgroundColor} onChange={(color)=>{colorChange(color,'backgroundColor')}}></Color>
 				</Form.Item>
 				<Form.Item label="样式" name="templateVal">
 					<Select>

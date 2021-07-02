@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
+import Color from '../Common/Color'
 
 const { TextArea } = Input;
 const BottomWechatSetting = props => {
@@ -22,6 +23,18 @@ const BottomWechatSetting = props => {
 			},
 		});
 	};
+
+	const colorChange = (color,type) => {
+		dispatch({
+			type: 'layoutData/setting',
+			payload: {
+				config: {
+					[type]:color
+				},
+			},
+		});
+	}
+
 	return (
 		<Form
 			labelCol={{ span: 8 }}
@@ -47,12 +60,18 @@ const BottomWechatSetting = props => {
 			<Form.Item name="fontSize" label="文字大小">
 				<Input type="number" />
 			</Form.Item>
-			<Form.Item name="backgroundColor" label="背景颜色">
+			{/* <Form.Item name="backgroundColor" label="背景颜色">
 				<Input />
+			</Form.Item> */}
+			<Form.Item name="backgroundColor" label="背景颜色">
+				<Color color={config.backgroundColor} onChange={(color)=>{colorChange(color,'backgroundColor')}}></Color>
 			</Form.Item>
 			<Form.Item name="color" label="字体颜色">
-				<Input />
+				<Color color={config.color} onChange={(color)=>{colorChange(color,'color')}}></Color>
 			</Form.Item>
+			{/* <Form.Item name="color" label="字体颜色">
+				<Input />
+			</Form.Item> */}
       <Form.Item name="borderRadius" label="圆角">
 				<Input type="number"/>
 			</Form.Item>

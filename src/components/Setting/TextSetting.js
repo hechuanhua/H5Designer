@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Select, Switch } from 'antd';
-// import { SketchPicker } from 'react-color'
+import Color from '../Common/Color'
 
 const TextSetting = props => {
 	const config = useSelector(state => {
@@ -10,7 +10,6 @@ const TextSetting = props => {
 	
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
-
 	console.log(config, 'TextSettingconfig');
 
 	useEffect(() => {
@@ -21,6 +20,7 @@ const TextSetting = props => {
 		});
 	}, [config]);
 
+
 	const onValuesChange = (changedValues, allValues) => {
 		console.log(changedValues, allValues, 'changedValues');
 		dispatch({
@@ -30,6 +30,17 @@ const TextSetting = props => {
 			},
 		});
 	};
+
+	const colorChange = (color,type) => {
+		dispatch({
+			type: 'layoutData/setting',
+			payload: {
+				config: {
+					[type]:color
+				},
+			},
+		});
+	}
 
 	return (
 		<Form
@@ -54,11 +65,10 @@ const TextSetting = props => {
 				<Input type="number" />
 			</Form.Item>
 			<Form.Item name="backgroundColor" label="背景颜色">
-				<Input />
+				<Color color={config.backgroundColor} onChange={(color)=>{colorChange(color,'backgroundColor')}}></Color>
 			</Form.Item>
 			<Form.Item name="color" label="字体颜色">
-				<Input />
-				{/* <SketchPicker></SketchPicker> */}
+				<Color color={config.color} onChange={(color)=>{colorChange(color,'color')}}></Color>
 			</Form.Item>
       <Form.Item name="borderRadius" label="圆角">
 				<Input type="text"/>
@@ -69,13 +79,6 @@ const TextSetting = props => {
 					<Select.Option value="bottom">固定底部</Select.Option>
 				</Select>
 			</Form.Item>
-			{/* {config.fixed === 'bottom' ? (
-				<Form.Item name="bottomY" label="距离底部">
-					<Input type="number" />
-				</Form.Item>
-			) : (
-				''
-			)} */}
 			<Form.Item name="bottomY" label="距离底部" hidden={config.fixed !== 'bottom'}>
 				<Input type="number" />
 			</Form.Item>
@@ -91,7 +94,6 @@ const TextSetting = props => {
 			<Form.Item name="isTransform" label="是否漏量" hidden={!config.popup} tooltip="开代表漏量，关代表不漏量">
 				<Switch checked={config.isTransform}></Switch>
 			</Form.Item>
-			
 		</Form>
 	);
 };
