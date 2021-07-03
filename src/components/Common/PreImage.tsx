@@ -1,5 +1,5 @@
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { Form, Input, Button, Select, Radio, Modal, Image as AntImage } from 'antd';
-import { useEffect, useRef, useState, useContext } from 'react';
 import styled from 'styled-components';
 import loadingImg from '../../assets/images/loading.gif';
 
@@ -18,7 +18,18 @@ const ImageBox = styled.div`
     }
   }
 `
-const PreImage = props => {
+
+interface ImageProps{
+  src:string,
+  width:string|number,
+  height:string|number,
+  preview:boolean,
+  onError:(e: React.SyntheticEvent<HTMLImageElement, Event>) => void,
+  style:React.CSSProperties
+}
+
+
+const PreImage = (props:ImageProps) => {
   const {src,width,height,preview,onError,style} = props
   const [imgSrc,setImgSrc] = useState(loadingImg)
   const [done, setDone] = useState(false)

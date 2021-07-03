@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { DragEvent, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import GridLayout from 'react-grid-layout';
+import GridLayout, { ItemCallback } from 'react-grid-layout';
+import ReactGridLayout from 'react-grid-layout';
 import FreedomDrag from '../Drag/FreedomDrag';
 import { generateFlowDOM, onDrop } from './generateDom';
 import initData from '../../config/initData';
 
+import { Layout } from '@/typings/Drag'
 
 const PageDiv = styled.div.attrs(props => ({
 	id: 'canvas',
@@ -28,7 +30,7 @@ const PageDiv = styled.div.attrs(props => ({
 	}
 `;
 
-const Drag = props => {
+const Drag = () => {
 	const dispatch = useDispatch();
 	const { flowLayout, current } = useSelector((state:any) => {
 		return state.layoutData;
@@ -37,26 +39,27 @@ const Drag = props => {
 		return state.pageData;
 	});
 	const [layout,setLayout] = useState([])
-	const box = useRef()
+	const box = useRef<HTMLDivElement>()
 
 	useEffect(() => {
 		setTimeout(()=>{
-			const pageHeight = box.current.style.height
-			dispatch({
-				type: 'pageData/updateHeight',
-				payload: {
-					pageHeight
-				},
-			});
+			if(box && box.current){
+				const pageHeight = box.current.style.height
+				dispatch({
+					type: 'pageData/updateHeight',
+					payload: {
+						pageHeight
+					},
+				});
+			}
 		},0)
 	}, [flowLayout.length]);
 
 	useEffect(()=>{
-		setLayout(flowLayout.map(item=>item.position))
+		setLayout(flowLayout.map((item:Layout)=>item.position)) 
 	},[flowLayout]);
 
-	const onDragStart = (layouts, oldItem, newItem, placeholder, e, element) => {
-		console.log('拖动开始时调用', layouts, oldItem, newItem, placeholder, e, element);
+	const onDragStart:ItemCallback = (layouts, oldItem, newItem, placeholder, e, element) => {
 		if (/^\d+$/.test(newItem.i)) {
 			dispatch({
 				type: 'layoutData/setActive',
@@ -68,7 +71,7 @@ const Drag = props => {
 		}
 	};
 
-	const onDragStop = (layouts, oldItem, newItem, placeholder, e, element) => {
+	const onDragStop:ItemCallback = (layouts, oldItem, newItem, placeholder, e, element) => {
 		console.log('拖动完成时调用。', layouts, oldItem, newItem, placeholder, e, element);
 		const position = {
 			x: newItem.x,
@@ -87,7 +90,7 @@ const Drag = props => {
 		});
 	};
 
-	const onResizeStop = (layouts, oldItem, newItem, placeholder, e, element) => {
+	const onResizeStop:ItemCallback = (layouts, oldItem, newItem, placeholder, e, element) => {
 		console.log('跳转大小完成时调用。', layouts, oldItem, newItem, placeholder, e, element);
 		const position = {
 			x: newItem.x,
@@ -106,7 +109,7 @@ const Drag = props => {
 		});
 	};
 
-	const removeItem = id => {
+	const removeItem = (id:number) => {
 		dispatch({
 			type: 'layoutData/remove',
 			payload: {
@@ -116,8 +119,10 @@ const Drag = props => {
 		});
 	};
 
-	const blur = e => {
-		let val = e.target.innerHTML.replace(/\n/g, '<br/>');
+	const blur = (e:Event) => {
+		const target = e.target as HTMLElement;
+		if(!target)return
+		let val = target.innerHTML.replace(/\n/g, '<br/>');
 		const config = {
 			text: val,
 		};
@@ -163,7 +168,7 @@ const Drag = props => {
 				onDragStart={onDragStart}
 				onDragStop={onDragStop}
 				onResizeStop={onResizeStop}
-				innerRef={box}  //Ref获取网格包装div的参考  //已删除？
+				ref={box as any}   //Ref获取网格包装div的参考  //已删除？
 			>
 				{generateFlowDOM({flowLayout, current, blur, removeItem, showPopup})}
 			</GridLayout>

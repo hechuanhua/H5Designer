@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { throttle, createUuid } from '../../utils';
@@ -6,6 +6,8 @@ import { generateFreedomDOM, onDrop } from './generateDom';
 import initData from '../../config/initData';
 import BottomWechat from '../Library/BottomWechat';
 import RemoveIcon from '../Library/RemoveIcon';
+
+import { Layout, LayoutState, RootState } from '@/typings/Drag'
 
 const PageDiv = styled.div`
 	width: ${initData.maxWidth}px;
@@ -94,35 +96,61 @@ const EditorPoint = styled.div`
 	}
 `;
 
-const Drag = props => {
+interface RefObject {
+  mouseInfo?: {
+		mouseDown: boolean,
+		mouseMove: boolean,
+		top?:number,
+		left?:number,
+		width?:number,
+		height?:number,
+		startX: number,
+		startY: number,
+		styleLeft: number,
+		styleTop: number,
+		styleWidth: number,
+		styleHeight: number,
+		className: string,
+		index: number,
+		id: number,
+		type: string
+	}
+}
+
+const Drag = () => {
 	const dispatch = useDispatch();
-	const { freedomLayout, current, layoutType } = useSelector((state:any) => {
+	const { freedomLayout, current, layoutType } = useSelector((state:RootState) => {
 		return state.layoutData;
 	});
-	const { pageHeight, wechatPopup } = useSelector((state:any) => {
+	const { pageHeight, wechatPopup } = useSelector((state:RootState) => {
 		return state.pageData;
 	});
-	const page = useRef();
+	
+	const page = useRef<RefObject>();
 
-	const [layout, setLayout] = useState([]);
+	
+	const [layout, setLayout] = useState(freedomLayout);
 	console.log(freedomLayout,'freedomLayoutfreedomLayout')
 	useEffect(() => {
 		setLayout(freedomLayout);
 	}, [freedomLayout]);
 
-	const queryParent = target => {
+
+	function queryParent<T = Element>(target:any): T{ 
 		if (target.className.indexOf('drag') > -1) {
 			return target;
 		} else {
 			target = target.parentElement;
 			return queryParent(target);
 		}
-	};
+	}
 
-	const down = (e, index, type) => {
-		let className = e.target.className.replace(/(.*)point-/, '');
-		let target = queryParent(e.target);
-		let id = target.getAttribute('data-id');
+	const down = (e:MouseEvent, index:number, type:string) => {
+		const eTarget =  e.target as HTMLElement  
+		let className = eTarget.className.replace(/(.*)point-/, '');
+		let target = queryParent(e.target) as HTMLElement;
+		let id = Number(target.getAttribute('data-id'));
+		if(!page.current)return
 		page.current.mouseInfo = {
 			mouseDown: true,
 			mouseMove: false,
@@ -147,7 +175,7 @@ const Drag = props => {
 			});
 		}, 0);
 	};
-	const move = e => {
+	const move = (e:MouseEvent) => {
 		if (!page.current || !page.current.mouseInfo || !page.current.mouseInfo.mouseDown || page.current.mouseInfo.type === 'bottomWechat') return;
 		e.stopPropagation();
 		e.preventDefault();
@@ -222,7 +250,7 @@ const Drag = props => {
 			height,
 			mouseMove: true,
 		};
-		setLayout(layout => {
+		setLayout((layout) => {
 			const newLayout = [
 				...layout.slice(0, index),
 				{
@@ -238,12 +266,13 @@ const Drag = props => {
 	const up = () => {
 		console.log('up', page.current);
 		if (
+			!page.current ||
 			!page.current.mouseInfo ||
 			!page.current.mouseInfo.mouseDown ||
 			!page.current.mouseInfo.mouseMove ||
 			page.current.mouseInfo.type === 'bottomWechat'
 		) {
-			page.current.mouseInfo = null;
+			page.current = {}; 
 			return;
 		}
 		const { top, left, width, height, id } = page.current.mouseInfo;
@@ -261,19 +290,17 @@ const Drag = props => {
 				type: 'freedom',
 			},
 		});
-		page.current.mouseInfo = null;
+		page.current = {};
 	};
 
 	useEffect(() => {
 		document.addEventListener('mousemove', e => {
-			throttle(() => {
-				move(e);
-			}, 300)();
+			move(e)
 		});
 		document.addEventListener('mouseup', up);
 	}, []);
 
-	const removeItem = id => {
+	const removeItem = (id:string) => {
 		console.log(id, layout, freedomLayout, 'iiiiiii');
 		dispatch({
 			type: 'layoutData/remove',
@@ -284,9 +311,10 @@ const Drag = props => {
 		});
 	};
 
-	const blur = e => {
+	const blur = (e:Event) => {
 		console.log('blurblurblurblurblur');
-		let val = e.target.innerHTML.replace(/\n/g, '<br/>');
+		const target = e.target as HTMLElement;
+		let val = target.innerHTML.replace(/\n/g, '<br/>');
 		const config = {
 			text: val,
 		};
@@ -310,7 +338,7 @@ const Drag = props => {
 
 	return (
 		<PageDiv
-			ref={page}
+			ref={page as React.RefObject<HTMLDivElement>} 
 			onDrop={e => {
 				onDrop({e, dispatch});
 			}}
@@ -334,17 +362,17 @@ const Drag = props => {
 						color: item.config.color,
 						fontSize: item.config.fontSize + 'px',
 						backgroundColor: item.config.backgroundColor,
-						textAlign: item.config.align,
-						borderRadius: /^\d+$/.test(item.config.borderRadius)? item.config.borderRadius + 'px':item.config.borderRadius,
-					}}
+						textAlign: item.config.align, 
+						borderRadius: /^\d+$/.test(item.config.borderRadius as string)? item.config.borderRadius + 'px':item.config.borderRadius,
+					} as React.CSSProperties}
 					data-id={item.id}
 					key={item.id}
-					onMouseDown={e => {
+					onMouseDown={(e:any) => {
 						let className = e.target.className.replace(/(.*)point-/, '');
 						if (item.config.fixed == 'bottom' && (className === 'bottom' || !className)) {
 							return;
 						}
-						down(e, index, item.config.type);
+						down(e, index, item.config.type as string);
 					}}
 				>
 					<EditorPoint className="point-top"></EditorPoint>
@@ -356,7 +384,7 @@ const Drag = props => {
 					<EditorPoint className="point-left"></EditorPoint>
 					<EditorPoint className="point-top-left"></EditorPoint>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
-					{generateFreedomDOM({config:item.config, index, blur, showPopup})}
+					{generateFreedomDOM({config:item.config, blur, type: 'freedom',showPopup, id:item.id})}
 				</DragDiv>
 			))
 			}

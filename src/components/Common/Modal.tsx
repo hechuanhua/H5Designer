@@ -1,8 +1,17 @@
 import { Form, Input, Button, Select, Radio, Modal } from 'antd';
-import { useEffect, useRef, useState, useContext } from 'react';
-import Draggable from 'react-draggable';
+import React, { useEffect, useRef, useState, useContext } from 'react';
+import Draggable, { DraggableEvent } from 'react-draggable';
 
-const CommonModal = props => {
+interface ModalProps {
+	visible:boolean,
+	onOk:()=> void,
+	onCancel:()=> void,
+	title:string,
+	confirmLoading:boolean,
+	children:NodeList
+}
+
+const CommonModal = (props:ModalProps) => {
 	const { visible, onOk, onCancel, title, confirmLoading } = props;
 	const [disabled, setDisabled] = useState(false);
 	const [bounds, setBounds] = useState({
@@ -11,16 +20,18 @@ const CommonModal = props => {
 		bottom: 0,
 		right: 0,
 	});
-	const draggleRef = useRef();
-	const onStart = (e, uiData) => {
+	const draggleRef = useRef<HTMLDivElement>();
+	const onStart = (e:DraggableEvent, uiData:any) => { 
 		const { clientWidth, clientHeight } = window?.document?.documentElement;
 		const targetRect = draggleRef?.current?.getBoundingClientRect();
-		setBounds({
-			left: -targetRect?.left + uiData?.x,
-			right: clientWidth - (targetRect?.right - uiData?.x),
-			top: -targetRect?.top + uiData?.y,
-			bottom: clientHeight - (targetRect?.bottom - uiData?.y),
-		});
+		if(targetRect){
+			setBounds({
+				left: -targetRect?.left + uiData?.x,
+				right: clientWidth - (targetRect?.right - uiData?.x),
+				top: -targetRect?.top + uiData?.y,
+				bottom: clientHeight - (targetRect?.bottom - uiData?.y),
+			});
+		}
 	};
 	return (
 		<Modal
@@ -54,7 +65,7 @@ const CommonModal = props => {
 					bounds={bounds}
 					onStart={(event, uiData) => onStart(event, uiData)}
 				>
-					<div ref={draggleRef}>{modal}</div>
+					<div ref={draggleRef as React.RefObject<HTMLDivElement>}>{modal}</div>
 				</Draggable>
 			)}
 		>

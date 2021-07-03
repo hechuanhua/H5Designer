@@ -6,9 +6,9 @@ import { useEffect, useRef, useState, useContext } from "react";
  * @returns {*}
  */
 
-const createUuid = (len, radix?:number) => {
-	var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
-	var uuid = [], i;
+const createUuid = (len:number, radix?:number) => {
+	let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+	let uuid = [], i;
 	radix = radix || 10;
 
 	if (len) {
@@ -16,7 +16,7 @@ const createUuid = (len, radix?:number) => {
 		for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];
 	} else {
 		// rfc4122, version 4 form
-		var r;
+		let r;
 
 		// rfc4122 requires these characters
 		uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
@@ -37,7 +37,7 @@ const createUuid = (len, radix?:number) => {
 
 
 // 获取图片宽高
-const getImgInfo = (url) => {
+const getImgInfo = (url:string) => {
 	return new Promise((resolve, reject) => {
 		let img = new Image();
 		img.src = url;
@@ -86,25 +86,9 @@ const debounce = (func, delay) => {
   }
 }
 
-function useDebounce(fn, delay, dep = []) {
-  const { current } = useRef({ fn, timer: null });
-  useEffect(function () {
-    current.fn = fn;
-  }, [fn]);
-
-  return useCallback(function f(...args) {
-    if (current.timer) {
-      clearTimeout(current.timer);
-    }
-    current.timer = setTimeout(() => {
-      current.fn.call(this, ...args);
-    }, delay);
-  }, dep)
-}
 export {
 	createUuid,
 	getImgInfo,
 	throttle,
 	debounce,
-	useDebounce
 }

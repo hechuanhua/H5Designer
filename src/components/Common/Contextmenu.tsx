@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components'
 import {onDrop} from '@/components/Drag/generateDom';
@@ -34,13 +34,16 @@ const Contextmenu = () => {
 
   const dispatch = useDispatch()
   useEffect(()=>{
-    document.querySelector('#canvas').oncontextmenu=function(e){
-      e.preventDefault();
-      dispatch({type:'pageData/setContextmenu',payload:{
-        isShow:true,
-        x:e.pageX + 10,
-        y:e.pageY
-      }})
+    const el = document.querySelector<HTMLElement>('#canvas');
+    if(el){
+      el.oncontextmenu = function(e:MouseEvent){
+        e.preventDefault();
+        dispatch({type:'pageData/setContextmenu',payload:{
+          isShow:true,
+          x:e.pageX + 10,
+          y:e.pageY
+        }})
+      }
     }
   })
 
@@ -54,7 +57,7 @@ const Contextmenu = () => {
     }})
   }
 
-  const handleCopy = (e) => {
+  const handleCopy = (e:React.MouseEvent) => {
     const data = {
       ...current,
 			position:{

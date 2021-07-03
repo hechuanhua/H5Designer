@@ -1,6 +1,6 @@
 const maxWidth = 375
 const height = 667  //iphone 12
-const initData = {
+const initData:any = {
 	maxWidth:maxWidth,
 	height:height,
 	img: {

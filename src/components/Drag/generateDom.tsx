@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { message } from 'antd';
 
@@ -12,10 +12,19 @@ import RemoveIcon from '../Library/RemoveIcon';
 import ChatDialog from '../Library/ChatDialog';
 import BottomWechat from '../Library/BottomWechat';
 
+import { Layout, LayoutConfig } from '@/typings/Drag'
 
-export const generateFlowDOM = ({ flowLayout, current, removeItem, showPopup, blur, type }) => {
-	current = current || {};
+interface FlowDomProps {
+	flowLayout:Array<Layout>,
+	current?:Layout,
+	removeItem?:(id:number)=>void,
+	showPopup:(e:any)=>void,
+	blur:(e:any)=>void,
+	type?:string
+}
 
+export const generateFlowDOM = (props:FlowDomProps) => {
+	let { flowLayout, current={id:''}, removeItem, showPopup, blur, type } = props
 	return flowLayout.map((item, index) => {
 		if (item.config.type == 'img') {
 			return (
@@ -41,8 +50,8 @@ export const generateFlowDOM = ({ flowLayout, current, removeItem, showPopup, bl
 						fontSize: item.config.fontSize + 'px',
 						backgroundColor: item.config.backgroundColor,
 						textAlign: item.config.align,
-						borderRadius: /^\d+$/.test(item.config.borderRadius)? item.config.borderRadius + 'px':item.config.borderRadius,
-					}}
+						borderRadius: /^\d+$/.test(item.config.borderRadius as any)? item.config.borderRadius + 'px':item.config.borderRadius,
+					} as React.CSSProperties}
 				>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
 					<PreviewText config={item.config} blur={blur} showPopup={showPopup} type={type}></PreviewText>
@@ -61,8 +70,8 @@ export const generateFlowDOM = ({ flowLayout, current, removeItem, showPopup, bl
 						fontSize: item.config.fontSize + 'px',
 						backgroundColor: item.config.backgroundColor,
 						textAlign: item.config.align,
-						borderRadius: /^\d+$/.test(item.config.borderRadius)? item.config.borderRadius + 'px':item.config.borderRadius,
-					}}
+						borderRadius: /^\d+$/.test(item.config.borderRadius as any)? item.config.borderRadius + 'px':item.config.borderRadius,
+					} as React.CSSProperties}
 
 				>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
@@ -84,14 +93,23 @@ export const generateFlowDOM = ({ flowLayout, current, removeItem, showPopup, bl
 	});
 };
 
-export const generateFreedomDOM = ({ config, type, blur, showPopup }) => {
+interface FreeDomProps {
+	config:LayoutConfig,
+	showPopup:(e:any)=>void,
+	blur:(e:any)=>void,
+	type?:string,
+	id?:number
+}
+
+export const generateFreedomDOM = (props:FreeDomProps) => {
+	const { config, type, blur, showPopup, id } = props
 	if (!config) return null;
 	if (config.type == 'img') {
 		return <PreviewImage config={config} showPopup={showPopup}></PreviewImage>;
 	} else if (config.type == 'text') {
 		return <PreviewText config={config} blur={blur} showPopup={showPopup} type={type}></PreviewText>;
 	} else if (config.type == 'radio') {
-		return <PreviewRadio config={config} id={config.id}></PreviewRadio>;
+		return <PreviewRadio config={config} id={id}></PreviewRadio>;
 	} else if (config.type == 'chat') {
 		return <ChatDialog config={config} type={type}></ChatDialog>;
 	} else if (config.type == 'bottomWechat') {
@@ -100,7 +118,7 @@ export const generateFreedomDOM = ({ config, type, blur, showPopup }) => {
 };
 
 interface DropProps {
-	e:React.DragEvent,
+	e:Event|React.MouseEvent,
 	dispatch:any,
 	type?:string,
 	data?:any

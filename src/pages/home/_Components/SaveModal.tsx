@@ -34,14 +34,15 @@ const SaveModal = (props) => {
     dispatch({
       type: 'layoutData/setActive',
       payload: {},
-    })
+    }) 
     dispatch({
       type: 'pageData/setPrint',
       payload: {
         print:true
       },
     })
-    
+    const canvas = document.querySelector<HTMLElement>('#canvas')
+    if(!canvas)return
     setTimeout(()=>{
       html2canvas(canvas,{
         useCORS:true,
