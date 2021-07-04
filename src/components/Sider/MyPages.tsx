@@ -24,7 +24,7 @@ const Operation = styled.div`
 	display:flex;
 	cursor: pointer;
 `
-const MyPages = e => {
+const MyPages = () => {
 	return (
 		<MyPage>
 			<h2>我的页面</h2>

@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState, useContext } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import styled from "styled-components";
 
+import { LibraryType } from '@/typings/LayoutData'
 
 const Li = styled.li.attrs(props => ({
   draggable: 'true'
@@ -20,9 +21,11 @@ const Icon = styled.div.attrs(props => ({
   font-size:30px
 `
 
-const Library = (e) => {
-  const ondragstart = (e, type) => {
-    e.dataTransfer.setData("text/plain", type);
+const Library = () => {
+  const ondragstart = (e:React.DragEvent<HTMLLIElement>, type:LibraryType) => {
+    if(e.dataTransfer){
+      e.dataTransfer.setData("text/plain", type);
+    }
   }
   const dispatch = useDispatch()
 	const { layoutType } =  useSelector((state:any) => {
@@ -53,7 +56,7 @@ const Library = (e) => {
         </Li> */}
         {
           layoutType === 'freedom'?
-          <Li onDragStart={(e) => { ondragstart(e, 'bottomWechat') }}>
+          <Li onDragStart={(e) => { ondragstart(e, 'bottomWechat') }}> 
             <div>底部微信</div>
             <Icon>&#xe6c7;</Icon>
           </Li>:''

@@ -53,42 +53,42 @@ const getImgInfo = (url:string) => {
 	});
 }
 
-// 节流
-const throttle = (fun, delay) => {
-	let last, deferTimer
-	return function (args) {
-		let that = this;
-		let _args = arguments;
+// // 节流
+// const throttle = (fun, delay) => {
+// 	let last, deferTimer
+// 	return function (args) {
+// 		let that = this;
+// 		let _args = arguments;
 
-		let now = +new Date();
-		if (last && now < last + delay) {
-			clearTimeout(deferTimer);
-			deferTimer = setTimeout(function () {
-				last = now;
-				fun.apply(that, _args);
-			}, delay)
-		} else {
-			last = now;
-			fun.apply(that, _args);
-		}
-	}
-}
+// 		let now = +new Date();
+// 		if (last && now < last + delay) {
+// 			clearTimeout(deferTimer);
+// 			deferTimer = setTimeout(function () {
+// 				last = now;
+// 				fun.apply(that, _args);
+// 			}, delay)
+// 		} else {
+// 			last = now;
+// 			fun.apply(that, _args);
+// 		}
+// 	}
+// }
 
-// 防抖
-const debounce = (func, delay) => {
-  let timeout
-  return function() {
-		console.log(delay,'delay')
-    clearTimeout(timeout) 
-    timeout = setTimeout(() => {
-      func.apply(this, arguments)
-    }, delay)
-  }
-}
+// // 防抖
+// const debounce = (func, delay) => {
+//   let timeout
+//   return function() {
+// 		console.log(delay,'delay')
+//     clearTimeout(timeout) 
+//     timeout = setTimeout(() => {
+//       func.apply(this, arguments)
+//     }, delay)
+//   }
+// }
 
 export {
 	createUuid,
 	getImgInfo,
-	throttle,
-	debounce,
+	// throttle,
+	// debounce,
 }

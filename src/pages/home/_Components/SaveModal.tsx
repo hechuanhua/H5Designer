@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Radio, Button, message, Input, Form, Spin } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import html2canvas from 'html2canvas';
@@ -7,12 +7,21 @@ import CommonModal from '../../../components/Common/Modal';
 
 import { saveTemplate,uploadImages } from '../../../api'
 
-const SaveModal = (props) => {
+import { RootState } from '@/typings/LayoutData'
+
+interface Modal {
+  visible:boolean
+  onCancel:()=>void
+  defaultTitle?:string
+  children?:any
+}
+
+const SaveModal = (props:Modal) => {
   const dispatch = useDispatch();
-  const layoutData =  useSelector((state:any) => {
+  const layoutData =  useSelector((state:RootState) => {
     return state.layoutData;
   });
-  const {selected} =  useSelector((state:any) => {
+  const {selected} =  useSelector((state:RootState) => {
     return state.templateData;
   });
   const {visible,onCancel,defaultTitle} = props
@@ -26,7 +35,7 @@ const SaveModal = (props) => {
   },[selected.title])
 
   const handleOk = () => {
-    if(!title.replace(/^\s+|\s+$/g,'')){
+    if(title && !title.replace(/^\s+|\s+$/g,'')){
       return message.error('必须填写标题')
     }
 
@@ -64,7 +73,7 @@ const SaveModal = (props) => {
           layoutData
         }).then((res)=>{
           setLoading(false)
-          onCancel()
+          onCancel && onCancel()
           dispatch({
             type: 'layoutData/clearAllData',
             payload: {}
@@ -83,7 +92,7 @@ const SaveModal = (props) => {
     },0)  
   }
 
-  const changTitle = (e) => {
+  const changTitle = (e:any) => {
     setTitle(e.target.value)
   }
 

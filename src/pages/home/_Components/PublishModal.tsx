@@ -5,24 +5,34 @@ import { useSelector, useDispatch } from 'react-redux';
 import CommonModal from '../../../components/Common/Modal';
 import config from '../../../config/config';
 import { publish } from '../../../api'
+
+import { RootState } from '@/typings/LayoutData'
+
 const { TextArea } = Input;
 
-const PublishModal = (props) => {
+interface Modal {
+  visible:boolean
+  onCancel:()=>void
+  defaultTitle?:string
+  children?:any
+}
+
+const PublishModal = (props:Modal) => {
   const dispatch = useDispatch();
 
   const {visible,onCancel,defaultTitle} = props
 
-  const layoutData =  useSelector((state:any) => {
+  const layoutData =  useSelector((state:RootState) => {
     return state.layoutData;
   });
   
-  const {hostList} =  useSelector((state:any) => {
+  const {hostList} =  useSelector((state:RootState) => {
     return state.pageData;
   });
   console.log(hostList,'PublishModal')
   const [loading,setLoading] = useState(false)
   const [successVisible,setSuccessVisible] = useState(false)
-  const [successUrl,setSuccessUrl] = useState(false)
+  const [successUrl,setSuccessUrl] = useState('')
   const [form] = Form.useForm();
   
   const pageData = {
@@ -33,16 +43,15 @@ const PublishModal = (props) => {
     transformCode:''
   }
   const handleOk = () => {
-    console.log(form.getFieldValue(),3333)
     form.validateFields().then(()=>{
       setLoading(true)
       publish({
         layoutData,
         pageData:form.getFieldsValue()
-      }).then((res)=>{
-        onCancel()
+      }).then((res:any)=>{
+        onCancel && onCancel()
         setLoading(false)
-        message.success('发布成功','1',()=>{
+        message.success('发布成功',1,()=>{
           setSuccessVisible(true)
           setSuccessUrl(`${res.url}`)
           window.open(`${res.url}`)
@@ -56,7 +65,7 @@ const PublishModal = (props) => {
 
   return (
     <>
-      <CommonModal visible={visible} onOk={handleOk} onCancel={()=>{onCancel();setLoading(false)}} title={defaultTitle} confirmLoading={loading}>
+      <CommonModal visible={visible} onOk={handleOk} onCancel={()=>{onCancel && onCancel();setLoading(false)}} title={defaultTitle as string} confirmLoading={loading}>
         <Form name="pageData" form={form} initialValues={pageData} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} >
           <Form.Item label="页面标题" name="title" rules={[{ required: true, message: '页面标题必须填写' }]} validateTrigger={['onChange', 'onBlur']}>
             <Input></Input>
@@ -67,7 +76,7 @@ const PublishModal = (props) => {
           <Form.Item label="发布域名" name="host" rules={[{ required: true, message: '发布域名必须选择' }]} validateTrigger={['onChange', 'onBlur']}>
             <Select>
               {hostList.map(item => (
-                <Select.Option key={item.host}>{item.host}-{item.remake}</Select.Option>
+                <Select.Option key={item.host} value={item.host}>{item.host}-{item.remake}</Select.Option>
               ))}
             </Select>
           </Form.Item>

@@ -7,7 +7,7 @@ import { getImgInfo } from '../../utils/index';
 import globalConfig  from '../../config/config'
 import initData from '../../config/initData';
 
-const ImgSetting = props => {
+const ImgSetting = () => {
 	const config = useSelector((state:any) => {
 		return state.layoutData?.current?.config;
 	});
@@ -16,21 +16,21 @@ const ImgSetting = props => {
 
 	console.log(config, 'ImgSettingconfig');
 
-	const normFile = e => {
-		console.log('Upload event:', e);
-		if (Array.isArray(e)) {
-			return e;
-		}
-		// return e && e.fileList;
-	};
-	const onValuesChange = (changedValues, allValues) => {
+	// const normFile = e => {
+	// 	console.log('Upload event:', e);
+	// 	if (Array.isArray(e)) {
+	// 		return e;
+	// 	}
+	// 	// return e && e.fileList;
+	// };
+	const onValuesChange = (changedValues:any, allValues:any) => {
 		console.log(changedValues, allValues,'onValuesChange')
 		if (Object.keys(changedValues)[0] === 'img') {
 			const { status, response } = changedValues.img.file;
 			if (status === 'done') {
 				let url = `${globalConfig.staticImg}${response.data.url}`;
 				console.log(url,'url111')
-				getImgInfo(url).then(res => {
+				getImgInfo(url).then((res:any) => {
 					console.log(res, 'img');
 					const h = (initData.maxWidth * res.height) / res.width;
 					const position = {
@@ -57,7 +57,7 @@ const ImgSetting = props => {
 		}
 	};
 
-	const getExtraData = (file) => {
+	const getExtraData = (file:any) => {
 		console.log(file)
 		return {ossPath:'common/marketing/H5Designer'}
 	}
@@ -76,13 +76,13 @@ const ImgSetting = props => {
 					// valuePropName="fileList"
 					// getValueFromEvent={normFile}
 					noStyle
-					accept="image/png,image/jpeg,image/gif,image/pjpeg"
 				>
 					<Upload.Dragger
 						name="files"
 						action={`${globalConfig.fileUpload}`}
 						data={getExtraData}
 						maxCount={1}
+						accept="image/png,image/jpeg,image/gif,image/pjpeg"
 						// fileList={[{url:config.url,name:config.url.match(/\/(\w+\.(?:png|jpg|gif|bmp))$/i)?config.url.match(/\/(\w+\.(?:png|jpg|gif|bmp))$/i)[1]:'defaultImg'}]}
 						// onChange={onChange}
 					>

@@ -21,11 +21,11 @@ const ImageBox = styled.div`
 
 interface ImageProps{
   src:string,
-  width:string|number,
-  height:string|number,
-  preview:boolean,
-  onError:(e: React.SyntheticEvent<HTMLImageElement, Event>) => void,
-  style:React.CSSProperties
+  width?:string|number,
+  height?:string|number,
+  preview?:boolean,
+  onError?:(e: React.SyntheticEvent<HTMLImageElement, Event>) => void,
+  style?:React.CSSProperties
 }
 
 

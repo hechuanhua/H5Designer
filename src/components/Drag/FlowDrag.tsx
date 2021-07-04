@@ -7,7 +7,7 @@ import FreedomDrag from '../Drag/FreedomDrag';
 import { generateFlowDOM, onDrop } from './generateDom';
 import initData from '../../config/initData';
 
-import { Layout } from '@/typings/Drag'
+import { Layout } from '@/typings/LayoutData'
 
 const PageDiv = styled.div.attrs(props => ({
 	id: 'canvas',
@@ -42,17 +42,17 @@ const Drag = () => {
 	const box = useRef<HTMLDivElement>()
 
 	useEffect(() => {
-		setTimeout(()=>{
-			if(box && box.current){
-				const pageHeight = box.current.style.height
-				dispatch({
-					type: 'pageData/updateHeight',
-					payload: {
-						pageHeight
-					},
-				});
-			}
-		},0)
+		// setTimeout(()=>{
+		// 	if(box && box.current){
+		// 		const pageHeight = box.current.style.height
+		// 		dispatch({
+		// 			type: 'pageData/updateHeight',
+		// 			payload: {
+		// 				pageHeight
+		// 			},
+		// 		});
+		// 	}
+		// },0)
 	}, [flowLayout.length]);
 
 	useEffect(()=>{

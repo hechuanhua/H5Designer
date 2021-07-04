@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { LayoutConfig } from '@/typings/LayoutData'
+
 const PreviewRadioBox = styled.div`
 	height: 100%;
 	padding:0 10px;
@@ -35,15 +37,15 @@ const Label = styled.label`
 	}
 `;
 
-const PreviewRadio = props => {
+const PreviewRadio = (props:{config:LayoutConfig,id:number|undefined}) => {
 	const { list, title, layoutType, isCheckBox, templateVal } = props.config;
   const { id } = props
 	return (
-		<PreviewRadioBox className={templateVal == 2?'template2':''}>
+		<PreviewRadioBox className={templateVal === '2'?'template2':''}>
 			<Mt10>{title}</Mt10>
       <div>
-        {list.map((v, i) => (
-          <Label style={{ width: `${100 / layoutType}%` }} key={i}>
+        {list && list.map((v:any, i:number) => (
+          <Label style={{ width: `${100 / Number(layoutType)}%` }} key={i}>
             <input type={isCheckBox?'checkbox':'radio'} name={`label${id}`} id={`label${id}`} />
             <span>{v.label}</span>
           </Label>

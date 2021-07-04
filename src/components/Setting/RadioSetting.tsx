@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Radio, Checkbox, Modal, Switch } from 'antd';
 import CommonModal from '../Common/Modal';
 import Color from '../Common/Color'
+
+import { Layout,RootState } from '@/typings/LayoutData'
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -23,8 +25,8 @@ const Edit = styled.div`
 	text-align: right;
 `;
 
-const RadioSetting = props => {
-	const config = useSelector((state:any) => {
+const RadioSetting = () => {
+	const config = useSelector((state:RootState) => {
 		return state.layoutData?.current?.config;
 	});
   
@@ -41,7 +43,7 @@ const RadioSetting = props => {
 		});
 	}, [config]);
 
-	const onValuesChange = (changedValues, allValues) => {
+	const onValuesChange = (changedValues:any, allValues:any) => {
 		console.log(changedValues, allValues, 'changedValues');
 		dispatch({
 			type: 'layoutData/setting',
@@ -66,35 +68,40 @@ const RadioSetting = props => {
 	};
 	const [textAreaValue, setTextAreaValue] = useState('');
 	const openModal = () => {
-		let list = config.list.map(item => item.label);
-		list = list.join('\n');
-		console.log(list, 'list');
-		setTextAreaValue(list);
+		if(config.list){
+			let list = config.list.map(item => item.label);
+			const newList = list.join('\n');
+			console.log(newList, 'newList');
+			setTextAreaValue(newList);
+			setVisible(true);
+		}
 		setVisible(true);
 	};
 	const handleCancel = () => {
 		setVisible(false);
 	};
 
-	const [labelArr, setLabelArr] = useState([]);
 
-	const changeTextArea = e => {
+	const [labelArr, setLabelArr] = useState([] as Array<{label?:string}>);
+
+	const changeTextArea = (e:React.ChangeEvent&{target:HTMLTextAreaElement}) => {
 		console.log(e);
 		setTextAreaValue(e.target.value);
 		let val = e.target.value;
-		val = val.split(/\n/g);
-		const list = val.map(item => ({
+		const newVal = val.split(/\n/g);
+		const list = newVal.map(item => ({
 			label: item,
 		}));
-
-		setLabelArr(list);
+		if(list.length){
+			setLabelArr(list);
+		}
 	};
 
-	const changeCheckBox = checked => {
-		console.log(checked);
-	};
+	// const changeCheckBox = checked => {
+	// 	console.log(checked);
+	// };
 
-	const colorChange = (color,type) => {
+	const colorChange = (color:string,type:string) => {
 		dispatch({
 			type: 'layoutData/setting',
 			payload: {
@@ -180,10 +187,10 @@ const RadioSetting = props => {
 					</Select>
 				</Form.Item>
 				<Form.Item label="是否多选" name="isCheckBox">
-					<Switch onChange={changeCheckBox} checked={config.isCheckBox}></Switch>
+					<Switch checked={config.isCheckBox}></Switch>
 				</Form.Item>
 				<Form.Item name="backgroundColor" label="背景颜色">
-					<Color color={config.backgroundColor} onChange={(color)=>{colorChange(color,'backgroundColor')}}></Color>
+					<Color color={config.backgroundColor as string} onChange={(color)=>{colorChange(color,'backgroundColor')}}></Color>
 				</Form.Item>
 				<Form.Item label="样式" name="templateVal">
 					<Select>

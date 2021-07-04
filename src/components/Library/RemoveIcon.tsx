@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { LayoutConfig } from '@/typings/LayoutData'
+
 const RemoveIconBox = styled.div.attrs(props => ({
 	className: 'iconfont removeIcon',
 }))`
@@ -13,7 +15,7 @@ const RemoveIconBox = styled.div.attrs(props => ({
 	color: #000;
 `;
 
-const RemoveIcon = props => {
+const RemoveIcon = (props:{removeItem:(id:number)=>void,id:number}) => {
 	const { removeItem, id } = props;
 	return (
 		<RemoveIconBox onClick={()=>{removeItem(id)}}>

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Select, Switch } from 'antd';
 import Color from '../Common/Color'
 
-const TextSetting = props => {
+const TextSetting = () => {
 	const config = useSelector((state:any) => {
 		return state.layoutData?.current?.config;
 	});
@@ -21,7 +21,7 @@ const TextSetting = props => {
 	}, [config]);
 
 
-	const onValuesChange = (changedValues, allValues) => {
+	const onValuesChange = (changedValues:any, allValues:any) => {
 		console.log(changedValues, allValues, 'changedValues');
 		dispatch({
 			type: 'layoutData/setting',
@@ -31,7 +31,7 @@ const TextSetting = props => {
 		});
 	};
 
-	const colorChange = (color,type) => {
+	const colorChange = (color:string,type:string) => {
 		dispatch({
 			type: 'layoutData/setting',
 			payload: {

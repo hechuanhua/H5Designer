@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { throttle, createUuid } from '../../utils';
 import { generateFreedomDOM, onDrop } from './generateDom';
 import initData from '../../config/initData';
 import BottomWechat from '../Library/BottomWechat';
 import RemoveIcon from '../Library/RemoveIcon';
 
-import { Layout, LayoutState, RootState } from '@/typings/Drag'
+import { Layout, LayoutState, RootState } from '@/typings/LayoutData'
 
 const PageDiv = styled.div`
 	width: ${initData.maxWidth}px;
@@ -300,7 +299,7 @@ const Drag = () => {
 		document.addEventListener('mouseup', up);
 	}, []);
 
-	const removeItem = (id:string) => {
+	const removeItem = (id:number) => {
 		console.log(id, layout, freedomLayout, 'iiiiiii');
 		dispatch({
 			type: 'layoutData/remove',

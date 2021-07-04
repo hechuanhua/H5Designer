@@ -1,8 +1,9 @@
 /**
  * 组件布局数据
  */
+ import { RootState, LayoutState } from '@/typings/LayoutData'
 
-const saveLayout = data => {
+const saveLayout = (data:any) => {
 	localStorage.setItem('layout', JSON.stringify(data));
 };
 
@@ -14,24 +15,16 @@ let initData = {
 };
 
 if (localStorage.getItem('layout')) {
-	initData = JSON.parse(localStorage.getItem('layout'));
+	initData = JSON.parse(localStorage.getItem('layout') as string);
 }
 
 export default {
 	name: 'layoutData',
 	state: initData,
-	effects: dispatch => ({
-		// saveTemplateData(payload, rootState) {
-		// 	console.log(payload, rootState)
-		// 	return saveTemplate({
-		// 		title:payload.title,
-		// 		layoutData:rootState.layoutData,
-		// 		base64:payload.base64
-		// 	})
-		// },
+	effects: () => ({
 	}),
 	reducers: { 
-		add(state, payload) {
+		add(state:LayoutState, payload:any) {
 			let newState = {};
 			if (state.layoutType === 'flow') {
 				newState = {
@@ -49,7 +42,7 @@ export default {
 			saveLayout(newState);
 			return newState;
 		},
-		remove(state, payload) {
+		remove(state:LayoutState, payload:any) {
 			let newState = {};
 			if(!payload.id){
 				payload.id = state.current.id
@@ -73,7 +66,7 @@ export default {
 			saveLayout(newState);
 			return newState;
 		},
-		setActive(state, payload) {
+		setActive(state:LayoutState, payload:any) {
 			console.log(state.current, payload, 'setActivesetActive');
 			let current = {};
 			if (payload.type === 'flow') {
@@ -92,7 +85,7 @@ export default {
 			saveLayout(newState);
 			return newState
 		},
-		update(state, payload) {
+		update(state:LayoutState, payload:any) {
 			let current = {};
 			let newState = {};
 			if (payload.type === 'flow') {
@@ -125,7 +118,7 @@ export default {
 			saveLayout(newState);
 			return newState;
 		},
-		setting(state, payload) {
+		setting(state:LayoutState, payload:any) {
 			let newState = {};
       let current = {}
 			console.log(state.current.id, payload, state.freedomLayout, 'payloadpayloadpayload');
@@ -162,7 +155,7 @@ export default {
 			saveLayout(newState);
 			return newState;
 		},
-		setType(state, payload) {
+		setType(state:LayoutState, payload:any) {
 			const newState = {
 				...state,
 				layoutType: payload.layoutType,
@@ -180,7 +173,7 @@ export default {
 			saveLayout(newState);
 			return newState
 		},
-		switchLayout(state, payload){
+		switchLayout(state:LayoutState, payload:any){
 			const newState = JSON.parse(payload.layout_data)
 			newState.current = []
 			saveLayout(newState);

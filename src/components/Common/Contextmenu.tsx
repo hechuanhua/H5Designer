@@ -57,7 +57,7 @@ const Contextmenu = () => {
     }})
   }
 
-  const handleCopy = (e:React.MouseEvent) => {
+  const handleCopy = () => {
     const data = {
       ...current,
 			position:{
@@ -65,7 +65,7 @@ const Contextmenu = () => {
         y:current.position.y + current.position.h
       }
 		};
-    onDrop({e, dispatch, type:'contextmenu', data})
+    onDrop({dispatch, type:'contextmenu', data})
     dispatch({type:'pageData/setContextmenu',payload:{
       isShow:false,
     }})

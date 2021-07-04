@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import PreImage from '../Common/PreImage'
 import { getTemplateList, getLayoutByTid, deleteTemplate } from '../../api'
 
+import { RootState } from '@/typings/LayoutData'
+
 const TemplateBox = styled.ul`
 	height: 100%;
 	overflow-y: auto;
@@ -82,15 +84,15 @@ const TemplateTitle = styled.div`
 
 
 
-const Template = e => {
+const Template = () => {
 	
 	const dispatch = useDispatch()
-	const { list } =  useSelector((state:any) => {
+	const { list } =  useSelector((state:RootState) => {
     return state.templateData;
   });
 	console.log(list,'listlist')
 	// const [templateList,setTemplateList] = useState([])
-	const use = (data) => {
+	const use = (data:any) => {
 		dispatch({
 			type: 'layoutData/switchLayout',
 			payload: data
@@ -104,7 +106,7 @@ const Template = e => {
 		})
 	}
 
-	const deleteHandler = (data) =>{
+	const deleteHandler = (data:any) =>{
 		deleteTemplate({tid:data.tid}).then((res)=>{
 			console.log(res,3333)
 			message.success('删除成功',1,()=>{

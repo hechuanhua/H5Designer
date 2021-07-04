@@ -22,7 +22,7 @@ const FlexItem = styled.div`
 	flex: 1;
 	padding:0 10px;
 `;
-const Sider = props => {
+const Sider = () => {
 	const [menuIndex, setMenuIndex] = useState('1');
 	const generateDOM = () => {
 		if (menuIndex === '1') {

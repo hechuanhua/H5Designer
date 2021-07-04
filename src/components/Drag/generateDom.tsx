@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { DragEvent, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { message } from 'antd';
 
@@ -12,14 +12,14 @@ import RemoveIcon from '../Library/RemoveIcon';
 import ChatDialog from '../Library/ChatDialog';
 import BottomWechat from '../Library/BottomWechat';
 
-import { Layout, LayoutConfig } from '@/typings/Drag'
+import { Layout, LayoutConfig } from '@/typings/LayoutData'
 
 interface FlowDomProps {
 	flowLayout:Array<Layout>,
 	current?:Layout,
-	removeItem?:(id:number)=>void,
+	removeItem?:any,
 	showPopup:(e:any)=>void,
-	blur:(e:any)=>void,
+	blur?:any,
 	type?:string
 }
 
@@ -95,10 +95,10 @@ export const generateFlowDOM = (props:FlowDomProps) => {
 
 interface FreeDomProps {
 	config:LayoutConfig,
-	showPopup:(e:any)=>void,
-	blur:(e:any)=>void,
+	showPopup:any,
+	blur?:any,
 	type?:string,
-	id?:number
+	id?:number|undefined
 }
 
 export const generateFreedomDOM = (props:FreeDomProps) => {
@@ -113,15 +113,15 @@ export const generateFreedomDOM = (props:FreeDomProps) => {
 	} else if (config.type == 'chat') {
 		return <ChatDialog config={config} type={type}></ChatDialog>;
 	} else if (config.type == 'bottomWechat') {
-		return <BottomWechat config={config} type={type}></BottomWechat>;
+		return <BottomWechat config={config}></BottomWechat>;
 	}
 };
 
 interface DropProps {
-	e:Event|React.MouseEvent,
+	e?:Event| DragEvent,
 	dispatch:any,
 	type?:string,
-	data?:any
+	data?:Layout
 }
 
 export const onDrop = (props:DropProps) => {
@@ -136,14 +136,14 @@ export const onDrop = (props:DropProps) => {
 		payload = {
 			...data,
 			position:{
-				...data.position,
+				...data?.position,
 				i:id,
 			},
 			id
 		};
 	} else {
-		y = e.pageY - 100;
-		libraryType = e.dataTransfer.getData('text');
+		y = (e as DragEvent).pageY - 100;
+		libraryType = (e as DragEvent).dataTransfer.getData('text');
 		if (libraryType !== 'img' && libraryType !== 'radio' && libraryType !== 'text' && libraryType !== 'chat' && libraryType !== 'bottomWechat') return;
 		console.log(libraryType, '类型');
 		position = {

@@ -1,6 +1,6 @@
 
 import { useEffect, useRef, useState } from 'react';
-import { Radio, Button, message, Input, Form, Spin } from 'antd';
+import { Radio, Button, message, Input, Form, Spin, RadioChangeEvent } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from "styled-components";
 import SaveModal from './SaveModal'
@@ -29,7 +29,7 @@ const Center = styled.div`
   left:50%;
   transform: translateX(-50%);
 `
-const Header = (props) => {
+const Header = () => {
   const dispatch = useDispatch();
   const layoutData =  useSelector((state:any) => {
     return state.layoutData;
@@ -38,7 +38,7 @@ const Header = (props) => {
     return state.templateData;
   });
   const { layoutType, freedomLayout, flowLayout } = layoutData
-  const onChange = (e) => {
+  const onChange = (e:RadioChangeEvent) => {
     dispatch({
       type: 'layoutData/setType',
       payload: {
@@ -67,7 +67,7 @@ const Header = (props) => {
     setPublishVisible(true)
   }
 
-  const clearData = (e) => {
+  const clearData = () => {
     dispatch({
       type: 'layoutData/clearAllData',
       payload: {}

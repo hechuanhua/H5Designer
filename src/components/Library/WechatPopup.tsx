@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import React, { useEffect, useRef, useState, useContext, RefObject } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-
+import { LayoutConfig } from '@/typings/LayoutData'
 
 const Popup = styled.div`
 	height: 100%;
@@ -79,11 +79,12 @@ const Avatar = styled.div`
 	z-index:1;
 `
 
-const WechatPopup = props => {
+const WechatPopup =  (props:{onClose:()=>void}) => {
 	const {onClose} = props
-	const copy = useRef()
+	const copy = useRef<HTMLDivElement>()
 	const goto = () => {
-		const hiddenInput = document.getElementById('copyInput')
+		const hiddenInput = document.getElementById('copyInput') as HTMLInputElement
+		if(!copy.current)return
 		hiddenInput.value = copy.current.innerText
 		hiddenInput.select(); // 选中文本
     document.execCommand("copy"); // 执行浏览器复制命令
@@ -103,7 +104,7 @@ const WechatPopup = props => {
 				<Top>
 					<P>添加微信号，获取祛痘秘籍</P>
 					<P>↓长按复制，添加微信号↓</P>
-					<WxhBox className="wxh" ref={copy} onCopy={myCopy}>test</WxhBox>
+					<WxhBox className="wxh" ref={copy as React.RefObject<HTMLDivElement>} onCopy={myCopy}>test</WxhBox>
 				</Top>
 				<Bottom onClick={goto}>
 					<img src="http://localhost:7001/static/uploads/go.gif" alt="" style={{width:'145px'}} />

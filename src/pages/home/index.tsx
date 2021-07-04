@@ -14,7 +14,7 @@ const Container = styled.div`
 	margin-top: 100px;
 `;
 
-const Home = props => {
+const Home = () => {
 	const dispatch = useDispatch();
 	useEffect(()=>{
 		dispatch({type:'pageData/getHostList',payload:{}})

@@ -5,7 +5,7 @@ import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
-const ChatSetting = props => {
+const ChatSetting = () => { 
 	const config = useSelector((state:any) => {
 		return state.layoutData?.current?.config;
 	});
@@ -14,7 +14,7 @@ const ChatSetting = props => {
 
 	console.log(config, 'ChatSettingconfig');
 
-	const onValuesChange = (changedValues, allValues) => {
+	const onValuesChange = (changedValues:any) => {
 		dispatch({
 			type: 'layoutData/setting',
 			payload: {

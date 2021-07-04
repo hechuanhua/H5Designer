@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import initData from '../../config/initData';
+
+import { LayoutConfig } from '@/typings/LayoutData'
 
 const BottomWechatBox = styled.div`
 	bottom:0;
@@ -19,7 +20,7 @@ const WxhBox = styled.span`
 	font-weight: bold;
 `
 
-const BottomWechat = props => {
+const BottomWechat = (props:{config:LayoutConfig}) => {
   const {text1, text2} = props.config
   const myCopy = () => {
     window.location.href = "weixin://";

@@ -1,6 +1,7 @@
 /**
  * 页面数据
  */
+ import { PageData } from '@/typings/PageData'
 
  import initData from '../../config/initData';
  import { getLayoutByTid, getHostList } from '../../api'
@@ -18,46 +19,46 @@ export default {
       y:0
     },
 	},
-	effects: dispatch => ({
-    async getLayout(payload,rootState){
+	effects: (dispatch:any) => ({
+    async getLayout(payload:any){
       const data =  await getLayoutByTid({tid:payload.tid})
       dispatch({type:'layoutData/switchLayout',payload:data})
     },
-    async getHostList(payload,rootState){
+    async getHostList(){
       const data =  await getHostList()
       dispatch({type:'pageData/saveHostList',payload:data})
     }
 	}),
 	reducers: {
-    updateHeight(state, payload){
+    updateHeight(state:PageData, payload:any){
       const newState = {
         ...state,
         pageHeight:payload.pageHeight
       }
       return newState
     },
-    setPrint(state, payload){
+    setPrint(state:PageData, payload:any){
 			const newState = {
 				...state,
 				print:payload.print
 			}
 			return newState
 		},
-    setWechatPopup(state, payload){
+    setWechatPopup(state:PageData, payload:any){
       const newState = {
 				...state,
 				popup: payload.wechatPopup,
 			};
 			return newState;
     },
-    saveHostList(state, payload){
+    saveHostList(state:PageData, payload:any){
       const newState = {
 				...state,
 				hostList: payload,
 			};
 			return newState;
     },
-    setContextmenu(state, payload){
+    setContextmenu(state:PageData, payload:any){
       const newState = {
 				...state,
 				contextmenu: payload,

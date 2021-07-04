@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import GridLayout from 'react-grid-layout';
 import { createGlobalStyle } from 'styled-components'
@@ -10,6 +10,8 @@ import { generateFlowDOM, generateFreedomDOM } from '../../components/Drag/gener
 import WechatPopup from '../../components/Library/WechatPopup'
 import initData from '../../config/initData';
 import DouPop from '../../components/Library/DouPop'
+
+import { Layout,RootState } from '@/typings/LayoutData'
 
 const PageDiv = styled.div.attrs(props => ({
 	className: 'preview',
@@ -54,16 +56,16 @@ const HiddenInput = styled.input`
 	opacity: 0;
 `
 
-const Preview = props => {
-	const [layout, setLayout] = useState([]);
+const Preview = () => {
+	const [layout, setLayout] = useState([] as any);
 	const [showQRcode, setShowQRcode] = useState(false)
 	const [style,setStyle] = useState({})
 	const dispatch = useDispatch();
-	const { flowLayout, freedomLayout, current } = useSelector((state:any) => {
+	const { flowLayout, freedomLayout, current } = useSelector((state:RootState) => {
 		return state.layoutData;
 	});
 
-	const FreeBox = useRef()
+	const FreeBox = useRef<HTMLElement>()
 	
 	const query = new URLSearchParams(useLocation().search)
 	
@@ -80,7 +82,7 @@ const Preview = props => {
 			scale =  clientWidth/initData.maxWidth
 		}
 
-		document.getElementById('viewport').setAttribute('content',`width=${initData.maxWidth}, initial-scale=${scale}, minimum-scale=${scale}, maximum-scale=${scale}, user-scalable=no`)
+		(document.getElementById('viewport') as HTMLElement).setAttribute('content',`width=${initData.maxWidth}, initial-scale=${scale}, minimum-scale=${scale}, maximum-scale=${scale}, user-scalable=no`)
 
 		// if(tid){
 		// 	setShowQRcode(true)
@@ -117,10 +119,10 @@ const Preview = props => {
 	const [wechatPopupVisibility, setWechatPopupVisibility] = useState(false);
 	const [douPopupVisibility, setDouPopupVisibility] = useState(false);
 
-	const showPopup = (popupType) => {
-		if(popupType == 1){
+	const showPopup = (popupType:string) => {
+		if(popupType === '1'){
 			setWechatPopupVisibility(true)
-		} else if(popupType == 2){
+		} else if(popupType === '2'){
 			setDouPopupVisibility(true)
 		}
 	}
@@ -140,21 +142,21 @@ const Preview = props => {
 				layout={layout}
 				isDraggable={false}
 				isResizable={false}
-				CSSTransforms={true}
+				useCSSTransforms={true}
 				cols={375}
 				rowHeight={1}
 				width={initData.maxWidth}
 				compactType={'vertical'}
 				containerPadding={[0, 0]} //整个容器边距
 				margin={[0, 0]} //每个子项目边距
-				innerRef={FreeBox}
+				ref={FreeBox as any}
 			>
 				{generateFlowDOM({flowLayout, type: 'preview', showPopup})}
 			</GridLayout>
       <FreedomDragBox style={style}>
 				{freedomLayout.map((item, index) => (
 					<DragDiv
-						className={item.position.i == current.id ? 'active drag' : 'drag'}
+						className={'drag'}
 						style={{
 							position: item.config.type === 'bottomWechat'?'fixed':(item.config.fixed == 'bottom' ? 'fixed' : 'absolute'),
 							left: item.position.x,
@@ -166,8 +168,8 @@ const Preview = props => {
 							fontSize: item.config.fontSize + 'px',
 							backgroundColor: item.config.backgroundColor,
 							textAlign: item.config.align,
-							borderRadius: /^\d+$/.test(item.config.borderRadius)? item.config.borderRadius + 'px':item.config.borderRadius,
-						}}
+							borderRadius: /^\d+$/.test(item.config.borderRadius as string)? item.config.borderRadius + 'px':item.config.borderRadius,
+						} as React.CSSProperties}
 						data-id={item.position.i}
 						key={item.position.i}
 					>

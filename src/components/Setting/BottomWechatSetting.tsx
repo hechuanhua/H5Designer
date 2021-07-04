@@ -6,7 +6,7 @@ import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
 import Color from '../Common/Color'
 
 const { TextArea } = Input;
-const BottomWechatSetting = props => {
+const BottomWechatSetting = () => {
 	const config = useSelector((state:any) => {
 		return state.layoutData?.current?.config;
 	});
@@ -15,7 +15,7 @@ const BottomWechatSetting = props => {
 
 	console.log(config, 'BottomWechatSettingconfig');
 
-	const onValuesChange = (changedValues, allValues) => {
+	const onValuesChange = (changedValues:any) => {
 		dispatch({
 			type: 'layoutData/setting',
 			payload: {
@@ -24,7 +24,7 @@ const BottomWechatSetting = props => {
 		});
 	};
 
-	const colorChange = (color,type) => {
+	const colorChange = (color:string,type:string) => {
 		dispatch({
 			type: 'layoutData/setting',
 			payload: {

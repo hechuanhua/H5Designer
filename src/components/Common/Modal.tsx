@@ -2,14 +2,7 @@ import { Form, Input, Button, Select, Radio, Modal } from 'antd';
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import Draggable, { DraggableEvent } from 'react-draggable';
 
-interface ModalProps {
-	visible:boolean,
-	onOk:()=> void,
-	onCancel:()=> void,
-	title:string,
-	confirmLoading:boolean,
-	children:NodeList
-}
+import { ModalProps } from '@/typings/Modal'
 
 const CommonModal = (props:ModalProps) => {
 	const { visible, onOk, onCancel, title, confirmLoading } = props;

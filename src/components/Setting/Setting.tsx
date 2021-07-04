@@ -19,7 +19,7 @@ const SettingWrap = styled.div`
 	width: 300px;
 	background: #fff;
 `;
-const Setting = e => {
+const Setting = () => {
 	const current = useSelector((state:any) => {
 		return state.layoutData.current;
 	});

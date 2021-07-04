@@ -2,28 +2,41 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import initData from '../../config/initData';
-const ChatDialog = (props) => {
 
-	const dataSource = JSON.parse(props.config.data)
+import { LayoutConfig } from '@/typings/LayoutData'
+
+interface ChatDialogProps {
+	config:LayoutConfig
+	type?:string
+}
+
+interface ChatText {
+	self:boolean
+	text?:string
+}
+const ChatDialog = (props:ChatDialogProps) => {
+
 	const { type } = props
+	const dataSource:any = JSON.parse(props.config.data as string)
+	
 	console.log(dataSource,'ChatChatChat')
 	
 	const [speechIndex, setSpeechIndex] = useState(0);
-	const [chatText, setChatText] = useState([]);
+	const [chatText, setChatText] = useState([] as Array<ChatText>);
 	const w = document.documentElement.clientWidth > initData.maxWidth? initData.maxWidth : document.documentElement.clientWidth
-	const showSpeech = index => {
+	const showSpeech = (index:number) => {
 		console.log(dataSource[speechIndex], index, speechIndex, 'oooooo');
 		const selfText = dataSource[speechIndex].data[index].name;
 		let chatTextArr = [];
 		if (speechIndex > 0) {
-			chatTextArr = dataSource[speechIndex].speech.map(item => {
+			chatTextArr = dataSource[speechIndex].speech.map((item:string) => {
 				return {
 					self: false,
 					text: item,
 				};
 			});
 		} else {
-			chatTextArr = dataSource[speechIndex].data[index].speech.map(item => {
+			chatTextArr = dataSource[speechIndex].data[index].speech.map((item:string) => {
 				return {
 					self: false,
 					text: item,
@@ -87,7 +100,7 @@ const ChatDialog = (props) => {
 								<div className="avatar">
 									<img src="https://dub.meimuoni.cn/derren/110/Picture/header2.png" alt="" />
 								</div>
-								<div className="chatText" dangerouslySetInnerHTML={{ __html: item.text }}></div>
+								<div className="chatText" dangerouslySetInnerHTML={{ __html: item.text as string }}></div>
 							</div>
 						);
 					} else {
@@ -96,7 +109,7 @@ const ChatDialog = (props) => {
 								<div className="avatar">
 									<img src="https://dub.meimuoni.cn/derren/110/Picture/bing.png" alt="" />
 								</div>
-								<div className="chatText" dangerouslySetInnerHTML={{ __html: item.text }}></div>
+								<div className="chatText" dangerouslySetInnerHTML={{ __html: item.text as string }}></div>
 							</div>
 						);
 					}
@@ -115,7 +128,7 @@ const ChatDialog = (props) => {
 				)}
 				<div className="select_botton" style={{width:w}}>
 					{dataSource[speechIndex] &&
-						dataSource[speechIndex].data.map((item, index) => (
+						dataSource[speechIndex].data.map((item:any, index:number) => (
 							<a
 								key={index}
 								onClick={() => {

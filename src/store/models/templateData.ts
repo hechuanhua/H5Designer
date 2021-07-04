@@ -1,6 +1,8 @@
 /**
  * 模板数据
  */
+ import { TemplateData } from '@/typings/TemplateData'
+
  import { getTemplateList } from '../../api'
  import config from '../../config/config';
 
@@ -10,18 +12,17 @@ export default {
 		list:[],
 		selected:{}
 	},
-	effects: dispatch => ({
-		async getTemplateList(payload, rootState) {
-			console.log(payload, rootState)
-			const data = await getTemplateList()
+	effects: () => ({
+		async getTemplateList() {
+			const data = await getTemplateList() as TemplateData
 			data.list.forEach(item=>{
 				item.cover = config.baseUrl + item.cover
-			})
-			this.saveList(data)
+			});
+			(this as any).saveList(data)
 		},
 	}),
 	reducers: {
-		select(state,payload){
+		select(state:TemplateData,payload:any){
 			console.log(state,payload,'select')
 			const newState = {
 				...state,
@@ -29,7 +30,7 @@ export default {
 			}
 			return newState
 		},
-		saveList(state,payload){
+		saveList(state:TemplateData,payload:any){
 			console.log(state,payload,'saveList')
 			const newState = {
 				...state,
