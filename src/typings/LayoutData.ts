@@ -43,7 +43,7 @@ export interface LayoutConfig {
 
 export interface Layout {
   config: LayoutConfig,
-  id: number,
+  id: string,
   type: string,
   position: Position
 }

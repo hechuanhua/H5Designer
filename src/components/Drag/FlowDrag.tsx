@@ -42,17 +42,17 @@ const Drag = () => {
 	const box = useRef<HTMLDivElement>()
 
 	useEffect(() => {
-		// setTimeout(()=>{
-		// 	if(box && box.current){
-		// 		const pageHeight = box.current.style.height
-		// 		dispatch({
-		// 			type: 'pageData/updateHeight',
-		// 			payload: {
-		// 				pageHeight
-		// 			},
-		// 		});
-		// 	}
-		// },0)
+		setTimeout(()=>{
+			if(box && box.current){
+				const pageHeight = (box.current as any).containerHeight()
+				dispatch({
+					type: 'pageData/updateHeight',
+					payload: {
+						pageHeight
+					},
+				});
+			}
+		},0)
 	}, [flowLayout.length]);
 
 	useEffect(()=>{
@@ -60,6 +60,7 @@ const Drag = () => {
 	},[flowLayout]);
 
 	const onDragStart:ItemCallback = (layouts, oldItem, newItem, placeholder, e, element) => {
+		console.log(newItem,1111) 
 		if (/^\d+$/.test(newItem.i)) {
 			dispatch({
 				type: 'layoutData/setActive',
@@ -109,7 +110,7 @@ const Drag = () => {
 		});
 	};
 
-	const removeItem = (id:number) => {
+	const removeItem = (id:string) => {
 		dispatch({
 			type: 'layoutData/remove',
 			payload: {
@@ -152,7 +153,7 @@ const Drag = () => {
 				className="layout"
 				layout={layout} //
 				cols={375}
-				rowHeight={1}
+				rowHeight={1} 
 				width={initData.maxWidth}
 				autoSize={true} //容器高度自适应
 				compactType={'vertical'}
@@ -172,7 +173,7 @@ const Drag = () => {
 			>
 				{generateFlowDOM({flowLayout, current, blur, removeItem, showPopup})}
 			</GridLayout>
-		</PageDiv>
+		</PageDiv> 
 	);
 };
 

@@ -15,7 +15,7 @@ const RemoveIconBox = styled.div.attrs(props => ({
 	color: #000;
 `;
 
-const RemoveIcon = (props:{removeItem:(id:number)=>void,id:number}) => {
+const RemoveIcon = (props:{removeItem:(id:string)=>void,id:string}) => {
 	const { removeItem, id } = props;
 	return (
 		<RemoveIconBox onClick={()=>{removeItem(id)}}>

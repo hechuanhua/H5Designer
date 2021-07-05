@@ -76,7 +76,7 @@ export default {
 			}
 			console.log(current)
 			if(!current){
-				current = []
+				current = {}
 			}
 			const newState =  {
 				...state,

@@ -98,7 +98,7 @@ interface FreeDomProps {
 	showPopup:any,
 	blur?:any,
 	type?:string,
-	id?:number|undefined
+	id?:string|undefined
 }
 
 export const generateFreedomDOM = (props:FreeDomProps) => {

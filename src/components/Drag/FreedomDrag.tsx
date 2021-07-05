@@ -111,7 +111,7 @@ interface RefObject {
 		styleHeight: number,
 		className: string,
 		index: number,
-		id: number,
+		id: string,
 		type: string
 	}
 }
@@ -148,7 +148,7 @@ const Drag = () => {
 		const eTarget =  e.target as HTMLElement  
 		let className = eTarget.className.replace(/(.*)point-/, '');
 		let target = queryParent(e.target) as HTMLElement;
-		let id = Number(target.getAttribute('data-id'));
+		let id = target.getAttribute('data-id') as string;
 		if(!page.current)return
 		page.current.mouseInfo = {
 			mouseDown: true,
@@ -161,7 +161,7 @@ const Drag = () => {
 			styleHeight: parseInt(target.style.height) || 0,
 			className: className,
 			index,
-			id,
+			id, 
 			type
 		};
 		console.log('down', JSON.parse(JSON.stringify(page.current.mouseInfo)), id);
@@ -299,7 +299,7 @@ const Drag = () => {
 		document.addEventListener('mouseup', up);
 	}, []);
 
-	const removeItem = (id:number) => {
+	const removeItem = (id:string) => {
 		console.log(id, layout, freedomLayout, 'iiiiiii');
 		dispatch({
 			type: 'layoutData/remove',

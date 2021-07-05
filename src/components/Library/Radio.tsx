@@ -37,7 +37,7 @@ const Label = styled.label`
 	}
 `;
 
-const PreviewRadio = (props:{config:LayoutConfig,id:number|undefined}) => {
+const PreviewRadio = (props:{config:LayoutConfig,id:string|undefined}) => {
 	const { list, title, layoutType, isCheckBox, templateVal } = props.config;
   const { id } = props
 	return (
