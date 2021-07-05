@@ -59,7 +59,9 @@ const ChatDialog = (props:ChatDialogProps) => {
 	};
 	useEffect(()=>{
 		if(type === 'preview'){
-			document.documentElement.scrollTop = 100000
+			setTimeout(()=>{
+				document.documentElement.scrollTop = 100000
+			},0)
 		}
 	},[speechIndex])
 
@@ -87,7 +89,6 @@ const ChatDialog = (props:ChatDialogProps) => {
 						<img src="https://dub.meimuoni.cn/derren/110/Picture/bing.png" alt="" />
 					</div>
 					<div className="chatText">
-						{' '}
 						咱们的色斑是怎么产生的呢？
 						<br />
 						<span style={{ color: '#0365d0', 'fontWeight': 600 }}>点击下方按钮即可↓</span>
@@ -114,7 +115,7 @@ const ChatDialog = (props:ChatDialogProps) => {
 						);
 					}
 				})}
-				{speechIndex === 7 ? (
+				{speechIndex === dataSource.length ? (
 					<div className="wechatBot">
 						<div className="copyWechatBox">
 							<span className="name">微信号:</span>
@@ -132,7 +133,7 @@ const ChatDialog = (props:ChatDialogProps) => {
 							<a
 								key={index}
 								onClick={() => {
-									showSpeech(index);
+									showSpeech(index)
 								}}
 								style={{ width: dataSource[speechIndex].width }}
 							>
@@ -142,7 +143,7 @@ const ChatDialog = (props:ChatDialogProps) => {
 				</div>
 			</div>
 		</>
-	);
+	)
 };
 
 export default ChatDialog;

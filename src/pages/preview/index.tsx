@@ -11,7 +11,7 @@ import WechatPopup from '../../components/Library/WechatPopup'
 import initData from '../../config/initData';
 import DouPop from '../../components/Library/DouPop'
 
-import { Layout,RootState } from '@/typings/LayoutData'
+import { RootState } from '@/typings/LayoutData'
 
 const PageDiv = styled.div.attrs(props => ({
 	className: 'preview',
@@ -142,7 +142,7 @@ const Preview = () => {
 				layout={layout}
 				isDraggable={false}
 				isResizable={false}
-				useCSSTransforms={true}
+				useCSSTransforms={false}
 				cols={375}
 				rowHeight={1}
 				width={initData.maxWidth}

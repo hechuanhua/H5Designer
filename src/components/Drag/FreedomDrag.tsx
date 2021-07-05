@@ -14,6 +14,7 @@ const PageDiv = styled.div`
 	border: 1px solid #ddd;
 	min-height:  ${initData.height}px;
 	position: absolute;
+	background:#EEEEEE;
 	top: 0;
 	left: 0;
 	pointer-events: none;
@@ -369,7 +370,7 @@ const Drag = () => {
 					onMouseDown={(e:any) => {
 						let className = e.target.className.replace(/(.*)point-/, '');
 						if (item.config.fixed == 'bottom' && (className === 'bottom' || !className)) {
-							return;
+							return
 						}
 						down(e, index, item.config.type as string);
 					}}

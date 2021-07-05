@@ -39,6 +39,7 @@ export interface LayoutConfig {
   }>
   templateVal?: string
   data?: string
+  initValue?: number
 }
 
 export interface Layout {
@@ -63,5 +64,5 @@ export interface RootState {
 }
 
 
-export type LibraryType = 'img' | 'text' | 'radio' | 'bottomWechat' | 'chat';
+export type LibraryType = 'img' | 'text' | 'radio' | 'bottomWechat' | 'chat' | 'timer';
 

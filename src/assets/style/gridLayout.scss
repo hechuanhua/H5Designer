@@ -2,7 +2,7 @@
 	position: relative;
 	transition: height 200ms ease;
 	z-index: 10;
-  background: #eee;
+  background: #EEEEEE;
 }
 .react-grid-item {
 	transition: all 200ms ease;
@@ -213,7 +213,7 @@
 	word-break: break-all;
 }
 .react-grid-item:not(.react-grid-placeholder) {
-	background: #ccc;
+	// background: #ccc;
 	&:hover {
 		border: 2px solid red;
 	}

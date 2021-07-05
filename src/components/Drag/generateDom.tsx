@@ -11,9 +11,11 @@ import PreviewText from '../Library/Text';
 import RemoveIcon from '../Library/RemoveIcon';
 import ChatDialog from '../Library/ChatDialog';
 import BottomWechat from '../Library/BottomWechat';
+import Timer from '../Library/Timer';
 
 import { Layout, LayoutConfig } from '@/typings/LayoutData'
 
+const libraryTypeArray = ['img', 'text', 'radio', 'bottomWechat', 'chat', 'timer']
 interface FlowDomProps {
 	flowLayout:Array<Layout>,
 	current?:Layout,
@@ -82,11 +84,20 @@ export const generateFlowDOM = (props:FlowDomProps) => {
 			return (
 				<div
 					key={item.id}
-					// data-grid={item.position}
 					className={item.id === current.id ? 'active' : ''}
 				>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
-					<ChatDialog config={item.config} type={type}></ChatDialog>;
+					<ChatDialog config={item.config} type={type}></ChatDialog>
+				</div>
+			);
+		} else if (item.config.type == 'timer') {
+			return (
+				<div
+					key={item.id}
+					className={item.id === current.id ? 'active' : ''}
+				>
+					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
+					<Timer config={item.config}></Timer>
 				</div>
 			);
 		}
@@ -114,6 +125,8 @@ export const generateFreedomDOM = (props:FreeDomProps) => {
 		return <ChatDialog config={config} type={type}></ChatDialog>;
 	} else if (config.type == 'bottomWechat') {
 		return <BottomWechat config={config}></BottomWechat>;
+	} else if (config.type == 'timer') {
+		return <Timer config={config}></Timer>;
 	}
 };
 
@@ -125,6 +138,7 @@ interface DropProps {
 }
 
 export const onDrop = (props:DropProps) => {
+	console.log('onDroponDroponDrop')
 	const {e,dispatch,type,data} = props
 	let y = 0;
 	let x = 0
@@ -144,7 +158,9 @@ export const onDrop = (props:DropProps) => {
 	} else {
 		y = (e as DragEvent).pageY - 100;
 		libraryType = (e as DragEvent).dataTransfer.getData('text');
-		if (libraryType !== 'img' && libraryType !== 'radio' && libraryType !== 'text' && libraryType !== 'chat' && libraryType !== 'bottomWechat') return;
+		if(!libraryTypeArray.includes(libraryType)){
+			return
+		}
 		console.log(libraryType, '类型');
 		position = {
 			x,

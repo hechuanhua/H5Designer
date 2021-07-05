@@ -7,6 +7,9 @@ import ImgSetting from './ImgSetting';
 import RadioSetting from './RadioSetting';
 import ChatSetting from './ChatSetting';
 import BottomWechat from './BottomWechatSetting';
+import Timer from './TimerSetting';
+
+import { RootState } from '@/typings/LayoutData'
 
 const SettingWrap = styled.div`
 	display: flex;
@@ -20,7 +23,7 @@ const SettingWrap = styled.div`
 	background: #fff;
 `;
 const Setting = () => {
-	const current = useSelector((state:any) => {
+	const current = useSelector((state:RootState) => {
 		return state.layoutData.current;
 	});
 	console.log(current, 'Settingcurrent');
@@ -39,6 +42,9 @@ const Setting = () => {
 		}
 		if (current.config.type === 'bottomWechat') {
 			return <BottomWechat></BottomWechat>;
+		}
+		if (current.config.type === 'timer') {
+			return <Timer></Timer>;
 		}
 	};
 	return (

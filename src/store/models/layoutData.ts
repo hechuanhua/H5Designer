@@ -122,7 +122,7 @@ export default {
 			let newState = {};
       let current = {}
 			console.log(state.current.id, payload, state.freedomLayout, 'payloadpayloadpayload');
-			if (state.current.type === 'flow') {
+			if (state.layoutType === 'flow') {
 				const flowLayout = state.flowLayout.map(item => {
 					if (item.id === state.current.id) {
 						item.position = { ...item.position, ...payload.position };

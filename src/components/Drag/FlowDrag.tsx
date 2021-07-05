@@ -60,7 +60,6 @@ const Drag = () => {
 	},[flowLayout]);
 
 	const onDragStart:ItemCallback = (layouts, oldItem, newItem, placeholder, e, element) => {
-		console.log(newItem,1111) 
 		if (/^\d+$/.test(newItem.i)) {
 			dispatch({
 				type: 'layoutData/setActive',
@@ -136,7 +135,6 @@ const Drag = () => {
 	};
 
 	const showPopup = () => {
-		console.log('setWechatPopup')
 		dispatch({
 			type: 'pageData/setWechatPopup',
 			payload: {

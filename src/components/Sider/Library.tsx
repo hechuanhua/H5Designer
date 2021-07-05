@@ -46,10 +46,10 @@ const Library = () => {
           <div>多选单选</div>
           <Icon>&#xe6ac;</Icon>
         </Li>
-        {/* <Li onDragStart={(e) => { ondragstart(e, 'wechatPopup') }}>
-          <div>弹窗组件</div>
-          <Icon>&#xe690;</Icon>
-        </Li> */}
+        <Li onDragStart={(e) => { ondragstart(e, 'timer') }}>
+          <div>计时器</div>
+          <Icon>&#xe61b;</Icon>
+        </Li>
         {/* <Li onDragStart={(e) => { ondragstart(e, 'video') }}>
           <div>视频</div>
           <Icon>&#xe603;</Icon>
