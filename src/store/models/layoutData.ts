@@ -174,10 +174,15 @@ export default {
 			return newState
 		},
 		switchLayout(state:LayoutState, payload:any){
-			const newState = JSON.parse(payload.layout_data)
-			newState.current = []
-			saveLayout(newState);
-			return newState
+			try {
+				const newState = JSON.parse(payload.layout_data)
+				newState.current = []
+				saveLayout(newState);
+				return newState
+			} catch (error) {
+				console.log(error)
+			}
+			
 		},
 	},
 };

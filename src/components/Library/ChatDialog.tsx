@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import initData from '../../config/initData';
 
 import { LayoutConfig } from '@/typings/LayoutData'
+import { message } from 'antd';
 
 interface ChatDialogProps {
 	config:LayoutConfig
@@ -17,8 +18,13 @@ interface ChatText {
 const ChatDialog = (props:ChatDialogProps) => {
 
 	const { type } = props
-	const dataSource:any = JSON.parse(props.config.data as string)
-	
+	let dataSource:any = {}
+	try {
+		dataSource = JSON.parse(props.config.data as string)
+	} catch (error) {
+		message.error('数据源格式错误',2)
+		console.error(error,333)
+	}
 	console.log(dataSource,'ChatChatChat')
 	
 	const [speechIndex, setSpeechIndex] = useState(0);
