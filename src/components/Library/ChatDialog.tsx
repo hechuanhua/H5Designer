@@ -3,8 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import initData from '../../config/initData';
 
-import { LayoutConfig } from '@/typings/LayoutData'
+import { LayoutConfig } from '../../typings/LayoutData'
 import { message } from 'antd';
+import config from '../../config/config';
+
+import avatar_mingan from '../../assets/images/chat/avatar_mingan.jpg'
+import avatar_dou from '../../assets/images/chat/avatar_dou.png'
+import avatar_ban from '../../assets/images/chat/avatar_ban.png'
+import default_avatar from '../../assets/images/chat/default_avatar.png'
+
 
 interface ChatDialogProps {
 	config:LayoutConfig
@@ -18,23 +25,26 @@ interface ChatText {
 const ChatDialog = (props:ChatDialogProps) => {
 
 	const { type } = props
+	const chatType = props.config.value
 	let dataSource:any = {}
 	try {
-		dataSource = JSON.parse(props.config.data as string)
+		dataSource = props.config.data
 	} catch (error) {
 		message.error('数据源格式错误',2)
 		console.error(error,333)
 	}
-	console.log(dataSource,'ChatChatChat')
+	console.log(props.config,'ChatChatChat')
 	
-	const [speechIndex, setSpeechIndex] = useState(0);
+	const [speechIndex, setSpeechIndex] = useState(1);
 	const [chatText, setChatText] = useState([] as Array<ChatText>);
+	const [defaultChatText,setDefaultChatText] = useState([] as Array<ChatText>);
 	const w = document.documentElement.clientWidth > initData.maxWidth? initData.maxWidth : document.documentElement.clientWidth
 	const showSpeech = (index:number) => {
+		if(type !== 'preview'){return}
 		console.log(dataSource[speechIndex], index, speechIndex, 'oooooo');
 		const selfText = dataSource[speechIndex].data[index].name;
 		let chatTextArr = [];
-		if (speechIndex > 0) {
+		if (speechIndex > 1) {
 			chatTextArr = dataSource[speechIndex].speech.map((item:string) => {
 				return {
 					self: false,
@@ -61,8 +71,18 @@ const ChatDialog = (props:ChatDialogProps) => {
 		setChatText(chat);
 		const i = speechIndex + 1;
 		setSpeechIndex(i);
-		
 	};
+
+	useEffect(()=>{
+		const speech = dataSource[0].speech.map((item:string)=>(
+			{
+				self: false,
+				text: item,
+			}
+		))
+		setDefaultChatText(speech)
+	},[JSON.stringify(dataSource[0])])
+
 	useEffect(()=>{
 		if(type === 'preview'){
 			setTimeout(()=>{
@@ -78,7 +98,7 @@ const ChatDialog = (props:ChatDialogProps) => {
 	return (
 		<>
 			<div className="chatBox">
-				<div className="chatItem chatLeft">
+				{/* <div className="chatItem chatLeft">
 					<div className="avatar">
 						<img src="https://dub.meimuoni.cn/derren/110/Picture/bing.png" alt="" />
 					</div>
@@ -99,13 +119,23 @@ const ChatDialog = (props:ChatDialogProps) => {
 						<br />
 						<span style={{ color: '#0365d0', 'fontWeight': 600 }}>点击下方按钮即可↓</span>
 					</div>
-				</div>
+				</div> */}
+				{defaultChatText.map((item, index) => {
+					return (
+						<div className="chatItem chatLeft" key={index}>
+							<div className="avatar">
+								<img src={chatType === '0'?avatar_mingan:chatType === '1'?avatar_dou:avatar_ban} alt="" />
+							</div>
+							<div className="chatText" dangerouslySetInnerHTML={{ __html: item.text as string }}></div>
+						</div>
+					)
+				})}
 				{chatText.map((item, index) => {
 					if (item.self) {
 						return (
 							<div className="chatItem chatRight" key={index}>
 								<div className="avatar">
-									<img src="https://dub.meimuoni.cn/derren/110/Picture/header2.png" alt="" />
+									<img src={default_avatar} alt="" />
 								</div>
 								<div className="chatText" dangerouslySetInnerHTML={{ __html: item.text as string }}></div>
 							</div>
@@ -114,7 +144,7 @@ const ChatDialog = (props:ChatDialogProps) => {
 						return (
 							<div className="chatItem chatLeft" key={index}>
 								<div className="avatar">
-									<img src="https://dub.meimuoni.cn/derren/110/Picture/bing.png" alt="" />
+									<img src={chatType === '0'?avatar_mingan:chatType === '1'?avatar_dou:avatar_ban} alt="" />
 								</div>
 								<div className="chatText" dangerouslySetInnerHTML={{ __html: item.text as string }}></div>
 							</div>

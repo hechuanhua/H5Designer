@@ -1,7 +1,7 @@
 /**
  * 模板数据
  */
- import { TemplateData } from '@/typings/TemplateData'
+ import { TemplateData } from '../../typings/TemplateData'
 
  import { getTemplateList } from '../../api'
  import config from '../../config/config';

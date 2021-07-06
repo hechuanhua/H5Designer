@@ -1,6 +1,6 @@
 
-import { TemplateData } from '@/typings/TemplateData'
-import { PageData } from '@/typings/PageData'
+import { TemplateData } from './TemplateData'
+import { PageData } from './PageData'
 
 export interface Position {
   x: number,

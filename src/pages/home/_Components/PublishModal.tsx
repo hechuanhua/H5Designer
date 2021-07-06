@@ -6,7 +6,7 @@ import CommonModal from '../../../components/Common/Modal';
 import config from '../../../config/config';
 import { publish } from '../../../api'
 
-import { RootState } from '@/typings/LayoutData'
+import { RootState } from '../../../typings/LayoutData'
 
 const { TextArea } = Input;
 
@@ -99,7 +99,7 @@ const PublishModal = (props:Modal) => {
           <Form.Item label="转换代码" name="transformCode" rules={[{ required: true, message: '转换代码必须填写' },
           ({ getFieldValue }) => ({
               validator(_, value) {
-                if (value && !((/(meteor\.track)|(_ks_trace\.push)/).test(value))) {
+                if (value && !((/(meteor\.track)|(_ks_trace\.push)|(_baq\.track)/).test(value))) {
                   return Promise.reject(new Error('代码格式错误，与预期代码不符'));
                 }
                 return Promise.resolve();

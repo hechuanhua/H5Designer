@@ -5,7 +5,7 @@ import { Form, Input, Button, Select, Radio, Checkbox, Modal, Switch } from 'ant
 import CommonModal from '../Common/Modal';
 import Color from '../Common/Color'
 
-import { Layout,RootState } from '@/typings/LayoutData'
+import { Layout,RootState } from '../../typings/LayoutData'
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -68,7 +68,7 @@ const RadioSetting = () => {
 	};
 	const [textAreaValue, setTextAreaValue] = useState('');
 	const openModal = () => {
-		if(config.list){
+		if(config.list){ 
 			let list = config.list.map(item => item.label);
 			const newList = list.join('\n');
 			console.log(newList, 'newList');

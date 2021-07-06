@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components'
-import {onDrop} from '@/components/Drag/generateDom';
+import {onDrop} from '../Drag/generateDom';
 
 const MenuBox = styled.ul`
   position:fixed;
@@ -45,9 +45,10 @@ const Contextmenu = () => {
         }})
       }
     }
-  })
+  },[])
 
   const handleDelete = () => {
+    if(!current.length)return
     dispatch({
 			type: 'layoutData/remove',
 			payload: {},
@@ -58,6 +59,7 @@ const Contextmenu = () => {
   }
 
   const handleCopy = () => {
+    if(!current.length)return
     const data = {
       ...current,
 			position:{

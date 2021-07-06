@@ -7,7 +7,7 @@ import CommonModal from '../../../components/Common/Modal';
 
 import { saveTemplate,uploadImages } from '../../../api'
 
-import { RootState } from '@/typings/LayoutData'
+import { RootState } from '../../../typings/LayoutData'
 
 interface Modal {
   visible:boolean
@@ -66,11 +66,16 @@ const SaveModal = (props:Modal) => {
             print:false
           },
         })
+        const newLayoutData = {
+          flowLayout:layoutData.flowLayout,
+          freedomLayout:layoutData.freedomLayout,
+          layoutType:layoutData.layoutType
+        }
         saveTemplate({
           title,
           tid:selected.tid,
           base64: src,
-          layoutData
+          layoutData:newLayoutData
         }).then((res)=>{
           setLoading(false)
           onCancel && onCancel()

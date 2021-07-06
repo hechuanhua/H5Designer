@@ -13,7 +13,7 @@ import ChatDialog from '../Library/ChatDialog';
 import BottomWechat from '../Library/BottomWechat';
 import Timer from '../Library/Timer';
 
-import { Layout, LayoutConfig } from '@/typings/LayoutData'
+import { Layout, LayoutConfig } from '../../typings/LayoutData'
 
 const libraryTypeArray = ['img', 'text', 'radio', 'bottomWechat', 'chat', 'timer']
 interface FlowDomProps {

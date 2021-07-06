@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import PreImage from '../Common/PreImage';
 import config from '../../config/config';
 
-import { LayoutConfig } from '@/typings/LayoutData'
+import { LayoutConfig } from '../../typings/LayoutData'
 
 const PreviewImgBox = styled.div`
 	height: 100%;

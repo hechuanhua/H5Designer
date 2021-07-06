@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import PreImage from '../Common/PreImage'
 import { getTemplateList, getLayoutByTid, deleteTemplate } from '../../api'
 
-import { RootState } from '@/typings/LayoutData'
+import { RootState } from '../../typings/LayoutData'
 
 const TemplateBox = styled.ul`
 	height: 100%;

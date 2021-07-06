@@ -7,7 +7,7 @@ import FreedomDrag from '../Drag/FreedomDrag';
 import { generateFlowDOM, onDrop } from './generateDom';
 import initData from '../../config/initData';
 
-import { Layout } from '@/typings/LayoutData'
+import { Layout } from '../../typings/LayoutData'
 
 const PageDiv = styled.div.attrs(props => ({
 	id: 'canvas',
@@ -17,6 +17,7 @@ const PageDiv = styled.div.attrs(props => ({
 	min-height: ${initData.height}px;
 	position: relative;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+	background:#EEE;
 	&.print{
 		.active{
 			border:none;
@@ -32,7 +33,7 @@ const PageDiv = styled.div.attrs(props => ({
 
 const Drag = () => {
 	const dispatch = useDispatch();
-	const { flowLayout, current } = useSelector((state:any) => {
+	const { flowLayout, current, layoutType } = useSelector((state:any) => {
 		return state.layoutData;
 	});
 	const { print, wechatPopup } = useSelector((state:any) => {
@@ -148,7 +149,7 @@ const Drag = () => {
 			<FreedomDrag></FreedomDrag>
 			<GridLayout
 				style={{ minHeight: initData.height }}
-				className="layout"
+				className={layoutType == 'flow' ? 'active' : ''}
 				layout={layout} //
 				cols={375}
 				rowHeight={1} 

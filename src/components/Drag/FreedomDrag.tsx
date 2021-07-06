@@ -6,7 +6,7 @@ import initData from '../../config/initData';
 import BottomWechat from '../Library/BottomWechat';
 import RemoveIcon from '../Library/RemoveIcon';
 
-import { Layout, LayoutState, RootState } from '@/typings/LayoutData'
+import { Layout, LayoutState, RootState } from '../../typings/LayoutData'
 
 const PageDiv = styled.div`
 	width: ${initData.maxWidth}px;
@@ -14,19 +14,20 @@ const PageDiv = styled.div`
 	border: 1px solid #ddd;
 	min-height:  ${initData.height}px;
 	position: absolute;
-	background:#EEEEEE;
 	top: 0;
 	left: 0;
 	pointer-events: none;
-	&.free {
-		pointer-events: auto;
+	background: transparent;
+	&.active{
 		z-index: 20;
+		pointer-events: auto;
 	}
 `;
 const DragDiv = styled.div`
 	width: 200px;
 	height: 100px;
 	cursor: move;
+	background:#EEEEEE;
 	user-select: none;
 	div[class*="point-"],.iconfont{
 		display:none;
@@ -345,13 +346,13 @@ const Drag = () => {
 			onDragOver={e => {
 				e.preventDefault();
 			}}
-			className={layoutType == 'freedom' ? 'free' : ''}
+			className={layoutType == 'freedom' ? 'active' : ''}
 			style={{height:pageHeight}}
 		>
 			
 			{ layout.map((item, index) => (
 				<DragDiv
-					className={item.id == current.id ? 'active drag' : 'drag'}
+					className={item.id == current?.id ? 'active drag' : 'drag'}
 					style={{
 						position: 'absolute',
 						left: item.position.x,

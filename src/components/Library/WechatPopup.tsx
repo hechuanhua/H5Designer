@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState, useContext, RefObject } from 'react
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { LayoutConfig } from '@/typings/LayoutData'
+import avatar_dou from '../../assets/images/chat/avatar_dou.png'
+import goGif from '../../assets/images/popup/go.gif'
+
+import { LayoutConfig } from '../../typings/LayoutData'
 
 const Popup = styled.div`
 	height: 100%;
@@ -99,7 +102,7 @@ const WechatPopup =  (props:{onClose:()=>void}) => {
 			<Mask onClick={onClose}></Mask>
 			<Wrap>
 				<Avatar>
-					<img src="https://qu.xueyaun.cn/yina/110/Picture/kiki_t.png" alt="" />
+					<img src={avatar_dou} alt="" />
 				</Avatar>
 				<Top>
 					<P>添加微信号，获取祛痘秘籍</P>
@@ -107,7 +110,7 @@ const WechatPopup =  (props:{onClose:()=>void}) => {
 					<WxhBox className="wxh" ref={copy as React.RefObject<HTMLDivElement>} onCopy={myCopy}>test</WxhBox>
 				</Top>
 				<Bottom onClick={goto}>
-					<img src="http://localhost:7001/static/uploads/go.gif" alt="" style={{width:'145px'}} />
+					<img src={goGif} alt="" style={{width:'145px'}} />
 				</Bottom>
 			</Wrap>
 		</Popup>

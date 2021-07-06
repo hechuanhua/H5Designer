@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useContext } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import styled from "styled-components";
 
-import { LibraryType } from '@/typings/LayoutData'
+import { LibraryType } from '../../typings/LayoutData'
 
 const Li = styled.li.attrs(props => ({
   draggable: 'true'

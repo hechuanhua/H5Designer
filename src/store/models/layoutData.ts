@@ -1,7 +1,7 @@
 /**
  * 组件布局数据
  */
- import { RootState, LayoutState } from '@/typings/LayoutData'
+ import { RootState, LayoutState } from '../../typings/LayoutData'
 
 const saveLayout = (data:any) => {
 	localStorage.setItem('layout', JSON.stringify(data));

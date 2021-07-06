@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
 
+import { dataSource_chat } from '../../config/dataSoure'
+
 const { TextArea } = Input;
 const ChatSetting = () => { 
 	const config = useSelector((state:any) => {
@@ -11,18 +13,19 @@ const ChatSetting = () => {
 	});
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
-	const [dataSource,setDataSource] = useState(config.data)
+	const [dataSource,setDataSource] = useState(JSON.stringify(config.data))
 	console.log(config, 'ChatSettingconfig');
 
 	const onValuesChange = (changedValues:any) => {
 		if(Object.keys(changedValues)[0] === 'value'){
-			let val = config.dataSource[changedValues.value]
-			setDataSource(val)
+			let value = dataSource_chat[changedValues.value]
+			setDataSource(JSON.stringify(value))
 			dispatch({
 				type: 'layoutData/setting',
 				payload: {
 					config: {
-						data:val
+						data:value,
+						value:changedValues.value
 					},
 				},
 			});
@@ -42,7 +45,7 @@ const ChatSetting = () => {
 			type: 'layoutData/setting',
 			payload: {
 				config: {
-					data:val
+					data:JSON.parse(val)
 				},
 			},
 		});

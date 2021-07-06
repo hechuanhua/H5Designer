@@ -11,7 +11,7 @@ import WechatPopup from '../../components/Library/WechatPopup'
 import initData from '../../config/initData';
 import DouPop from '../../components/Library/DouPop'
 
-import { RootState } from '@/typings/LayoutData'
+import { RootState } from '../../typings/LayoutData'
 
 const PageDiv = styled.div.attrs(props => ({
 	className: 'preview',
@@ -162,7 +162,7 @@ const Preview = () => {
 							left: item.position.x,
 							top: item.config.type === 'bottomWechat'?'initial':(item.config.fixed == 'bottom' ? 'initial' : item.position.y),
 							width: item.config.type === 'bottomWechat'?'100%':(item.config.fixed == 'bottom' ?'100%':item.position.w),
-							height: item.position.h,
+							height: item.config.type === 'chat'?'':item.position.h,
 							bottom: item.config.type === 'bottomWechat'?0:(item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial'),
 							color: item.config.color,
 							fontSize: item.config.fontSize + 'px',

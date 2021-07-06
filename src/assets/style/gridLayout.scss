@@ -1,12 +1,22 @@
+#canvas{
+	.react-grid-layout{
+		pointer-events: none;
+		background: transparent;
+		&.active{
+			z-index: 20;
+			pointer-events: auto;
+		}
+	}
+}
 .react-grid-layout {
 	position: relative;
 	transition: height 200ms ease;
 	z-index: 10;
-  background: #EEEEEE;
 }
 .react-grid-item {
 	transition: all 200ms ease;
 	transition-property: left, top;
+	background:#EEEEEE;
   .react-resizable-handle{
     display: none!important;
   }
