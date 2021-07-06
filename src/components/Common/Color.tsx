@@ -33,9 +33,9 @@ interface ColorProps {
   onChange: (v: string) => void;
 }
 
-const Color = (props:ColorProps) => {
-  const {color,onChange} = props
-  const [displayColorPicker,setDisplayColorPicker] = useState(false)
+const Color = (props: ColorProps) => {
+  const { color, onChange } = props
+  const [displayColorPicker, setDisplayColorPicker] = useState(false)
   const [colorValue, setColorValue] = useState(color)
   const handleClick = () => {
     setDisplayColorPicker(!displayColorPicker)
@@ -45,20 +45,20 @@ const Color = (props:ColorProps) => {
     setDisplayColorPicker(false)
   };
 
-  const handleChange = (color:ColorResult) => {
+  const handleChange = (color: ColorResult) => {
     setColorValue(color.hex)
     onChange(color.hex)
   };
 
-  return(
+  return (
     <div>
-      <Swatch onClick={ handleClick }>
-        <ColorDiv style={{backgroundColor:colorValue}}></ColorDiv>
+      <Swatch onClick={handleClick}>
+        <ColorDiv style={{ backgroundColor: colorValue }}></ColorDiv>
       </Swatch>
-      { displayColorPicker ? <Popover>
-        <Cover onClick={ handleClose }/>
-        <SketchPicker color={ colorValue } onChange={ handleChange } />
-      </Popover> : null }
+      {displayColorPicker ? <Popover>
+        <Cover onClick={handleClose} />
+        <SketchPicker color={colorValue} onChange={handleChange} />
+      </Popover> : null}
     </div>
   )
 }

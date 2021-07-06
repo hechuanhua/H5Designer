@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Tabs, Radio, Button, Menu } from 'antd';
-import Drag from '../../../components/Drag/FlowDrag';
+import Drag from '../../../components/Draggable/FlowDrag';
 import Template from '../../../components/Sider/Template';
 import Library from '../../../components/Sider/Library';
 import MyPages from '../../../components/Sider/MyPages';

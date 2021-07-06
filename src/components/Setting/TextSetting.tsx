@@ -4,10 +4,10 @@ import { Form, Input, Select, Switch } from 'antd';
 import Color from '../Common/Color'
 
 const TextSetting = () => {
-	const config = useSelector((state:any) => {
+	const config = useSelector((state: any) => {
 		return state.layoutData?.current?.config;
 	});
-	
+
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	console.log(config, 'TextSettingconfig');
@@ -21,7 +21,7 @@ const TextSetting = () => {
 	}, [config]);
 
 
-	const onValuesChange = (changedValues:any, allValues:any) => {
+	const onValuesChange = (changedValues: any, allValues: any) => {
 		console.log(changedValues, allValues, 'changedValues');
 		dispatch({
 			type: 'layoutData/setting',
@@ -31,12 +31,12 @@ const TextSetting = () => {
 		});
 	};
 
-	const colorChange = (color:string,type:string) => {
+	const colorChange = (color: string, type: string) => {
 		dispatch({
 			type: 'layoutData/setting',
 			payload: {
 				config: {
-					[type]:color
+					[type]: color
 				},
 			},
 		});
@@ -65,13 +65,13 @@ const TextSetting = () => {
 				<Input type="number" />
 			</Form.Item>
 			<Form.Item name="backgroundColor" label="背景颜色">
-				<Color color={config.backgroundColor} onChange={(color)=>{colorChange(color,'backgroundColor')}}></Color>
+				<Color color={config.backgroundColor} onChange={(color) => { colorChange(color, 'backgroundColor') }}></Color>
 			</Form.Item>
 			<Form.Item name="color" label="字体颜色">
-				<Color color={config.color} onChange={(color)=>{colorChange(color,'color')}}></Color>
+				<Color color={config.color} onChange={(color) => { colorChange(color, 'color') }}></Color>
 			</Form.Item>
-      <Form.Item name="borderRadius" label="圆角">
-				<Input type="text"/>
+			<Form.Item name="borderRadius" label="圆角">
+				<Input type="text" />
 			</Form.Item>
 			<Form.Item name="fixed" label="固定位置">
 				<Select allowClear>
@@ -82,9 +82,9 @@ const TextSetting = () => {
 			<Form.Item name="bottomY" label="距离底部" hidden={config.fixed !== 'bottom'}>
 				<Input type="number" />
 			</Form.Item>
-      <Form.Item name="popup" label="点击弹窗">
-        <Switch checked={config.popup}></Switch>
-      </Form.Item>
+			<Form.Item name="popup" label="点击弹窗">
+				<Switch checked={config.popup}></Switch>
+			</Form.Item>
 			<Form.Item name="popupType" label="弹窗样式" hidden={!config.popup}>
 				<Select>
 					<Select.Option value="1">默认弹窗</Select.Option>

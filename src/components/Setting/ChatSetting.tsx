@@ -7,25 +7,25 @@ import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
 import { dataSource_chat } from '../../config/dataSoure'
 
 const { TextArea } = Input;
-const ChatSetting = () => { 
-	const config = useSelector((state:any) => {
+const ChatSetting = () => {
+	const config = useSelector((state: any) => {
 		return state.layoutData?.current?.config;
 	});
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
-	const [dataSource,setDataSource] = useState(JSON.stringify(config.data))
+	const [dataSource, setDataSource] = useState(JSON.stringify(config.data))
 	console.log(config, 'ChatSettingconfig');
 
-	const onValuesChange = (changedValues:any) => {
-		if(Object.keys(changedValues)[0] === 'value'){
-			let value = dataSource_chat[changedValues.value]
+	const onValuesChange = (changedValues: any) => {
+		if (Object.keys(changedValues)[0] === 'value') {
+			const value = dataSource_chat[changedValues.value]
 			setDataSource(JSON.stringify(value))
 			dispatch({
 				type: 'layoutData/setting',
 				payload: {
 					config: {
-						data:value,
-						value:changedValues.value
+						data: value,
+						value: changedValues.value
 					},
 				},
 			});
@@ -38,14 +38,14 @@ const ChatSetting = () => {
 			});
 		}
 	};
-	const onChange = (e:ChangeEvent&{target:HTMLTextAreaElement}) =>{
+	const onChange = (e: ChangeEvent & { target: HTMLTextAreaElement }) => {
 		const val = e.target.value
 		setDataSource(val)
 		dispatch({
 			type: 'layoutData/setting',
 			payload: {
 				config: {
-					data:JSON.parse(val)
+					data: JSON.parse(val)
 				},
 			},
 		});
@@ -62,7 +62,7 @@ const ChatSetting = () => {
 			<Form.Item label="线别选择" name="value">
 				<Select>
 					{
-						config.list.map((item:any)=>(
+						config.list.map((item: any) => (
 							<Select.Option value={item.value} key={item.value}>{item.label}</Select.Option>
 						))
 					}
@@ -74,7 +74,7 @@ const ChatSetting = () => {
 			<Form.Item name="isTransform" label="是否漏量" tooltip="开代表漏量，关代表不漏量">
 				<Switch checked={config.isTransform}></Switch>
 			</Form.Item>
-		</Form> 
+		</Form>
 	);
 };
 

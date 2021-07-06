@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 import Color from '../Common/Color'
 
-const TimerSetting = () => { 
-	const config = useSelector((state:any) => {
+const TimerSetting = () => {
+	const config = useSelector((state: any) => {
 		return state.layoutData?.current?.config;
 	});
 	const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const TimerSetting = () => {
 
 	console.log(config, 'TimerSettingconfig');
 
-	const onValuesChange = (changedValues:any) => {
+	const onValuesChange = (changedValues: any) => {
 		dispatch({
 			type: 'layoutData/setting',
 			payload: {
@@ -23,12 +23,12 @@ const TimerSetting = () => {
 		});
 	};
 
-  const colorChange = (color:string,type:string) => {
+	const colorChange = (color: string, type: string) => {
 		dispatch({
 			type: 'layoutData/setting',
 			payload: {
 				config: {
-					[type]:color
+					[type]: color
 				},
 			},
 		});
@@ -46,7 +46,7 @@ const TimerSetting = () => {
 			<Form.Item name="initValue" label="初始值">
 				<Input type='number'></Input>
 			</Form.Item>
-      <Form.Item name="align" label="对齐方式">
+			<Form.Item name="align" label="对齐方式">
 				<Select>
 					<Select.Option value="left">左对齐</Select.Option>
 					<Select.Option value="center">居中</Select.Option>
@@ -57,10 +57,10 @@ const TimerSetting = () => {
 				<Input type="number" />
 			</Form.Item>
 			<Form.Item name="backgroundColor" label="背景颜色">
-				<Color color={config.backgroundColor} onChange={(color)=>{colorChange(color,'backgroundColor')}}></Color>
+				<Color color={config.backgroundColor} onChange={(color) => { colorChange(color, 'backgroundColor') }}></Color>
 			</Form.Item>
 			<Form.Item name="color" label="字体颜色">
-				<Color color={config.color} onChange={(color)=>{colorChange(color,'color')}}></Color>
+				<Color color={config.color} onChange={(color) => { colorChange(color, 'color') }}></Color>
 			</Form.Item>
 		</Form>
 	);

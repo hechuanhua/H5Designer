@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import { PlusOutlined, InboxOutlined, } from '@ant-design/icons';
 import { getImgInfo } from '../../utils/index';
-import globalConfig  from '../../config/config'
+import globalConfig from '../../config/config'
 import initData from '../../config/initData';
 
 const ImgSetting = () => {
-	const config = useSelector((state:any) => {
+	const config = useSelector((state: any) => {
 		return state.layoutData?.current?.config;
 	});
 	const dispatch = useDispatch();
@@ -23,14 +23,14 @@ const ImgSetting = () => {
 	// 	}
 	// 	// return e && e.fileList;
 	// };
-	const onValuesChange = (changedValues:any, allValues:any) => {
-		console.log(changedValues, allValues,'onValuesChange')
+	const onValuesChange = (changedValues: any, allValues: any) => {
+		console.log(changedValues, allValues, 'onValuesChange')
 		if (Object.keys(changedValues)[0] === 'img') {
 			const { status, response } = changedValues.img.file;
 			if (status === 'done') {
 				let url = `${globalConfig.staticImg}${response.data.url}`;
-				console.log(url,'url111')
-				getImgInfo(url).then((res:any) => {
+				console.log(url, 'url111')
+				getImgInfo(url).then((res: any) => {
 					console.log(res, 'img');
 					const h = (initData.maxWidth * res.height) / res.width;
 					const position = {
@@ -57,9 +57,9 @@ const ImgSetting = () => {
 		}
 	};
 
-	const getExtraData = (file:any) => {
+	const getExtraData = (file: any) => {
 		console.log(file)
-		return {ossPath:'common/marketing/H5Designer'}
+		return { ossPath: 'common/marketing/H5Designer' }
 	}
 	return (
 		<Form
@@ -83,8 +83,8 @@ const ImgSetting = () => {
 						data={getExtraData}
 						maxCount={1}
 						accept="image/png,image/jpeg,image/gif,image/pjpeg"
-						// fileList={[{url:config.url,name:config.url.match(/\/(\w+\.(?:png|jpg|gif|bmp))$/i)?config.url.match(/\/(\w+\.(?:png|jpg|gif|bmp))$/i)[1]:'defaultImg'}]}
-						// onChange={onChange}
+					// fileList={[{url:config.url,name:config.url.match(/\/(\w+\.(?:png|jpg|gif|bmp))$/i)?config.url.match(/\/(\w+\.(?:png|jpg|gif|bmp))$/i)[1]:'defaultImg'}]}
+					// onChange={onChange}
 					>
 						<p className="ant-upload-drag-icon">
 							<InboxOutlined />
@@ -107,8 +107,8 @@ const ImgSetting = () => {
 				''
 			)}
 			<Form.Item name="popup" label="点击弹窗">
-        <Switch checked={config.popup}></Switch>
-      </Form.Item>
+				<Switch checked={config.popup}></Switch>
+			</Form.Item>
 			<Form.Item name="popupType" label="弹窗样式" hidden={!config.popup}>
 				<Select>
 					<Select.Option value="1">默认弹窗</Select.Option>

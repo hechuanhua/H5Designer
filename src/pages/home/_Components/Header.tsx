@@ -31,14 +31,14 @@ const Center = styled.div`
 `
 const Header = () => {
   const dispatch = useDispatch();
-  const layoutData =  useSelector((state:any) => {
+  const layoutData = useSelector((state: any) => {
     return state.layoutData;
   });
-  const {selected} =  useSelector((state:any) => {
+  const { selected } = useSelector((state: any) => {
     return state.templateData;
   });
   const { layoutType, freedomLayout, flowLayout } = layoutData
-  const onChange = (e:RadioChangeEvent) => {
+  const onChange = (e: RadioChangeEvent) => {
     dispatch({
       type: 'layoutData/setType',
       payload: {
@@ -47,21 +47,21 @@ const Header = () => {
     });
   }
   const preview = () => {
-    window.open(`${window.location.origin}/#/preview${selected.tid?'?tid='+selected.tid:''}`)
+    window.open(`${window.location.origin}/#/preview${selected.tid ? '?tid=' + selected.tid : ''}`)
   }
 
-  const [saveVisible,setSaveVisible] = useState(false)
-  const [publishVisible,setPublishVisible] = useState(false)
+  const [saveVisible, setSaveVisible] = useState(false)
+  const [publishVisible, setPublishVisible] = useState(false)
 
   const savePage = () => {
-    if(!freedomLayout.length && !flowLayout.length){
+    if (!freedomLayout.length && !flowLayout.length) {
       return message.error('请添加数据后再保存')
     }
     setSaveVisible(true)
   }
 
   const publish = () => {
-    if(!freedomLayout.length && !flowLayout.length){
+    if (!freedomLayout.length && !flowLayout.length) {
       return message.error('请添加数据后再保存')
     }
     setPublishVisible(true)
@@ -73,7 +73,7 @@ const Header = () => {
       payload: {}
     })
   }
-  
+
   return (
     <Head>
       <Operation>
@@ -91,18 +91,18 @@ const Header = () => {
 
       <SaveModal
         visible={saveVisible}
-        onCancel={()=>{setSaveVisible(false)}}
+        onCancel={() => { setSaveVisible(false) }}
         defaultTitle={'确定保存？'}
       >
       </SaveModal>
 
       <PublishModal
         visible={publishVisible}
-        onCancel={()=>{setPublishVisible(false)}}
+        onCancel={() => { setPublishVisible(false) }}
         defaultTitle={'确定发布？'}
       >
       </PublishModal>
-      
+
     </Head>
   )
 }

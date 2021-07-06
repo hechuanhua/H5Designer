@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Tabs, Radio, Button, Menu } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import Drag from '../../components/Drag/FlowDrag';
+import Drag from '../../components/Draggable/FlowDrag';
 import Setting from '../../components/Setting/Setting';
 import styled from 'styled-components';
 import Header from './_Components/Header';
@@ -16,16 +16,18 @@ const Container = styled.div`
 
 const Home = () => {
 	const dispatch = useDispatch();
-	useEffect(()=>{
-		dispatch({type:'pageData/getHostList',payload:{}})
-	},[])
+	useEffect(() => {
+		dispatch({ type: 'pageData/getHostList', payload: {} })
+	}, [])
 
 	const handleHide = () => {
-		dispatch({type:'pageData/setContextmenu',payload:{
-			isShow:false,
-		}})
+		dispatch({
+			type: 'pageData/setContextmenu', payload: {
+				isShow: false,
+			}
+		})
 	}
-	
+
 	return (
 		<div onClick={handleHide}>
 			<Header></Header>

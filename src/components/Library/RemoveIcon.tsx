@@ -15,14 +15,14 @@ const RemoveIconBox = styled.div.attrs(props => ({
 	color: #000;
 `;
 
-const RemoveIcon = (props:{removeItem:(id:string)=>void,id:string}) => {
+const RemoveIcon = (props: { removeItem: (id: string) => void, id: string }) => {
 	const { removeItem, id } = props;
 	return (
-		<RemoveIconBox onClick={()=>{removeItem(id)}}>
+		<RemoveIconBox onClick={() => { removeItem(id) }}>
 			&#xe60a;
 		</RemoveIconBox>
 	);
 };
 
-          
+
 export default RemoveIcon

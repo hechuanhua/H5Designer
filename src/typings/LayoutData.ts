@@ -10,7 +10,7 @@ export interface Position {
   i: string
 }
 
-export interface LayoutConfig{
+export interface LayoutConfig {
   align?: string
   backgroundColor?: string
   borderRadius?: string
@@ -28,7 +28,7 @@ export interface LayoutConfig{
   url?: string
   list?: Array<{
     label?: string
-    name?:string
+    name?: string
     value: string
   }>
   title?: string

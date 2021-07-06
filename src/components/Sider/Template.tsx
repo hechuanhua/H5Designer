@@ -85,14 +85,14 @@ const TemplateTitle = styled.div`
 
 
 const Template = () => {
-	
+
 	const dispatch = useDispatch()
-	const { list } =  useSelector((state:RootState) => {
-    return state.templateData;
-  });
-	console.log(list,'listlist')
+	const { list } = useSelector((state: RootState) => {
+		return state.templateData;
+	});
+	console.log(list, 'listlist')
 	// const [templateList,setTemplateList] = useState([])
-	const use = (data:any) => {
+	const use = (data: any) => {
 		dispatch({
 			type: 'layoutData/switchLayout',
 			payload: data
@@ -100,16 +100,16 @@ const Template = () => {
 		dispatch({
 			type: 'templateData/select',
 			payload: {
-				tid:data.tid,
-				title:data.title,
+				tid: data.tid,
+				title: data.title,
 			}
 		})
 	}
 
-	const deleteHandler = (data:any) =>{
-		deleteTemplate({tid:data.tid}).then((res)=>{
-			console.log(res,3333)
-			message.success('删除成功',1,()=>{
+	const deleteHandler = (data: any) => {
+		deleteTemplate({ tid: data.tid }).then((res) => {
+			console.log(res, 3333)
+			message.success('删除成功', 1, () => {
 				dispatch({
 					type: 'templateData/getTemplateList',
 					payload: {}
@@ -118,32 +118,32 @@ const Template = () => {
 		})
 	}
 
-	useEffect(()=>{
+	useEffect(() => {
 		dispatch({
 			type: 'templateData/getTemplateList',
 			payload: {}
 		})
-	},[])
+	}, [])
 
-	return( <TemplateBox>
+	return (<TemplateBox>
 		{
-			list.map((item,index)=>(
+			list.map((item, index) => (
 				<LI key={index}>
 					<Mask></Mask>
-					<Use onClick={()=>{use(item)}}>立即使用</Use>
+					<Use onClick={() => { use(item) }}>立即使用</Use>
 					{
-						item.source === 'system'?'':
-						<Popconfirm
-							title="确定删除此模板？"
-							onConfirm={()=>{deleteHandler(item)}}
-							// onCancel={cancel}
-							okText="确定"
-							cancelText="取消"
-						>
-							<Delete>删除此模板</Delete>
-						</Popconfirm>
+						item.source === 'system' ? '' :
+							<Popconfirm
+								title="确定删除此模板？"
+								onConfirm={() => { deleteHandler(item) }}
+								// onCancel={cancel}
+								okText="确定"
+								cancelText="取消"
+							>
+								<Delete>删除此模板</Delete>
+							</Popconfirm>
 					}
-					<PreImage src={item.cover} style={{height:'213px',overflow:'hidden'}}/>
+					<PreImage src={item.cover} style={{ height: '213px', overflow: 'hidden' }} />
 					<TemplateTitle>{item.title}</TemplateTitle>
 				</LI>
 			))

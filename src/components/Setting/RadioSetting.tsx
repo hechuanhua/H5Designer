@@ -5,7 +5,7 @@ import { Form, Input, Button, Select, Radio, Checkbox, Modal, Switch } from 'ant
 import CommonModal from '../Common/Modal';
 import Color from '../Common/Color'
 
-import { Layout,RootState } from '../../typings/LayoutData'
+import { Layout, RootState } from '../../typings/LayoutData'
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -26,10 +26,10 @@ const Edit = styled.div`
 `;
 
 const RadioSetting = () => {
-	const config = useSelector((state:RootState) => {
+	const config = useSelector((state: RootState) => {
 		return state.layoutData?.current?.config;
 	});
-  
+
 	const [form] = Form.useForm();
 	const dispatch = useDispatch();
 
@@ -43,7 +43,7 @@ const RadioSetting = () => {
 		});
 	}, [config]);
 
-	const onValuesChange = (changedValues:any, allValues:any) => {
+	const onValuesChange = (changedValues: any, allValues: any) => {
 		console.log(changedValues, allValues, 'changedValues');
 		dispatch({
 			type: 'layoutData/setting',
@@ -68,7 +68,7 @@ const RadioSetting = () => {
 	};
 	const [textAreaValue, setTextAreaValue] = useState('');
 	const openModal = () => {
-		if(config.list){ 
+		if (config.list) {
 			let list = config.list.map(item => item.label);
 			const newList = list.join('\n');
 			console.log(newList, 'newList');
@@ -82,9 +82,9 @@ const RadioSetting = () => {
 	};
 
 
-	const [labelArr, setLabelArr] = useState([] as Array<{label?:string}>);
+	const [labelArr, setLabelArr] = useState([] as Array<{ label?: string }>);
 
-	const changeTextArea = (e:React.ChangeEvent&{target:HTMLTextAreaElement}) => {
+	const changeTextArea = (e: React.ChangeEvent & { target: HTMLTextAreaElement }) => {
 		console.log(e);
 		setTextAreaValue(e.target.value);
 		let val = e.target.value;
@@ -92,7 +92,7 @@ const RadioSetting = () => {
 		const list = newVal.map(item => ({
 			label: item,
 		}));
-		if(list.length){
+		if (list.length) {
 			setLabelArr(list);
 		}
 	};
@@ -101,12 +101,12 @@ const RadioSetting = () => {
 	// 	console.log(checked);
 	// };
 
-	const colorChange = (color:string,type:string) => {
+	const colorChange = (color: string, type: string) => {
 		dispatch({
 			type: 'layoutData/setting',
 			payload: {
 				config: {
-					[type]:color
+					[type]: color
 				},
 			},
 		});
@@ -190,18 +190,18 @@ const RadioSetting = () => {
 					<Switch checked={config.isCheckBox}></Switch>
 				</Form.Item>
 				<Form.Item name="backgroundColor" label="背景颜色">
-					<Color color={config.backgroundColor as string} onChange={(color)=>{colorChange(color,'backgroundColor')}}></Color>
+					<Color color={config.backgroundColor as string} onChange={(color) => { colorChange(color, 'backgroundColor') }}></Color>
 				</Form.Item>
 				<Form.Item label="样式" name="templateVal">
 					<Select>
 						{
-							config.template.map(item=>(
+							config.template.map(item => (
 								<Select.Option value={item.value} key={item.value}>{item.name}</Select.Option>
 							))
 						}
 					</Select>
 				</Form.Item>
-				
+
 			</Form>
 			<CommonModal visible={visible} onOk={handleOk} onCancel={handleCancel} title={'批量编辑'}>
 				<div>每个选项请单列一行</div>

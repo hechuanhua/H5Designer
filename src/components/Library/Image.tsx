@@ -9,12 +9,12 @@ const PreviewImgBox = styled.div`
 `;
 
 
-const PreviewImage = (props:{config:LayoutConfig,showPopup:(e:any)=>void}) => {
+const PreviewImage = (props: { config: LayoutConfig, showPopup: (e: any) => void }) => {
 	const { url, popup, popupType } = props.config;
-  const { showPopup } = props
+	const { showPopup } = props
 	return (
-		<PreviewImgBox onClick={popup ? ()=>{showPopup(popupType)} : () => {}}>
-			<PreImage src={`${url && url.indexOf('http')>-1?url:config.staticImg+url}`} />
+		<PreviewImgBox onClick={popup ? () => { showPopup(popupType) } : () => { }}>
+			<PreImage src={`${url && url.indexOf('http') > -1 ? url : config.staticImg + url}`} />
 		</PreviewImgBox>
 	);
 };

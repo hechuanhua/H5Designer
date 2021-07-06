@@ -8,7 +8,7 @@ import RemoveIcon from '../Library/RemoveIcon';
 
 import { Layout, LayoutState, RootState } from '../../typings/LayoutData'
 
-const PageDiv = styled.div`
+const FreedomDragBox = styled.div`
 	width: ${initData.maxWidth}px;
 	margin: 0 auto;
 	border: 1px solid #ddd;
@@ -98,13 +98,13 @@ const EditorPoint = styled.div`
 `;
 
 interface RefObject {
-  mouseInfo?: {
+	mouseInfo?: {
 		mouseDown: boolean,
 		mouseMove: boolean,
-		top?:number,
-		left?:number,
-		width?:number,
-		height?:number,
+		top?: number,
+		left?: number,
+		width?: number,
+		height?: number,
 		startX: number,
 		startY: number,
 		styleLeft: number,
@@ -120,24 +120,24 @@ interface RefObject {
 
 const Drag = () => {
 	const dispatch = useDispatch();
-	const { freedomLayout, current, layoutType } = useSelector((state:RootState) => {
+	const { freedomLayout, current, layoutType } = useSelector((state: RootState) => {
 		return state.layoutData;
 	});
-	const { pageHeight, wechatPopup } = useSelector((state:RootState) => {
+	const { pageHeight, wechatPopup } = useSelector((state: RootState) => {
 		return state.pageData;
 	});
-	
+
 	const page = useRef<RefObject>();
 
-	
+
 	const [layout, setLayout] = useState(freedomLayout);
-	console.log(freedomLayout,'freedomLayoutfreedomLayout')
+	console.log(freedomLayout, 'freedomLayoutfreedomLayout')
 	useEffect(() => {
 		setLayout(freedomLayout);
 	}, [freedomLayout]);
 
 
-	function queryParent<T = Element>(target:any): T{ 
+	function queryParent<T = Element>(target: any): T {
 		if (target.className.indexOf('drag') > -1) {
 			return target;
 		} else {
@@ -146,12 +146,12 @@ const Drag = () => {
 		}
 	}
 
-	const down = (e:MouseEvent, index:number, type:string) => {
-		const eTarget =  e.target as HTMLElement  
+	const down = (e: MouseEvent, index: number, type: string) => {
+		const eTarget = e.target as HTMLElement
 		let className = eTarget.className.replace(/(.*)point-/, '');
 		let target = queryParent(e.target) as HTMLElement;
 		let id = target.getAttribute('data-id') as string;
-		if(!page.current)return
+		if (!page.current) return
 		page.current.mouseInfo = {
 			mouseDown: true,
 			mouseMove: false,
@@ -163,7 +163,7 @@ const Drag = () => {
 			styleHeight: parseInt(target.style.height) || 0,
 			className: className,
 			index,
-			id, 
+			id,
 			type
 		};
 		console.log('down', JSON.parse(JSON.stringify(page.current.mouseInfo)), id);
@@ -176,7 +176,7 @@ const Drag = () => {
 			});
 		}, 0);
 	};
-	const move = (e:MouseEvent) => {
+	const move = (e: MouseEvent) => {
 		if (!page.current || !page.current.mouseInfo || !page.current.mouseInfo.mouseDown || page.current.mouseInfo.type === 'bottomWechat') return;
 		e.stopPropagation();
 		e.preventDefault();
@@ -273,7 +273,7 @@ const Drag = () => {
 			!page.current.mouseInfo.mouseMove ||
 			page.current.mouseInfo.type === 'bottomWechat'
 		) {
-			page.current = {}; 
+			page.current = {};
 			return;
 		}
 		const { top, left, width, height, id } = page.current.mouseInfo;
@@ -301,7 +301,7 @@ const Drag = () => {
 		document.addEventListener('mouseup', up);
 	}, []);
 
-	const removeItem = (id:string) => {
+	const removeItem = (id: string) => {
 		console.log(id, layout, freedomLayout, 'iiiiiii');
 		dispatch({
 			type: 'layoutData/remove',
@@ -312,7 +312,7 @@ const Drag = () => {
 		});
 	};
 
-	const blur = (e:Event) => {
+	const blur = (e: Event) => {
 		console.log('blurblurblurblurblur');
 		const target = e.target as HTMLElement;
 		let val = target.innerHTML.replace(/\n/g, '<br/>');
@@ -332,43 +332,43 @@ const Drag = () => {
 		dispatch({
 			type: 'pageData/setWechatPopup',
 			payload: {
-				wechatPopup:!wechatPopup
+				wechatPopup: !wechatPopup
 			},
 		});
 	}
 
 	return (
-		<PageDiv
-			ref={page as React.RefObject<HTMLDivElement>} 
+		<FreedomDragBox
+			ref={page as React.RefObject<HTMLDivElement>}
 			onDrop={e => {
-				onDrop({e, dispatch});
+				onDrop({ e, dispatch });
 			}}
 			onDragOver={e => {
 				e.preventDefault();
 			}}
-			className={layoutType == 'freedom' ? 'active' : ''}
-			style={{height:pageHeight}}
+			className={`FreedomDragBox ${layoutType == 'freedom' ? 'active' : ''}`}
+			style={{ height: pageHeight }}
 		>
-			
-			{ layout.map((item, index) => (
+
+			{layout.map((item, index) => (
 				<DragDiv
 					className={item.id == current?.id ? 'active drag' : 'drag'}
 					style={{
 						position: 'absolute',
 						left: item.position.x,
-						top: item.config.type === 'bottomWechat'?'initial':(item.config.fixed == 'bottom' ? 'initial' : item.position.y),
+						top: item.config.type === 'bottomWechat' ? 'initial' : (item.config.fixed == 'bottom' ? 'initial' : item.position.y),
 						width: item.position.w,
 						height: item.position.h,
-						bottom: item.config.type === 'bottomWechat'?0:(item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial'),
+						bottom: item.config.type === 'bottomWechat' ? 0 : (item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial'),
 						color: item.config.color,
 						fontSize: item.config.fontSize + 'px',
 						backgroundColor: item.config.backgroundColor,
-						textAlign: item.config.align, 
-						borderRadius: /^\d+$/.test(item.config.borderRadius as string)? item.config.borderRadius + 'px':item.config.borderRadius,
+						textAlign: item.config.align,
+						borderRadius: /^\d+$/.test(item.config.borderRadius as string) ? item.config.borderRadius + 'px' : item.config.borderRadius,
 					} as React.CSSProperties}
 					data-id={item.id}
 					key={item.id}
-					onMouseDown={(e:any) => {
+					onMouseDown={(e: any) => {
 						let className = e.target.className.replace(/(.*)point-/, '');
 						if (item.config.fixed == 'bottom' && (className === 'bottom' || !className)) {
 							return
@@ -385,11 +385,11 @@ const Drag = () => {
 					<EditorPoint className="point-left"></EditorPoint>
 					<EditorPoint className="point-top-left"></EditorPoint>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
-					{generateFreedomDOM({config:item.config, blur, type: 'freedom',showPopup, id:item.id})}
+					{generateFreedomDOM({ config: item.config, blur, type: 'freedom', showPopup, id: item.id })}
 				</DragDiv>
 			))
 			}
-		</PageDiv>
+		</FreedomDragBox>
 	);
 };
 

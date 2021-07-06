@@ -1,8 +1,8 @@
 
 
 export interface HostList {
-  host:string
-  remake:string
+  host: string
+  remake: string
 }
 
 export interface PageData {

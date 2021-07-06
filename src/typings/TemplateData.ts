@@ -1,10 +1,10 @@
 
-export interface Selected{
+export interface Selected {
   title: string,
   tid: string
 }
 
-export interface TemplateList{
+export interface TemplateList {
   cover: string,
   create_time: string,
   id: number,

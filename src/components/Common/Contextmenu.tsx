@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components'
-import {onDrop} from '../Drag/generateDom';
+import { onDrop } from '../Draggable/generateDom';
 
 const MenuBox = styled.ul`
   position:fixed;
@@ -24,63 +24,69 @@ const MenuBox = styled.ul`
 
 
 const Contextmenu = () => {
-  const current = useSelector((state:any) => {
-		return state.layoutData.current;
-	});
+  const current = useSelector((state: any) => {
+    return state.layoutData.current;
+  });
 
-  const contextmenu = useSelector((state:any) => {
-		return state.pageData.contextmenu;
-	});
+  const contextmenu = useSelector((state: any) => {
+    return state.pageData.contextmenu;
+  });
 
   const dispatch = useDispatch()
-  useEffect(()=>{
+  useEffect(() => {
     const el = document.querySelector<HTMLElement>('#canvas');
-    if(el){
-      el.oncontextmenu = function(e:MouseEvent){
+    if (el) {
+      el.oncontextmenu = function (e: MouseEvent) {
         e.preventDefault();
-        dispatch({type:'pageData/setContextmenu',payload:{
-          isShow:true,
-          x:e.pageX + 10,
-          y:e.pageY
-        }})
+        dispatch({
+          type: 'pageData/setContextmenu', payload: {
+            isShow: true,
+            x: e.pageX + 10,
+            y: e.pageY
+          }
+        })
       }
     }
-  },[])
+  }, [])
 
   const handleDelete = () => {
-    if(!current.length)return
+    if (!current.length) return
     dispatch({
-			type: 'layoutData/remove',
-			payload: {},
-		});
-    dispatch({type:'pageData/setContextmenu',payload:{
-      isShow:false,
-    }})
+      type: 'layoutData/remove',
+      payload: {},
+    });
+    dispatch({
+      type: 'pageData/setContextmenu', payload: {
+        isShow: false,
+      }
+    })
   }
 
   const handleCopy = () => {
-    if(!current.length)return
+    if (!current.length) return
     const data = {
       ...current,
-			position:{
+      position: {
         ...current.position,
-        y:current.position.y + current.position.h
+        y: current.position.y + current.position.h
       }
-		};
-    onDrop({dispatch, type:'contextmenu', data})
-    dispatch({type:'pageData/setContextmenu',payload:{
-      isShow:false,
-    }})
+    };
+    onDrop({ dispatch, type: 'contextmenu', data })
+    dispatch({
+      type: 'pageData/setContextmenu', payload: {
+        isShow: false,
+      }
+    })
   }
 
-  return(
+  return (
     <>
       {
-        contextmenu.isShow?
-          <MenuBox style={{top:contextmenu.y+'px',left:contextmenu.x}}>
+        contextmenu.isShow ?
+          <MenuBox style={{ top: contextmenu.y + 'px', left: contextmenu.x }}>
             <li onClick={handleDelete}>删除</li>
             <li onClick={handleCopy}>复制</li>
-        </MenuBox>:''
+          </MenuBox> : ''
       }
     </>
   )

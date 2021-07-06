@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, useContext } from "react";
  * @returns {*}
  */
 
-const createUuid = (len:number, radix?:number) => {
+const createUuid = (len: number, radix?: number) => {
 	let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
 	let uuid = [], i;
 	radix = radix || 10;
@@ -37,7 +37,7 @@ const createUuid = (len:number, radix?:number) => {
 
 
 // 获取图片宽高
-const getImgInfo = (url:string) => {
+const getImgInfo = (url: string) => {
 	return new Promise((resolve, reject) => {
 		let img = new Image();
 		img.src = url;

@@ -19,22 +19,22 @@ const ImageBox = styled.div`
   }
 `
 
-interface ImageProps{
-  src:string,
-  width?:string|number,
-  height?:string|number,
-  preview?:boolean,
-  onError?:(e: React.SyntheticEvent<HTMLImageElement, Event>) => void,
-  style?:React.CSSProperties
+interface ImageProps {
+  src: string,
+  width?: string | number,
+  height?: string | number,
+  preview?: boolean,
+  onError?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void,
+  style?: React.CSSProperties
 }
 
 
-const PreImage = (props:ImageProps) => {
-  const {src,width,height,preview,onError,style} = props
-  const [imgSrc,setImgSrc] = useState(loadingImg)
+const PreImage = (props: ImageProps) => {
+  const { src, width, height, preview, onError, style } = props
+  const [imgSrc, setImgSrc] = useState(loadingImg)
   const [done, setDone] = useState(false)
   const img = new Image();
-	img.src = src;
+  img.src = src;
   img.onload = () => {
     setImgSrc(src)
     setDone(true)
@@ -43,8 +43,8 @@ const PreImage = (props:ImageProps) => {
     setImgSrc(src)
   }
 
-	return (
-    <ImageBox style={style} className={!done?'done':''}>
+  return (
+    <ImageBox style={style} className={!done ? 'done' : ''}>
       <AntImage
         src={imgSrc}
         width={width}
@@ -56,7 +56,7 @@ const PreImage = (props:ImageProps) => {
       >
       </AntImage>
     </ImageBox>
-	);
+  );
 };
 
 export default PreImage;

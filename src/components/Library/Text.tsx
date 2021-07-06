@@ -12,20 +12,20 @@ const EditText = styled.div`
 `;
 
 interface PreviewTextProps {
-	config:LayoutConfig,
-	blur:(e?:any)=>void
-	showPopup:(type?:string)=>void
-	type?:string
+	config: LayoutConfig,
+	blur: (e?: any) => void
+	showPopup: (type?: string) => void
+	type?: string
 }
-const PreviewText = (props:PreviewTextProps) => {
-  const { blur, showPopup, type } = props
+const PreviewText = (props: PreviewTextProps) => {
+	const { blur, showPopup, type } = props
 	const { text, popup, popupType } = props.config;
 	return (
-		<PreviewTextBox onClick={popup ? ()=>{showPopup(popupType)} : () => {}}>
+		<PreviewTextBox onClick={popup ? () => { showPopup(popupType) } : () => { }}>
 			<EditText
 				contentEditable={type === 'preview' ? false : true}
 				suppressContentEditableWarning={true}
-				onBlur={type !== 'preview'?blur:()=>{}}
+				onBlur={type !== 'preview' ? blur : () => { }}
 				dangerouslySetInnerHTML={{ __html: text as string }}
 			></EditText>
 		</PreviewTextBox>

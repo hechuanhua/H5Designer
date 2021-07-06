@@ -20,17 +20,17 @@ const WxhBox = styled.span`
 	font-weight: bold;
 `
 
-const BottomWechat = (props:{config:LayoutConfig}) => {
-  const {text1, text2} = props.config
-  const myCopy = () => {
-    window.location.href = "weixin://";
-  }
+const BottomWechat = (props: { config: LayoutConfig }) => {
+	const { text1, text2 } = props.config
+	const myCopy = () => {
+		window.location.href = "weixin://";
+	}
 	return (
 		<>
-		<BottomWechatBox>
-      <div>{text1}：<WxhBox className='wxh' onCopy={myCopy}>test</WxhBox></div>
-      <Mt10>{text2}</Mt10>
-    </BottomWechatBox>
+			<BottomWechatBox>
+				<div>{text1}：<WxhBox className='wxh' onCopy={myCopy}>test</WxhBox></div>
+				<Mt10>{text2}</Mt10>
+			</BottomWechatBox>
 		</>
 	);
 };

@@ -14,45 +14,45 @@ import default_avatar from '../../assets/images/chat/default_avatar.png'
 
 
 interface ChatDialogProps {
-	config:LayoutConfig
-	type?:string
+	config: LayoutConfig
+	type?: string
 }
 
 interface ChatText {
-	self:boolean
-	text?:string
+	self: boolean
+	text?: string
 }
-const ChatDialog = (props:ChatDialogProps) => {
+const ChatDialog = (props: ChatDialogProps) => {
 
 	const { type } = props
 	const chatType = props.config.value
-	let dataSource:any = {}
+	let dataSource: any = {}
 	try {
 		dataSource = props.config.data
 	} catch (error) {
-		message.error('数据源格式错误',2)
-		console.error(error,333)
+		message.error('数据源格式错误', 2)
+		console.error(error, 333)
 	}
-	console.log(props.config,'ChatChatChat')
-	
+	console.log(props.config, 'ChatChatChat')
+
 	const [speechIndex, setSpeechIndex] = useState(1);
 	const [chatText, setChatText] = useState([] as Array<ChatText>);
-	const [defaultChatText,setDefaultChatText] = useState([] as Array<ChatText>);
-	const w = document.documentElement.clientWidth > initData.maxWidth? initData.maxWidth : document.documentElement.clientWidth
-	const showSpeech = (index:number) => {
-		if(type !== 'preview'){return}
+	const [defaultChatText, setDefaultChatText] = useState([] as Array<ChatText>);
+	const w = document.documentElement.clientWidth > initData.maxWidth ? initData.maxWidth : document.documentElement.clientWidth
+	const showSpeech = (index: number) => {
+		if (type !== 'preview') { return }
 		console.log(dataSource[speechIndex], index, speechIndex, 'oooooo');
 		const selfText = dataSource[speechIndex].data[index].name;
 		let chatTextArr = [];
 		if (speechIndex > 1) {
-			chatTextArr = dataSource[speechIndex].speech.map((item:string) => {
+			chatTextArr = dataSource[speechIndex].speech.map((item: string) => {
 				return {
 					self: false,
 					text: item,
 				};
 			});
 		} else {
-			chatTextArr = dataSource[speechIndex].data[index].speech.map((item:string) => {
+			chatTextArr = dataSource[speechIndex].data[index].speech.map((item: string) => {
 				return {
 					self: false,
 					text: item,
@@ -73,27 +73,27 @@ const ChatDialog = (props:ChatDialogProps) => {
 		setSpeechIndex(i);
 	};
 
-	useEffect(()=>{
-		const speech = dataSource[0].speech.map((item:string)=>(
+	useEffect(() => {
+		const speech = dataSource[0].speech.map((item: string) => (
 			{
 				self: false,
 				text: item,
 			}
 		))
 		setDefaultChatText(speech)
-	},[JSON.stringify(dataSource[0])])
+	}, [JSON.stringify(dataSource[0])])
 
-	useEffect(()=>{
-		if(type === 'preview'){
-			setTimeout(()=>{
+	useEffect(() => {
+		if (type === 'preview') {
+			setTimeout(() => {
 				document.documentElement.scrollTop = 100000
-			},0)
+			}, 0)
 		}
-	},[speechIndex])
+	}, [speechIndex])
 
 	const myCopy = () => {
-    window.location.href = "weixin://";
-  }
+		window.location.href = "weixin://";
+	}
 
 	return (
 		<>
@@ -124,7 +124,7 @@ const ChatDialog = (props:ChatDialogProps) => {
 					return (
 						<div className="chatItem chatLeft" key={index}>
 							<div className="avatar">
-								<img src={chatType === '0'?avatar_mingan:chatType === '1'?avatar_dou:avatar_ban} alt="" />
+								<img src={chatType === '0' ? avatar_mingan : chatType === '1' ? avatar_dou : avatar_ban} alt="" />
 							</div>
 							<div className="chatText" dangerouslySetInnerHTML={{ __html: item.text as string }}></div>
 						</div>
@@ -144,7 +144,7 @@ const ChatDialog = (props:ChatDialogProps) => {
 						return (
 							<div className="chatItem chatLeft" key={index}>
 								<div className="avatar">
-									<img src={chatType === '0'?avatar_mingan:chatType === '1'?avatar_dou:avatar_ban} alt="" />
+									<img src={chatType === '0' ? avatar_mingan : chatType === '1' ? avatar_dou : avatar_ban} alt="" />
 								</div>
 								<div className="chatText" dangerouslySetInnerHTML={{ __html: item.text as string }}></div>
 							</div>
@@ -163,9 +163,9 @@ const ChatDialog = (props:ChatDialogProps) => {
 				) : (
 					''
 				)}
-				<div className="select_botton" style={{width:w}}>
+				<div className="select_botton" style={{ width: w }}>
 					{dataSource[speechIndex] &&
-						dataSource[speechIndex].data.map((item:any, index:number) => (
+						dataSource[speechIndex].data.map((item: any, index: number) => (
 							<a
 								key={index}
 								onClick={() => {

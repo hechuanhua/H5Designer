@@ -1,9 +1,9 @@
 /**
  * 组件布局数据
  */
- import { RootState, LayoutState } from '../../typings/LayoutData'
+import { RootState, LayoutState } from '../../typings/LayoutData'
 
-const saveLayout = (data:any) => {
+const saveLayout = (data: any) => {
 	localStorage.setItem('layout', JSON.stringify(data));
 };
 
@@ -23,8 +23,8 @@ export default {
 	state: initData,
 	effects: () => ({
 	}),
-	reducers: { 
-		add(state:LayoutState, payload:any) {
+	reducers: {
+		add(state: LayoutState, payload: any) {
 			let newState = {};
 			if (state.layoutType === 'flow') {
 				newState = {
@@ -42,9 +42,9 @@ export default {
 			saveLayout(newState);
 			return newState;
 		},
-		remove(state:LayoutState, payload:any) {
+		remove(state: LayoutState, payload: any) {
 			let newState = {};
-			if(!payload.id){
+			if (!payload.id) {
 				payload.id = state.current.id
 				payload.type = state.current.type
 			}
@@ -66,7 +66,7 @@ export default {
 			saveLayout(newState);
 			return newState;
 		},
-		setActive(state:LayoutState, payload:any) {
+		setActive(state: LayoutState, payload: any) {
 			console.log(state.current, payload, 'setActivesetActive');
 			let current = {};
 			if (payload.type === 'flow') {
@@ -75,17 +75,17 @@ export default {
 				current = state.freedomLayout.filter(item => item.id === payload.id)[0];
 			}
 			console.log(current)
-			if(!current){
+			if (!current) {
 				current = {}
 			}
-			const newState =  {
+			const newState = {
 				...state,
 				current,
 			};
 			saveLayout(newState);
 			return newState
 		},
-		update(state:LayoutState, payload:any) {
+		update(state: LayoutState, payload: any) {
 			let current = {};
 			let newState = {};
 			if (payload.type === 'flow') {
@@ -118,16 +118,16 @@ export default {
 			saveLayout(newState);
 			return newState;
 		},
-		setting(state:LayoutState, payload:any) {
+		setting(state: LayoutState, payload: any) {
 			let newState = {};
-      let current = {}
+			let current = {}
 			console.log(state.current.id, payload, state.freedomLayout, 'payloadpayloadpayload');
 			if (state.layoutType === 'flow') {
 				const flowLayout = state.flowLayout.map(item => {
 					if (item.id === state.current.id) {
 						item.position = { ...item.position, ...payload.position };
 						item.config = { ...item.config, ...payload.config };
-            current = {...item}
+						current = { ...item }
 					}
 					return item;
 				});
@@ -140,14 +140,14 @@ export default {
 					if (item.id === state.current.id) {
 						item.position = { ...item.position, ...payload.position };
 						item.config = { ...item.config, ...payload.config };
-            current = {...item}
+						current = { ...item }
 					}
 					return item;
 				});
 
 				newState = {
 					...state,
-          current,
+					current,
 					freedomLayout,
 				};
 			}
@@ -155,15 +155,15 @@ export default {
 			saveLayout(newState);
 			return newState;
 		},
-		setType(state:LayoutState, payload:any) {
+		setType(state: LayoutState, payload: any) {
 			const newState = {
 				...state,
 				layoutType: payload.layoutType,
 			};
-      saveLayout(newState);
+			saveLayout(newState);
 			return newState;
 		},
-		clearAllData(){
+		clearAllData() {
 			const newState = {
 				flowLayout: [],
 				freedomLayout: [],
@@ -173,7 +173,7 @@ export default {
 			saveLayout(newState);
 			return newState
 		},
-		switchLayout(state:LayoutState, payload:any){
+		switchLayout(state: LayoutState, payload: any) {
 			try {
 				const newState = JSON.parse(payload.layout_data)
 				newState.current = []
@@ -182,7 +182,7 @@ export default {
 			} catch (error) {
 				console.log(error)
 			}
-			
+
 		},
 	},
 };

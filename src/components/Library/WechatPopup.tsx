@@ -82,38 +82,38 @@ const Avatar = styled.div`
 	z-index:1;
 `
 
-const WechatPopup =  (props:{onClose:()=>void}) => {
-	const {onClose} = props
+const WechatPopup = (props: { onClose: () => void }) => {
+	const { onClose } = props
 	const copy = useRef<HTMLDivElement>()
 	const goto = () => {
 		const hiddenInput = document.getElementById('copyInput') as HTMLInputElement
-		if(!copy.current)return
+		if (!copy.current) return
 		hiddenInput.value = copy.current.innerText
 		hiddenInput.select(); // 选中文本
-    document.execCommand("copy"); // 执行浏览器复制命令
+		document.execCommand("copy"); // 执行浏览器复制命令
 		window.location.href = "weixin://";
 	}
 	const myCopy = () => {
-    window.location.href = "weixin://";
-  }
+		window.location.href = "weixin://";
+	}
 	return (
 		<>
-		<Popup>
-			<Mask onClick={onClose}></Mask>
-			<Wrap>
-				<Avatar>
-					<img src={avatar_dou} alt="" />
-				</Avatar>
-				<Top>
-					<P>添加微信号，获取祛痘秘籍</P>
-					<P>↓长按复制，添加微信号↓</P>
-					<WxhBox className="wxh" ref={copy as React.RefObject<HTMLDivElement>} onCopy={myCopy}>test</WxhBox>
-				</Top>
-				<Bottom onClick={goto}>
-					<img src={goGif} alt="" style={{width:'145px'}} />
-				</Bottom>
-			</Wrap>
-		</Popup>
+			<Popup>
+				<Mask onClick={onClose}></Mask>
+				<Wrap>
+					<Avatar>
+						<img src={avatar_dou} alt="" />
+					</Avatar>
+					<Top>
+						<P>添加微信号，获取祛痘秘籍</P>
+						<P>↓长按复制，添加微信号↓</P>
+						<WxhBox className="wxh" ref={copy as React.RefObject<HTMLDivElement>} onCopy={myCopy}>test</WxhBox>
+					</Top>
+					<Bottom onClick={goto}>
+						<img src={goGif} alt="" style={{ width: '145px' }} />
+					</Bottom>
+				</Wrap>
+			</Popup>
 		</>
 	);
 };

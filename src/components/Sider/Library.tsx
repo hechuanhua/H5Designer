@@ -22,13 +22,13 @@ const Icon = styled.div.attrs(props => ({
 `
 
 const Library = () => {
-  const ondragstart = (e:React.DragEvent<HTMLLIElement>, type:LibraryType) => {
-    if(e.dataTransfer){
+  const ondragstart = (e: React.DragEvent<HTMLLIElement>, type: LibraryType) => {
+    if (e.dataTransfer) {
       e.dataTransfer.setData("text/plain", type);
     }
   }
   const dispatch = useDispatch()
-	const { layoutType } =  useSelector((state:any) => {
+  const { layoutType } = useSelector((state: any) => {
     return state.layoutData;
   });
   return (
@@ -55,11 +55,11 @@ const Library = () => {
           <Icon>&#xe603;</Icon>
         </Li> */}
         {
-          layoutType === 'freedom'?
-          <Li onDragStart={(e) => { ondragstart(e, 'bottomWechat') }}> 
-            <div>底部微信</div>
-            <Icon>&#xe6c7;</Icon>
-          </Li>:''
+          layoutType === 'freedom' ?
+            <Li onDragStart={(e) => { ondragstart(e, 'bottomWechat') }}>
+              <div>底部微信</div>
+              <Icon>&#xe6c7;</Icon>
+            </Li> : ''
         }
         <Li onDragStart={(e) => { ondragstart(e, 'chat') }}>
           <div>微信对话</div>

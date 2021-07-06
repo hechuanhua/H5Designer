@@ -3,7 +3,7 @@ import * as models from './models/index'
 import logger from 'redux-logger'
 const store = init({
   models,
-  redux:{
+  redux: {
     middlewares: [logger],
   }
 })

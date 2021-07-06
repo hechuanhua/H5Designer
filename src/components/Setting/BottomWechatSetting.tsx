@@ -6,7 +6,7 @@ import Color from '../Common/Color'
 
 const { TextArea } = Input;
 const BottomWechatSetting = () => {
-	const config = useSelector((state:any) => {
+	const config = useSelector((state: any) => {
 		return state.layoutData?.current?.config;
 	});
 	const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const BottomWechatSetting = () => {
 
 	console.log(config, 'BottomWechatSettingconfig');
 
-	const onValuesChange = (changedValues:any) => {
+	const onValuesChange = (changedValues: any) => {
 		dispatch({
 			type: 'layoutData/setting',
 			payload: {
@@ -23,12 +23,12 @@ const BottomWechatSetting = () => {
 		});
 	};
 
-	const colorChange = (color:string,type:string) => {
+	const colorChange = (color: string, type: string) => {
 		dispatch({
 			type: 'layoutData/setting',
 			payload: {
 				config: {
-					[type]:color
+					[type]: color
 				},
 			},
 		});
@@ -63,22 +63,22 @@ const BottomWechatSetting = () => {
 				<Input />
 			</Form.Item> */}
 			<Form.Item name="backgroundColor" label="背景颜色">
-				<Color color={config.backgroundColor} onChange={(color)=>{colorChange(color,'backgroundColor')}}></Color>
+				<Color color={config.backgroundColor} onChange={(color) => { colorChange(color, 'backgroundColor') }}></Color>
 			</Form.Item>
 			<Form.Item name="color" label="字体颜色">
-				<Color color={config.color} onChange={(color)=>{colorChange(color,'color')}}></Color>
+				<Color color={config.color} onChange={(color) => { colorChange(color, 'color') }}></Color>
 			</Form.Item>
 			{/* <Form.Item name="color" label="字体颜色">
 				<Input />
 			</Form.Item> */}
-      <Form.Item name="borderRadius" label="圆角">
-				<Input type="number"/>
+			<Form.Item name="borderRadius" label="圆角">
+				<Input type="number" />
 			</Form.Item>
 			<Form.Item name="isTransform" label="是否漏量" tooltip="开代表漏量，关代表不漏量">
 				<Switch checked={config.isTransform}></Switch>
 			</Form.Item>
-			
-			
+
+
 		</Form>
 	);
 };

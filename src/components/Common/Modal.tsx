@@ -2,15 +2,15 @@ import { Form, Input, Button, Select, Radio, Modal } from 'antd';
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import Draggable, { DraggableEvent } from 'react-draggable';
 interface ModalProps {
-	visible:boolean,
-	onOk:()=> void,
-	onCancel:()=> void,
-	title:string,
-	confirmLoading?:boolean,
-	children:any
+	visible: boolean,
+	onOk: () => void,
+	onCancel: () => void,
+	title: string,
+	confirmLoading?: boolean,
+	children: any
 }
 
-const CommonModal = (props:ModalProps) => {
+const CommonModal = (props: ModalProps) => {
 	const { visible, onOk, onCancel, title, confirmLoading } = props;
 	const [disabled, setDisabled] = useState(false);
 	const [bounds, setBounds] = useState({
@@ -20,10 +20,10 @@ const CommonModal = (props:ModalProps) => {
 		right: 0,
 	});
 	const draggleRef = useRef<HTMLDivElement>();
-	const onStart = (e:DraggableEvent, uiData:any) => { 
+	const onStart = (e: DraggableEvent, uiData: any) => {
 		const { clientWidth, clientHeight } = window?.document?.documentElement;
 		const targetRect = draggleRef?.current?.getBoundingClientRect();
-		if(targetRect){
+		if (targetRect) {
 			setBounds({
 				left: -targetRect?.left + uiData?.x,
 				right: clientWidth - (targetRect?.right - uiData?.x),
@@ -48,8 +48,8 @@ const CommonModal = (props:ModalProps) => {
 					onMouseOut={() => {
 						setDisabled(true);
 					}}
-					onFocus={() => {}}
-					onBlur={() => {}}
+					onFocus={() => { }}
+					onBlur={() => { }}
 				>
 					{title}
 				</div>
