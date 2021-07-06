@@ -49,8 +49,8 @@ const Contextmenu = () => {
     }
   }, [])
 
-  const handleDelete = () => {
-    if (!current.length) return
+  const handleDelete = () => {  
+    if (!current.id) return
     dispatch({
       type: 'layoutData/remove',
       payload: {},
@@ -63,7 +63,7 @@ const Contextmenu = () => {
   }
 
   const handleCopy = () => {
-    if (!current.length) return
+    if (!current.id) return
     const data = {
       ...current,
       position: {

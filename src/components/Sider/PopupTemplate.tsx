@@ -24,7 +24,7 @@ const Operation = styled.div`
 	display:flex;
 	cursor: pointer;
 `
-const MyPages = () => {
+const PopupTemplate = () => {
 	return (
 		<MyPage>
 			<h2>我的页面</h2>
@@ -37,7 +37,7 @@ const MyPages = () => {
 						<Icon>&#xe65f;</Icon>
 					</Operation>
 				</Li>
-				<Li> 
+				<Li>
 					<span>2</span>
 					<FlexItem>我的页面2</FlexItem>
 					<Operation>
@@ -58,4 +58,4 @@ const MyPages = () => {
 	);
 };
 
-export default MyPages;
+export default PopupTemplate;
