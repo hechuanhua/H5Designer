@@ -4,10 +4,13 @@ import { Form, Input, Select, Switch } from 'antd';
 import Color from '../Common/Color'
 
 const TextSetting = () => {
+	const { layoutType } = useSelector((state: any) => {
+		return state.layoutData;
+	});
 	const config = useSelector((state: any) => {
 		return state.layoutData?.current?.config;
 	});
-
+	
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	console.log(config, 'TextSettingconfig');
@@ -73,12 +76,15 @@ const TextSetting = () => {
 			<Form.Item name="borderRadius" label="圆角">
 				<Input type="text" />
 			</Form.Item>
-			<Form.Item name="fixed" label="固定位置">
-				<Select allowClear>
-					<Select.Option value="current">固定当前位置</Select.Option>
-					<Select.Option value="bottom">固定底部</Select.Option>
-				</Select>
-			</Form.Item>
+			{
+				layoutType === 'freedom'?
+				<Form.Item label="固定位置" name="fixed">
+					<Select allowClear>
+						<Select.Option value="current">固定当前位置</Select.Option>
+						<Select.Option value="bottom">固定底部</Select.Option>
+					</Select>
+				</Form.Item>:''
+			}
 			<Form.Item name="bottomY" label="距离底部" hidden={config.fixed !== 'bottom'}>
 				<Input type="number" />
 			</Form.Item>

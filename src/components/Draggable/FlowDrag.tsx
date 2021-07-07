@@ -64,51 +64,46 @@ const Drag = () => {
 	}, [flowLayout]);
 
 	const onDragStart: ItemCallback = (layouts, oldItem, newItem, placeholder, e, element) => {
-		if (/^\d+$/.test(newItem.i)) {
-			dispatch({
-				type: 'layoutData/setActive',
-				payload: {
-					id: newItem.i,
-					type: 'flow',
-				},
-			});
-		}
+		const id = element.getAttribute('data-id') as string;
+		console.log(layouts, oldItem, newItem, placeholder, e, element,id,3333)
+		dispatch({
+			type: 'layoutData/setActive',
+			payload: {
+				id,
+			},
+		});
 	};
 
 	const onDragStop: ItemCallback = (layouts, oldItem, newItem, placeholder, e, element) => {
 		console.log('拖动完成时调用。', layouts, oldItem, newItem, placeholder, e, element);
+		const id = element.getAttribute('data-id') as string;
 		const position = {
 			x: newItem.x,
 			y: newItem.y,
-			// w:newItem.w,
-			// h:newItem.h,
-			i: newItem.i,
 		};
 		dispatch({
 			type: 'layoutData/update',
 			payload: {
-				id: newItem.i,
-				position,
-				type: 'flow',
+				id,
+				position
 			},
 		});
 	};
 
 	const onResizeStop: ItemCallback = (layouts, oldItem, newItem, placeholder, e, element) => {
-		console.log('跳转大小完成时调用。', layouts, oldItem, newItem, placeholder, e, element);
+		console.log('重置大小完成时调用。', layouts, oldItem, newItem, placeholder, e, element);
+		const id = element.getAttribute('data-id') as string;
 		const position = {
 			x: newItem.x,
 			y: newItem.y,
 			w: newItem.w,
-			h: newItem.h,
-			i: newItem.i,
+			h: newItem.h
 		};
 		dispatch({
 			type: 'layoutData/update',
 			payload: {
-				id: newItem.i,
-				position,
-				type: 'flow',
+				id,
+				position
 			},
 		});
 	};

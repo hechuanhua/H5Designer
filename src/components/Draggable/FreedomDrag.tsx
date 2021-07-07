@@ -148,9 +148,9 @@ const Drag = () => {
 
 	const down = (e: MouseEvent, index: number, type: string) => {
 		const eTarget = e.target as HTMLElement
-		let className = eTarget.className.replace(/(.*)point-/, '');
-		let target = queryParent(e.target) as HTMLElement;
-		let id = target.getAttribute('data-id') as string;
+		const className = eTarget.className.replace(/(.*)point-/, '');
+		const target = queryParent(e.target) as HTMLElement;
+		const id = target.getAttribute('data-id') as string;
 		if (!page.current) return
 		page.current.mouseInfo = {
 			mouseDown: true,
@@ -287,8 +287,7 @@ const Drag = () => {
 					w: width,
 					h: height,
 					i: id,
-				},
-				type: 'freedom',
+				}
 			},
 		});
 		page.current = {};
@@ -306,8 +305,7 @@ const Drag = () => {
 		dispatch({
 			type: 'layoutData/remove',
 			payload: {
-				id,
-				type: 'freedom',
+				id
 			},
 		});
 	};
@@ -365,6 +363,7 @@ const Drag = () => {
 						backgroundColor: item.config.backgroundColor,
 						textAlign: item.config.align,
 						borderRadius: /^\d+$/.test(item.config.borderRadius as string) ? item.config.borderRadius + 'px' : item.config.borderRadius,
+						overflow:item.config.borderRadius != '0'?'hidden':''
 					} as React.CSSProperties}
 					data-id={item.id}
 					key={item.id}

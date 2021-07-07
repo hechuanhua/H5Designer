@@ -15,17 +15,23 @@ const Container = styled.div`
 `;
 
 const Home = () => {
+	const contextmenu = useSelector((state: any) => {
+    return state.pageData.contextmenu;
+  });
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch({ type: 'pageData/getHostList', payload: {} })
 	}, [])
 
 	const handleHide = () => {
-		dispatch({
-			type: 'pageData/setContextmenu', payload: {
-				isShow: false,
-			}
-		})
+		if(contextmenu.isShow){
+			dispatch({
+				type: 'pageData/setContextmenu', payload: {
+					isShow: false,
+				}
+			})
+		}
 	}
 
 	return (

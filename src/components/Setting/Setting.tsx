@@ -6,8 +6,8 @@ import TextSetting from './TextSetting';
 import ImgSetting from './ImgSetting';
 import RadioSetting from './RadioSetting';
 import ChatSetting from './ChatSetting';
-import BottomWechat from './BottomWechatSetting';
-import Timer from './TimerSetting';
+import BottomWechatSetting from './BottomWechatSetting';
+import TimerSetting from './TimerSetting';
 
 import { RootState } from '../../typings/LayoutData'
 
@@ -41,10 +41,10 @@ const Setting = () => {
 			return <ChatSetting></ChatSetting>;
 		}
 		if (current.config.type === 'bottomWechat') {
-			return <BottomWechat></BottomWechat>;
+			return <BottomWechatSetting></BottomWechatSetting>;
 		}
 		if (current.config.type === 'timer') {
-			return <Timer></Timer>;
+			return <TimerSetting></TimerSetting>;
 		}
 	};
 	return (

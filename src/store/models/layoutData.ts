@@ -46,9 +46,8 @@ export default {
 			let newState = {};
 			if (!payload.id) {
 				payload.id = state.current.id
-				payload.type = state.current.type
 			}
-			if (payload.type === 'flow') {
+			if (state.layoutType === 'flow') {
 				const flowLayout = state.flowLayout.filter(item => item.id !== payload.id);
 				newState = {
 					...state,
@@ -69,7 +68,7 @@ export default {
 		setActive(state: LayoutState, payload: any) {
 			console.log(state.current, payload, 'setActivesetActive');
 			let current = {};
-			if (payload.type === 'flow') {
+			if (state.layoutType === 'flow') {
 				current = state.flowLayout.filter(item => item.id === payload.id)[0];
 			} else {
 				current = state.freedomLayout.filter(item => item.id === payload.id)[0];
@@ -88,7 +87,7 @@ export default {
 		update(state: LayoutState, payload: any) {
 			let current = {};
 			let newState = {};
-			if (payload.type === 'flow') {
+			if (state.layoutType === 'flow') {
 				const flowLayout = state.flowLayout.map(item => {
 					if (item.id === state.current.id) {
 						item.position = { ...item.position, ...payload.position };
@@ -182,7 +181,6 @@ export default {
 			} catch (error) {
 				console.log(error)
 			}
-
 		},
 	},
 };

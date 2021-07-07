@@ -84,8 +84,8 @@ const Contextmenu = () => {
       {
         contextmenu.isShow ?
           <MenuBox style={{ top: contextmenu.y + 'px', left: contextmenu.x }}>
-            <li onClick={handleDelete}>删除</li>
             <li onClick={handleCopy}>复制</li>
+            <li onClick={handleDelete}>删除</li>
           </MenuBox> : ''
       }
     </>

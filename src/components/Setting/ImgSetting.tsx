@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
@@ -8,6 +8,9 @@ import globalConfig from '../../config/config'
 import initData from '../../config/initData';
 
 const ImgSetting = () => {
+	const { layoutType } = useSelector((state: any) => {
+		return state.layoutData;
+	});
 	const config = useSelector((state: any) => {
 		return state.layoutData?.current?.config;
 	});
@@ -93,12 +96,19 @@ const ImgSetting = () => {
 					</Upload.Dragger>
 				</Form.Item>
 			</Form.Item>
-			<Form.Item label="固定位置" name="fixed">
-				<Select allowClear>
-					<Select.Option value="current">固定当前位置</Select.Option>
-					<Select.Option value="bottom">固定底部</Select.Option>
-				</Select>
+			<Form.Item name="borderRadius" label="圆角">
+				<Input type="text" />
 			</Form.Item>
+			{
+				layoutType === 'freedom'?
+				<Form.Item label="固定位置" name="fixed">
+					<Select allowClear>
+						<Select.Option value="current">固定当前位置</Select.Option>
+						<Select.Option value="bottom">固定底部</Select.Option>
+					</Select>
+				</Form.Item>:''
+			}
+			
 			{config.fixed === 'bottom' ? (
 				<Form.Item name="bottomY" label="距离底部">
 					<Input type="number" />

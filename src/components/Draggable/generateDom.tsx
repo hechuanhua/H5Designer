@@ -32,6 +32,7 @@ export const generateFlowDOM = (props: FlowDomProps) => {
 			return (
 				<div
 					key={item.id}
+					data-id={item.id}
 					data-grid={item.position}
 					className={item.id === current.id ? 'active' : ''}
 				>
@@ -43,6 +44,7 @@ export const generateFlowDOM = (props: FlowDomProps) => {
 			return (
 				<div
 					key={item.id}
+					data-id={item.id}
 					data-grid={item.position}
 					className={item.id === current.id ? 'active' : ''}
 					style={{
@@ -63,6 +65,7 @@ export const generateFlowDOM = (props: FlowDomProps) => {
 			return (
 				<div
 					key={item.id}
+					data-id={item.id}
 					data-grid={item.position}
 					className={item.id === current.id ? 'active' : ''}
 					style={{
@@ -84,6 +87,7 @@ export const generateFlowDOM = (props: FlowDomProps) => {
 			return (
 				<div
 					key={item.id}
+					data-id={item.id}
 					className={item.id === current.id ? 'active' : ''}
 				>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
@@ -94,6 +98,7 @@ export const generateFlowDOM = (props: FlowDomProps) => {
 			return (
 				<div
 					key={item.id}
+					data-id={item.id}
 					className={item.id === current.id ? 'active' : ''}
 				>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
@@ -151,7 +156,6 @@ export const onDrop = (props: DropProps) => {
 			...data,
 			position: {
 				...data?.position,
-				i: id,
 			},
 			id
 		};
@@ -167,7 +171,6 @@ export const onDrop = (props: DropProps) => {
 			y,
 			w: initData[libraryType].w,
 			h: initData[libraryType].h,
-			i: id,
 		};
 		console.log(position, 'position')
 		payload = {
