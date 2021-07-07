@@ -169,6 +169,7 @@ const Preview = () => {
 								backgroundColor: item.config.backgroundColor,
 								textAlign: item.config.align,
 								borderRadius: /^\d+$/.test(item.config.borderRadius as string) ? item.config.borderRadius + 'px' : item.config.borderRadius,
+								overflow:item.config.borderRadius != '0'?'hidden':''
 							} as React.CSSProperties}
 							data-id={item.position.i}
 							key={item.position.i}
