@@ -112,16 +112,14 @@ export const GenerateFlowDOM = (props: FlowDomProps) => {
 	});
 };
 
-interface FreeDomProps {
+
+export const GenerateFreedomDOM: React.FC<{
 	config: LayoutConfig,
 	showPopup: any,
 	blur?: any,
 	type?: string,
 	id?: string | undefined
-}
-
-export const GenerateFreedomDOM = (props: FreeDomProps) => {
-	const { config, type, blur, showPopup, id } = props
+}> = ({ config, type, blur, showPopup, id }) => {
 	if (!config) return null;
 	if (config.type == 'img') {
 		return <PreviewImage config={config} showPopup={showPopup}></PreviewImage>;
@@ -136,6 +134,7 @@ export const GenerateFreedomDOM = (props: FreeDomProps) => {
 	} else if (config.type == 'timer') {
 		return <Timer config={config}></Timer>;
 	}
+	return null
 };
 
 interface DropProps {
@@ -190,7 +189,7 @@ export const onDrop = (props: DropProps) => {
 };
 
 
-export const SetStyle = (item:any) => {
+export const SetStyle = (item: any) => {
 	return {
 		position: 'absolute',
 		left: item.position.x,
@@ -198,11 +197,11 @@ export const SetStyle = (item:any) => {
 		width: item.position.w,
 		height: item.position.h,
 		bottom: item.config.type === 'bottomWechat' ? 0 : (item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial'),
-		color: item.config.type === 'chat'?'':item.config.color,
-		fontSize: item.config.type === 'chat'?'':item.config.fontSize + 'px',
-		backgroundColor: item.config.type === 'chat'?'':item.config.backgroundColor,
+		color: item.config.type === 'chat' ? '' : item.config.color,
+		fontSize: item.config.type === 'chat' ? '' : item.config.fontSize + 'px',
+		backgroundColor: item.config.type === 'chat' ? '' : item.config.backgroundColor,
 		textAlign: item.config.align,
-		borderRadius: item.config.type === 'chat'?'':(/^\d+$/.test(item.config.borderRadius as string) ? item.config.borderRadius + 'px' : item.config.borderRadius),
-		overflow:item.config.borderRadius != '0'?'hidden':''
+		borderRadius: item.config.type === 'chat' ? '' : (/^\d+$/.test(item.config.borderRadius as string) ? item.config.borderRadius + 'px' : item.config.borderRadius),
+		overflow: item.config.borderRadius != '0' ? 'hidden' : ''
 	} as React.CSSProperties
 }
