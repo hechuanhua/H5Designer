@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import initData from '../../config/initData';
@@ -16,6 +16,7 @@ import default_avatar from '../../assets/images/chat/default_avatar.png'
 interface ChatDialogProps {
 	config: LayoutConfig
 	type?: string
+	style?: React.CSSProperties
 }
 
 interface ChatText {
@@ -24,7 +25,7 @@ interface ChatText {
 }
 const ChatDialog = (props: ChatDialogProps) => {
 
-	const { type } = props
+	const { type, style } = props
 	const chatType = props.config.value
 	let dataSource: any = {}
 	try {
@@ -169,9 +170,9 @@ const ChatDialog = (props: ChatDialogProps) => {
 							<a
 								key={index}
 								onClick={() => {
-									showSpeech(index)
+									showSpeech(index) 
 								}}
-								style={{ width: dataSource[speechIndex].width }}
+								style={{ width: dataSource[speechIndex].width,...style }}
 							>
 								{item.name}
 							</a>

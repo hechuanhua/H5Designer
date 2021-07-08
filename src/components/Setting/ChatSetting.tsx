@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
-
+import Color from '../Common/Color'
 import { dataSource_chat } from '../../config/dataSoure'
 
 const { TextArea } = Input;
@@ -38,7 +38,7 @@ const ChatSetting = () => {
 			});
 		}
 	};
-	const onChange = (e: ChangeEvent & { target: HTMLTextAreaElement }) => {
+	const dataSourceChange = (e: ChangeEvent & { target: HTMLTextAreaElement }) => {
 		const val = e.target.value
 		setDataSource(val)
 		dispatch({
@@ -50,6 +50,18 @@ const ChatSetting = () => {
 			},
 		});
 	}
+
+	const colorChange = (color: string, type: string) => {
+		dispatch({
+			type: 'layoutData/setting',
+			payload: {
+				config: {
+					[type]: color
+				},
+			},
+		});
+	}
+
 	return (
 		<Form
 			labelCol={{ span: 8 }}
@@ -69,7 +81,16 @@ const ChatSetting = () => {
 				</Select>
 			</Form.Item>
 			<Form.Item label="数据源">
-				<TextArea placeholder="" rows={8} value={dataSource} onChange={onChange} />
+				<TextArea placeholder="" rows={8} value={dataSource} onChange={dataSourceChange} />
+			</Form.Item>
+			<Form.Item name="backgroundColor" label="背景颜色">
+				<Color color={config.backgroundColor} onChange={(color) => { colorChange(color, 'backgroundColor') }}></Color>
+			</Form.Item>
+			<Form.Item name="color" label="字体颜色">
+				<Color color={config.color} onChange={(color) => { colorChange(color, 'color') }}></Color>
+			</Form.Item>
+			<Form.Item name="borderRadius" label="圆角">
+				<Input type="text" />
 			</Form.Item>
 			<Form.Item name="isTransform" label="是否漏量" tooltip="开代表漏量，关代表不漏量">
 				<Switch checked={config.isTransform}></Switch>

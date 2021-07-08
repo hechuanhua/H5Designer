@@ -108,6 +108,7 @@ img {
 			border-radius: 6px;
 			position: relative;
 			max-width: 80%;
+			color: #000;
 			&::after {
 				content: '';
 				position: absolute;
@@ -139,7 +140,7 @@ img {
 		a {
 			display: inline-block;
 			padding: 5px 0;
-			background: #0365d0;
+			// background: #0365d0;
 			color: #fff;
 			font-size: 14px;
 			border-radius: 6px;

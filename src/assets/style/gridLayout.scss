@@ -49,7 +49,7 @@
 .react-grid-item.react-draggable-dragging {
 	transition: none;
 	z-index: 3;
-	will-change: transform;
+	// will-change: transform;
 }
 
 .react-grid-item.dropping {

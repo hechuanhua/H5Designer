@@ -89,9 +89,19 @@ export const generateFlowDOM = (props: FlowDomProps) => {
 					key={item.id}
 					data-id={item.id}
 					className={item.id === current.id ? 'active' : ''}
+					data-grid={item.position}
+					style={{
+						width: item.position.w,
+						height: item.position.h,
+					} as React.CSSProperties}
 				>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
-					<ChatDialog config={item.config} type={type}></ChatDialog>
+					<ChatDialog config={item.config} type={type} style={{
+						color: item.config.color,
+						fontSize: item.config.fontSize + 'px',
+						backgroundColor: item.config.backgroundColor,
+						borderRadius: /^\d+$/.test(item.config.borderRadius as any) ? item.config.borderRadius + 'px' : item.config.borderRadius,
+					}}></ChatDialog>
 				</div>
 			);
 		} else if (item.config.type == 'timer') {
