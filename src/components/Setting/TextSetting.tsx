@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Select, Switch } from 'antd';
-import Color from '../Common/Color'
+import Color from 'components/Common/Color'
 
 const TextSetting = () => {
 	const { layoutType } = useSelector((state: any) => {

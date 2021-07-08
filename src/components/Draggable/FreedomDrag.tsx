@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { generateFreedomDOM, onDrop } from './generateDom';
-import initData from '../../config/initData';
-import BottomWechat from '../Library/BottomWechat';
-import RemoveIcon from '../Library/RemoveIcon';
+import { generateFreedomDOM, onDrop } from 'lib/Draggable';
+import initData from 'config/initData';
+import BottomWechat from 'components/Library/BottomWechat';
+import RemoveIcon from 'components/Library/RemoveIcon';
 
-import { Layout, LayoutState, RootState } from '../../typings/LayoutData'
+import { Layout, LayoutState, RootState } from 'typings/LayoutData'
 
 const FreedomDragBox = styled.div`
 	width: ${initData.maxWidth}px;

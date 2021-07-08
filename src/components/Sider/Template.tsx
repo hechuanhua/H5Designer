@@ -2,10 +2,10 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { message, Popconfirm } from 'antd'
 import styled from 'styled-components';
-import PreImage from '../Common/PreImage'
-import { getTemplateList, getLayoutByTid, deleteTemplate } from '../../api'
+import PreImage from 'components/Common/PreImage'
+import { getTemplateList, getLayoutByTid, deleteTemplate } from 'api'
 
-import { RootState } from '../../typings/LayoutData'
+import { RootState } from 'typings/LayoutData'
 
 const TemplateBox = styled.ul`
 	height: 100%;

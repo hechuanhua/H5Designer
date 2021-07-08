@@ -3,11 +3,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Radio, Button, message, Input, Form, Spin } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import html2canvas from 'html2canvas';
-import CommonModal from '../../../components/Common/Modal';
+import CommonModal from 'components/Common/Modal';
 
-import { saveTemplate, uploadImages } from '../../../api'
+import { saveTemplate, uploadImages } from 'api'
 
-import { RootState } from '../../../typings/LayoutData'
+import { RootState } from 'typings/LayoutData'
 
 interface Modal {
   visible: boolean

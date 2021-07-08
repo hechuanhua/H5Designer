@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import initData from '../../config/initData';
+import initData from 'config/initData';
 
-import { LayoutConfig } from '../../typings/LayoutData'
+import { LayoutConfig } from 'typings/LayoutData'
 import { message } from 'antd';
-import config from '../../config/config';
+import config from 'config/config';
 
-import avatar_mingan from '../../assets/images/chat/avatar_mingan.jpg'
-import avatar_dou from '../../assets/images/chat/avatar_dou.png'
-import avatar_ban from '../../assets/images/chat/avatar_ban.png'
-import default_avatar from '../../assets/images/chat/default_avatar.png'
+import avatar_mingan from 'assets/images/chat/avatar_mingan.jpg'
+import avatar_dou from 'assets/images/chat/avatar_dou.png'
+import avatar_ban from 'assets/images/chat/avatar_ban.png'
+import default_avatar from 'assets/images/chat/default_avatar.png'
 
 
 interface ChatDialogProps {

@@ -1,10 +1,10 @@
 /**
  * 页面数据
  */
-import { PageData } from '../../typings/PageData'
+import { PageData } from 'typings/PageData'
 
-import initData from '../../config/initData';
-import { getLayoutByTid, getHostList } from '../../api'
+import initData from 'config/initData';
+import { getLayoutByTid, getHostList } from 'api'
 
 export default {
   name: 'pageData',

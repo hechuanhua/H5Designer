@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Radio, Checkbox, Modal, Switch } from 'antd';
-import CommonModal from '../Common/Modal';
-import Color from '../Common/Color'
+import CommonModal from 'components/Common/Modal';
+import Color from 'components/Common/Color'
 
-import { Layout, RootState } from '../../typings/LayoutData'
+import { Layout, RootState } from 'typings/LayoutData'
 
 const { TextArea } = Input;
 const { Option } = Select;

@@ -9,7 +9,7 @@ import ChatSetting from './ChatSetting';
 import BottomWechatSetting from './BottomWechatSetting';
 import TimerSetting from './TimerSetting';
 
-import { RootState } from '../../typings/LayoutData'
+import { RootState } from 'typings/LayoutData'
 
 const SettingWrap = styled.div`
 	display: flex;

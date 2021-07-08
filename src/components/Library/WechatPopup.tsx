@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState, useContext, RefObject } from 'react
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import avatar_dou from '../../assets/images/chat/avatar_dou.png'
-import goGif from '../../assets/images/popup/go.gif'
+import avatar_dou from 'assets/images/chat/avatar_dou.png'
+import goGif from 'assets/images/popup/go.gif'
 
-import { LayoutConfig } from '../../typings/LayoutData'
+import { LayoutConfig } from 'typings/LayoutData'
 
 const Popup = styled.div`
 	height: 100%;

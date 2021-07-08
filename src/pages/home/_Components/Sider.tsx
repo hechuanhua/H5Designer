@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Tabs, Radio, Button, Menu } from 'antd';
-import Drag from '../../../components/Draggable/FlowDrag';
-import Template from '../../../components/Sider/Template';
-import Library from '../../../components/Sider/Library';
-import MyPages from '../../../components/Sider/MyPages';
+import Drag from 'components/Draggable/FlowDrag';
+import Template from 'components/Sider/Template';
+import Library from 'components/Sider/Library';
+import MyPages from 'components/Sider/MyPages';
 
-import Setting from '../../../components/Setting/Setting';
+import Setting from 'components/Setting/Setting';
 import styled from 'styled-components';
 import { PieChartOutlined, DesktopOutlined, ContainerOutlined } from '@ant-design/icons';
 

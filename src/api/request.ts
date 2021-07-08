@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import config from '../config/config';
+import config from 'config/config';
 
 interface obj2StringPrams  {
 	[key: string]: any

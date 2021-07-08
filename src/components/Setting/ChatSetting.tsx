@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
-import Color from '../Common/Color'
-import { dataSource_chat } from '../../config/dataSoure'
+import Color from 'components/Common/Color'
+import { dataSource_chat } from 'config/dataSoure'
 
 const { TextArea } = Input;
 const ChatSetting = () => {

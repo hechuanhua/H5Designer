@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { LayoutConfig } from '../../typings/LayoutData'
+import { LayoutConfig } from 'typings/LayoutData'
 
 const PreviewRadioBox = styled.div`
 	height: 100%;

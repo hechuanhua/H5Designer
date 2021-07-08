@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import WechatPopup from './WechatPopup';
 
-import { LayoutConfig } from '../../typings/LayoutData'
+import { LayoutConfig } from 'typings/LayoutData'
 
-import '../../assets/style/doupop.scss';
+import 'assets/style/doupop.scss';
 
 
 const DouPop = (props: { onClose: () => void }) => {

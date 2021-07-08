@@ -2,18 +2,18 @@ import React, { DragEvent, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { message } from 'antd';
 
-import { createUuid } from '../../utils/index';
-import initData from '../../config/initData';
+import { createUuid } from 'utils/index';
+import initData from 'config/initData';
 
-import PreviewImage from '../Library/Image';
-import PreviewRadio from '../Library/Radio';
-import PreviewText from '../Library/Text';
-import RemoveIcon from '../Library/RemoveIcon';
-import ChatDialog from '../Library/ChatDialog';
-import BottomWechat from '../Library/BottomWechat';
-import Timer from '../Library/Timer';
+import PreviewImage from 'components/Library/Image';
+import PreviewRadio from 'components/Library/Radio'; 
+import PreviewText from 'components/Library/Text';
+import RemoveIcon from 'components/Library/RemoveIcon';
+import ChatDialog from 'components/Library/ChatDialog';
+import BottomWechat from 'components/Library/BottomWechat';
+import Timer from 'components/Library/Timer';
 
-import { Layout, LayoutConfig } from '../../typings/LayoutData'
+import { Layout, LayoutConfig } from 'typings/LayoutData'
 
 const libraryTypeArray = ['img', 'text', 'radio', 'bottomWechat', 'chat', 'timer']
 interface FlowDomProps {

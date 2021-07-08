@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import styled from 'styled-components';
 
-import Color from '../Common/Color'
+import Color from 'components/Common/Color'
 
 const TimerSetting = () => {
 	const config = useSelector((state: any) => {

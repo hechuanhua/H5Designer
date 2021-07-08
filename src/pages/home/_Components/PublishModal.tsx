@@ -2,11 +2,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Radio, Button, message, Input, Form, Select, } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import CommonModal from '../../../components/Common/Modal';
-import config from '../../../config/config';
-import { publish } from '../../../api'
+import CommonModal from 'components/Common/Modal';
+import config from 'config/config';
+import { publish } from 'api'
 
-import { RootState } from '../../../typings/LayoutData'
+import { RootState } from 'typings/LayoutData'
 
 const { TextArea } = Input;
 

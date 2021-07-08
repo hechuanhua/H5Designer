@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { LayoutConfig } from '../../typings/LayoutData'
+import { LayoutConfig } from 'typings/LayoutData'
 
 const RemoveIconBox = styled.div.attrs(props => ({
 	className: 'iconfont removeIcon',

@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { Tabs, Radio, Button, Menu } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import Drag from '../../components/Draggable/FlowDrag';
-import Setting from '../../components/Setting/Setting';
+import Drag from 'components/Draggable/FlowDrag';
+import Setting from 'components/Setting/Setting';
 import styled from 'styled-components';
 import Header from './_Components/Header';
 import Sider from './_Components/Sider';
-import Contextmenu from '../../components/Common/Contextmenu';
+import Contextmenu from 'components/Common/Contextmenu';
 
 const Container = styled.div`
 	top: 60px;

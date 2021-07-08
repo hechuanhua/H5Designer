@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import { PlusOutlined, InboxOutlined, } from '@ant-design/icons';
-import { getImgInfo } from '../../utils/index';
-import globalConfig from '../../config/config'
-import initData from '../../config/initData';
+import { getImgInfo } from 'utils/index';
+import globalConfig from 'config/config'
+import initData from 'config/initData';
 
 const ImgSetting = () => {
 	const { layoutType } = useSelector((state: any) => {

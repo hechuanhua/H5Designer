@@ -6,12 +6,12 @@ import { useLocation } from "react-router-dom";
 import styled from 'styled-components';
 import QRCode from 'qrcode.react';
 
-import { generateFlowDOM, generateFreedomDOM } from '../../components/Draggable/generateDom';
-import WechatPopup from '../../components/Library/WechatPopup'
-import initData from '../../config/initData';
-import DouPop from '../../components/Library/DouPop'
+import { generateFlowDOM, generateFreedomDOM } from 'lib/Draggable';
+import WechatPopup from 'components/Library/WechatPopup'
+import initData from 'config/initData';
+import DouPop from 'components/Library/DouPop'
 
-import { RootState } from '../../typings/LayoutData'
+import { RootState } from 'typings/LayoutData'
 
 const PageDiv = styled.div.attrs(props => ({
 	className: 'preview',

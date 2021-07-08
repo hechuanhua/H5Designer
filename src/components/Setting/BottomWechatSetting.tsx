@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
-import Color from '../Common/Color'
+import Color from 'components/Common/Color'
 
 const { TextArea } = Input;
 const BottomWechatSetting = () => {

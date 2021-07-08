@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import GridLayout, { ItemCallback } from 'react-grid-layout';
 import ReactGridLayout from 'react-grid-layout';
-import FreedomDrag from '../Draggable/FreedomDrag';
-import { generateFlowDOM, onDrop } from './generateDom';
-import initData from '../../config/initData';
+import FreedomDrag from './FreedomDrag';
+import { generateFlowDOM, onDrop } from 'lib/Draggable';
+import initData from 'config/initData';
 
-import { Layout } from '../../typings/LayoutData'
+import { Layout } from 'typings/LayoutData'
 
 const DraggableBox = styled.div.attrs(props => ({
 	id: 'canvas',

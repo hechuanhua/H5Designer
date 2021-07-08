@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components'
-import { onDrop } from '../Draggable/generateDom';
+import { onDrop } from 'lib/Draggable';
 
 const MenuBox = styled.ul`
   position:fixed;

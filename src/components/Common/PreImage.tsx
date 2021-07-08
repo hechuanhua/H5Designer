@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { Form, Input, Button, Select, Radio, Modal, Image as AntImage } from 'antd';
 import styled from 'styled-components';
-import loadingImg from '../../assets/images/loading.gif';
+import loadingImg from 'assets/images/loading.gif';
 
 const ImageBox = styled.div`
   width: 100%;
