@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import styled from 'styled-components';
 import QRCode from 'qrcode.react';
 
-import { generateFlowDOM, generateFreedomDOM } from 'lib/Draggable';
+import { GenerateFlowDOM, GenerateFreedomDOM, SetStyle } from 'lib/Draggable';
 import WechatPopup from 'components/Library/WechatPopup'
 import initData from 'config/initData';
 import DouPop from 'components/Library/DouPop'
@@ -151,30 +151,17 @@ const Preview = () => {
 					margin={[0, 0]} //每个子项目边距
 					ref={FreeBox as any}
 				>
-					{generateFlowDOM({ flowLayout, type: 'preview', showPopup })}
+					{GenerateFlowDOM({ flowLayout, type: 'preview', showPopup })}
 				</GridLayout>
 				<FreedomDragBox style={style}>
 					{freedomLayout.map((item, index) => (
 						<DragDiv
 							className={'drag'}
-							style={{
-								position: item.config.type === 'bottomWechat' ? 'fixed' : (item.config.fixed == 'bottom' ? 'fixed' : 'absolute'),
-								left: item.position.x,
-								top: item.config.type === 'bottomWechat' ? 'initial' : (item.config.fixed == 'bottom' ? 'initial' : item.position.y),
-								width: item.config.type === 'bottomWechat' ? '100%' : (item.config.fixed == 'bottom' ? '100%' : item.position.w),
-								height: item.config.type === 'chat' ? '' : item.position.h,
-								bottom: item.config.type === 'bottomWechat' ? 0 : (item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial'),
-								color: item.config.color,
-								fontSize: item.config.fontSize + 'px',
-								backgroundColor: item.config.backgroundColor,
-								textAlign: item.config.align,
-								borderRadius: /^\d+$/.test(item.config.borderRadius as string) ? item.config.borderRadius + 'px' : item.config.borderRadius,
-								overflow:item.config.borderRadius != '0'?'hidden':''
-							} as React.CSSProperties}
+							style={SetStyle(item)}
 							data-id={item.position.i}
 							key={item.position.i}
 						>
-							{generateFreedomDOM({ config: item.config, type: 'preview', showPopup })}
+							{GenerateFreedomDOM({ config: item.config, type: 'preview', showPopup })}
 						</DragDiv>
 					))}
 				</FreedomDragBox>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { generateFreedomDOM, onDrop } from 'lib/Draggable';
+import { GenerateFreedomDOM, onDrop, SetStyle } from 'lib/Draggable';
 import initData from 'config/initData';
 import BottomWechat from 'components/Library/BottomWechat';
 import RemoveIcon from 'components/Library/RemoveIcon';
@@ -335,22 +335,7 @@ const Drag = () => {
 		});
 	}
 
-	const setStyle = (item:any) => {
-		return {
-			position: 'absolute',
-			left: item.position.x,
-			top: item.config.type === 'bottomWechat' ? 'initial' : (item.config.fixed == 'bottom' ? 'initial' : item.position.y),
-			width: item.position.w,
-			height: item.position.h,
-			bottom: item.config.type === 'bottomWechat' ? 0 : (item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial'),
-			color: item.config.type === 'chat'?'':item.config.color,
-			fontSize: item.config.type === 'chat'?'':item.config.fontSize + 'px',
-			backgroundColor: item.config.type === 'chat'?'':item.config.backgroundColor,
-			textAlign: item.config.align,
-			borderRadius: item.config.type === 'chat'?'':(/^\d+$/.test(item.config.borderRadius as string) ? item.config.borderRadius + 'px' : item.config.borderRadius),
-			overflow:item.config.borderRadius != '0'?'hidden':''
-		} as React.CSSProperties
-	}
+	
 
 
 	return (
@@ -369,7 +354,7 @@ const Drag = () => {
 			{layout.map((item, index) => (
 				<DragDiv
 					className={item.id == current?.id ? 'active drag' : 'drag'}
-					style={setStyle(item)}
+					style={SetStyle(item)}
 					data-id={item.id}
 					key={item.id}
 					onMouseDown={(e: any) => {
@@ -389,7 +374,7 @@ const Drag = () => {
 					<EditorPoint className="point-left"></EditorPoint>
 					<EditorPoint className="point-top-left"></EditorPoint>
 					<RemoveIcon removeItem={removeItem} id={item.id}></RemoveIcon>
-					{generateFreedomDOM({ config: item.config, blur, type: 'freedom', showPopup, id: item.id })}
+					{GenerateFreedomDOM({ config: item.config, blur, type: 'freedom', showPopup, id: item.id })}
 				</DragDiv>
 			))
 			}

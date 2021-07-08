@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import GridLayout, { ItemCallback } from 'react-grid-layout';
 import ReactGridLayout from 'react-grid-layout';
 import FreedomDrag from './FreedomDrag';
-import { generateFlowDOM, onDrop } from 'lib/Draggable';
+import { GenerateFlowDOM, onDrop } from 'lib/Draggable';
 import initData from 'config/initData';
 
 import { Layout } from 'typings/LayoutData'
@@ -168,7 +168,7 @@ const Drag = () => {
 				onResizeStop={onResizeStop}
 				ref={box as any}   //Ref获取网格包装div的参考  //已删除？
 			>
-				{generateFlowDOM({ flowLayout, current, blur, removeItem, showPopup })}
+				{GenerateFlowDOM({ flowLayout, current, blur, removeItem, showPopup })}
 			</GridLayout>
 		</DraggableBox>
 	);

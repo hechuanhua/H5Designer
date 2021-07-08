@@ -1,12 +1,10 @@
 import React, { DragEvent, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { message } from 'antd';
 
 import { createUuid } from 'utils/index';
 import initData from 'config/initData';
 
 import PreviewImage from 'components/Library/Image';
-import PreviewRadio from 'components/Library/Radio'; 
+import PreviewRadio from 'components/Library/Radio';
 import PreviewText from 'components/Library/Text';
 import RemoveIcon from 'components/Library/RemoveIcon';
 import ChatDialog from 'components/Library/ChatDialog';
@@ -16,6 +14,7 @@ import Timer from 'components/Library/Timer';
 import { Layout, LayoutConfig } from 'typings/LayoutData'
 
 const libraryTypeArray = ['img', 'text', 'radio', 'bottomWechat', 'chat', 'timer']
+
 interface FlowDomProps {
 	flowLayout: Array<Layout>,
 	current?: Layout,
@@ -25,7 +24,7 @@ interface FlowDomProps {
 	type?: string
 }
 
-export const generateFlowDOM = (props: FlowDomProps) => {
+export const GenerateFlowDOM = (props: FlowDomProps) => {
 	let { flowLayout, current = { id: '' }, removeItem, showPopup, blur, type } = props
 	return flowLayout.map((item, index) => {
 		if (item.config.type == 'img') {
@@ -121,7 +120,7 @@ interface FreeDomProps {
 	id?: string | undefined
 }
 
-export const generateFreedomDOM = (props: FreeDomProps) => {
+export const GenerateFreedomDOM = (props: FreeDomProps) => {
 	const { config, type, blur, showPopup, id } = props
 	if (!config) return null;
 	if (config.type == 'img') {
@@ -189,3 +188,21 @@ export const onDrop = (props: DropProps) => {
 		payload: payload,
 	});
 };
+
+
+export const SetStyle = (item:any) => {
+	return {
+		position: 'absolute',
+		left: item.position.x,
+		top: item.config.type === 'bottomWechat' ? 'initial' : (item.config.fixed == 'bottom' ? 'initial' : item.position.y),
+		width: item.position.w,
+		height: item.position.h,
+		bottom: item.config.type === 'bottomWechat' ? 0 : (item.config.fixed == 'bottom' ? item.config.bottomY + 'px' : 'initial'),
+		color: item.config.type === 'chat'?'':item.config.color,
+		fontSize: item.config.type === 'chat'?'':item.config.fontSize + 'px',
+		backgroundColor: item.config.type === 'chat'?'':item.config.backgroundColor,
+		textAlign: item.config.align,
+		borderRadius: item.config.type === 'chat'?'':(/^\d+$/.test(item.config.borderRadius as string) ? item.config.borderRadius + 'px' : item.config.borderRadius),
+		overflow:item.config.borderRadius != '0'?'hidden':''
+	} as React.CSSProperties
+}
