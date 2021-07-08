@@ -1,0 +1,28 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended"
+  ],
+  // "plugins": ["@typescript-eslint", "react-hooks"],
+  "rules": {
+    // "@typescript-eslint/no-inferrable-types": "off", // 关闭类型推断
+    "no-unused-vars":"off",
+    // 禁止使用 var
+    "no-var": "error"
+  },
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 10,
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "modules": true,
+      "jsx": true
+    },
+    "env": { "es6": true },
+    // "sourceType": "module",
+    "jsx": true
+  },
+  "env": {
+    "browser": true
+  }
+}

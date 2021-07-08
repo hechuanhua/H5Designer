@@ -1,12 +1,22 @@
+#canvas{
+	.react-grid-layout{
+		pointer-events: none;
+		background: transparent;
+		&.active{
+			z-index: 20;
+			pointer-events: auto;
+		}
+	}
+}
 .react-grid-layout {
 	position: relative;
 	transition: height 200ms ease;
 	z-index: 10;
-  background: #eee;
 }
 .react-grid-item {
 	transition: all 200ms ease;
 	transition-property: left, top;
+	background:#EEEEEE;
   .react-resizable-handle{
     display: none!important;
   }
@@ -39,7 +49,7 @@
 .react-grid-item.react-draggable-dragging {
 	transition: none;
 	z-index: 3;
-	will-change: transform;
+	// will-change: transform;
 }
 
 .react-grid-item.dropping {
@@ -213,7 +223,7 @@
 	word-break: break-all;
 }
 .react-grid-item:not(.react-grid-placeholder) {
-	background: #ccc;
+	// background: #ccc;
 	&:hover {
 		border: 2px solid red;
 	}

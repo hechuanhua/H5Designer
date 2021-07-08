@@ -6,11 +6,10 @@
 // }
 @font-face {
   font-family: 'iconfont';  /* Project id 2547986 */
-  src: url('//at.alicdn.com/t/font_2547986_bqhivjm9jvt.woff2?t=1623311888117') format('woff2'),
-       url('//at.alicdn.com/t/font_2547986_bqhivjm9jvt.woff?t=1623311888117') format('woff'),
-       url('//at.alicdn.com/t/font_2547986_bqhivjm9jvt.ttf?t=1623311888117') format('truetype');
+  src: url('//at.alicdn.com/t/font_2547986_k6ysrnwxjvl.woff2?t=1625468901631') format('woff2'),
+       url('//at.alicdn.com/t/font_2547986_k6ysrnwxjvl.woff?t=1625468901631') format('woff'),
+       url('//at.alicdn.com/t/font_2547986_k6ysrnwxjvl.ttf?t=1625468901631') format('truetype');
 }
-
 *{
   margin: 0;
   padding: 0;
@@ -71,7 +70,7 @@ img {
   padding-bottom: 110px;
 	.chatItem {
 		display: flex;
-		align-items: center;
+		// align-items: center;
 		padding: 0 10px;
 		margin: 10px 0;
 		&.chatRight {
@@ -109,6 +108,7 @@ img {
 			border-radius: 6px;
 			position: relative;
 			max-width: 80%;
+			color: #000;
 			&::after {
 				content: '';
 				position: absolute;
@@ -140,7 +140,7 @@ img {
 		a {
 			display: inline-block;
 			padding: 5px 0;
-			background: #0365d0;
+			// background: #0365d0;
 			color: #fff;
 			font-size: 14px;
 			border-radius: 6px;

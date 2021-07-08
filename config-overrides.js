@@ -6,7 +6,7 @@ module.exports = {
   webpack: override(
     // ...add your webpack config
     addWebpackAlias({  
-      '@': path.resolve('./src')  
+      '@/*': path.resolve('src/*')
     })
   ),
   // The Jest config
