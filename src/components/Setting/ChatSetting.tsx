@@ -89,6 +89,9 @@ const ChatSetting = () => {
 			<Form.Item name="color" label="字体颜色">
 				<Color color={config.color} onChange={(color) => { colorChange(color, 'color') }}></Color>
 			</Form.Item>
+			<Form.Item name="fontSize" label="文字大小">
+				<Input type="number" />
+			</Form.Item>
 			<Form.Item name="borderRadius" label="圆角">
 				<Input type="text" />
 			</Form.Item>

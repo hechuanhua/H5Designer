@@ -25,11 +25,13 @@ interface ChatText {
 }
 const ChatDialog = (props: ChatDialogProps) => {
 
-	const { type, style } = props
-	const chatType = props.config.value
+	const { type, config } = props
+	const { color, fontSize, backgroundColor, borderRadius, data } = config
+	const chatType = config.value
+
 	let dataSource: any = {}
 	try {
-		dataSource = props.config.data
+		dataSource = data
 	} catch (error) {
 		message.error('数据源格式错误', 2)
 		console.error(error, 333)
@@ -39,6 +41,8 @@ const ChatDialog = (props: ChatDialogProps) => {
 	const [speechIndex, setSpeechIndex] = useState(1);
 	const [chatText, setChatText] = useState([] as Array<ChatText>);
 	const [defaultChatText, setDefaultChatText] = useState([] as Array<ChatText>);
+	const [style, setStyle] = useState({})
+
 	const w = document.documentElement.clientWidth > initData.maxWidth ? initData.maxWidth : document.documentElement.clientWidth
 	const showSpeech = (index: number) => {
 		if (type !== 'preview') { return }
@@ -91,6 +95,16 @@ const ChatDialog = (props: ChatDialogProps) => {
 			}, 0)
 		}
 	}, [speechIndex])
+
+	useEffect(() => {
+		setStyle({
+			color: config.color,
+			fontSize: config.fontSize + 'px',
+			backgroundColor: config.backgroundColor,
+			borderRadius: /^\d+$/.test(config.borderRadius as any) ? config.borderRadius + 'px' : config.borderRadius,
+		})
+	}, [color, fontSize, backgroundColor, borderRadius])
+
 
 	const myCopy = () => {
 		window.location.href = "weixin://";
@@ -164,15 +178,15 @@ const ChatDialog = (props: ChatDialogProps) => {
 				) : (
 					''
 				)}
-				<div className="select_botton" style={{ width: w }}>
+				<div className="select_botton" style={{ width: w }}> 
 					{dataSource[speechIndex] &&
 						dataSource[speechIndex].data.map((item: any, index: number) => (
 							<a
 								key={index}
 								onClick={() => {
-									showSpeech(index) 
+									showSpeech(index)
 								}}
-								style={{ width: dataSource[speechIndex].width,...style }}
+								style={{ width: dataSource[speechIndex].width, ...style }}
 							>
 								{item.name}
 							</a>

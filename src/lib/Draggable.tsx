@@ -2,7 +2,7 @@ import React, { DragEvent, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { message } from 'antd';
 
-import { createUuid } from 'utils/index';
+import { createUuid } from '../../utils/index';
 import initData from '../../config/initData';
 
 import PreviewImage from '../Library/Image';
