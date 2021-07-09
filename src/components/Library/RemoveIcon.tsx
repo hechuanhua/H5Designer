@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-
-import { LayoutConfig } from 'typings/LayoutData'
+import Iconfont from 'components/Common/Iconfont'
 
 const RemoveIconBox = styled.div.attrs(props => ({
 	className: 'iconfont removeIcon',
@@ -19,7 +18,7 @@ const RemoveIcon = (props: { removeItem: (id: string) => void, id: string }) => 
 	const { removeItem, id } = props;
 	return (
 		<RemoveIconBox onClick={() => { removeItem(id) }}>
-			&#xe60a;
+			<Iconfont style={{'fontSize':'15px'}}>&#xe60a;</Iconfont>
 		</RemoveIconBox>
 	);
 };

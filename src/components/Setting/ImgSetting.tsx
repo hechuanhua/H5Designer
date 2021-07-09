@@ -1,12 +1,22 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import { PlusOutlined, InboxOutlined, } from '@ant-design/icons';
+import styled from 'styled-components';
+
 import { getImgInfo } from 'utils/index';
 import globalConfig from 'config/config'
 import initData from 'config/initData';
 
+import ImageLibrary from 'components/Common/ImageLibrary'
+
+const Image_lib = styled.div`
+	color: #1890ff;
+	margin-top: 10px;
+	text-align: center;
+	cursor: pointer;
+	font-size: 18px;
+`
 const ImgSetting = () => {
 	const { layoutType } = useSelector((state: any) => {
 		return state.layoutData;
@@ -17,6 +27,7 @@ const ImgSetting = () => {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 
+	const [visible, setVisible] = useState(false)
 	console.log(config, 'ImgSettingconfig');
 
 	// const normFile = e => {
@@ -64,6 +75,29 @@ const ImgSetting = () => {
 		console.log(file)
 		return { ossPath: 'common/marketing/H5Designer' }
 	}
+
+	const ImageLibraryChange = (data:{id:number,url:string,create_time:number}) => {
+		console.log(data)
+		if(!data)return
+		const fullUrl = `${globalConfig.staticImg}${data.url}`;
+		getImgInfo(fullUrl).then((res: any) => {
+			console.log(res, 'img');
+			const h = (initData.maxWidth * res.height) / res.width;
+			const position = {
+				h,
+			};
+			dispatch({
+				type: 'layoutData/setting',
+				payload: {
+					position,
+					config: {
+						url: data.url,
+					},
+				},
+			});
+		});
+	}
+
 	return (
 		<Form
 			labelCol={{ span: 8 }}
@@ -94,6 +128,7 @@ const ImgSetting = () => {
 						</p>
 						<p className="ant-upload-text">点击上传</p>
 					</Upload.Dragger>
+					<Image_lib onClick={()=>{setVisible(true)}}>图片库</Image_lib>
 				</Form.Item>
 			</Form.Item>
 			<Form.Item name="borderRadius" label="圆角">
@@ -113,9 +148,8 @@ const ImgSetting = () => {
 				<Form.Item name="bottomY" label="距离底部">
 					<Input type="number" />
 				</Form.Item>
-			) : (
-				''
-			)}
+			) : ''}
+
 			<Form.Item name="popup" label="点击弹窗">
 				<Switch checked={config.popup}></Switch>
 			</Form.Item>
@@ -128,6 +162,8 @@ const ImgSetting = () => {
 			<Form.Item name="isTransform" label="是否漏量" hidden={!config.popup} tooltip="开代表漏量，关代表不漏量">
 				<Switch checked={config.isTransform}></Switch>
 			</Form.Item>
+
+			<ImageLibrary visible={visible} onChange={ImageLibraryChange} onCancel={()=>{setVisible(false)}}></ImageLibrary>
 		</Form>
 	);
 };

@@ -16,7 +16,7 @@ const SettingWrap = styled.div`
 	flex-direction: column;
 	flex: 1;
 	position: fixed;
-	right: 0;
+	right: 10px;
 	top: 54px;
 	bottom: 0;
 	width: 300px;

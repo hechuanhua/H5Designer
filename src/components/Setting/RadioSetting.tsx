@@ -4,16 +4,12 @@ import styled from 'styled-components';
 import { Form, Input, Button, Select, Radio, Checkbox, Modal, Switch } from 'antd';
 import CommonModal from 'components/Common/Modal';
 import Color from 'components/Common/Color'
-
+import Iconfont from 'components/Common/Iconfont'
 import { Layout, RootState } from 'typings/LayoutData'
 
 const { TextArea } = Input;
 const { Option } = Select;
-const Icon = styled.div.attrs(props => ({
-	className: 'iconfont',
-}))`
-	font-size: 30px;
-`;
+
 const RadioItem = styled.div`
 	display: flex;
 	align-item: center;
@@ -143,8 +139,8 @@ const RadioSetting = () => {
 														<Input />
 													</Form.Item>
 												</Checkbox>
-												<Icon onClick={() => add({ label: '' })}>&#xe68a;</Icon>
-												<Icon onClick={() => remove(name)}>&#xe6bf;</Icon>
+												<Iconfont onClick={() => add({ label: '' })}>&#xe68a;</Iconfont>
+												<Iconfont onClick={() => remove(name)}>&#xe6bf;</Iconfont>
 											</RadioItem>
 										))}
 									</>
@@ -167,8 +163,8 @@ const RadioSetting = () => {
 														<Input />
 													</Form.Item>
 												</Radio>
-												<Icon onClick={() => add({ label: '' })}>&#xe68a;</Icon>
-												<Icon onClick={() => remove(name)}>&#xe6bf;</Icon>
+												<Iconfont onClick={() => add({ label: '' })}>&#xe68a;</Iconfont>
+												<Iconfont onClick={() => remove(name)}>&#xe6bf;</Iconfont>
 											</RadioItem>
 										))}
 									</>
