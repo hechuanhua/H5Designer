@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
+import Iconfont from 'components/Common/Iconfont'
+
 const MyPage = styled.div``;
 
 const Icon = styled.div.attrs(props => ({
@@ -28,32 +30,6 @@ const PopupTemplate = () => {
 	return (
 		<MyPage>
 			<h2>我的页面</h2>
-			<ul>
-				<Li>
-					<span>1</span>
-					<FlexItem>我的页面1</FlexItem>
-					<Operation>
-						<Icon>&#xe613;</Icon>
-						<Icon>&#xe65f;</Icon>
-					</Operation>
-				</Li>
-				<Li>
-					<span>2</span>
-					<FlexItem>我的页面2</FlexItem>
-					<Operation>
-						<Icon>&#xe613;</Icon>
-						<Icon>&#xe65f;</Icon>
-					</Operation>
-				</Li>
-				<Li>
-					<span>3</span>
-					<FlexItem>我的页面3</FlexItem>
-					<Operation>
-						<Icon>&#xe613;</Icon>
-						<Icon>&#xe65f;</Icon>
-					</Operation>
-				</Li>
-			</ul>
 		</MyPage>
 	);
 };

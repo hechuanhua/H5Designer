@@ -17,4 +17,39 @@
 }
 .ant-image{
   height: 100%;
+  vertical-align: middle;
+}
+
+.imageLibraryBox{
+  .ant-list-items{
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    
+  }
+  .ant-list-split .ant-list-item{
+    width: 15%;
+    display: inline-block;
+    padding: 0;
+    margin: 10px;
+    cursor: pointer;
+    height: 100px;
+    .iconfont{
+      display: none;
+    }
+    &.active{
+      position: relative;
+      .iconfont{
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        color: #17b217;
+      }
+    }
+    img{
+      object-fit: contain;
+      height: 100%;
+    }
+  }
 }

@@ -2,14 +2,10 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
+import Iconfont from 'components/Common/Iconfont'
+
 const MyPage = styled.div``;
 
-const Icon = styled.div.attrs(props => ({
-	className: 'iconfont',
-}))`
-	font-size: 18px;
-	margin-left:5px;
-`;
 const FlexItem = styled.div`
 	flex:1;
 	margin:0 20px
@@ -33,24 +29,24 @@ const MyPages = () => {
 					<span>1</span>
 					<FlexItem>我的页面1</FlexItem>
 					<Operation>
-						<Icon>&#xe613;</Icon>
-						<Icon>&#xe65f;</Icon>
+						<Iconfont style={{'marginLeft':'5px','fontSize':'18px'}}>&#xe613;</Iconfont>
+						<Iconfont style={{'marginLeft':'5px','fontSize':'18px'}}>&#xe65f;</Iconfont>
 					</Operation>
 				</Li>
 				<Li> 
 					<span>2</span>
 					<FlexItem>我的页面2</FlexItem>
 					<Operation>
-						<Icon>&#xe613;</Icon>
-						<Icon>&#xe65f;</Icon>
+						<Iconfont style={{'marginLeft':'5px','fontSize':'18px'}}>&#xe613;</Iconfont>
+						<Iconfont style={{'marginLeft':'5px','fontSize':'18px'}}>&#xe65f;</Iconfont>
 					</Operation>
 				</Li>
 				<Li>
 					<span>3</span>
 					<FlexItem>我的页面3</FlexItem>
 					<Operation>
-						<Icon>&#xe613;</Icon>
-						<Icon>&#xe65f;</Icon>
+						<Iconfont style={{'marginLeft':'5px','fontSize':'18px'}}>&#xe613;</Iconfont>
+						<Iconfont style={{'marginLeft':'5px','fontSize':'18px'}}>&#xe65f;</Iconfont>
 					</Operation>
 				</Li>
 			</ul>

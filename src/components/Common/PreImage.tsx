@@ -3,6 +3,8 @@ import { Form, Input, Button, Select, Radio, Modal, Image as AntImage } from 'an
 import styled from 'styled-components';
 import loadingImg from 'assets/images/loading.gif';
 
+import config from 'config/config'
+
 const ImageBox = styled.div`
   width: 100%;
   height: 100%;
@@ -19,23 +21,22 @@ const ImageBox = styled.div`
   }
 `
 
-interface ImageProps {
+
+const PreImage: React.FC<{
   src: string,
   width?: string | number,
   height?: string | number,
   preview?: boolean,
   onError?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void,
-  style?: React.CSSProperties
-}
-
-
-const PreImage = (props: ImageProps) => {
-  const { src, width, height, preview, onError, style } = props
+  style?: React.CSSProperties}> = ({src, width, height, preview, onError, style}) => {
   const [imgSrc, setImgSrc] = useState(loadingImg)
   const [done, setDone] = useState(false)
   const img = new Image();
+
+  src = src.indexOf('http') > -1 ? src : config.staticImg + src
+
   img.src = src;
-  img.onload = () => {
+  img.onload = () => { 
     setImgSrc(src)
     setDone(true)
   }

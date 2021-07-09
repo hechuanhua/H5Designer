@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 import { LibraryType } from 'typings/LayoutData'
 
+import Iconfont from 'components/Common/Iconfont'
+
 const Li = styled.li.attrs(props => ({
   draggable: 'true'
 }))`
@@ -14,11 +16,6 @@ const Li = styled.li.attrs(props => ({
   padding: 10px 20px;
   border: 1px solid;
   width:80px;
-`
-const Icon = styled.div.attrs(props => ({
-  className: 'iconfont'
-}))`
-  font-size:30px
 `
 
 const Library = () => {
@@ -36,38 +33,38 @@ const Library = () => {
       <ul>
         <Li onDragStart={(e) => { ondragstart(e, 'img') }}>
           <div>图片</div>
-          <Icon>&#xe607;</Icon>
+          <Iconfont>&#xe607;</Iconfont>
         </Li>
         <Li onDragStart={(e) => { ondragstart(e, 'text') }}>
           <div>文本</div>
-          <Icon>&#xe8c2;</Icon>
+          <Iconfont>&#xe8c2;</Iconfont>
         </Li>
         <Li onDragStart={(e) => { ondragstart(e, 'radio') }}>
           <div>多选单选</div>
-          <Icon>&#xe6ac;</Icon>
+          <Iconfont>&#xe6ac;</Iconfont>
         </Li>
         <Li onDragStart={(e) => { ondragstart(e, 'timer') }}>
           <div>计时器</div>
-          <Icon>&#xe61b;</Icon>
+          <Iconfont>&#xe61b;</Iconfont>
         </Li>
         {/* <Li onDragStart={(e) => { ondragstart(e, 'video') }}>
           <div>视频</div>
-          <Icon>&#xe603;</Icon>
+          <Iconfont>&#xe603;</Iconfont>
         </Li> */}
         {
           layoutType === 'freedom' ?
             <Li onDragStart={(e) => { ondragstart(e, 'bottomWechat') }}>
               <div>底部微信</div>
-              <Icon>&#xe6c7;</Icon>
+              <Iconfont>&#xe6c7;</Iconfont>
             </Li> : ''
         }
         <Li onDragStart={(e) => { ondragstart(e, 'chat') }}>
           <div>微信对话</div>
-          <Icon>&#xe6c7;</Icon>
+          <Iconfont>&#xe6c7;</Iconfont>
         </Li>
         {/* <Li onDragStart={(e) => { ondragstart(e, '') }}>
           <div>组件</div>
-          <Icon>&#xe7c2;</Icon>
+          <Iconfont>&#xe7c2;</Iconfont>
         </Li> */}
       </ul>
     </>
