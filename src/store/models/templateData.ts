@@ -9,8 +9,9 @@ import config from 'config/config';
 export default {
 	name: 'templateData',
 	state: {
-		list: [],
-		selected: {}
+		list: [],  //模板库列表
+		selected: {}, //选中的库
+		popupList: [] //弹窗库列表
 	},
 	effects: () => ({
 		async getTemplateList() {

@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { Tabs, Radio, Button, Menu } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import Drag from 'components/Draggable/FlowDrag';
-import Setting from 'components/Setting/Setting';
+import DragContainer from 'components/Draggable/FlowDrag';
+import SettingContainer from 'components/Setting/Setting';
 import styled from 'styled-components';
 import Header from './_Components/Header';
-import Sider from './_Components/Sider';
+import SiderContainer from './_Components/SiderContainer';
 import Contextmenu from 'components/Common/Contextmenu';
 
 const Container = styled.div`
@@ -38,9 +37,9 @@ const Home = () => {
 		<div onClick={handleHide}>
 			<Header></Header>
 			<Container>
-				<Sider></Sider>
-				<Drag></Drag>
-				<Setting></Setting>
+				<SiderContainer></SiderContainer>
+				<DragContainer></DragContainer>
+				<SettingContainer></SettingContainer>
 			</Container>
 			<Contextmenu></Contextmenu>
 		</div>

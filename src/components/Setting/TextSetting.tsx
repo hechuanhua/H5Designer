@@ -26,12 +26,24 @@ const TextSetting = () => {
 
 	const onValuesChange = (changedValues: any, allValues: any) => {
 		console.log(changedValues, allValues, 'changedValues');
-		dispatch({
-			type: 'layoutData/setting',
-			payload: {
-				config: changedValues,
-			},
-		});
+		if(Object.keys(changedValues)[0] === 'isWechat'){
+			dispatch({
+				type: 'layoutData/setting',
+				payload: {
+					config:{
+						...changedValues,
+						text: 'woshiweixinhao',
+					}
+				},
+			});
+		} else {
+			dispatch({
+				type: 'layoutData/setting',
+				payload: {
+					config: changedValues,
+				},
+			});
+		}
 	};
 
 	const colorChange = (color: string, type: string) => {
@@ -55,7 +67,7 @@ const TextSetting = () => {
 			onValuesChange={onValuesChange}
 		>
 			<Form.Item name="text" label="文本">
-				<Input />
+				<Input  disabled={config.isWechat}/>
 			</Form.Item>
 			<Form.Item name="align" label="对齐方式">
 				<Select>
@@ -75,6 +87,9 @@ const TextSetting = () => {
 			</Form.Item>
 			<Form.Item name="borderRadius" label="圆角">
 				<Input type="text" />
+			</Form.Item>
+			<Form.Item name="isWechat" label="是否放微信">
+				<Switch checked={config.isWechat}></Switch>
 			</Form.Item>
 			{
 				layoutType === 'freedom'?

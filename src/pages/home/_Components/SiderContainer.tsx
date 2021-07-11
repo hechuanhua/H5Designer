@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Tabs, Radio, Button, Menu } from 'antd';
+import { PieChartOutlined, DesktopOutlined, ContainerOutlined } from '@ant-design/icons';
 import Drag from 'components/Draggable/FlowDrag';
 import Template from 'components/Sider/Template';
 import Library from 'components/Sider/Library';
 import MyPages from 'components/Sider/MyPages';
+import PopupTemplate from 'components/Sider/PopupTemplate';
 
 import Setting from 'components/Setting/Setting';
 import styled from 'styled-components';
-import { PieChartOutlined, DesktopOutlined, ContainerOutlined } from '@ant-design/icons';
 
 const SiderDiv = styled.div`
 	position: fixed;
@@ -28,8 +29,10 @@ const Sider = () => {
 		if (menuIndex === '1') {
 			return <Template></Template>;
 		} else if (menuIndex === '2') {
-			return <Library></Library>;
+			return <PopupTemplate></PopupTemplate>;
 		} else if (menuIndex === '3') {
+			return <Library></Library>;
+		} else if (menuIndex === '4') {
 			return <MyPages></MyPages>;
 		}
 	};
@@ -55,10 +58,13 @@ const Sider = () => {
 				<Menu.Item key="1" icon={<PieChartOutlined />}>
 					模板库
 				</Menu.Item>
-				<Menu.Item key="2" icon={<DesktopOutlined />}>
+				<Menu.Item key="2" icon={<PieChartOutlined />}>
+					弹窗库
+				</Menu.Item>
+				<Menu.Item key="3" icon={<DesktopOutlined />}>
 					组件
 				</Menu.Item>
-				<Menu.Item key="3" icon={<ContainerOutlined />}>
+				<Menu.Item key="4" icon={<ContainerOutlined />}>
 					我的页面
 				</Menu.Item>
 			</Menu>

@@ -33,6 +33,7 @@ const initData: any = {
 			popup: false,
 			popupType: '1',
 			isTransform: false,
+			isWechat:false
 		},
 	},
 	radio: {
