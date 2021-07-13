@@ -23,13 +23,13 @@ const FlexItem = styled.div`
 	flex: 1;
 	padding:0 10px;
 `;
-const Sider = () => {
+const Sider = () => { 
 	const [menuIndex, setMenuIndex] = useState('1');
 	const generateDOM = () => {
 		if (menuIndex === '1') {
-			return <Template></Template>;
+			return <Template type={1}></Template>;
 		} else if (menuIndex === '2') {
-			return <PopupTemplate></PopupTemplate>;
+			return <Template type={2}></Template>;
 		} else if (menuIndex === '3') {
 			return <Library></Library>;
 		} else if (menuIndex === '4') {

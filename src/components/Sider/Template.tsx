@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { message, Popconfirm } from 'antd'
 import styled from 'styled-components';
@@ -84,14 +84,19 @@ const TemplateTitle = styled.div`
 
 
 
-const Template = () => {
+const Template:React.FC<{type:number}>  = ({type}) => {
 
 	const dispatch = useDispatch()
-	const { list } = useSelector((state: RootState) => {
-		return state.templateData;
+	const list  = useSelector((state: RootState) => {
+		if(type === 1){
+			return state.templateData.list;
+		} else if(type === 2){
+			return state.templateData.popupList;
+		} else {
+			return []
+		}
 	});
-	console.log(list, 'listlist')
-	// const [templateList,setTemplateList] = useState([])
+	
 	const use = (data: any) => {
 		dispatch({
 			type: 'layoutData/switchLayout',
@@ -121,16 +126,23 @@ const Template = () => {
 	useEffect(() => {
 		dispatch({
 			type: 'templateData/getTemplateList',
-			payload: {}
+			payload: {
+				type
+			}
 		})
-	}, [])
+	}, [type])
 
 	return (<TemplateBox>
 		{
 			list.map((item, index) => (
 				<LI key={index}>
 					<Mask></Mask>
-					<Use onClick={() => { use(item) }}>立即使用</Use>
+
+					{
+						type === 1?
+						<Use onClick={() => { use(item) }}>立即使用</Use>:''
+					}
+					
 					{
 						item.source === 'system' ? '' :
 							<Popconfirm
@@ -143,6 +155,7 @@ const Template = () => {
 								<Delete>删除此模板</Delete>
 							</Popconfirm>
 					}
+
 					<PreImage src={item.cover} style={{ height: '213px', overflow: 'hidden' }} />
 					<TemplateTitle>{item.title}</TemplateTitle>
 				</LI>

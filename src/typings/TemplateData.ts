@@ -17,5 +17,6 @@ export interface TemplateList {
 
 export interface TemplateData {
   list: Array<TemplateList>,
+  popupList: Array<TemplateList>,
   selected: Selected
 }

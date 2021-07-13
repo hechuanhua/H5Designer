@@ -10,16 +10,21 @@ export default {
 	name: 'templateData',
 	state: {
 		list: [],  //模板库列表
-		selected: {}, //选中的库
-		popupList: [] //弹窗库列表
+		popupList: [], //弹窗库列表
+		selected: {}//选中的库
 	},
 	effects: () => ({
-		async getTemplateList() {
-			const data = await getTemplateList() as TemplateData
+		async getTemplateList(payload: any) {
+			const data = await getTemplateList({ type: payload.type}) as TemplateData
 			data.list.forEach(item => {
 				item.cover = config.baseUrl + item.cover
 			});
-			(this as any).saveList(data)
+			if(payload.type === 1){
+				(this as any).saveLayoutList(data)
+			} else if (payload.type === 2){
+				(this as any).savePopupList(data)
+			}
+			
 		},
 	}),
 	reducers: {
@@ -31,11 +36,19 @@ export default {
 			}
 			return newState
 		},
-		saveList(state: TemplateData, payload: any) {
+		saveLayoutList(state: TemplateData, payload: any) {
 			console.log(state, payload, 'saveList')
 			const newState = {
 				...state,
 				list: [...payload.list]
+			}
+			return newState
+		},
+		savePopupList(state: TemplateData, payload: any) {
+			console.log(state, payload, 'saveList')
+			const newState = {
+				...state,
+				popupList: [...payload.list]
 			}
 			return newState
 		}
