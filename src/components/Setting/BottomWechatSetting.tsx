@@ -59,18 +59,12 @@ const BottomWechatSetting = () => {
 			<Form.Item name="fontSize" label="文字大小">
 				<Input type="number" />
 			</Form.Item>
-			{/* <Form.Item name="backgroundColor" label="背景颜色">
-				<Input />
-			</Form.Item> */}
 			<Form.Item name="backgroundColor" label="背景颜色">
 				<Color color={config.backgroundColor} onChange={(color) => { colorChange(color, 'backgroundColor') }}></Color>
 			</Form.Item>
 			<Form.Item name="color" label="字体颜色">
 				<Color color={config.color} onChange={(color) => { colorChange(color, 'color') }}></Color>
 			</Form.Item>
-			{/* <Form.Item name="color" label="字体颜色">
-				<Input />
-			</Form.Item> */}
 			<Form.Item name="borderRadius" label="圆角">
 				<Input type="number" />
 			</Form.Item>

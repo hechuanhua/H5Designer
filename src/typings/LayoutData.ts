@@ -18,7 +18,7 @@ export interface LayoutConfig {
   color?: string
   fixed?: "current" | "bottom"
   fontSize?: string
-  isTransform?: number
+  isTransform?: boolean
   popup?: boolean
   popupType?: string
   text?: string

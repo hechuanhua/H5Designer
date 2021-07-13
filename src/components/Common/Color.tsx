@@ -29,7 +29,7 @@ const ColorDiv = styled.div`
 // export type ColorConfigType = string;
 
 interface ColorProps {
-  color: string;
+  color?: string;
   onChange: (v: string) => void;
 }
 

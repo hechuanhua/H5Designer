@@ -265,7 +265,6 @@ const Drag = () => {
 	};
 
 	const up = () => {
-		console.log('up', page.current);
 		if (
 			!page.current ||
 			!page.current.mouseInfo ||
@@ -294,10 +293,10 @@ const Drag = () => {
 	};
 
 	useEffect(() => {
-		document.addEventListener('mousemove', e => {
+		page.current && (page.current as HTMLElement).addEventListener('mousemove', (e:MouseEvent) => {
 			move(e)
 		});
-		document.addEventListener('mouseup', up);
+		page.current && (page.current as HTMLElement).addEventListener('mouseup', up);
 	}, []);
 
 	const removeItem = (id: string) => {
@@ -334,8 +333,6 @@ const Drag = () => {
 			},
 		});
 	}
-
-	
 
 
 	return (

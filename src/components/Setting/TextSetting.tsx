@@ -3,13 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Select, Switch } from 'antd';
 import Color from 'components/Common/Color'
 
+import { RootState } from 'typings/LayoutData'
+
 const TextSetting = () => {
-	const { layoutType } = useSelector((state: any) => {
+	const layoutData = useSelector((state: RootState) => {
 		return state.layoutData;
 	});
-	const config = useSelector((state: any) => {
-		return state.layoutData?.current?.config;
+	const { popupList } = useSelector((state: RootState) => {
+		return state.templateData;
 	});
+	const { layoutType }  = layoutData
+	const config = layoutData?.current?.config
 	
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
@@ -26,24 +30,30 @@ const TextSetting = () => {
 
 	const onValuesChange = (changedValues: any, allValues: any) => {
 		console.log(changedValues, allValues, 'changedValues');
-		if(Object.keys(changedValues)[0] === 'isWechat'){
-			dispatch({
-				type: 'layoutData/setting',
-				payload: {
-					config:{
-						...changedValues,
-						text: 'woshiweixinhao',
-					}
-				},
-			});
-		} else {
-			dispatch({
-				type: 'layoutData/setting',
-				payload: {
-					config: changedValues,
-				},
-			});
-		}
+		dispatch({
+			type: 'layoutData/setting',
+			payload: {
+				config: changedValues,
+			},
+		});
+		// if(Object.keys(changedValues)[0] === 'isWechat'){
+		// 	dispatch({
+		// 		type: 'layoutData/setting',
+		// 		payload: {
+		// 			config:{
+		// 				...changedValues,
+		// 				text: 'woshiweixinhao',
+		// 			}
+		// 		},
+		// 	});
+		// } else {
+		// 	dispatch({
+		// 		type: 'layoutData/setting',
+		// 		payload: {
+		// 			config: changedValues,
+		// 		},
+		// 	});
+		// }
 	};
 
 	const colorChange = (color: string, type: string) => {
@@ -67,7 +77,8 @@ const TextSetting = () => {
 			onValuesChange={onValuesChange}
 		>
 			<Form.Item name="text" label="文本">
-				<Input  disabled={config.isWechat}/>
+				<Input/>
+				{/* <Input disabled={config.isWechat}/> */}
 			</Form.Item>
 			<Form.Item name="align" label="对齐方式">
 				<Select>
@@ -88,7 +99,7 @@ const TextSetting = () => {
 			<Form.Item name="borderRadius" label="圆角">
 				<Input type="text" />
 			</Form.Item>
-			<Form.Item name="isWechat" label="是否放微信">
+			<Form.Item name="isWechat" label="是否微信号" tooltip="如果是微信号则会监听当前字段的复制事件并上传报文">
 				<Switch checked={config.isWechat}></Switch>
 			</Form.Item>
 			{
@@ -103,14 +114,21 @@ const TextSetting = () => {
 			<Form.Item name="bottomY" label="距离底部" hidden={config.fixed !== 'bottom'}>
 				<Input type="number" />
 			</Form.Item>
-			<Form.Item name="popup" label="点击弹窗">
+			<Form.Item name="popup" label="点击弹窗"> 
 				<Switch checked={config.popup}></Switch>
 			</Form.Item>
 			<Form.Item name="popupType" label="弹窗样式" hidden={!config.popup}>
 				<Select>
+					{
+						popupList.map(item=>(
+							<Select.Option value={item.tid}>{item.title}</Select.Option>
+						))
+					}
+				</Select>
+				{/* <Select>
 					<Select.Option value="1">默认弹窗</Select.Option>
 					<Select.Option value="2">祛痘测肤弹窗</Select.Option>
-				</Select>
+				</Select> */}
 			</Form.Item>
 			<Form.Item name="isTransform" label="是否漏量" hidden={!config.popup} tooltip="开代表漏量，关代表不漏量">
 				<Switch checked={config.isTransform}></Switch>

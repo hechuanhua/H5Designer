@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Radio, Button, message, Input, Form, Spin } from 'antd';
+import { Radio, Button, message, Input, Form, Spin, Checkbox } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import html2canvas from 'html2canvas';
 import CommonModal from 'components/Common/Modal';
@@ -29,13 +29,15 @@ const SaveModal = (props: Modal) => {
   const [title, setTitle] = useState(defaultTitle)
   const [loading, setLoading] = useState(false)
 
+  const [isPopup,setIsPopup] = useState(false)
   useEffect(() => {
     setTitle(selected.title)
     console.log(selected, title, 'useEffect')
   }, [selected.title])
 
   const handleOk = () => {
-    if (title && !title.replace(/^\s+|\s+$/g, '')) {
+    console.log(isPopup)
+    if (!title || !title.replace(/^\s+|\s+$/g, '')) {
       return message.error('必须填写标题')
     }
 
@@ -60,7 +62,7 @@ const SaveModal = (props: Modal) => {
         const src = canvas.toDataURL("image/png");
         image.src = src
 
-        document.body.appendChild(image)
+        // document.body.appendChild(image)
 
         dispatch({
           type: 'layoutData/setPrint',
@@ -77,7 +79,8 @@ const SaveModal = (props: Modal) => {
           title,
           tid: selected.tid,
           base64: src,
-          layoutData: newLayoutData
+          layoutData: newLayoutData,
+          isPopup
         }).then((res) => {
           setLoading(false)
           onCancel && onCancel()
@@ -106,11 +109,12 @@ const SaveModal = (props: Modal) => {
 
   return (
     <>
-      <CommonModal visible={visible} onOk={handleOk} onCancel={onCancel} title={defaultTitle ? defaultTitle : '确定保存？'} confirmLoading={loading}>
+      <CommonModal visible={visible} onOk={handleOk} onCancel={()=>{setLoading(false);onCancel()}} title={defaultTitle ? defaultTitle : '确定保存？'} confirmLoading={loading}>
         <Form>
           <Form.Item label="模板标题">
             <Input onChange={changTitle} value={title}></Input>
           </Form.Item>
+          <Checkbox onChange={()=>{setIsPopup(!isPopup)}} checked={isPopup}>是否是弹窗模板？</Checkbox>
         </Form>
       </CommonModal>
     </>

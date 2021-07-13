@@ -127,6 +127,15 @@ const Template:React.FC<{type:number}>  = ({type}) => {
 		dispatch({
 			type: 'templateData/getTemplateList',
 			payload: {
+				type:2
+			}
+		})
+	},[])
+
+	useEffect(() => {
+		dispatch({
+			type: 'templateData/getTemplateList',
+			payload: {
 				type
 			}
 		})
@@ -137,18 +146,12 @@ const Template:React.FC<{type:number}>  = ({type}) => {
 			list.map((item, index) => (
 				<LI key={index}>
 					<Mask></Mask>
-
-					{
-						type === 1?
-						<Use onClick={() => { use(item) }}>立即使用</Use>:''
-					}
-					
+					<Use onClick={() => { use(item) }}>{type === 1?'立即使用':'查看弹窗'}</Use>
 					{
 						item.source === 'system' ? '' :
 							<Popconfirm
 								title="确定删除此模板？"
 								onConfirm={() => { deleteHandler(item) }}
-								// onCancel={cancel}
 								okText="确定"
 								cancelText="取消"
 							>
