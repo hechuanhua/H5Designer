@@ -42,6 +42,7 @@ const BottomWechatSetting = () => {
 			name="control-hooks"
 			onValuesChange={onValuesChange}
 			initialValues={config}
+			labelAlign={'left'}
 		>
 			<Form.Item name="text1" label="文本1">
 				<Input />

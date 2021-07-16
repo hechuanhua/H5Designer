@@ -70,6 +70,7 @@ const ChatSetting = () => {
 			name="control-hooks"
 			onValuesChange={onValuesChange}
 			initialValues={config}
+			labelAlign={'left'}
 		>
 			<Form.Item label="线别选择" name="value">
 				<Select>

@@ -106,6 +106,7 @@ const ImgSetting = () => {
 			name="control-hooks"
 			onValuesChange={onValuesChange}
 			initialValues={config}
+			labelAlign={'left'}
 		>
 			<Form.Item label="上传图片：">
 				<Form.Item

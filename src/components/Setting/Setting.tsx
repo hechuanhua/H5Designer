@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { Tabs } from 'antd';
 
 import TextSetting from './TextSetting';
 import ImgSetting from './ImgSetting';
@@ -10,6 +11,8 @@ import BottomWechatSetting from './BottomWechatSetting';
 import TimerSetting from './TimerSetting';
 
 import { RootState } from 'typings/LayoutData'
+
+const { TabPane } = Tabs;
 
 const SettingWrap = styled.div`
 	display: flex;
@@ -21,6 +24,7 @@ const SettingWrap = styled.div`
 	bottom: 0;
 	width: 300px;
 	background: #fff;
+	padding-left: 20px;
 `;
 const Setting = () => {
 	const current = useSelector((state: RootState) => {
@@ -49,8 +53,15 @@ const Setting = () => {
 	};
 	return (
 		<SettingWrap>
-			<h2>属性设置</h2>
-			{current.id ? generateDOM() : ''}
+			<Tabs>
+				<TabPane tab="属性设置" key="1">
+					{current.id ? generateDOM() : ''}
+				</TabPane>
+				{/* <TabPane tab="交互" key="2">
+					2222
+				</TabPane> */}
+			</Tabs>
+			
 		</SettingWrap>
 	);
 };

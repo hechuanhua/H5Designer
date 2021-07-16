@@ -351,7 +351,7 @@ const Drag = () => {
 			{layout.map((item, index) => (
 				<DragDiv
 					className={item.id == current?.id ? 'active drag' : 'drag'}
-					style={SetStyle(item)}
+					style={SetStyle(item,'drag')}
 					data-id={item.id}
 					key={item.id}
 					onMouseDown={(e: any) => {

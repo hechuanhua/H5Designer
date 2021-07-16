@@ -157,7 +157,7 @@ const Preview = () => {
 					{freedomLayout.map((item, index) => (
 						<DragDiv
 							className={'drag'}
-							style={SetStyle(item)}
+							style={SetStyle(item,'preview')}
 							data-id={item.position.i}
 							key={item.position.i}
 						>

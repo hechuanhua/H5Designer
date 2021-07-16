@@ -188,10 +188,10 @@ export const onDrop = (props: DropProps) => {
 	});
 };
 
-
-export const SetStyle = (item: any) => {
+type ShowType = 'preview'|'drag'
+export const SetStyle = (item: any, showType:ShowType) => {
 	return {
-		position: 'absolute',
+		position: showType === 'preview'? (item.config.type === 'bottomWechat' ?'fixed':'absolute'):'absolute',
 		left: item.position.x,
 		top: item.config.type === 'bottomWechat' ? 'initial' : (item.config.fixed == 'bottom' ? 'initial' : item.position.y),
 		width: item.position.w,

@@ -42,6 +42,7 @@ const TimerSetting = () => {
 			name="control-hooks"
 			onValuesChange={onValuesChange}
 			initialValues={config}
+			labelAlign={'left'}
 		>
 			<Form.Item name="initValue" label="初始值">
 				<Input type='number'></Input>

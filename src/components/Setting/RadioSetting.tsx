@@ -118,6 +118,7 @@ const RadioSetting = () => {
 				initialValues={config}
 				onValuesChange={onValuesChange}
 				size={'middle'}
+				labelAlign={'left'}
 			>
 				<Form.Item name="title" label="标题">
 					<Input />

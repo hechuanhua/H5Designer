@@ -75,6 +75,7 @@ const TextSetting = () => {
 			name="control-hooks"
 			initialValues={config}
 			onValuesChange={onValuesChange}
+			labelAlign={'left'}
 		>
 			<Form.Item name="text" label="文本">
 				<Input/>
