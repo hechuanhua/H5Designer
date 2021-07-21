@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import useEqualSelector from 'lib/hooks/useEqualSelector'
 import GridLayout from 'react-grid-layout';
 import { createGlobalStyle } from 'styled-components'

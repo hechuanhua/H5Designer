@@ -1,7 +1,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Radio, Button, message, Input, Form, Select, } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import useEqualSelector from 'lib/hooks/useEqualSelector'
 import CommonModal from 'components/Common/Modal';
 import config from 'config/config';

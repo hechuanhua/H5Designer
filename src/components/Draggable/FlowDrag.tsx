@@ -1,5 +1,5 @@
 import React, { DragEvent, useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import GridLayout, { ItemCallback } from 'react-grid-layout';
 import ReactGridLayout from 'react-grid-layout';

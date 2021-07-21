@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import useEqualSelector from 'lib/hooks/useEqualSelector'
 import DragContainer from 'components/Draggable/FlowDrag';
 import SettingContainer from 'components/Setting/Setting';

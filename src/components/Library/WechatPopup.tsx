@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useContext, RefObject } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 import avatar_dou from 'assets/images/chat/avatar_dou.png'

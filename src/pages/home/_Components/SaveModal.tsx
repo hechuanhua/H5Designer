@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Radio, Button, message, Input, Form, Spin, Checkbox } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import useEqualSelector from 'lib/hooks/useEqualSelector'
 import html2canvas from 'html2canvas';
 import CommonModal from 'components/Common/Modal';

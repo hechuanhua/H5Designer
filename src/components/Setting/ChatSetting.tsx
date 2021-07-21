@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useContext, ChangeEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import useEqualSelector from 'lib/hooks/useEqualSelector'

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { GenerateFreedomDOM, onDrop, SetStyle } from 'lib/Draggable';
 import initData from 'config/initData';

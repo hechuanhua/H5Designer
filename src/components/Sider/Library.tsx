@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import useEqualSelector from 'lib/hooks/useEqualSelector'
 import styled from "styled-components";
 

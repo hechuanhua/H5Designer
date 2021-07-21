@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
 import useEqualSelector from 'lib/hooks/useEqualSelector'
 import { PlusOutlined, InboxOutlined, } from '@ant-design/icons';
