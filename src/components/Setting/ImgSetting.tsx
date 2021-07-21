@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import { PlusOutlined, InboxOutlined, } from '@ant-design/icons';
 import styled from 'styled-components';
 
@@ -18,10 +19,10 @@ const Image_lib = styled.div`
 	font-size: 18px;
 `
 const ImgSetting = () => {
-	const { layoutType } = useSelector((state: any) => {
+	const { layoutType } = useEqualSelector((state: any) => {
 		return state.layoutData;
 	});
-	const config = useSelector((state: any) => {
+	const config = useEqualSelector((state: any) => {
 		return state.layoutData?.current?.config;
 	});
 	const dispatch = useDispatch();

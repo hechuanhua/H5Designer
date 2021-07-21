@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Radio, Button, message, Input, Form, Select, } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import CommonModal from 'components/Common/Modal';
 import config from 'config/config';
 import { publish } from 'api'
@@ -22,11 +23,11 @@ const PublishModal = (props: Modal) => {
 
   const { visible, onCancel, defaultTitle } = props
 
-  const layoutData = useSelector((state: RootState) => {
+  const layoutData = useEqualSelector((state: RootState) => {
     return state.layoutData;
   });
 
-  const { hostList } = useSelector((state: RootState) => {
+  const { hostList } = useEqualSelector((state: RootState) => {
     return state.pageData;
   });
   console.log(hostList, 'PublishModal')

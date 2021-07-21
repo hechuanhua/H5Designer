@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Radio, Button, message, Input, Form, Spin, RadioChangeEvent } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import styled from "styled-components";
 import SaveModal from './SaveModal'
 import PublishModal from './PublishModal'
@@ -31,10 +32,10 @@ const Center = styled.div`
 `
 const Header = () => {
   const dispatch = useDispatch();
-  const layoutData = useSelector((state: any) => {
+  const layoutData = useEqualSelector((state: any) => {
     return state.layoutData;
   });
-  const { selected } = useSelector((state: any) => {
+  const { selected } = useEqualSelector((state: any) => {
     return state.templateData;
   });
   const { layoutType, freedomLayout, flowLayout } = layoutData

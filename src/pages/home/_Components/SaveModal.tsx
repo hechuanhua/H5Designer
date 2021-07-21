@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Radio, Button, message, Input, Form, Spin, Checkbox } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import html2canvas from 'html2canvas';
 import CommonModal from 'components/Common/Modal';
 
@@ -18,10 +19,10 @@ interface Modal {
 
 const SaveModal = (props: Modal) => {
   const dispatch = useDispatch();
-  const layoutData = useSelector((state: RootState) => {
+  const layoutData = useEqualSelector((state: RootState) => {
     return state.layoutData;
   });
-  const { selected } = useSelector((state: RootState) => {
+  const { selected } = useEqualSelector((state: RootState) => {
     return state.templateData;
   });
   const { visible, onCancel, defaultTitle } = props

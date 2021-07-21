@@ -5,6 +5,7 @@ import { GenerateFreedomDOM, onDrop, SetStyle } from 'lib/Draggable';
 import initData from 'config/initData';
 import BottomWechat from 'components/Library/BottomWechat';
 import RemoveIcon from 'components/Library/RemoveIcon';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 
 import { Layout, LayoutState, RootState } from 'typings/LayoutData'
 
@@ -19,7 +20,7 @@ const FreedomDragBox = styled.div`
 	pointer-events: none;
 	background: transparent;
 	&.active{
-		z-index: 20;
+		// z-index: 20;
 		pointer-events: auto;
 	}
 `;
@@ -34,7 +35,7 @@ const DragDiv = styled.div`
 	}
 	&.active{
 		border: 1px solid #000;
-		z-index:1;
+		// z-index:1;
 		div[class*="point-"],.iconfont{
 			display:block;
 		}
@@ -120,10 +121,10 @@ interface RefObject {
 
 const Drag = () => {
 	const dispatch = useDispatch();
-	const { freedomLayout, current, layoutType } = useSelector((state: RootState) => {
+	const { freedomLayout, current, layoutType } = useEqualSelector((state: RootState) => {
 		return state.layoutData;
 	});
-	const { pageHeight, wechatPopup } = useSelector((state: RootState) => {
+	const { pageHeight, wechatPopup } = useEqualSelector((state: RootState) => {
 		return state.pageData;
 	});
 

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import DragContainer from 'components/Draggable/FlowDrag';
 import SettingContainer from 'components/Setting/Setting';
 import styled from 'styled-components';
@@ -14,7 +15,7 @@ const Container = styled.div`
 `;
 
 const Home = () => {
-	const contextmenu = useSelector((state: any) => {
+	const contextmenu = useEqualSelector((state: any) => {
     return state.pageData.contextmenu;
   });
 

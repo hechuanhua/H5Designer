@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import styled from 'styled-components'
 import { onDrop } from 'lib/Draggable';
 
@@ -24,11 +25,11 @@ const MenuBox = styled.ul`
 
 
 const Contextmenu = () => {
-  const current = useSelector((state: any) => {
+  const current = useEqualSelector((state: any) => {
     return state.layoutData.current;
   });
 
-  const contextmenu = useSelector((state: any) => {
+  const contextmenu = useEqualSelector((state: any) => {
     return state.pageData.contextmenu;
   });
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import { useSelector, useDispatch } from 'react-redux'
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import styled from "styled-components";
 
 import { LibraryType } from 'typings/LayoutData'
@@ -25,7 +26,7 @@ const Library = () => {
     }
   }
   const dispatch = useDispatch()
-  const { layoutType } = useSelector((state: any) => {
+  const { layoutType } = useEqualSelector((state: any) => {
     return state.layoutData;
   });
   return (

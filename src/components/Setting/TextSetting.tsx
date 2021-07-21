@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Select, Switch } from 'antd';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import Color from 'components/Common/Color'
 
 import { RootState } from 'typings/LayoutData'
 
 const TextSetting = () => {
-	const layoutData = useSelector((state: RootState) => {
+	const layoutData = useEqualSelector((state: RootState) => {
 		return state.layoutData;
 	});
-	const { popupList } = useSelector((state: RootState) => {
+	const { popupList } = useEqualSelector((state: RootState) => {
 		return state.templateData;
 	});
 	const { layoutType }  = layoutData
@@ -122,7 +123,7 @@ const TextSetting = () => {
 				<Select>
 					{
 						popupList.map(item=>(
-							<Select.Option value={item.tid}>{item.title}</Select.Option>
+							<Select.Option value={item.tid} key={item.tid}>{item.title}</Select.Option>
 						))
 					}
 				</Select>

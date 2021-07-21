@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import GridLayout from 'react-grid-layout';
 import { createGlobalStyle } from 'styled-components'
 import { useLocation } from "react-router-dom";
@@ -61,7 +62,7 @@ const Preview = () => {
 	const [showQRcode, setShowQRcode] = useState(false)
 	const [style, setStyle] = useState({})
 	const dispatch = useDispatch();
-	const { flowLayout, freedomLayout, current } = useSelector((state: RootState) => {
+	const { flowLayout, freedomLayout, current } = useEqualSelector((state: RootState) => {
 		return state.layoutData;
 	});
 

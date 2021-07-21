@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Radio, Checkbox, Modal, Switch } from 'antd';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import CommonModal from 'components/Common/Modal';
 import Color from 'components/Common/Color'
 import Iconfont from 'components/Common/Iconfont'
-import { Layout, RootState } from 'typings/LayoutData'
+
+import { RootState } from 'typings/LayoutData'
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -22,7 +24,7 @@ const Edit = styled.div`
 `;
 
 const RadioSetting = () => {
-	const config = useSelector((state: RootState) => {
+	const config = useEqualSelector((state: RootState) => {
 		return state.layoutData?.current?.config;
 	});
 

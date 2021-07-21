@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { message, Popconfirm } from 'antd'
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import styled from 'styled-components';
 import PreImage from 'components/Common/PreImage'
 import { getTemplateList, getLayoutByTid, deleteTemplate } from 'api'
@@ -87,7 +88,7 @@ const TemplateTitle = styled.div`
 const Template:React.FC<{type:number}>  = ({type}) => {
 
 	const dispatch = useDispatch()
-	const list  = useSelector((state: RootState) => {
+	const list  = useEqualSelector((state: RootState) => {
 		if(type === 1){
 			return state.templateData.list;
 		} else if(type === 2){

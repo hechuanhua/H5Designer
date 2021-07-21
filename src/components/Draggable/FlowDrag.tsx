@@ -5,6 +5,7 @@ import GridLayout, { ItemCallback } from 'react-grid-layout';
 import ReactGridLayout from 'react-grid-layout';
 import FreedomDrag from './FreedomDrag';
 import { GenerateFlowDOM, onDrop } from 'lib/Draggable';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import initData from 'config/initData';
 
 import { Layout } from 'typings/LayoutData'
@@ -36,10 +37,10 @@ const DraggableBox = styled.div.attrs(props => ({
 
 const Drag = () => {
 	const dispatch = useDispatch();
-	const { flowLayout, current, layoutType } = useSelector((state: any) => {
+	const { flowLayout, current, layoutType } = useEqualSelector((state: any) => {
 		return state.layoutData;
 	});
-	const { print, wechatPopup } = useSelector((state: any) => {
+	const { print, wechatPopup } = useEqualSelector((state: any) => {
 		return state.pageData;
 	});
 	const [layout, setLayout] = useState([])

@@ -2,11 +2,12 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import Color from 'components/Common/Color'
 
 const { TextArea } = Input;
 const BottomWechatSetting = () => {
-	const config = useSelector((state: any) => {
+	const config = useEqualSelector((state: any) => {
 		return state.layoutData?.current?.config;
 	});
 	const dispatch = useDispatch();

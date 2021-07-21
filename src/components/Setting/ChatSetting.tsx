@@ -2,13 +2,14 @@ import { useEffect, useRef, useState, useContext, ChangeEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Form, Input, Button, Select, Upload, Switch } from 'antd';
+import useEqualSelector from 'lib/hooks/useEqualSelector'
 import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
 import Color from 'components/Common/Color'
-import { dataSource_chat } from 'config/dataSoure'
+import { chatData } from 'config/dataSoure'
 
 const { TextArea } = Input;
 const ChatSetting = () => {
-	const config = useSelector((state: any) => {
+	const config = useEqualSelector((state: any) => {
 		return state.layoutData?.current?.config;
 	});
 	const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const ChatSetting = () => {
 
 	const onValuesChange = (changedValues: any) => {
 		if (Object.keys(changedValues)[0] === 'value') {
-			const value = dataSource_chat[changedValues.value]
+			const value = chatData[changedValues.value]
 			setDataSource(JSON.stringify(value))
 			dispatch({
 				type: 'layoutData/setting',
