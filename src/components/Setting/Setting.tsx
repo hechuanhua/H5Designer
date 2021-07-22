@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import useEqualSelector from 'lib/hooks/useEqualSelector'
@@ -36,7 +36,7 @@ const Setting = () => {
 
 	const [activeKey, setActiveKey] = useState('1')
 	console.log(current, 'Settingcurrent');
-	const generateDOM = () => {
+	const generateDOM = useMemo(() => {
 		if (current.config.type === 'img') {
 			return <ImgSetting></ImgSetting>;
 		}
@@ -55,7 +55,7 @@ const Setting = () => {
 		if (current.config.type === 'timer') {
 			return <TimerSetting></TimerSetting>;
 		}
-	};
+	},[current.id]);
 
 	useEffect(()=>{
 		setActiveKey('1')
@@ -65,7 +65,7 @@ const Setting = () => {
 		<SettingWrap>
 			<Tabs activeKey={activeKey} onTabClick={(key)=>{setActiveKey(key)}}>
 				<TabPane tab="属性设置" key="1">
-					{current.id ? generateDOM() : ''}
+					{current.id?generateDOM:''}
 				</TabPane>
 				<TabPane tab="交互" key="2">
 					<Form>
@@ -78,7 +78,7 @@ const Setting = () => {
 								}
 							</Select>
 						</Form.Item>
-						<Form.Item label="链接" name="url">
+						<Form.Item label="目标链接" name="url">
 							<Input/>
 						</Form.Item>
 					</Form>

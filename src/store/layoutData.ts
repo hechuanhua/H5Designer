@@ -16,6 +16,8 @@ let initData = {
 
 if (localStorage.getItem('layout')) {
 	initData = JSON.parse(localStorage.getItem('layout') as string);
+} else {
+	localStorage.setItem('layout', JSON.stringify(initData))
 }
 
 export default {

@@ -5,5 +5,9 @@ export const jumpData = [
   {
     label:'跳转微信',
     value:'1'
+  },
+  {
+    label:'跳转链接',
+    value:'2'
   }
 ]
