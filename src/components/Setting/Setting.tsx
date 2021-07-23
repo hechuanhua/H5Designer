@@ -37,6 +37,7 @@ const Setting = () => {
 	const [activeKey, setActiveKey] = useState('1')
 	console.log(current, 'Settingcurrent');
 	const generateDOM = useMemo(() => {
+		if(!current.config)return
 		if (current.config.type === 'img') {
 			return <ImgSetting></ImgSetting>;
 		}
